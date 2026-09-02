@@ -213,6 +213,52 @@ def apply_combo_alignment(combos):
             c["align"] = "mid"
             c["offset"] = 0.0
 
+def extract_label(key):
+    if isinstance(key, dict):
+        if key.get("type") in ["trans", "held"]:
+            return None
+        return key.get("t")
+    if isinstance(key, str):
+        if key in ["___", "", "None", "&trans", "&none"]:
+            return None
+        return key
+    return None
+
+def build_overview_layer(layers):
+    base_l = layers.get("a1", [])
+    nav_l  = layers.get("nav", [])
+    sym_l  = layers.get("sym", [])
+    num_l  = layers.get("num", [])
+    sym2_l = layers.get("sym2", [])
+
+    overview = []
+    for i in range(len(base_l)):
+        b = base_l[i]
+        base_item = dict(b) if isinstance(b, dict) else {"t": b}
+        
+        # Corner 1: Top-Right (Nav -> Yellow)
+        nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
+        if nav_lbl and nav_lbl != base_item.get("t"):
+            base_item["tr"] = nav_lbl
+
+        # Corner 2: Top-Left (Sym -> Cyan)
+        sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
+        if sym_lbl and sym_lbl != base_item.get("t"):
+            base_item["tl"] = sym_lbl
+
+        # Corner 3: Bottom-Left (Num -> Orange)
+        num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
+        if num_lbl and num_lbl != base_item.get("t"):
+            base_item["bl"] = num_lbl
+
+        # Corner 4: Bottom-Right (Sym2 -> Green)
+        sym2_lbl = extract_label(sym2_l[i]) if i < len(sym2_l) else None
+        if sym2_lbl and sym2_lbl != base_item.get("t"):
+            base_item["br"] = sym2_lbl
+
+        overview.append(base_item)
+    return overview
+
 def main():
     root = Path(__file__).resolve().parent.parent
     config_dir = root / "config"
@@ -253,7 +299,7 @@ def main():
             stdout=f, check=True
         )
 
-    # Step 4: Build Overview YAML (a1 + a2 with their respective bigrams, and a separate Symbols & Util ghost layer)
+    # Step 4: Build Overview YAML (a1 with 4-corner legends + a2 with bigrams + Symbols & Utilities ghost layer)
     overview_combos = []
     for c in d.get("combos", []):
         c_copy = dict(c)
@@ -272,7 +318,7 @@ def main():
     overview_data = {
         "layout": {"zmk_keyboard": "twonr9"},
         "layers": {
-            "a1 (Base)": d.get("layers", {}).get("a1", []),
+            "a1 (Base)": build_overview_layer(d.get("layers", {})),
             "a2 (Alphas 2)": d.get("layers", {}).get("a2", []),
             "Symbols & Utilities": [""] * 18,
         },
