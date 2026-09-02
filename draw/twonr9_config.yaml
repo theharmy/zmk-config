@@ -53,7 +53,7 @@ parse_config:
     DOWN_ARROW: ↓
 
 draw_config:
-  n_columns: 2
+  n_columns: 1
   append_colon_to_layer_header: false
   dark_mode: false
   footer_text: "TwoNr9"

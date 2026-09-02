@@ -1,4 +1,4 @@
-<svg width="1858" height="302" viewBox="0 0 1858 302" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="929" height="302" viewBox="0 0 929 302" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <style>svg path { fill: inherit; }
 
 svg.keymap {
@@ -377,4 +377,4 @@ path.combo { stroke: var(--color-dendron); stroke-width: 1.5; stroke-dasharray: 
 </g>
 </g>
 </g>
-<text x="1846.0" y="296.0" class="footer">TwoNr9</text></svg>
+<text x="917.0" y="296.0" class="footer">TwoNr9</text></svg>
