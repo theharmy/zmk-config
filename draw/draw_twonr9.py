@@ -253,30 +253,28 @@ def main():
             stdout=f, check=True
         )
 
-    # Step 4: Build Overview YAML (a1 + a2 with their respective bigrams, and a separate Symbols & Util ghost layer)
-    overview_combos = []
+    # Step 4: Build 4-Board Overview YAML (a1 + a2 + Bigram Combos + Symbol Combos)
+    bigram_combos = []
+    symbol_combos = []
+
     for c in d.get("combos", []):
         c_copy = dict(c)
-        layers = c.get("l", [])
-        k = c.get("k")
-        if "a1" in layers and k in ["RL", "HN", "DT", "CY", "EO", "UI"]:
-            c_copy["l"] = ["a1 (Base)"]
-            overview_combos.append(c_copy)
-        elif "a2" in layers and k in ["LR", "NB", "MT", "GY", "OE", "IU"]:
-            c_copy["l"] = ["a2 (Alphas 2)"]
-            overview_combos.append(c_copy)
-        elif not (k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"]):
-            c_copy["l"] = ["Symbols & Utilities"]
-            overview_combos.append(c_copy)
+        if c.get("type") == "bigram":
+            c_copy["l"] = ["Bigrams"]
+            bigram_combos.append(c_copy)
+        else:
+            c_copy["l"] = ["Symbols"]
+            symbol_combos.append(c_copy)
 
     overview_data = {
         "layout": {"zmk_keyboard": "twonr9"},
         "layers": {
             "a1 (Base)": d.get("layers", {}).get("a1", []),
             "a2 (Alphas 2)": d.get("layers", {}).get("a2", []),
-            "Symbols & Utilities": [""] * 18,
+            "Bigrams": [""] * 18,
+            "Symbols": [""] * 18,
         },
-        "combos": overview_combos
+        "combos": bigram_combos + symbol_combos
     }
     overview_yaml = draw_dir / "twonr9_overview.yaml"
     with open(overview_yaml, "w") as f:

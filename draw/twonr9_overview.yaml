@@ -73,7 +73,26 @@ layers:
     type: held
   - type: trans
   - type: trans
-  Symbols & Utilities:
+  Bigrams:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  Symbols:
   - ''
   - ''
   - ''
@@ -98,7 +117,7 @@ combos:
   - 7
   k: RL
   l:
-  - a1 (Base)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -107,7 +126,7 @@ combos:
   - 8
   k: HN
   l:
-  - a1 (Base)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -116,7 +135,7 @@ combos:
   - 9
   k: DT
   l:
-  - a1 (Base)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -125,7 +144,7 @@ combos:
   - 10
   k: CY
   l:
-  - a1 (Base)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -134,7 +153,7 @@ combos:
   - 11
   k: EO
   l:
-  - a1 (Base)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -143,7 +162,7 @@ combos:
   - 12
   k: UI
   l:
-  - a1 (Base)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -152,7 +171,7 @@ combos:
   - 7
   k: LR
   l:
-  - a2 (Alphas 2)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -161,7 +180,7 @@ combos:
   - 8
   k: NB
   l:
-  - a2 (Alphas 2)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -170,7 +189,7 @@ combos:
   - 9
   k: MT
   l:
-  - a2 (Alphas 2)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -179,7 +198,7 @@ combos:
   - 10
   k: GY
   l:
-  - a2 (Alphas 2)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -188,7 +207,7 @@ combos:
   - 11
   k: OE
   l:
-  - a2 (Alphas 2)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -197,7 +216,7 @@ combos:
   - 12
   k: IU
   l:
-  - a2 (Alphas 2)
+  - Bigrams
   type: bigram
   align: mid
   offset: 0.0
@@ -206,7 +225,7 @@ combos:
   - 7
   k: '{'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -215,7 +234,7 @@ combos:
   - 8
   k: '['
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -224,7 +243,7 @@ combos:
   - 9
   k: (
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -233,7 +252,7 @@ combos:
   - 10
   k: )
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -242,7 +261,7 @@ combos:
   - 4
   k: ']'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -251,7 +270,7 @@ combos:
   - 12
   k: '}'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -260,7 +279,7 @@ combos:
   - 1
   k: '?'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: top
   offset: 0.45
@@ -269,7 +288,7 @@ combos:
   - 9
   k: <
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -278,7 +297,7 @@ combos:
   - 10
   k: '>'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -287,7 +306,7 @@ combos:
   - 1
   k: /
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -296,7 +315,7 @@ combos:
   - 12
   k: \
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -305,7 +324,7 @@ combos:
   - 0
   k: Tab
   l:
-  - Symbols & Utilities
+  - Symbols
   type: util
   align: top
   offset: 0.45
@@ -314,7 +333,7 @@ combos:
   - 1
   k: Enter
   l:
-  - Symbols & Utilities
+  - Symbols
   type: util
   align: top
   offset: 0.45
@@ -323,7 +342,7 @@ combos:
   - 4
   k: Bspc
   l:
-  - Symbols & Utilities
+  - Symbols
   type: util
   align: top
   offset: 0.45
@@ -332,7 +351,7 @@ combos:
   - 5
   k: Ctl+Bspc
   l:
-  - Symbols & Utilities
+  - Symbols
   type: util
   align: top
   offset: 0.45
@@ -342,7 +361,7 @@ combos:
   - 3
   k: Esc
   l:
-  - Symbols & Utilities
+  - Symbols
   type: util
   align: top
   offset: 1.15
@@ -351,7 +370,7 @@ combos:
   - 10
   k: '-'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: bottom
   offset: 0.85
@@ -360,7 +379,7 @@ combos:
   - 10
   k: '7'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -369,7 +388,7 @@ combos:
   - 11
   k: '8'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -378,7 +397,7 @@ combos:
   - 5
   k: '9'
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: mid
   offset: 0.0
@@ -389,7 +408,7 @@ combos:
     t: Shift
     h: sticky
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: bottom
   offset: 0.45
@@ -400,7 +419,7 @@ combos:
     t: Shift
     h: sticky
   l:
-  - Symbols & Utilities
+  - Symbols
   type: symbol
   align: bottom
   offset: 0.45
@@ -410,7 +429,7 @@ combos:
   - 7
   k: Unlock
   l:
-  - Symbols & Utilities
+  - Symbols
   type: system
   align: bottom
   offset: 1.15
