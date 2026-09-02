@@ -190,10 +190,6 @@ def build_overview_layer(layers):
         b = base_l[i]
         base_item = dict(b) if isinstance(b, dict) else {"t": b}
         
-        # Strip hold modifier text from finger keys (0..13) on overview to give corner legends full space
-        if i < 14 and "h" in base_item:
-            del base_item["h"]
-
         # Corner 1: Top-Right (Nav)
         nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
         if nav_lbl and nav_lbl != base_item.get("t"):
