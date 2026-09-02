@@ -167,6 +167,38 @@ def decode_combo_key(s):
             return v
     return s
 
+def apply_combo_alignment(combos):
+    for c in combos:
+        p = set(c["p"])
+        
+        # 1. Vertical Column Combos -> stay in the middle between top and home rows
+        if p in [{0, 7}, {1, 8}, {2, 9}, {3, 10}, {4, 11}, {5, 12}]:
+            c["align"] = "mid"
+            c["offset"] = 0.0
+            
+        # 2. Horizontal Combos on Top Row (0..5) -> offset above the keys
+        elif p.issubset({0, 1, 2, 3, 4, 5}):
+            c["align"] = "top"
+            if len(p) > 2:
+                c["offset"] = 1.15  # Esc on 4 5 3 sits higher above 2-key combos
+            else:
+                c["offset"] = 0.45  # Tab, Enter, Bspc, Ctrl+Bspc
+                
+        # 3. Horizontal Combos on Bottom Row (6..13) -> offset below the keys
+        elif p.issubset({6, 7, 8, 9, 10, 11, 12, 13}):
+            c["align"] = "bottom"
+            if len(p) > 2:
+                c["offset"] = 1.15  # Unlock on 9 8 7 sits lower below Shift
+            elif p in [{12, 10}]:
+                c["offset"] = 0.85  # Minus on 12 10 sits slightly lower than adjacent pairs
+            else:
+                c["offset"] = 0.45  # Shift on 9 8, Shift on 11 10
+                
+        # 4. Diagonal / Cross Combos -> centered in middle
+        else:
+            c["align"] = "mid"
+            c["offset"] = 0.0
+
 def extract_label(key):
     if isinstance(key, dict):
         if key.get("type") in ["trans", "held"]:
@@ -190,7 +222,7 @@ def build_overview_layer(layers):
         b = base_l[i]
         base_item = dict(b) if isinstance(b, dict) else {"t": b}
         
-        # On overview, strip hold label from main finger keys (0..13) so corners are clean
+        # Strip hold modifier text from finger keys (0..13) on overview to give corner legends full space
         if i < 14 and "h" in base_item:
             del base_item["h"]
 
@@ -241,6 +273,9 @@ def main():
 
     for c in d.get("combos", []):
         c["k"] = decode_combo_key(c["k"])
+
+    # Apply vertical / horizontal combo offsets
+    apply_combo_alignment(d.get("combos", []))
 
     yaml_out = draw_dir / "twonr9.yaml"
     with open(yaml_out, "w") as f:

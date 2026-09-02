@@ -106,162 +106,216 @@ combos:
   k: RL
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 8
   k: HN
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 2
   - 9
   k: DT
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10
   k: CY
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 11
   k: EO
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 5
   - 12
   k: UI
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 0
   - 7
   k: LR
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 8
   k: NB
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 2
   - 9
   k: MT
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10
   k: GY
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 11
   k: OE
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 5
   - 12
   k: IU
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 0
   - 7
   k: '{'
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 8
   k: '['
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 2
   - 9
   k: (
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10
   k: )
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 13
   - 4
   k: ']'
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 5
   - 12
   k: '}'
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 0
   - 1
   k: '?'
   l:
   - Combos
+  align: top
+  offset: 0.45
 - p:
   - 1
   - 9
   k: <
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 10
   k: '>'
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 7
   - 1
   k: /
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 12
   k: \
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 0
   k: Tab
   l:
   - Combos
+  align: top
+  offset: 0.45
 - p:
   - 2
   - 1
   k: Enter
   l:
   - Combos
+  align: top
+  offset: 0.45
 - p:
   - 3
   - 4
   k: Bspc
   l:
   - Combos
+  align: top
+  offset: 0.45
 - p:
   - 4
   - 5
   k: Ctl+Bspc
   l:
   - Combos
+  align: top
+  offset: 0.45
 - p:
   - 4
   - 5
@@ -269,30 +323,40 @@ combos:
   k: Esc
   l:
   - Combos
+  align: top
+  offset: 1.15
 - p:
   - 12
   - 10
   k: '-'
   l:
   - Combos
+  align: bottom
+  offset: 0.85
 - p:
   - 3
   - 10
   k: '7'
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 11
   k: '8'
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 12
   - 5
   k: '9'
   l:
   - Combos
+  align: mid
+  offset: 0.0
 - p:
   - 9
   - 8
@@ -301,6 +365,8 @@ combos:
     h: sticky
   l:
   - Combos
+  align: bottom
+  offset: 0.45
 - p:
   - 11
   - 10
@@ -309,6 +375,8 @@ combos:
     h: sticky
   l:
   - Combos
+  align: bottom
+  offset: 0.45
 - p:
   - 9
   - 8
@@ -316,3 +384,5 @@ combos:
   k: Unlock
   l:
   - Combos
+  align: bottom
+  offset: 1.15

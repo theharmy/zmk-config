@@ -216,114 +216,152 @@ combos:
   k: RL
   l:
   - a1
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 8
   k: HN
   l:
   - a1
+  align: mid
+  offset: 0.0
 - p:
   - 2
   - 9
   k: DT
   l:
   - a1
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10
   k: CY
   l:
   - a1
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 11
   k: EO
   l:
   - a1
+  align: mid
+  offset: 0.0
 - p:
   - 5
   - 12
   k: UI
   l:
   - a1
+  align: mid
+  offset: 0.0
 - p:
   - 0
   - 7
   k: LR
   l:
   - a2
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 8
   k: NB
   l:
   - a2
+  align: mid
+  offset: 0.0
 - p:
   - 2
   - 9
   k: MT
   l:
   - a2
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10
   k: GY
   l:
   - a2
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 11
   k: OE
   l:
   - a2
+  align: mid
+  offset: 0.0
 - p:
   - 5
   - 12
   k: IU
   l:
   - a2
+  align: mid
+  offset: 0.0
 - p:
   - 0
   - 7
   k: '{'
   l:
   - sym
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 8
   k: '['
   l:
   - sym
+  align: mid
+  offset: 0.0
 - p:
   - 2
   - 9
   k: (
   l:
   - sym
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10
   k: )
   l:
   - sym
+  align: mid
+  offset: 0.0
 - p:
   - 13
   - 4
   k: ']'
   l:
   - sym
+  align: mid
+  offset: 0.0
 - p:
   - 5
   - 12
   k: '}'
   l:
   - sym
+  align: mid
+  offset: 0.0
 - p:
   - 0
   - 1
   k: '?'
   l:
   - sym
+  align: top
+  offset: 0.45
 - p:
   - 1
   - 9
@@ -331,6 +369,8 @@ combos:
   l:
   - sym
   - nav
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 10
@@ -338,6 +378,8 @@ combos:
   l:
   - sym
   - nav
+  align: mid
+  offset: 0.0
 - p:
   - 7
   - 1
@@ -347,6 +389,8 @@ combos:
   - a1
   - a2
   - nav
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 12
@@ -356,6 +400,8 @@ combos:
   - a1
   - a2
   - nav
+  align: mid
+  offset: 0.0
 - p:
   - 1
   - 0
@@ -367,6 +413,8 @@ combos:
   - sym
   - sym2
   - num
+  align: top
+  offset: 0.45
 - p:
   - 2
   - 1
@@ -378,6 +426,8 @@ combos:
   - sym
   - sym2
   - num
+  align: top
+  offset: 0.45
 - p:
   - 3
   - 4
@@ -386,6 +436,8 @@ combos:
   - a1
   - a2
   - nav
+  align: top
+  offset: 0.45
 - p:
   - 4
   - 5
@@ -397,6 +449,8 @@ combos:
   - sym
   - sym2
   - num
+  align: top
+  offset: 0.45
 - p:
   - 4
   - 5
@@ -409,6 +463,8 @@ combos:
   - sym
   - sym2
   - num
+  align: top
+  offset: 1.15
 - p:
   - 12
   - 10
@@ -420,24 +476,32 @@ combos:
   - sym
   - sym2
   - num
+  align: bottom
+  offset: 0.85
 - p:
   - 3
   - 10
   k: '7'
   l:
   - num
+  align: mid
+  offset: 0.0
 - p:
   - 4
   - 11
   k: '8'
   l:
   - num
+  align: mid
+  offset: 0.0
 - p:
   - 12
   - 5
   k: '9'
   l:
   - num
+  align: mid
+  offset: 0.0
 - p:
   - 9
   - 8
@@ -451,6 +515,8 @@ combos:
   - sym
   - sym2
   - num
+  align: bottom
+  offset: 0.45
 - p:
   - 11
   - 10
@@ -464,6 +530,8 @@ combos:
   - sym
   - sym2
   - num
+  align: bottom
+  offset: 0.45
 - p:
   - 9
   - 8
@@ -471,3 +539,5 @@ combos:
   k: Unlock
   l:
   - sym
+  align: bottom
+  offset: 1.15
