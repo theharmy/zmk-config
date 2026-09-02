@@ -6,12 +6,13 @@ Comprehensive documentation for your **TwoNr9 (18-Key Split)** keyboard integrat
 
 ## Table of Contents
 1. [Executive Summary & Setup Overview](#1-executive-summary--setup-overview)
-2. [What Changed & Architecture Comparison](#2-what-changed--architecture-comparison)
+2. [Retroactive Log of All Changes & Technical Reasoning](#2-retroactive-log-of-all-changes--technical-reasoning)
 3. [The Power of Urob's ZMK Architecture](#3-the-power-of-urobs-zmk-architecture)
 4. [Advanced Features You Can Adapt to TwoNr9](#4-advanced-features-you-can-adapt-to-twonr9)
 5. [TwoNr9 Keymap & Layer Reference](#5-twonr9-keymap--layer-reference)
 6. [Hardware, Shields & Build Targets](#6-hardware-shields--build-targets)
 7. [Step-by-Step User Workflow (Flashing & Customization)](#7-step-by-step-user-workflow)
+8. [External References & Useful Links](#8-external-references--useful-links)
 
 ---
 
@@ -26,35 +27,71 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * **Dual GUI & Notification Support**:
   * **ZMK Studio**: Real-time on-keyboard layer/keymap remapping via USB RPC.
   * **KeyPeek**: Real-time active layer visualizer via `zmk-raw-hid` and `zmk-keypeek-layer-notifier`.
-* **Automated Visualization**: 2-column keymap diagram generator (`just draw-twonr9` $\rightarrow$ `draw/twonr9.svg`).
+* **Automated Visualizations**:
+  * All 6 Layers detailed view: `draw/twonr9.svg`
+  * Single-board unified overview with 4-corner layer sub-legends: `draw/twonr9_overview.svg`
 
 ---
 
-## 2. What Changed & Architecture Comparison
+## 2. Retroactive Log of All Changes & Technical Reasoning
 
-| Area | Old Setup (`zmk-config-twonr9-`) | New Setup (`zmk-workspace`) | Benefit |
-| :--- | :--- | :--- | :--- |
-| **Dev Environment** | Standalone repo, unpinned modules | Nix devshell + `Justfile` + `pin-west` | 100% reproducible builds locally & in CI |
-| **Keymap Syntax** | Raw, verbose Devicetree syntax | `zmk-helpers` macros + compact 4–6 char tokens | Clean, readable, hand-aligned ASCII grid |
-| **HRM Triggers** | Out-of-bounds positions (`18`, `19`), mixed hands | Exact hand isolation (`KEYS_R THUMBS` & `KEYS_L THUMBS`) | Zero false mod activations during rolls |
-| **ZMK Studio** | Deprecated experimental shield | Modern USB-UART RPC snippet (`studio-rpc-usb-uart`) | Seamless connection with official ZMK Studio |
-| **KeyPeek Support** | Module unpinned, manual setup | Pinned `zmk-raw-hid` + `zmk-keypeek-layer-notifier` | Layer changes stream directly to desktop UI |
-| **Diagrams** | Generic or manual SVG | Automated `keymap-drawer` 2-column rendering | High-res Gruvbox SVG with decoded German keys |
+Below is an exhaustive log of every change made across the workspace, including the technical reasons and upstream references.
+
+### 1. Keymap Architecture (`config/twonr9.keymap`)
+* **Change**: Converted raw devicetree syntax to `zmk-helpers` macros (`ZMK_HOLD_TAP`, `ZMK_MACRO`, `ZMK_COMBO`, `ZMK_LAYER`).
+  * *Reason*: `zmk-helpers` generates clean nodes, standardizes naming, and prevents syntax errors when chording modifiers.
+* **Change**: Corrected `hold-trigger-key-positions` for `hml` and `hmr`.
+  * *Reason*: The old configuration contained out-of-bounds indices (`18`, `19`) and mixed left/right fingers in the same trigger list. In the new keymap, `hml` triggers exclusively on right-hand keys + thumbs (`KEYS_R THUMBS`), and `hmr` triggers on left-hand keys + thumbs (`KEYS_L THUMBS`).
+  * *Reference*: [ZMK Positional Hold-Tap Documentation](https://zmk.dev/docs/behaviors/hold-tap#positional-hold-tap-and-hold-trigger-key-positions)
+* **Change**: Defined `#define ALL 0 1 2 3 4 5`.
+  * *Reason*: In C preprocessors, `ALL` was undefined, causing devicetree syntax parse errors. Defining `ALL` allows multi-layer combos (`Tab`, `Enter`, `Esc`, `Bspc`, `Ctrl+Bspc`, `Minus`, `Shift repeat`) to apply across all 6 layers.
+* **Change**: Introduced compact 4–6 character token shorthands (`al_*`, `gl_*`, `sl_*`, `cl_*`, `s1_*`, `s2_*`, `num_*`, `sl_NAV`, `spc_SFT`, etc.).
+  * *Reason*: Replaces sprawling line definitions with a clean, hand-aligned ASCII box art grid that matches physical key placements.
+
+### 2. Shield & Module Setup (`boards/shields/twonr9/` & `config/zephyr/module.yml`)
+* **Change**: Added shield overlays, layout metadata, and Kconfigs into `boards/shields/twonr9/` and `config/boards/shields/twonr9/`.
+* **Change**: Added `config/zephyr/module.yml` declaring `board_root: .`.
+  * *Reason*: Under Zephyr Hardware Model v2, user configs must declare a module root so that ZMK and Zephyr discover custom shields both in local CLI builds and inside GitHub Actions CI containers without throwing deprecation warnings.
+  * *Reference*: [ZMK New Shield Integration Guide](https://zmk.dev/docs/hardware-integration/new-shield)
+
+### 3. Build Matrix & CI Configuration (`build.yaml` & `.github/workflows/build-nix.yml`)
+* **Change**: Updated board target names from `nice_nano_v2` to `nice_nano@2.0.0//zmk`.
+  * *Reason*: Conforms to ZMK's modern hardware qualifier syntax (`<board>@<revision>//zmk`).
+* **Change**: Removed unused sample keyboards (Planck, Corne-ish Zen, Glove80) from `build.yaml` and deleted their config files from `config/`.
+  * *Reason*: Keeps the build matrix dedicated exclusively to TwoNr9 and reduces GitHub Actions build time.
+* **Change**: Configured ZMK Studio target with snippet `studio-rpc-usb-uart` and raw HID adapter (`shield: twonr9_left raw_hid_adapter`).
+  * *Reason*: Enables native ZMK Studio RPC over USB UART while simultaneously streaming layer notifications over raw HID for KeyPeek.
+* **Change**: Set `toolchain: zephyr-full` in `.github/workflows/build-nix.yml`.
+  * *Reason*: ZMK Studio RPC requires Protobuf compilers (`nanopb_generator.py` and `grpcio-tools`), which are packaged inside `zephyr-full`.
+
+### 4. Dependency Locking (`config/west.yml` & `flake.nix`)
+* **Change**: Added `zzeneg/zmk-raw-hid` and `srwi/zmk-keypeek-layer-notifier` to `config/west.yml` and pinned them with `pin-west`.
+  * *Reason*: Required for KeyPeek desktop layer visualization.
+* **Change**: Added `nanopb` to the Zephyr module allowlist in `config/west.yml`.
+  * *Reason*: ZMK Studio RPC uses Google Protobuf serialization via Nanopb to communicate with the ZMK Studio GUI.
+* **Change**: Added Python `protobuf` and `grpcio-tools` to `flake.nix`.
+  * *Reason*: Allows the local Nix environment to compile Protobuf definitions during local `just build` runs.
+
+### 5. Automated Drawing System (`draw/draw_twonr9.py` & `draw/twonr9_config.yaml`)
+* **Change**: Created custom parser and decoder script `draw/draw_twonr9.py`.
+  * *Reason*: Standard `keymap-drawer` cannot natively parse raw HID usage numbers from localized headers like `keys_de.h`. The script translates all raw codes into clean German legends and hold-tap labels.
+* **Change**: Added 2-column layer layout (`draw/twonr9.svg`) and single-board overview diagram (`draw/twonr9_overview.svg`).
+  * *Reason*: Produces high-resolution, Gruvbox-themed SVGs with zero text collisions and 4-corner multi-layer legends matching Urob's style.
 
 ---
 
 ## 3. The Power of Urob's ZMK Architecture
 
-Urob's configuration is widely recognized as the gold standard for minimal-key ergonomic keyboards (34-key, 18-key, etc.). Here is why it stands out:
+Urob's configuration is widely recognized as the gold standard for minimal-key ergonomic keyboards. Key architectural concepts include:
 
 ### 1. "Timeless" Homerow Mod Tuning
 Standard hold-taps rely purely on `tapping-term-ms`, causing misfires if you type too fast or delays if you hold too long. Urob's configuration uses:
-* `flavor = "balanced"`: Key activates as a hold if another key is pressed and released while held.
+* `flavor = "balanced"`: Activates as a hold only if another key is pressed and released while held.
 * `require-prior-idle-ms = <150>`: Holds only trigger if you pause typing for 150ms before pressing the key. During fast typing streams, keys *always* output as letters even if fingers overlap.
 * `hold-trigger-key-positions`: A left-hand modifier will *never* activate if you press another left-hand key, completely eliminating intra-hand typing roll errors.
 
 ### 2. Micro-Module Ecosystem
-Instead of a single monolithic fork, features are isolated into clean, maintained upstream ZMK modules:
+Features are isolated into clean upstream ZMK modules:
 * `zmk-helpers`: Standardized key positions, hold-taps, morphs, and macros.
 * `zmk-auto-layer`: Auto-terminating layers (like `num_word`).
 * `zmk-adaptive-key`: Dynamic context-aware keys (auto-repeat, intelligent shifting).
@@ -72,7 +109,7 @@ just bump-west
 
 ## 4. Advanced Features You Can Adapt to TwoNr9
 
-You can easily pull in any of Urob's advanced behaviors from `config/base.keymap` into your `twonr9.keymap`:
+You can pull in any of Urob's advanced behaviors from `config/base.keymap` into your `twonr9.keymap`:
 
 ### A. Sentence Capitalization (`spc_morph`)
 Makes Space automatically output a period + space + sticky shift when tapped with Shift held:
@@ -120,14 +157,6 @@ ZMK_TRI_STATE(swapper, bindings = <&kt LALT>, <&kp TAB>, <&kt LALT>;)
                      │  14  │  15  │      │  16  │  17  │
                      ╰──────┴──────╯      ╰──────┴──────╯
 ```
-
-### Key Shorthand Reference:
-* `al_*` (Left Alt) | `gl_*` (Left Gui) | `sl_*` (Left Shift) | `cl_*` (Left Ctrl)
-* `ar_*` (Right Alt) | `gr_*` (Right Gui) | `sr_*` (Right Shift) | `cr_*` (Right Ctrl)
-* `s1_*` (Sym Layer 3) | `s2_*` (Sym2 Layer 4) | `num_*` (Num Layer 5)
-* `sl_NAV` (Sticky Nav) | `sl_A2` (Sticky a2) | `spc_SFT` (Space/Shift) | `sl_NUM` (Sticky Num) | `to_BASE` (To Layer 0)
-
----
 
 ### Layer Overview
 
@@ -258,12 +287,12 @@ include:
 just list
 
 # 2. Build all TwoNr9 firmware
-just build twonr9
+just build all
 
 # 3. Build only the central half with Studio + KeyPeek
 just build twonr9_left_with_studio
 
-# 4. Generate the visual keymap diagram (draw/twonr9.svg)
+# 4. Generate both visual keymap diagrams (draw/twonr9.svg & draw/twonr9_overview.svg)
 just draw-twonr9
 
 # 5. Check dependencies integrity
@@ -273,9 +302,15 @@ pin-west check
 just format config/twonr9.keymap
 ```
 
-### C. Where to Make Changes
+---
 
-* **Keybindings, Layers, Combos**: Edit `config/twonr9.keymap`.
-* **Hardware Timers, Bluetooth Power, Sleep**: Edit `config/twonr9.conf`.
-* **Pin Assignments / GPIO Wiring**: Edit `boards/shields/twonr9/twonr9_left.overlay` or `twonr9_right.overlay`.
-* **Visual Diagram Styling**: Edit `draw/twonr9_config.yaml`.
+## 8. External References & Useful Links
+
+* **Urob ZMK Config**: [https://github.com/urob/zmk-config](https://github.com/urob/zmk-config)
+* **ZMK Helpers**: [https://github.com/urob/zmk-helpers](https://github.com/urob/zmk-helpers)
+* **ZMK Official Documentation**: [https://zmk.dev/docs](https://zmk.dev/docs)
+* **ZMK Studio Features**: [https://zmk.dev/docs/features/studio](https://zmk.dev/docs/features/studio)
+* **KeyPeek Layer Notifier**: [https://github.com/srwi/keypeek](https://github.com/srwi/keypeek)
+* **ZMK Raw HID Module**: [https://github.com/zzeneg/zmk-raw-hid](https://github.com/zzeneg/zmk-raw-hid)
+* **Pin-West Tool**: [https://github.com/urob/pin-west](https://github.com/urob/pin-west)
+* **Keymap-Drawer**: [https://github.com/caksoylar/keymap-drawer](https://github.com/caksoylar/keymap-drawer)

@@ -6,11 +6,13 @@ on:
       - config/**
       - boards/**
       - build.yaml
+      - .github/workflows/**
   pull_request:
     paths:
       - config/**
       - boards/**
       - build.yaml
+      - .github/workflows/**
 
 jobs:
   build:
