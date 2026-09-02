@@ -1,26 +1,40 @@
 /*
+ * ==============================================================================
  * TwoNr9 ZMK Keymap (18-Key Split Keyboard)
+ * ==============================================================================
  *
- * Designed for TwoNr9 hardware with German keyboard layout (keys_de.h).
- * Integrates zmk-helpers, Homerow Mods, Layer-Taps, Combos, and ZMK Studio / KeyPeek.
+ * Designed for TwoNr9 physical hardware with native German layout (keys_de.h).
+ * Integrates Urob's ergonomic architecture, zmk-helpers, Homerow Mods,
+ * fast Layer-Taps, multi-layer Combos, ZMK Studio RPC, and KeyPeek layer events.
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include "keys_de.h"
 
-/* ==========================================================================
+/* ==============================================================================
  * Global Settings & Timings
- * ========================================================================== */
+ * ==============================================================================
+ * REASONING:
+ * - COMBO_TERM (30ms): Standardizes combo window before including helper.h.
+ *   Provides enough tolerance for simultaneous presses without accidental triggers.
+ * - QUICK_TAP_MS (175ms): Tapping a key within this window after releasing it
+ *   repeats the tap action rather than triggering the hold action.
+ * ============================================================================== */
 
 #define COMBO_TERM 30
 #define QUICK_TAP_MS 175
 
 #include "zmk-helpers/helper.h"
 
-/* ==========================================================================
+/* ==============================================================================
  * Layer Definitions
- * ========================================================================== */
+ * ==============================================================================
+ * REASONING:
+ * - Numbered layer constants avoid magic numbers in keymaps and combos.
+ * - ALL (0 1 2 3 4 5): Explicitly defines all 6 active layers. In older configs,
+ *   using undefined 'ALL' in C preprocessor caused devicetree syntax errors.
+ * ============================================================================== */
 
 #define L_A1   0  // Base Alpha Layer 1
 #define L_A2   1  // Secondary Alpha Layer 2
@@ -31,7 +45,7 @@
 
 #define ALL 0 1 2 3 4 5
 
-/* ==========================================================================
+/* ==============================================================================
  * Matrix Geometry & Key Positions
  *
  *                     TwoNr9 KEY POSITIONS (18 Keys)
@@ -43,7 +57,13 @@
  *       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
  *                     │  14  │  15  │      │  16  │  17  │
  *                     ╰──────┴──────╯      ╰──────┴──────╯
- * ========================================================================== */
+ *
+ * REASONING:
+ * - Left hand: 0..2 (top), 6..9 (home), 14..15 (thumbs) -> total 9 keys.
+ * - Right hand: 3..5 (top), 10..13 (home), 16..17 (thumbs) -> total 9 keys.
+ * - Previous config had invalid out-of-bounds indices (18, 19) and mixed hand
+ *   positions, causing HRM misfires. Defining explicit hand sets fixes this.
+ * ============================================================================== */
 
 #define KEYS_L   0 1 2 6 7 8 9
 #define KEYS_R   3 4 5 10 11 12 13
@@ -54,11 +74,21 @@
 #define XXX &none
 #define ___ &trans
 
-/* ==========================================================================
- * Custom Behaviors
- * ========================================================================== */
+/* ==============================================================================
+ * Custom Behaviors: Timeless Homerow Mods & Layer-Taps
+ * ==============================================================================
+ * REASONING (Urob's Timeless HRM Philosophy):
+ * 1. flavor = "balanced": Activates hold only if an opposing key is pressed AND
+ *    released within the tapping term.
+ * 2. require-prior-idle-ms = <150>: During fast typing bursts, keys always output
+ *    as taps even if finger presses overlap. Holds only activate after a pause.
+ * 3. hold-trigger-key-positions: Isolates triggers to the opposite hand + thumbs.
+ *    Typing rolls on the same hand can NEVER trigger an accidental modifier hold.
+ * 4. lt_r4 (tap-preferred, 150ms term, 50ms prior idle): Provides snappy homerow
+ *    layer switching with immediate release on tap.
+ * ============================================================================== */
 
-// Left-hand Homerow Mods (trigger only when chording right-hand keys or thumbs)
+// Left-hand Homerow Mods (trigger only on right-hand keys and thumbs)
 ZMK_HOLD_TAP(hml,
     flavor = "balanced";
     tapping-term-ms = <280>;
@@ -69,7 +99,7 @@ ZMK_HOLD_TAP(hml,
     hold-trigger-on-release;
 )
 
-// Right-hand Homerow Mods (trigger only when chording left-hand keys or thumbs)
+// Right-hand Homerow Mods (trigger only on left-hand keys and thumbs)
 ZMK_HOLD_TAP(hmr,
     flavor = "balanced";
     tapping-term-ms = <280>;
@@ -80,7 +110,7 @@ ZMK_HOLD_TAP(hmr,
     hold-trigger-on-release;
 )
 
-// Fast Layer-Tap for homerow thumb/inner activations
+// Fast Layer-Tap for homerow thumb/inner layer switches
 ZMK_HOLD_TAP(lt_r4,
     flavor = "tap-preferred";
     tapping-term-ms = <150>;
@@ -88,13 +118,18 @@ ZMK_HOLD_TAP(lt_r4,
     bindings = <&mo>, <&kp>;
 )
 
-/* ==========================================================================
+/* ==============================================================================
  * Key Definition Shorthands
  *
- * al_*: Left Alt   | gl_*: Left Gui   | sl_*: Left Shift  | cl_*: Left Ctrl
- * ar_*: Right Alt  | gr_*: Right Gui  | sr_*: Right Shift | cr_*: Right Ctrl
- * s1_*: Sym Layer  | s2_*: Sym2 Layer | num_*: Num Layer
- * ========================================================================== */
+ * REASONING:
+ * - Compresses verbose hold-tap definitions into compact 4–6 character tokens.
+ * - Keeps layer definitions visually aligned to the physical ASCII layout.
+ *
+ * Prefix Conventions:
+ *   al_*: Left Alt   | gl_*: Left Gui   | sl_*: Left Shift  | cl_*: Left Ctrl
+ *   ar_*: Right Alt  | gr_*: Right Gui  | sr_*: Right Shift | cr_*: Right Ctrl
+ *   s1_*: Sym Layer  | s2_*: Sym2 Layer | num_*: Num Layer
+ * ============================================================================== */
 
 // --- Layer 0: Base Alphas (a1) ---
 #define al_L     &hml LEFT_ALT DE_L
@@ -197,9 +232,13 @@ ZMK_HOLD_TAP(lt_r4,
 #define sl_NUM   &sl L_NUM
 #define to_BASE  &to L_A1
 
-/* ==========================================================================
+/* ==============================================================================
  * Macros (German Bigrams)
- * ========================================================================== */
+ * ==============================================================================
+ * REASONING:
+ * - Emits common German letter pairs in a single chord (e.g. RL, HN, DT, etc.).
+ * - Uses native German keycodes from keys_de.h for OS compatibility.
+ * ============================================================================== */
 
 ZMK_MACRO(macro_rl, bindings = <&kp DE_R &kp DE_L>;)
 ZMK_MACRO(macro_hn, bindings = <&kp DE_H &kp DE_N>;)
@@ -214,9 +253,15 @@ ZMK_MACRO(macro_gy, bindings = <&kp DE_G &kp DE_Y>;)
 ZMK_MACRO(macro_oe, bindings = <&kp DE_O &kp DE_E>;)
 ZMK_MACRO(macro_iu, bindings = <&kp DE_I &kp DE_U>;)
 
-/* ==========================================================================
+/* ==============================================================================
  * Combos
- * ========================================================================== */
+ * ==============================================================================
+ * REASONING:
+ * - Vertical bigrams: Triggered by pressing top and bottom row keys together on Layer 0/1.
+ * - Brackets & Enclosures: Symmetrically paired on Layer 3 for intuitive access.
+ * - Universal utilities: Core keys (Tab, Enter, Esc, Bspc, Minus) mapped across all layers.
+ * - Studio Unlock: Protected by 200ms prior idle on Layer 3 to prevent accidental triggers.
+ * ============================================================================== */
 
 // Layer 0: Vertical Bigrams
 ZMK_COMBO(combo_rl, &macro_rl, 0 7, L_A1)
@@ -265,9 +310,13 @@ ZMK_COMBO(combo_rpt,      &sk LEFT_SHIFT,  9 8,   ALL, 40)
 ZMK_COMBO(combo_repeat_r, &sk LEFT_SHIFT,  11 10, ALL, 40)
 ZMK_COMBO(combo_stdio,    &studio_unlock,  9 8 7, L_SYM, 50, 200)
 
-/* ==========================================================================
+/* ==============================================================================
  * Layers
- * ========================================================================== */
+ * ==============================================================================
+ * REASONING:
+ * - Indented top row and aligned columns match the physical TwoNr9 hardware matrix.
+ * - Thumb keys are placed directly under columns 2/3 (left) and 4/5 (right).
+ * ============================================================================== */
 
 ZMK_LAYER(a1,
 //              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
