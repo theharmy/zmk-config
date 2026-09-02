@@ -1,83 +1,69 @@
 layout:
   zmk_keyboard: twonr9
 layers:
-  a1 (Base):
-  - t: L
-    h: Alt
+  Combined (a1 / a2):
+  - t: L / X
     tr: Alt
     tl: "\u20AC"
     bl: '-'
     br: '@'
-  - t: N
-    h: Gui
+  - t: N / B
     tr: Gui
     tl: '#'
     bl: '*'
     br: ''''
-  - t: D
-    h: Shift
+  - t: D / M
     tr: Shift
     tl: $
     bl: '0'
     br: '"'
-  - t: Y
-    h: Shift
+  - t: Y / W
     tr: "\u2190"
     tl: <
     bl: $
     br: (
-  - t: O
-    h: Gui
+  - t: O / Q
     tr: "\u2193"
     tl: '>'
     bl: '5'
     br: )
-  - t: U
-    h: Alt
+  - t: U / ,
     tr: "\u2191"
     tl: ^
     bl: '6'
     br: ':'
-  - t: S
-    h: Ctrl
+  - t: S / F
     tr: Ctrl
     tl: '`'
     bl: +
     br: '*'
-  - t: R
-    h: sym2
+  - t: R / V
     tl: _
     bl: '%'
     br: '~'
-  - t: H
-    h: sym
+  - t: H / P
     tr: PgUp
     bl: '|'
     br: '!'
-  - t: T
-    h: num
+  - t: T / K
     tl: '&'
     bl: /
     br: '?'
-  - t: C
-    h: num
+  - t: C / G
     tr: Home
     tl: '['
     bl: '1'
     br: '{'
-  - t: E
-    h: sym
+  - t: E / J
     tr: PgDn
     tl: ']'
     bl: '2'
     br: '}'
-  - t: I
-    h: sym2
+  - t: I / .
     tr: End
     tl: '|'
     bl: '3'
-  - t: A
-    h: Ctrl
+  - t: A / Z
     tr: "\u2192"
     tl: /
     bl: '0'
@@ -94,93 +80,6 @@ layers:
     h: Shift
   - t: num
     h: sticky
-  a2 (Alphas 2):
-  - t: X
-    h: Alt
-    tr: Alt
-    tl: "\u20AC"
-    bl: '-'
-    br: '@'
-  - t: B
-    h: Gui
-    tr: Gui
-    tl: '#'
-    bl: '*'
-    br: ''''
-  - t: M
-    h: Shift
-    tr: Shift
-    tl: $
-    bl: '0'
-    br: '"'
-  - t: W
-    h: Shift
-    tr: "\u2190"
-    tl: <
-    bl: $
-    br: (
-  - t: Q
-    h: Gui
-    tr: "\u2193"
-    tl: '>'
-    bl: '5'
-    br: )
-  - t: ','
-    h: Alt
-    tr: "\u2191"
-    tl: ^
-    bl: '6'
-    br: ':'
-  - t: F
-    h: Ctrl
-    tr: Ctrl
-    tl: '`'
-    bl: +
-    br: '*'
-  - t: V
-    h: sym2
-    tl: _
-    bl: '%'
-    br: '~'
-  - t: P
-    h: sym
-    tr: PgUp
-    bl: '|'
-    br: '!'
-  - t: K
-    h: num
-    tl: '&'
-    bl: /
-    br: '?'
-  - t: G
-    h: num
-    tr: Home
-    tl: '['
-    bl: '1'
-    br: '{'
-  - t: J
-    h: sym
-    tr: PgDn
-    tl: ']'
-    bl: '2'
-    br: '}'
-  - t: .
-    h: sym2
-    tr: End
-    tl: '|'
-    bl: '3'
-  - t: Z
-    h: Ctrl
-    tr: "\u2192"
-    tl: /
-    bl: '0'
-    br: \
-  - type: trans
-  - t: a1
-    h: toggle
-    type: held
-  - type: trans
-  - type: trans
   Symbols & Utilities:
   - ''
   - ''
@@ -204,111 +103,63 @@ combos:
 - p:
   - 0
   - 7
-  k: RL
+  k: RL / LR
   l:
-  - a1 (Base)
-  type: bigram
+  - Combined (a1 / a2)
   align: mid
   offset: 0.0
+  type: bigram
+  width: 54.0
 - p:
   - 1
   - 8
-  k: HN
+  k: HN / NB
   l:
-  - a1 (Base)
-  type: bigram
+  - Combined (a1 / a2)
   align: mid
   offset: 0.0
+  type: bigram
+  width: 54.0
 - p:
   - 2
   - 9
-  k: DT
+  k: DT / MT
   l:
-  - a1 (Base)
-  type: bigram
+  - Combined (a1 / a2)
   align: mid
   offset: 0.0
+  type: bigram
+  width: 54.0
 - p:
   - 3
   - 10
-  k: CY
+  k: CY / GY
   l:
-  - a1 (Base)
-  type: bigram
+  - Combined (a1 / a2)
   align: mid
   offset: 0.0
+  type: bigram
+  width: 54.0
 - p:
   - 4
   - 11
-  k: EO
+  k: EO / OE
   l:
-  - a1 (Base)
-  type: bigram
+  - Combined (a1 / a2)
   align: mid
   offset: 0.0
+  type: bigram
+  width: 54.0
 - p:
   - 5
   - 12
-  k: UI
+  k: UI / IU
   l:
-  - a1 (Base)
-  type: bigram
+  - Combined (a1 / a2)
   align: mid
   offset: 0.0
-- p:
-  - 0
-  - 7
-  k: LR
-  l:
-  - a2 (Alphas 2)
   type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: NB
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: MT
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: GY
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 11
-  k: OE
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: IU
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
+  width: 54.0
 - p:
   - 0
   - 7

@@ -81,6 +81,11 @@ rect.held, rect.combo.held    { fill: var(--color-held); }
 
 path.combo { stroke: var(--color-dendron); stroke-width: 1.5; stroke-dasharray: 2, 3; opacity: 0.35; fill: none; }
 
+/* Dual-alpha and combo split color classes */
+tspan.a1-tap, tspan.a1-bigram { fill: #3c3836; font-weight: 700; }
+tspan.slash-tap               { fill: #7c6f64; font-weight: 400; opacity: 0.6; }
+tspan.a2-tap, tspan.a2-bigram { fill: #b16286; font-weight: 700; }
+
 text.tl, use.tl { fill: var(--color-fn); }
 text.tr, use.tr { fill: var(--color-nav); }
 text.bl, use.bl { fill: var(--color-num); }
@@ -103,6 +108,9 @@ text.br, use.br { fill: var(--color-sys); }
         --color-num:     #fe8019;
         --color-sys:     #b8bb26;
     }
+    tspan.a1-tap, tspan.a1-bigram { fill: #ebdbb2; font-weight: 700; }
+    tspan.slash-tap               { fill: #928374; font-weight: 400; opacity: 0.6; }
+    tspan.a2-tap, tspan.a2-bigram { fill: #d3869b; font-weight: 700; }
     .layer-a1 rect.key          { fill: #3c3836; }
     .layer-a2 rect.key          { fill: #48413c; }
     .layer-nav rect.key         { fill: #4a3e2b; }
@@ -240,9 +248,9 @@ text.br, use.br { fill: var(--color-sys); }
 <rect rx="6" ry="6" x="547" y="90" width="32" height="24" class="combo bigram"/>
 <text x="563" y="102" class="combo bigram tap">UI</text>
 </g>
-<g class="combo symbol combopos-6">
-<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo symbol"/>
-<text x="168" y="93" class="combo symbol tap">/</text>
+<g class="combo bigram combopos-6">
+<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo bigram"/>
+<text x="168" y="93" class="combo bigram tap">/</text>
 </g>
 <g class="combo symbol combopos-7">
 <rect rx="6" ry="6" x="505" y="81" width="32" height="24" class="combo symbol"/>
@@ -270,9 +278,7 @@ text.br, use.br { fill: var(--color-sys); }
 <path d="M521,-43 h-36 a6.0,6.0 0 0 0 -6.0,6.0 v51" class="combo"/>
 <path d="M521,-43 h36 a6.0,6.0 0 0 1 6.0,6.0 v69" class="combo"/>
 <rect rx="6" ry="6" x="505" y="-55" width="32" height="24" class="combo util"/>
-<text x="521" y="-43" class="combo util tap">
-<tspan x="521" dy="-0.6em">Ctl+</tspan><tspan x="521" dy="1.2em">Bspc</tspan>
-</text>
+<text x="521" y="-43" class="combo util tap">Ctl+Bspc</text>
 </g>
 <g class="combo util combopos-12">
 <path d="M479,-102 l0,116" class="combo"/>
@@ -333,7 +339,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(563, 60)" class="key keypos-5">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">C</text>
+<text x="0" y="1" class="key tap">,</text>
 <text x="0" y="28" class="key hold">Alt</text>
 </g>
 <g transform="translate(42, 166)" class="key keypos-6">
@@ -373,7 +379,7 @@ text.br, use.br { fill: var(--color-sys); }
 </a></g>
 <g transform="translate(563, 144)" class="key keypos-12">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">P</text>
+<text x="0" y="1" class="key tap">.</text>
 <a href="#sym2">
 <text x="0" y="28" class="key hold layer-activator">sym2</text>
 </a></g>
@@ -421,9 +427,9 @@ text.br, use.br { fill: var(--color-sys); }
 <rect rx="6" ry="6" x="547" y="90" width="32" height="24" class="combo bigram"/>
 <text x="563" y="102" class="combo bigram tap">IU</text>
 </g>
-<g class="combo symbol combopos-6">
-<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo symbol"/>
-<text x="168" y="93" class="combo symbol tap">/</text>
+<g class="combo bigram combopos-6">
+<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo bigram"/>
+<text x="168" y="93" class="combo bigram tap">/</text>
 </g>
 <g class="combo symbol combopos-7">
 <rect rx="6" ry="6" x="505" y="81" width="32" height="24" class="combo symbol"/>
@@ -451,9 +457,7 @@ text.br, use.br { fill: var(--color-sys); }
 <path d="M521,-43 h-36 a6.0,6.0 0 0 0 -6.0,6.0 v51" class="combo"/>
 <path d="M521,-43 h36 a6.0,6.0 0 0 1 6.0,6.0 v69" class="combo"/>
 <rect rx="6" ry="6" x="505" y="-55" width="32" height="24" class="combo util"/>
-<text x="521" y="-43" class="combo util tap">
-<tspan x="521" dy="-0.6em">Ctl+</tspan><tspan x="521" dy="1.2em">Bspc</tspan>
-</text>
+<text x="521" y="-43" class="combo util tap">Ctl+Bspc</text>
 </g>
 <g class="combo util combopos-12">
 <path d="M479,-102 l0,116" class="combo"/>
@@ -580,9 +584,9 @@ text.br, use.br { fill: var(--color-sys); }
 <rect rx="6" ry="6" x="421" y="85" width="32" height="24" class="combo symbol"/>
 <text x="437" y="97" class="combo symbol tap">&gt;</text>
 </g>
-<g class="combo symbol combopos-2">
-<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo symbol"/>
-<text x="168" y="93" class="combo symbol tap">/</text>
+<g class="combo bigram combopos-2">
+<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo bigram"/>
+<text x="168" y="93" class="combo bigram tap">/</text>
 </g>
 <g class="combo symbol combopos-3">
 <rect rx="6" ry="6" x="505" y="81" width="32" height="24" class="combo symbol"/>
@@ -610,9 +614,7 @@ text.br, use.br { fill: var(--color-sys); }
 <path d="M521,-43 h-36 a6.0,6.0 0 0 0 -6.0,6.0 v51" class="combo"/>
 <path d="M521,-43 h36 a6.0,6.0 0 0 1 6.0,6.0 v69" class="combo"/>
 <rect rx="6" ry="6" x="505" y="-55" width="32" height="24" class="combo util"/>
-<text x="521" y="-43" class="combo util tap">
-<tspan x="521" dy="-0.6em">Ctl+</tspan><tspan x="521" dy="1.2em">Bspc</tspan>
-</text>
+<text x="521" y="-43" class="combo util tap">Ctl+Bspc</text>
 </g>
 <g class="combo util combopos-8">
 <path d="M479,-102 l0,116" class="combo"/>
@@ -777,9 +779,9 @@ text.br, use.br { fill: var(--color-sys); }
 <rect rx="6" ry="6" x="421" y="85" width="32" height="24" class="combo symbol"/>
 <text x="437" y="97" class="combo symbol tap">&gt;</text>
 </g>
-<g class="combo symbol combopos-9">
-<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo symbol"/>
-<text x="168" y="93" class="combo symbol tap">/</text>
+<g class="combo bigram combopos-9">
+<rect rx="6" ry="6" x="152" y="81" width="32" height="24" class="combo bigram"/>
+<text x="168" y="93" class="combo bigram tap">/</text>
 </g>
 <g class="combo symbol combopos-10">
 <rect rx="6" ry="6" x="505" y="81" width="32" height="24" class="combo symbol"/>
@@ -801,9 +803,7 @@ text.br, use.br { fill: var(--color-sys); }
 <path d="M521,-43 h-36 a6.0,6.0 0 0 0 -6.0,6.0 v51" class="combo"/>
 <path d="M521,-43 h36 a6.0,6.0 0 0 1 6.0,6.0 v69" class="combo"/>
 <rect rx="6" ry="6" x="505" y="-55" width="32" height="24" class="combo util"/>
-<text x="521" y="-43" class="combo util tap">
-<tspan x="521" dy="-0.6em">Ctl+</tspan><tspan x="521" dy="1.2em">Bspc</tspan>
-</text>
+<text x="521" y="-43" class="combo util tap">Ctl+Bspc</text>
 </g>
 <g class="combo util combopos-14">
 <path d="M479,-102 l0,116" class="combo"/>
@@ -951,9 +951,7 @@ text.br, use.br { fill: var(--color-sys); }
 <path d="M521,-43 h-36 a6.0,6.0 0 0 0 -6.0,6.0 v51" class="combo"/>
 <path d="M521,-43 h36 a6.0,6.0 0 0 1 6.0,6.0 v69" class="combo"/>
 <rect rx="6" ry="6" x="505" y="-55" width="32" height="24" class="combo util"/>
-<text x="521" y="-43" class="combo util tap">
-<tspan x="521" dy="-0.6em">Ctl+</tspan><tspan x="521" dy="1.2em">Bspc</tspan>
-</text>
+<text x="521" y="-43" class="combo util tap">Ctl+Bspc</text>
 </g>
 <g class="combo util combopos-3">
 <path d="M479,-102 l0,116" class="combo"/>
@@ -1094,9 +1092,7 @@ text.br, use.br { fill: var(--color-sys); }
 <path d="M521,-43 h-36 a6.0,6.0 0 0 0 -6.0,6.0 v51" class="combo"/>
 <path d="M521,-43 h36 a6.0,6.0 0 0 1 6.0,6.0 v69" class="combo"/>
 <rect rx="6" ry="6" x="505" y="-55" width="32" height="24" class="combo util"/>
-<text x="521" y="-43" class="combo util tap">
-<tspan x="521" dy="-0.6em">Ctl+</tspan><tspan x="521" dy="1.2em">Bspc</tspan>
-</text>
+<text x="521" y="-43" class="combo util tap">Ctl+Bspc</text>
 </g>
 <g class="combo util combopos-3">
 <path d="M479,-102 l0,116" class="combo"/>

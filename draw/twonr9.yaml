@@ -49,7 +49,7 @@ layers:
     h: Shift
   - t: Q
     h: Gui
-  - t: C
+  - t: ','
     h: Alt
   - t: F
     h: Ctrl
@@ -63,7 +63,7 @@ layers:
     h: num
   - t: J
     h: sym
-  - t: P
+  - t: .
     h: sym2
   - t: Z
     h: Ctrl
@@ -410,7 +410,7 @@ combos:
   - a1
   - a2
   - nav
-  type: symbol
+  type: bigram
   align: mid
   offset: 0.0
 - p:

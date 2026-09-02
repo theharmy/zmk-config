@@ -6,13 +6,15 @@ import re
 from pathlib import Path
 
 raw_code_map = {
-    "KEYBOARD_A": "A", "KEYBOARD_B": "B", "KEYBOARD_C": "C", "KEYBOARD_D": "D",
-    "KEYBOARD_E": "E", "KEYBOARD_F": "F", "KEYBOARD_G": "G", "KEYBOARD_H": "H",
-    "KEYBOARD_I": "I", "KEYBOARD_J": "J", "KEYBOARD_K": "K", "KEYBOARD_L": "L",
-    "KEYBOARD_M": "M", "KEYBOARD_N": "N", "KEYBOARD_O": "O", "KEYBOARD_P": "P",
-    "KEYBOARD_Q": "Q", "KEYBOARD_R": "R", "KEYBOARD_S": "S", "KEYBOARD_T": "T",
-    "KEYBOARD_U": "U", "KEYBOARD_V": "V", "KEYBOARD_W": "W", "KEYBOARD_X": "X",
-    "KEYBOARD_Y": "Z", "KEYBOARD_Z": "Y", # German QWERTZ swap
+    "KEYBOARD_COMMA_AND_LESS_THAN": ",",
+    "KEYBOARD_PERIOD_AND_GREATER_THAN": ".",
+    "KEYBOARD_SLASH_AND_QUESTION_MARK": "-",
+    "KEYBOARD_NON_US_BACKSLASH_AND_PIPE": "<",
+    "KEYBOARD_GRAVE_ACCENT_AND_TILDE": "^",
+    "KEYBOARD_EQUAL_AND_PLUS": "`",
+    "KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE": "+",
+    "KEYBOARD_BACKSLASH_AND_PIPE": "#",
+    "KEYBOARD_MINUS_AND_UNDERSCORE": "ß",
     "KEYBOARD_1_AND_EXCLAMATION": "1",
     "KEYBOARD_2_AND_AT": "2",
     "KEYBOARD_3_AND_HASH": "3",
@@ -23,16 +25,16 @@ raw_code_map = {
     "KEYBOARD_8_AND_ASTERISK": "8",
     "KEYBOARD_9_AND_LEFT_PARENTHESIS": "9",
     "KEYBOARD_0_AND_RIGHT_PARENTHESIS": "0",
-    "KEYBOARD_COMMA_AND_LESS_THAN": ",",
-    "KEYBOARD_PERIOD_AND_GREATER_THAN": ".",
-    "KEYBOARD_SLASH_AND_QUESTION_MARK": "-",
-    "KEYBOARD_NON_US_BACKSLASH_AND_PIPE": "<",
-    "KEYBOARD_GRAVE_ACCENT_AND_TILDE": "^",
-    "KEYBOARD_EQUAL_AND_PLUS": "`",
-    "KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE": "+",
-    "KEYBOARD_BACKSLASH_AND_PIPE": "#",
-    "KEYBOARD_MINUS_AND_UNDERSCORE": "ß",
+    "KEYBOARD_A": "A", "KEYBOARD_B": "B", "KEYBOARD_C": "C", "KEYBOARD_D": "D",
+    "KEYBOARD_E": "E", "KEYBOARD_F": "F", "KEYBOARD_G": "G", "KEYBOARD_H": "H",
+    "KEYBOARD_I": "I", "KEYBOARD_J": "J", "KEYBOARD_K": "K", "KEYBOARD_L": "L",
+    "KEYBOARD_M": "M", "KEYBOARD_N": "N", "KEYBOARD_O": "O", "KEYBOARD_P": "P",
+    "KEYBOARD_Q": "Q", "KEYBOARD_R": "R", "KEYBOARD_S": "S", "KEYBOARD_T": "T",
+    "KEYBOARD_U": "U", "KEYBOARD_V": "V", "KEYBOARD_W": "W", "KEYBOARD_X": "X",
+    "KEYBOARD_Y": "Z", "KEYBOARD_Z": "Y", # German QWERTZ swap
 }
+
+sorted_raw_codes = sorted(raw_code_map.items(), key=lambda x: len(x[0]), reverse=True)
 
 def decode_binding(s):
     if not isinstance(s, str):
@@ -72,7 +74,7 @@ def decode_binding(s):
         if "KEYBOARD_7_AND_AMPERSAND" in key_part and "LS" in key_part: return {"t": "/", "h": mod_label}
         if "KEYBOARD_MINUS_AND_UNDERSCORE" in key_part and "RA" in key_part: return {"t": "\\", "h": mod_label}
 
-        for k, v in raw_code_map.items():
+        for k, v in sorted_raw_codes:
             if k in key_part:
                 return {"t": v, "h": mod_label}
 
@@ -101,7 +103,7 @@ def decode_binding(s):
         if "KEYBOARD_COMMA_AND_LESS_THAN" in key_part and "LS" in key_part: return {"t": ";", "h": layer_label}
         if "KEYBOARD_5_AND_PERCENT" in key_part and "LS" in key_part: return {"t": "%", "h": layer_label}
 
-        for k, v in raw_code_map.items():
+        for k, v in sorted_raw_codes:
             if k in key_part:
                 return {"t": v, "h": layer_label}
 
@@ -162,14 +164,14 @@ def decode_combo_key(s):
     if "KEYBOARD_E" in s_norm and "RA" in s_norm: return "€"
     if "KEYBOARD_Q" in s_norm and "RA" in s_norm: return "@"
 
-    for k, v in raw_code_map.items():
+    for k, v in sorted_raw_codes:
         if k in s_norm:
             return v
     return s
 
 def classify_combo_type(k):
     if isinstance(k, str):
-        if k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"]:
+        if k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"] or "/" in k:
             return "bigram"
         if k in ["{", "}", "[", "]", "(", ")", "?", "<", ">", "/", "\\", "-"]:
             return "symbol"
@@ -259,6 +261,80 @@ def build_overview_layer(layers, base_layer_name="a1"):
         overview.append(base_item)
     return overview
 
+def build_combined_alpha_layer(layers):
+    a1_l = layers.get("a1", [])
+    a2_l = layers.get("a2", [])
+    nav_l  = layers.get("nav", [])
+    sym_l  = layers.get("sym", [])
+    num_l  = layers.get("num", [])
+    sym2_l = layers.get("sym2", [])
+
+    combined = []
+    for i in range(len(a1_l)):
+        b1 = a1_l[i]
+        b2 = a2_l[i] if i < len(a2_l) else {}
+        
+        t1 = b1.get("t") if isinstance(b1, dict) else b1
+        t2 = b2.get("t") if isinstance(b2, dict) else b2
+
+        # For fingers (0..13): format as "t1 / t2"
+        if i < 14 and t1 and t2:
+            item = {"t": f"{t1} / {t2}"}
+        else:
+            item = dict(b1) if isinstance(b1, dict) else {"t": b1}
+
+        # Corner 1: Top-Right (Nav -> Yellow)
+        nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
+        if nav_lbl and nav_lbl != t1:
+            item["tr"] = nav_lbl
+
+        # Corner 2: Top-Left (Sym -> Cyan)
+        sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
+        if sym_lbl and sym_lbl != t1:
+            item["tl"] = sym_lbl
+
+        # Corner 3: Bottom-Left (Num -> Orange)
+        num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
+        if num_lbl and num_lbl != t1:
+            item["bl"] = num_lbl
+
+        # Corner 4: Bottom-Right (Sym2 -> Green)
+        sym2_lbl = extract_label(sym2_l[i]) if i < len(sym2_l) else None
+        if sym2_lbl and sym2_lbl != t1:
+            item["br"] = sym2_lbl
+
+        combined.append(item)
+    return combined
+
+def post_process_svg_colors(svg_path):
+    with open(svg_path) as f:
+        svg = f.read()
+
+    # Style stacked dual tap text: <tspan ...>A</tspan><tspan ...>/</tspan><tspan ...>B</tspan>
+    svg = re.sub(
+        r'<tspan([^>]*)>([A-Za-z0-9,\.\+\-\*\/])</tspan><tspan([^>]*)>/</tspan><tspan([^>]*)>([A-Za-z0-9,\.\+\-\*\/])</tspan>',
+        r'<tspan class="a1-tap"\1>\2</tspan><tspan class="slash-tap"\3>/</tspan><tspan class="a2-tap"\4>\5</tspan>',
+        svg
+    )
+
+    # Style horizontal dual tap text: A / B
+    svg = re.sub(
+        r'(<text[^>]*class="[^"]*tap[^"]*"[^>]*>)([A-Za-z0-9,\.\+\-\*\/])(\s*/\s*)([A-Za-z0-9,\.\+\-\*\/])(</text>)',
+        r'\1<tspan class="a1-tap">\2</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">\4</tspan>\5',
+        svg
+    )
+
+    # Style bigram dual text: RL / LR
+    for (b1, b2) in [("RL", "LR"), ("HN", "NB"), ("DT", "MT"), ("CY", "GY"), ("EO", "OE"), ("UI", "IU")]:
+        svg = re.sub(
+            rf'<text([^>]*)>\s*<tspan[^>]*>{b1}</tspan><tspan[^>]*>[^<]*</tspan>\s*</text>',
+            rf'<text\1><tspan class="a1-bigram">{b1}</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">{b2}</tspan></text>',
+            svg
+        )
+
+    with open(svg_path, "w") as f:
+        f.write(svg)
+
 def main():
     root = Path(__file__).resolve().parent.parent
     config_dir = root / "config"
@@ -299,7 +375,7 @@ def main():
             stdout=f, check=True
         )
 
-    # Step 4: Build Overview YAML (a1 + a2 with 4-corner legends & bigrams, and Symbols & Util ghost layer)
+    # Step 4: Build Overview YAML (a1 + a2 with their respective bigrams, and Symbols & Util ghost layer)
     overview_combos = []
     for c in d.get("combos", []):
         c_copy = dict(c)
@@ -328,7 +404,6 @@ def main():
     with open(overview_yaml, "w") as f:
         yaml.dump(overview_data, f, sort_keys=False)
 
-    # Step 5: Draw Overview SVG
     overview_svg = draw_dir / "twonr9_overview.svg"
     with open(overview_svg, "w") as f:
         subprocess.run(
@@ -336,7 +411,56 @@ def main():
             stdout=f, check=True
         )
 
-    print(f"Generated {svg_out} and {overview_svg}")
+    # Step 5: Build Combined Alpha Overview YAML (a1 / a2 merged with dual bigrams & 4-corner legends)
+    combined_bigram_map = {
+        (0, 7): "RL / LR",
+        (1, 8): "HN / NB",
+        (2, 9): "DT / MT",
+        (3, 10): "CY / GY",
+        (4, 11): "EO / OE",
+        (5, 12): "UI / IU",
+    }
+    
+    combined_combos = []
+    for pos, label in combined_bigram_map.items():
+        combined_combos.append({
+            "p": list(pos),
+            "k": label,
+            "l": ["Combined (a1 / a2)"],
+            "align": "mid",
+            "offset": 0.0,
+            "type": "bigram",
+            "width": 54.0
+        })
+
+    for c in d.get("combos", []):
+        k = c.get("k")
+        if k not in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"]:
+            c_copy = dict(c)
+            c_copy["l"] = ["Symbols & Utilities"]
+            combined_combos.append(c_copy)
+
+    combined_data = {
+        "layout": {"zmk_keyboard": "twonr9"},
+        "layers": {
+            "Combined (a1 / a2)": build_combined_alpha_layer(d.get("layers", {})),
+            "Symbols & Utilities": [""] * 18,
+        },
+        "combos": combined_combos
+    }
+    combined_yaml = draw_dir / "twonr9_combined_overview.yaml"
+    with open(combined_yaml, "w") as f:
+        yaml.dump(combined_data, f, sort_keys=False)
+
+    combined_svg = draw_dir / "twonr9_combined_overview.svg"
+    with open(combined_svg, "w") as f:
+        subprocess.run(
+            ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "draw", str(combined_yaml), "-j", str(config_dir / "twonr9.json")],
+            stdout=f, check=True
+        )
+    post_process_svg_colors(combined_svg)
+
+    print(f"Generated {svg_out}, {overview_svg}, and {combined_svg}")
 
 if __name__ == "__main__":
     main()
