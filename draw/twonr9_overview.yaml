@@ -3,81 +3,67 @@ layout:
 layers:
   Overview:
   - t: L
-    h: Alt
     tr: Alt
     tl: "\u20AC"
     bl: '-'
     br: '@'
   - t: N
-    h: Gui
     tr: Gui
     tl: '#'
     bl: '*'
     br: ''''
   - t: D
-    h: Shift
     tr: Shift
     tl: $
     bl: '0'
     br: '"'
   - t: Y
-    h: Shift
     tr: "\u2190"
     tl: <
     bl: $
     br: (
   - t: O
-    h: Gui
     tr: "\u2193"
     tl: '>'
     bl: '5'
     br: )
   - t: U
-    h: Alt
     tr: "\u2191"
     tl: ^
     bl: '6'
     br: ':'
   - t: S
-    h: Ctrl
     tr: Ctrl
     tl: '`'
     bl: +
     br: '*'
   - t: R
-    h: sym2
     tl: _
     bl: '%'
     br: '~'
   - t: H
-    h: sym
     tr: PgUp
     bl: '|'
     br: '!'
   - t: T
-    h: num
     tl: '&'
     bl: /
     br: '?'
   - t: C
-    h: num
     tr: Home
     tl: '['
     bl: '1'
     br: '{'
   - t: E
-    h: sym
     tr: PgDn
     tl: ']'
     bl: '2'
     br: '}'
   - t: I
-    h: sym2
     tr: End
     tl: '|'
     bl: '3'
   - t: A
-    h: Ctrl
     tr: "\u2192"
     tl: /
     bl: '0'
