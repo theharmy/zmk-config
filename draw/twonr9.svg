@@ -52,6 +52,7 @@ text.footer { text-anchor: end; dominant-baseline: auto; }
 
 rect.key, rect.combo, rect.combo-separate { fill: var(--color-key); stroke-width: 0; }
 rect.held, rect.combo.held                { fill: var(--color-held); }
+.layer-Combos rect.key                    { fill: var(--color-ghost); }
 
 path.combo { stroke: var(--color-dendron); stroke-width: 2; stroke-dasharray: 2, 3; opacity: 0.45; fill: none; }
 

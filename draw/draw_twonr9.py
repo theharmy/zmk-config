@@ -190,6 +190,10 @@ def build_overview_layer(layers):
         b = base_l[i]
         base_item = dict(b) if isinstance(b, dict) else {"t": b}
         
+        # On overview, strip hold label from main finger keys (0..13) so corners are clean
+        if i < 14 and "h" in base_item:
+            del base_item["h"]
+
         # Corner 1: Top-Right (Nav)
         nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
         if nav_lbl and nav_lbl != base_item.get("t"):
@@ -250,17 +254,18 @@ def main():
             stdout=f, check=True
         )
 
-    # Step 4: Build Overview YAML
+    # Step 4: Build Overview YAML (Base with 4 corners + Combos on separate ghost layer)
     overview_combos = []
     for c in d.get("combos", []):
         c_copy = dict(c)
-        c_copy["l"] = ["Overview"]
+        c_copy["l"] = ["Combos"]
         overview_combos.append(c_copy)
 
     overview_data = {
         "layout": {"zmk_keyboard": "twonr9"},
         "layers": {
-            "Overview": build_overview_layer(d.get("layers", {}))
+            "Base": build_overview_layer(d.get("layers", {})),
+            "Combos": [""] * 18
         },
         "combos": overview_combos
     }
