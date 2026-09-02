@@ -167,6 +167,52 @@ def decode_combo_key(s):
             return v
     return s
 
+def extract_label(key):
+    if isinstance(key, dict):
+        if key.get("type") in ["trans", "held"]:
+            return None
+        return key.get("t")
+    if isinstance(key, str):
+        if key in ["___", "", "None", "&trans", "&none"]:
+            return None
+        return key
+    return None
+
+def build_overview_layer(layers):
+    base_l = layers.get("a1", [])
+    nav_l  = layers.get("nav", [])
+    sym_l  = layers.get("sym", [])
+    num_l  = layers.get("num", [])
+    sym2_l = layers.get("sym2", [])
+
+    overview = []
+    for i in range(len(base_l)):
+        b = base_l[i]
+        base_item = dict(b) if isinstance(b, dict) else {"t": b}
+        
+        # Corner 1: Top-Right (Nav)
+        nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
+        if nav_lbl and nav_lbl != base_item.get("t"):
+            base_item["tr"] = nav_lbl
+
+        # Corner 2: Top-Left (Sym)
+        sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
+        if sym_lbl and sym_lbl != base_item.get("t"):
+            base_item["tl"] = sym_lbl
+
+        # Corner 3: Bottom-Left (Num)
+        num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
+        if num_lbl and num_lbl != base_item.get("t"):
+            base_item["bl"] = num_lbl
+
+        # Corner 4: Bottom-Right (Sym2)
+        sym2_lbl = extract_label(sym2_l[i]) if i < len(sym2_l) else None
+        if sym2_lbl and sym2_lbl != base_item.get("t"):
+            base_item["br"] = sym2_lbl
+
+        overview.append(base_item)
+    return overview
+
 def main():
     root = Path(__file__).resolve().parent.parent
     config_dir = root / "config"
@@ -196,7 +242,7 @@ def main():
     with open(yaml_out, "w") as f:
         yaml.dump(d, f, sort_keys=False)
 
-    # Step 3: Draw SVG
+    # Step 3: Draw All-Layers SVG
     svg_out = draw_dir / "twonr9.svg"
     with open(svg_out, "w") as f:
         subprocess.run(
@@ -204,7 +250,33 @@ def main():
             stdout=f, check=True
         )
 
-    print(f"Generated {yaml_out} and {svg_out}")
+    # Step 4: Build Overview YAML
+    overview_combos = []
+    for c in d.get("combos", []):
+        c_copy = dict(c)
+        c_copy["l"] = ["Overview"]
+        overview_combos.append(c_copy)
+
+    overview_data = {
+        "layout": {"zmk_keyboard": "twonr9"},
+        "layers": {
+            "Overview": build_overview_layer(d.get("layers", {}))
+        },
+        "combos": overview_combos
+    }
+    overview_yaml = draw_dir / "twonr9_overview.yaml"
+    with open(overview_yaml, "w") as f:
+        yaml.dump(overview_data, f, sort_keys=False)
+
+    # Step 5: Draw Overview SVG
+    overview_svg = draw_dir / "twonr9_overview.svg"
+    with open(overview_svg, "w") as f:
+        subprocess.run(
+            ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "draw", str(overview_yaml), "-j", str(config_dir / "twonr9.json")],
+            stdout=f, check=True
+        )
+
+    print(f"Generated {svg_out} and {overview_svg}")
 
 if __name__ == "__main__":
     main()
