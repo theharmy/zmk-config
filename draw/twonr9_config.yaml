@@ -57,18 +57,18 @@ draw_config:
   append_colon_to_layer_header: false
   dark_mode: false
   footer_text: "urob/zmk-config"
-  glyph_tap_size: 15
-  glyph_hold_size: 12
-  glyph_shifted_size: 10
+  glyph_tap_size: 16
+  glyph_hold_size: 13
+  glyph_shifted_size: 11
   legend_rel_y: 1
-  outer_pad_w: 12
-  outer_pad_h: 12
-  inner_pad_w: 10
-  inner_pad_h: 10
-  small_pad: 4
-  key_w: 60
-  key_h: 56
-  combo_w: 28
+  outer_pad_w: 16
+  outer_pad_h: 16
+  inner_pad_w: 14
+  inner_pad_h: 14
+  small_pad: 5
+  key_w: 68
+  key_h: 64
+  combo_w: 30
   combo_h: 24
 
   svg_style: |
@@ -138,6 +138,8 @@ draw_config:
     .layer-Bigrams rect.key     { fill: var(--color-ghost); }
     .layer-Symbols rect.key     { fill: var(--color-ghost); }
     .layer-Combos rect.key      { fill: var(--color-ghost); }
+    [class*="layer-Symbols"] rect.key { fill: var(--color-ghost); }
+    [class*="layer-Combos"] rect.key  { fill: var(--color-ghost); }
 
     /* Combo box colors by category */
     .combo-bigram rect.combo   { fill: #fabd2f; }
