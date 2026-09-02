@@ -97,32 +97,84 @@ layers:
   a2 (Alphas 2):
   - t: X
     h: Alt
+    tr: Alt
+    tl: "\u20AC"
+    bl: '-'
+    br: '@'
   - t: B
     h: Gui
+    tr: Gui
+    tl: '#'
+    bl: '*'
+    br: ''''
   - t: M
     h: Shift
+    tr: Shift
+    tl: $
+    bl: '0'
+    br: '"'
   - t: W
     h: Shift
+    tr: "\u2190"
+    tl: <
+    bl: $
+    br: (
   - t: Q
     h: Gui
+    tr: "\u2193"
+    tl: '>'
+    bl: '5'
+    br: )
   - t: C
     h: Alt
+    tr: "\u2191"
+    tl: ^
+    bl: '6'
+    br: ':'
   - t: F
     h: Ctrl
+    tr: Ctrl
+    tl: '`'
+    bl: +
+    br: '*'
   - t: V
     h: sym2
+    tl: _
+    bl: '%'
+    br: '~'
   - t: P
     h: sym
+    tr: PgUp
+    bl: '|'
+    br: '!'
   - t: K
     h: num
+    tl: '&'
+    bl: /
+    br: '?'
   - t: G
     h: num
+    tr: Home
+    tl: '['
+    bl: '1'
+    br: '{'
   - t: J
     h: sym
+    tr: PgDn
+    tl: ']'
+    bl: '2'
+    br: '}'
   - t: P
     h: sym2
+    tr: End
+    tl: '|'
+    bl: '3'
   - t: Z
     h: Ctrl
+    tr: "\u2192"
+    tl: /
+    bl: '0'
+    br: \
   - type: trans
   - t: a1
     h: toggle

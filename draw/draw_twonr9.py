@@ -224,8 +224,8 @@ def extract_label(key):
         return key
     return None
 
-def build_overview_layer(layers):
-    base_l = layers.get("a1", [])
+def build_overview_layer(layers, base_layer_name="a1"):
+    base_l = layers.get(base_layer_name, [])
     nav_l  = layers.get("nav", [])
     sym_l  = layers.get("sym", [])
     num_l  = layers.get("num", [])
@@ -299,7 +299,7 @@ def main():
             stdout=f, check=True
         )
 
-    # Step 4: Build Overview YAML (a1 with 4-corner legends + a2 with bigrams + Symbols & Utilities ghost layer)
+    # Step 4: Build Overview YAML (a1 + a2 with 4-corner legends & bigrams, and Symbols & Util ghost layer)
     overview_combos = []
     for c in d.get("combos", []):
         c_copy = dict(c)
@@ -318,8 +318,8 @@ def main():
     overview_data = {
         "layout": {"zmk_keyboard": "twonr9"},
         "layers": {
-            "a1 (Base)": build_overview_layer(d.get("layers", {})),
-            "a2 (Alphas 2)": d.get("layers", {}).get("a2", []),
+            "a1 (Base)": build_overview_layer(d.get("layers", {}), "a1"),
+            "a2 (Alphas 2)": build_overview_layer(d.get("layers", {}), "a2"),
             "Symbols & Utilities": [""] * 18,
         },
         "combos": overview_combos
