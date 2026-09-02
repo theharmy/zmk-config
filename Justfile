@@ -114,6 +114,13 @@ draw: _check_yq_version
     keymap -c "{{ draw }}/config.yaml" draw "{{ draw }}/overview.yaml" -k "ferris/sweep" >"{{ draw }}/overview.svg"
     sed -i '/<text.*class="label"/d' "{{ draw }}/overview.svg"
 
+# parse & plot twonr9 keymap
+[group('build & draw')]
+draw-twonr9:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    python3 "{{ draw }}/draw_twonr9.py"
+
 # initialize the west workspace
 [group('workspace')]
 init:

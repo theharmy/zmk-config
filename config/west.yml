@@ -27,6 +27,10 @@ manifest:
       url-base: https://github.com/urob
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: zzeneg
+      url-base: https://github.com/zzeneg
+    - name: srwi
+      url-base: https://github.com/srwi
 
   projects:
     - name: zmk
@@ -53,6 +57,14 @@ manifest:
     - name: zmk-unicode
       path: modules/zmk/unicode
       revision: a1e3d3eed54dea800b5342a251eb3b83eee3b5ec # main (2026-08-18)
+    - name: zmk-raw-hid
+      path: modules/zmk/raw-hid
+      remote: zzeneg
+      revision: 6a37765dfab6197292e7a9f47305dcf87386d56a # main (2026-09-02)
+    - name: zmk-keypeek-layer-notifier
+      path: modules/zmk/keypeek-layer-notifier
+      remote: srwi
+      revision: b600af3bb7d1795073a4ce23e08d6db46371551b # master (2026-09-02)
 
     # Avoid downloading GBs of unused Zephyr modules. Remove this section to
     # restore the default (needed for less common hardware).
@@ -68,6 +80,7 @@ manifest:
           - hal_stm32  # imported independently by ZMK
           - lvgl  # imported independently by ZMK
           - mbedtls
+          - nanopb
           - tinycrypt
 
     # --- imported projects pinned by pin-west; do not edit ---
@@ -100,6 +113,11 @@ manifest:
       revision: 4952e1328529ee549d412b498ea71c54f30aa3b1
       path: modules/crypto/mbedtls
       groups: [crypto]
+    - name: nanopb
+      url: https://github.com/zephyrproject-rtos/nanopb
+      revision: 7307ce399b81ddcb3c3a5dc862c52d4754328d38
+      path: modules/lib/nanopb
+      groups: [optional]
     - name: tinycrypt # via zephyr (west.yml)
       url: https://github.com/zephyrproject-rtos/tinycrypt
       revision: 1012a3ebee18c15ede5efc8332ee2fc37817670f

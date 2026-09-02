@@ -1,0 +1,473 @@
+layout:
+  zmk_keyboard: twonr9
+layers:
+  a1:
+  - t: L
+    h: Alt
+  - t: N
+    h: Gui
+  - t: D
+    h: Shift
+  - t: Y
+    h: Shift
+  - t: O
+    h: Gui
+  - t: U
+    h: Alt
+  - t: S
+    h: Ctrl
+  - t: R
+    h: sym2
+  - t: H
+    h: sym
+  - t: T
+    h: num
+  - t: C
+    h: num
+  - t: E
+    h: sym
+  - t: I
+    h: sym2
+  - t: A
+    h: Ctrl
+  - t: nav
+    h: sticky
+  - t: a2
+    h: sticky
+  - t: Spc
+    h: Shift
+  - t: num
+    h: sticky
+  a2:
+  - t: X
+    h: Alt
+  - t: B
+    h: Gui
+  - t: M
+    h: Shift
+  - t: W
+    h: Shift
+  - t: Q
+    h: Gui
+  - t: C
+    h: Alt
+  - t: F
+    h: Ctrl
+  - t: V
+    h: sym2
+  - t: P
+    h: sym
+  - t: K
+    h: num
+  - t: G
+    h: num
+  - t: J
+    h: sym
+  - t: P
+    h: sym2
+  - t: Z
+    h: Ctrl
+  - type: trans
+  - t: a1
+    h: toggle
+    type: held
+  - type: trans
+  - type: trans
+  nav:
+  - t: Alt
+    h: sticky
+  - t: Gui
+    h: sticky
+  - t: Shift
+    h: sticky
+  - t: "\u2190"
+    h: Shift
+  - t: "\u2193"
+    h: Gui
+  - t: "\u2191"
+    h: Alt
+  - t: Ctrl
+    h: sticky
+  - type: trans
+  - t: PgUp
+    h: sym
+  - type: trans
+  - t: Home
+    h: num
+  - t: PgDn
+    h: sym
+  - t: End
+    h: sym2
+  - t: "\u2192"
+    h: Ctrl
+  - type: held
+  - t: a1
+    h: toggle
+  - type: trans
+  - type: trans
+  sym:
+  - t: "\u20AC"
+    h: Alt
+  - t: '#'
+    h: Gui
+  - t: $
+    h: Shift
+  - t: <
+    h: Shift
+  - t: '>'
+    h: Gui
+  - t: ^
+    h: Alt
+  - t: '`'
+    h: Ctrl
+  - t: _
+    h: sym2
+  - t: '-'
+    type: held
+    h: sym
+  - t: '&'
+    h: num
+  - t: '['
+    h: num
+  - t: ']'
+    h: sym
+  - t: '|'
+    h: sym2
+  - t: /
+    h: Ctrl
+  - type: held
+  - t: a1
+    h: toggle
+  - type: trans
+  - type: trans
+  sym2:
+  - t: '@'
+    h: Alt
+  - t: ''''
+    h: Gui
+  - t: '"'
+    h: Shift
+  - t: (
+    h: Shift
+  - t: )
+    h: Gui
+  - t: ':'
+    h: Alt
+  - t: '*'
+    h: Ctrl
+  - t: '~'
+    h: sym2
+  - t: '!'
+    h: sym
+  - t: '?'
+    h: num
+  - t: '{'
+    h: num
+  - t: '}'
+    h: sym
+  - t: ;
+    type: held
+    h: sym2
+  - t: \
+    h: Ctrl
+  - type: held
+  - t: a1
+    h: toggle
+  - type: trans
+  - type: trans
+  num:
+  - t: '-'
+    h: Alt
+  - t: '*'
+    h: Gui
+  - t: '0'
+    h: Shift
+  - t: $
+    h: Shift
+  - t: '5'
+    h: Gui
+  - t: '6'
+    h: Alt
+  - t: +
+    h: Ctrl
+  - t: '%'
+    h: sym2
+  - t: '|'
+    h: sym
+  - t: /
+    h: num
+  - t: '1'
+    h: num
+  - t: '2'
+    h: sym
+  - t: '3'
+    h: sym2
+  - t: '0'
+    h: Ctrl
+  - type: trans
+  - t: a1
+    h: toggle
+  - type: trans
+  - type: held
+combos:
+- p:
+  - 0
+  - 7
+  k: RL
+  l:
+  - a1
+- p:
+  - 1
+  - 8
+  k: HN
+  l:
+  - a1
+- p:
+  - 2
+  - 9
+  k: DT
+  l:
+  - a1
+- p:
+  - 3
+  - 10
+  k: CY
+  l:
+  - a1
+- p:
+  - 4
+  - 11
+  k: EO
+  l:
+  - a1
+- p:
+  - 5
+  - 12
+  k: UI
+  l:
+  - a1
+- p:
+  - 0
+  - 7
+  k: LR
+  l:
+  - a2
+- p:
+  - 1
+  - 8
+  k: NB
+  l:
+  - a2
+- p:
+  - 2
+  - 9
+  k: MT
+  l:
+  - a2
+- p:
+  - 3
+  - 10
+  k: GY
+  l:
+  - a2
+- p:
+  - 4
+  - 11
+  k: OE
+  l:
+  - a2
+- p:
+  - 5
+  - 12
+  k: IU
+  l:
+  - a2
+- p:
+  - 0
+  - 7
+  k: '{'
+  l:
+  - sym
+- p:
+  - 1
+  - 8
+  k: '['
+  l:
+  - sym
+- p:
+  - 2
+  - 9
+  k: (
+  l:
+  - sym
+- p:
+  - 3
+  - 10
+  k: )
+  l:
+  - sym
+- p:
+  - 13
+  - 4
+  k: ']'
+  l:
+  - sym
+- p:
+  - 5
+  - 12
+  k: '}'
+  l:
+  - sym
+- p:
+  - 0
+  - 1
+  k: '?'
+  l:
+  - sym
+- p:
+  - 1
+  - 9
+  k: <
+  l:
+  - sym
+  - nav
+- p:
+  - 4
+  - 10
+  k: '>'
+  l:
+  - sym
+  - nav
+- p:
+  - 7
+  - 1
+  k: /
+  l:
+  - sym
+  - a1
+  - a2
+  - nav
+- p:
+  - 4
+  - 12
+  k: \
+  l:
+  - sym
+  - a1
+  - a2
+  - nav
+- p:
+  - 1
+  - 0
+  k: Tab
+  l:
+  - a1
+  - a2
+  - nav
+  - sym
+  - sym2
+  - num
+- p:
+  - 2
+  - 1
+  k: Enter
+  l:
+  - a1
+  - a2
+  - nav
+  - sym
+  - sym2
+  - num
+- p:
+  - 3
+  - 4
+  k: Bspc
+  l:
+  - a1
+  - a2
+  - nav
+- p:
+  - 4
+  - 5
+  k: Ctl+Bspc
+  l:
+  - a1
+  - a2
+  - nav
+  - sym
+  - sym2
+  - num
+- p:
+  - 4
+  - 5
+  - 3
+  k: Esc
+  l:
+  - a1
+  - a2
+  - nav
+  - sym
+  - sym2
+  - num
+- p:
+  - 12
+  - 10
+  k: '-'
+  l:
+  - a1
+  - a2
+  - nav
+  - sym
+  - sym2
+  - num
+- p:
+  - 3
+  - 10
+  k: '7'
+  l:
+  - num
+- p:
+  - 4
+  - 11
+  k: '8'
+  l:
+  - num
+- p:
+  - 12
+  - 5
+  k: '9'
+  l:
+  - num
+- p:
+  - 9
+  - 8
+  k:
+    t: Shift
+    h: sticky
+  l:
+  - a1
+  - a2
+  - nav
+  - sym
+  - sym2
+  - num
+- p:
+  - 11
+  - 10
+  k:
+    t: Shift
+    h: sticky
+  l:
+  - a1
+  - a2
+  - nav
+  - sym
+  - sym2
+  - num
+- p:
+  - 9
+  - 8
+  - 7
+  k: Unlock
+  l:
+  - sym

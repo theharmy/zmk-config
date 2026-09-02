@@ -1,0 +1,330 @@
+/*
+ * TwoNr9 ZMK Keymap (18-Key Split Keyboard)
+ *
+ * Designed for TwoNr9 hardware with German keyboard layout (keys_de.h).
+ * Integrates zmk-helpers, Homerow Mods, Layer-Taps, Combos, and ZMK Studio / KeyPeek.
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include "keys_de.h"
+
+/* ==========================================================================
+ * Global Settings & Timings
+ * ========================================================================== */
+
+#define COMBO_TERM 30
+#define QUICK_TAP_MS 175
+
+#include "zmk-helpers/helper.h"
+
+/* ==========================================================================
+ * Layer Definitions
+ * ========================================================================== */
+
+#define L_A1   0  // Base Alpha Layer 1
+#define L_A2   1  // Secondary Alpha Layer 2
+#define L_NAV  2  // Navigation & Editing
+#define L_SYM  3  // Primary Symbols & Brackets
+#define L_SYM2 4  // Secondary Symbols & Punctuations
+#define L_NUM  5  // Numpad & Arithmetic
+
+#define ALL 0 1 2 3 4 5
+
+/* ==========================================================================
+ * Matrix Geometry & Key Positions
+ *
+ *                     TwoNr9 KEY POSITIONS (18 Keys)
+ *
+ *              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+ *              │  0   │  1   │  2   │      │  3   │  4   │  5   │
+ *       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+ *       │  6   │  7   │  8   │  9   │      │  10  │  11  │  12  │  13  │
+ *       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+ *                     │  14  │  15  │      │  16  │  17  │
+ *                     ╰──────┴──────╯      ╰──────┴──────╯
+ * ========================================================================== */
+
+#define KEYS_L   0 1 2 6 7 8 9
+#define KEYS_R   3 4 5 10 11 12 13
+#define THUMBS_L 14 15
+#define THUMBS_R 16 17
+#define THUMBS   THUMBS_L THUMBS_R
+
+#define XXX &none
+#define ___ &trans
+
+/* ==========================================================================
+ * Custom Behaviors
+ * ========================================================================== */
+
+// Left-hand Homerow Mods (trigger only when chording right-hand keys or thumbs)
+ZMK_HOLD_TAP(hml,
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    require-prior-idle-ms = <150>;
+    bindings = <&kp>, <&kp>;
+    hold-trigger-key-positions = <KEYS_R THUMBS>;
+    hold-trigger-on-release;
+)
+
+// Right-hand Homerow Mods (trigger only when chording left-hand keys or thumbs)
+ZMK_HOLD_TAP(hmr,
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    require-prior-idle-ms = <150>;
+    bindings = <&kp>, <&kp>;
+    hold-trigger-key-positions = <KEYS_L THUMBS>;
+    hold-trigger-on-release;
+)
+
+// Fast Layer-Tap for homerow thumb/inner activations
+ZMK_HOLD_TAP(lt_r4,
+    flavor = "tap-preferred";
+    tapping-term-ms = <150>;
+    require-prior-idle-ms = <50>;
+    bindings = <&mo>, <&kp>;
+)
+
+/* ==========================================================================
+ * Key Definition Shorthands
+ *
+ * al_*: Left Alt   | gl_*: Left Gui   | sl_*: Left Shift  | cl_*: Left Ctrl
+ * ar_*: Right Alt  | gr_*: Right Gui  | sr_*: Right Shift | cr_*: Right Ctrl
+ * s1_*: Sym Layer  | s2_*: Sym2 Layer | num_*: Num Layer
+ * ========================================================================== */
+
+// --- Layer 0: Base Alphas (a1) ---
+#define al_L     &hml LEFT_ALT DE_L
+#define gl_N     &hml LEFT_GUI DE_N
+#define sl_D     &hml LEFT_SHIFT DE_D
+#define sr_Y     &hmr LEFT_SHIFT DE_Y
+#define gr_O     &hmr LEFT_GUI DE_O
+#define ar_U     &hmr LEFT_ALT DE_U
+#define cl_S     &hml LCTRL DE_S
+#define s2_R     &lt_r4 L_SYM2 DE_R
+#define s1_H     &lt_r4 L_SYM DE_H
+#define num_T    &lt_r4 L_NUM DE_T
+#define num_C    &lt_r4 L_NUM DE_C
+#define s1_E     &lt_r4 L_SYM DE_E
+#define s2_I     &lt_r4 L_SYM2 DE_I
+#define cr_A     &hmr LCTRL DE_A
+
+// --- Layer 1: Secondary Alphas (a2) ---
+#define al_X     &hml LEFT_ALT DE_X
+#define gl_B     &hml LEFT_GUI DE_B
+#define sl_M     &hml LEFT_SHIFT DE_M
+#define sr_W     &hmr LEFT_SHIFT DE_W
+#define gr_Q     &hmr LEFT_GUI DE_Q
+#define ar_CMA   &hmr LEFT_ALT DE_COMMA
+#define cl_F     &hml LCTRL DE_F
+#define s2_V     &lt_r4 L_SYM2 DE_V
+#define s1_P     &lt_r4 L_SYM DE_P
+#define num_K    &lt_r4 L_NUM DE_K
+#define num_G    &lt_r4 L_NUM DE_G
+#define s1_J     &lt_r4 L_SYM DE_J
+#define s2_DOT   &lt_r4 L_SYM2 DE_DOT
+#define cr_Z     &hmr LCTRL DE_Z
+
+// --- Layer 2: Navigation (nav) ---
+#define sk_ALT   &sk LALT
+#define sk_GUI   &sk LGUI
+#define sk_SFT   &sk LSHFT
+#define sr_LFT   &hmr LEFT_SHIFT LEFT_ARROW
+#define gr_DWN   &hmr LEFT_GUI DOWN
+#define ar_UP    &hmr LEFT_ALT UP
+#define sk_CTL   &sk LCTRL
+#define s1_PGUP  &lt_r4 L_SYM PG_UP
+#define num_HOM  &lt_r4 L_NUM HOME
+#define s1_PGDN  &lt_r4 L_SYM PG_DN
+#define s2_END   &lt_r4 L_SYM2 END
+#define cr_RGT   &hmr LCTRL RIGHT
+
+// --- Layer 3: Primary Symbols (sym) ---
+#define al_EUR   &hml LEFT_ALT DE_EURO
+#define gl_HSH   &hml LEFT_GUI DE_HASH
+#define sl_DLR   &hml LEFT_SHIFT DE_DLLR
+#define sr_LT    &hmr LEFT_SHIFT DE_LT
+#define gr_GT    &hmr LEFT_GUI DE_GT
+#define ar_CRT   &hmr LEFT_ALT DE_CARET
+#define cl_GRV   &hml LCTRL DE_GRAVE
+#define s2_UND   &lt_r4 L_SYM2 DE_UNDER
+#define s1_MIN   &lt_r4 L_SYM DE_MINUS
+#define num_AMP  &lt_r4 L_NUM DE_AMPS
+#define num_LBK  &lt_r4 L_NUM DE_LBKT
+#define s1_RBK   &lt_r4 L_SYM DE_RBKT
+#define s2_PIP   &lt_r4 L_SYM2 DE_PIPE
+#define cr_SLH   &hmr LCTRL DE_FSLH
+
+// --- Layer 4: Secondary Symbols (sym2) ---
+#define al_AT    &hml LEFT_ALT DE_AT
+#define gl_SQT   &hml LEFT_GUI DE_SQT
+#define sl_DQT   &hml LEFT_SHIFT DE_DQT
+#define sr_LPR   &hmr LEFT_SHIFT DE_LPAR
+#define gr_RPR   &hmr LEFT_GUI DE_RPAR
+#define ar_CLN   &hmr LEFT_ALT DE_COLON
+#define cl_AST   &hml LCTRL DE_ASTRK
+#define s2_TLD   &lt_r4 L_SYM2 DE_TILDE
+#define s1_EXC   &lt_r4 L_SYM DE_EXCL
+#define num_QMK  &lt_r4 L_NUM DE_QMARK
+#define num_LBC  &lt_r4 L_NUM DE_LBRC
+#define s1_RBC   &lt_r4 L_SYM DE_RBRC
+#define s2_SMI   &lt_r4 L_SYM2 DE_SEMI
+#define cr_BSL   &hmr LCTRL DE_BSLH
+
+// --- Layer 5: Numpad (num) ---
+#define al_MIN   &hml LEFT_ALT DE_MINUS
+#define gl_AST   &hml LEFT_GUI DE_ASTRK
+#define sl_EQL   &hml LEFT_SHIFT DE_EQUAL
+#define sr_N4    &hmr LEFT_SHIFT DE_N4
+#define gr_N5    &hmr LEFT_GUI DE_N5
+#define ar_N6    &hmr LEFT_ALT DE_N6
+#define cl_PLS   &hml LCTRL DE_PLUS
+#define s2_PCT   &lt_r4 L_SYM2 DE_PRCNT
+#define s1_PIP   &lt_r4 L_SYM DE_PIPE
+#define num_SLH  &lt_r4 L_NUM DE_FSLH
+#define num_N1   &lt_r4 L_NUM DE_N1
+#define s1_N2    &lt_r4 L_SYM DE_N2
+#define s2_N3    &lt_r4 L_SYM2 DE_N3
+#define cr_N0    &hmr LCTRL DE_N0
+
+// --- Thumbs ---
+#define sl_NAV   &sl L_NAV
+#define sl_A2    &sl L_A2
+#define spc_SFT  &mt LSHFT SPACE
+#define sl_NUM   &sl L_NUM
+#define to_BASE  &to L_A1
+
+/* ==========================================================================
+ * Macros (German Bigrams)
+ * ========================================================================== */
+
+ZMK_MACRO(macro_rl, bindings = <&kp DE_R &kp DE_L>;)
+ZMK_MACRO(macro_hn, bindings = <&kp DE_H &kp DE_N>;)
+ZMK_MACRO(macro_dt, bindings = <&kp DE_D &kp DE_T>;)
+ZMK_MACRO(macro_cy, bindings = <&kp DE_C &kp DE_Y>;)
+ZMK_MACRO(macro_eo, bindings = <&kp DE_E &kp DE_O>;)
+ZMK_MACRO(macro_ui, bindings = <&kp DE_U &kp DE_I>;)
+ZMK_MACRO(macro_lr, bindings = <&kp DE_L &kp DE_R>;)
+ZMK_MACRO(macro_nb, bindings = <&kp DE_N &kp DE_B>;)
+ZMK_MACRO(macro_mt, bindings = <&kp DE_M &kp DE_T>;)
+ZMK_MACRO(macro_gy, bindings = <&kp DE_G &kp DE_Y>;)
+ZMK_MACRO(macro_oe, bindings = <&kp DE_O &kp DE_E>;)
+ZMK_MACRO(macro_iu, bindings = <&kp DE_I &kp DE_U>;)
+
+/* ==========================================================================
+ * Combos
+ * ========================================================================== */
+
+// Layer 0: Vertical Bigrams
+ZMK_COMBO(combo_rl, &macro_rl, 0 7, L_A1)
+ZMK_COMBO(combo_hn, &macro_hn, 1 8, L_A1)
+ZMK_COMBO(combo_dt, &macro_dt, 2 9, L_A1)
+ZMK_COMBO(combo_cy, &macro_cy, 3 10, L_A1)
+ZMK_COMBO(combo_eo, &macro_eo, 4 11, L_A1)
+ZMK_COMBO(combo_ui, &macro_ui, 5 12, L_A1)
+
+// Layer 1: Vertical Bigrams
+ZMK_COMBO(combo_lr, &macro_lr, 0 7, L_A2)
+ZMK_COMBO(combo_nb, &macro_nb, 1 8, L_A2)
+ZMK_COMBO(combo_mt, &macro_mt, 2 9, L_A2)
+ZMK_COMBO(combo_gy, &macro_gy, 3 10, L_A2)
+ZMK_COMBO(combo_oe, &macro_oe, 4 11, L_A2)
+ZMK_COMBO(combo_iu, &macro_iu, 5 12, L_A2)
+
+// Layer 3: Brackets & Enclosures
+ZMK_COMBO(combo_lbrc,     &kp DE_LBRC,  0 7,  L_SYM)
+ZMK_COMBO(combo_lbrk,     &kp DE_LBKT,  1 8,  L_SYM)
+ZMK_COMBO(combo_lpar,     &kp DE_LPAR,  2 9,  L_SYM)
+ZMK_COMBO(combo_rpar,     &kp DE_RPAR,  3 10, L_SYM)
+ZMK_COMBO(combo_rbrk,     &kp DE_RBKT,  13 4, L_SYM)
+ZMK_COMBO(combo_rbrc,     &kp DE_RBRC,  5 12, L_SYM)
+ZMK_COMBO(combo_question, &kp DE_QMARK, 0 1,  L_SYM)
+
+// Multi-Layer Symbols & Utilities
+ZMK_COMBO(combo_lt,    &kp DE_LT,        1 9,   L_SYM L_NAV)
+ZMK_COMBO(combo_gt,    &kp DE_GT,        4 10,  L_SYM L_NAV)
+ZMK_COMBO(combo_fslsh, &kp DE_FSLH,      7 1,   L_SYM L_A1 L_A2 L_NAV)
+ZMK_COMBO(combo_bslsh, &kp DE_BSLH,      4 12,  L_SYM L_A1 L_A2 L_NAV)
+ZMK_COMBO(combo_tab,   &kp TAB,          1 0,   ALL)
+ZMK_COMBO(combo_rtn,   &kp RETURN,       2 1,   ALL)
+ZMK_COMBO(combo_bspc,  &kp BSPC,         3 4,   L_A1 L_A2 L_NAV)
+ZMK_COMBO(combo_cbspc, &kp LC(BSPC),     4 5,   ALL)
+ZMK_COMBO(combo_esc,   &kp ESC,          4 5 3, ALL)
+ZMK_COMBO(combo_minus, &kp DE_MINUS,     12 10, ALL)
+
+// Layer 5: Numpad Numbers
+ZMK_COMBO(combo_7, &kp DE_N7, 3 10, L_NUM)
+ZMK_COMBO(combo_8, &kp DE_N8, 4 11, L_NUM)
+ZMK_COMBO(combo_9, &kp DE_N9, 12 5, L_NUM)
+
+// Chords with custom timeouts / idle
+ZMK_COMBO(combo_rpt,      &sk LEFT_SHIFT,  9 8,   ALL, 40)
+ZMK_COMBO(combo_repeat_r, &sk LEFT_SHIFT,  11 10, ALL, 40)
+ZMK_COMBO(combo_stdio,    &studio_unlock,  9 8 7, L_SYM, 50, 200)
+
+/* ==========================================================================
+ * Layers
+ * ========================================================================== */
+
+ZMK_LAYER(a1,
+//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+                  al_L   gl_N   sl_D          sr_Y   gr_O   ar_U
+//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+           cl_S   s2_R   s1_H   num_T         num_C  s1_E   s2_I   cr_A
+//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+                         sl_NAV sl_A2         spc_SFT sl_NUM
+//                     ╰──────┴──────╯      ╰──────┴──────╯
+)
+
+ZMK_LAYER(a2,
+//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+                  al_X   gl_B   sl_M          sr_W   gr_Q   ar_CMA
+//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+           cl_F   s2_V   s1_P   num_K         num_G  s1_J   s2_DOT cr_Z
+//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+                         ___    to_BASE       ___    ___
+//                     ╰──────┴──────╯      ╰──────┴──────╯
+)
+
+ZMK_LAYER(nav,
+//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+                  sk_ALT sk_GUI sk_SFT        sr_LFT gr_DWN ar_UP
+//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+           sk_CTL ___    s1_PGUP ___          num_HOM s1_PGDN s2_END cr_RGT
+//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+                         ___    to_BASE       ___    ___
+//                     ╰──────┴──────╯      ╰──────┴──────╯
+)
+
+ZMK_LAYER(sym,
+//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+                  al_EUR gl_HSH sl_DLR        sr_LT  gr_GT  ar_CRT
+//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+           cl_GRV s2_UND s1_MIN num_AMP       num_LBK s1_RBK s2_PIP cr_SLH
+//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+                         ___    to_BASE       ___    ___
+//                     ╰──────┴──────╯      ╰──────┴──────╯
+)
+
+ZMK_LAYER(sym2,
+//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+                  al_AT  gl_SQT sl_DQT        sr_LPR gr_RPR ar_CLN
+//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+           cl_AST s2_TLD s1_EXC num_QMK       num_LBC s1_RBC s2_SMI cr_BSL
+//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+                         ___    to_BASE       ___    ___
+//                     ╰──────┴──────╯      ╰──────┴──────╯
+)
+
+ZMK_LAYER(num,
+//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+                  al_MIN gl_AST sl_EQL        sr_N4  gr_N5  ar_N6
+//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+           cl_PLS s2_PCT s1_PIP num_SLH       num_N1 s1_N2  s2_N3  cr_N0
+//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+                         ___    to_BASE       ___    ___
+//                     ╰──────┴──────╯      ╰──────┴──────╯
+)

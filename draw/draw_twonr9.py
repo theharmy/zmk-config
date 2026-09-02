@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+import sys
+import subprocess
+import yaml
+import re
+from pathlib import Path
+
+raw_code_map = {
+    "KEYBOARD_A": "A", "KEYBOARD_B": "B", "KEYBOARD_C": "C", "KEYBOARD_D": "D",
+    "KEYBOARD_E": "E", "KEYBOARD_F": "F", "KEYBOARD_G": "G", "KEYBOARD_H": "H",
+    "KEYBOARD_I": "I", "KEYBOARD_J": "J", "KEYBOARD_K": "K", "KEYBOARD_L": "L",
+    "KEYBOARD_M": "M", "KEYBOARD_N": "N", "KEYBOARD_O": "O", "KEYBOARD_P": "P",
+    "KEYBOARD_Q": "Q", "KEYBOARD_R": "R", "KEYBOARD_S": "S", "KEYBOARD_T": "T",
+    "KEYBOARD_U": "U", "KEYBOARD_V": "V", "KEYBOARD_W": "W", "KEYBOARD_X": "X",
+    "KEYBOARD_Y": "Z", "KEYBOARD_Z": "Y", # German QWERTZ swap
+    "KEYBOARD_1_AND_EXCLAMATION": "1",
+    "KEYBOARD_2_AND_AT": "2",
+    "KEYBOARD_3_AND_HASH": "3",
+    "KEYBOARD_4_AND_DOLLAR": "4",
+    "KEYBOARD_5_AND_PERCENT": "5",
+    "KEYBOARD_6_AND_CARET": "6",
+    "KEYBOARD_7_AND_AMPERSAND": "7",
+    "KEYBOARD_8_AND_ASTERISK": "8",
+    "KEYBOARD_9_AND_LEFT_PARENTHESIS": "9",
+    "KEYBOARD_0_AND_RIGHT_PARENTHESIS": "0",
+    "KEYBOARD_COMMA_AND_LESS_THAN": ",",
+    "KEYBOARD_PERIOD_AND_GREATER_THAN": ".",
+    "KEYBOARD_SLASH_AND_QUESTION_MARK": "-",
+    "KEYBOARD_NON_US_BACKSLASH_AND_PIPE": "<",
+    "KEYBOARD_GRAVE_ACCENT_AND_TILDE": "^",
+    "KEYBOARD_EQUAL_AND_PLUS": "`",
+    "KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE": "+",
+    "KEYBOARD_BACKSLASH_AND_PIPE": "#",
+    "KEYBOARD_MINUS_AND_UNDERSCORE": "ß",
+}
+
+def decode_binding(s):
+    if not isinstance(s, str):
+        return s
+
+    # Hold-taps: &hml / &hmr
+    m = re.search(r"&(?:hml|hmr)\s+([A-Z_]+)\s+(.+)", s)
+    if m:
+        mod_raw, key_part = m.group(1), m.group(2)
+        mod_label = "Alt" if "ALT" in mod_raw else ("Gui" if "GUI" in mod_raw else ("Shift" if "SHI" in mod_raw or "SFT" in mod_raw else "Ctrl"))
+        
+        # Check direct special symbols
+        if "KEYBOARD_E" in key_part and "RA" in key_part: return {"t": "€", "h": mod_label}
+        if "KEYBOARD_Q" in key_part and "RA" in key_part: return {"t": "@", "h": mod_label}
+        if "KEYBOARD_BACKSLASH_AND_PIPE" in key_part:
+            if "LS" in key_part: return {"t": "'", "h": mod_label}
+            return {"t": "#", "h": mod_label}
+        if "KEYBOARD_4_AND_DOLLAR" in key_part: return {"t": "$", "h": mod_label}
+        if "KEYBOARD_2_AND_AT" in key_part and "LS" in key_part: return {"t": '"', "h": mod_label}
+        if "KEYBOARD_8_AND_ASTERISK" in key_part and "LS" in key_part: return {"t": "(", "h": mod_label}
+        if "KEYBOARD_9_AND_LEFT_PARENTHESIS" in key_part and "LS" in key_part: return {"t": ")", "h": mod_label}
+        if "KEYBOARD_PERIOD_AND_GREATER_THAN" in key_part and "LS" in key_part: return {"t": ":", "h": mod_label}
+        if "KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE" in key_part:
+            if "LS" in key_part: return {"t": "*", "h": mod_label}
+            return {"t": "+", "h": mod_label}
+        if "KEYBOARD_GRAVE_ACCENT_AND_TILDE" in key_part: return {"t": "^", "h": mod_label}
+        if "KEYBOARD_EQUAL_AND_PLUS" in key_part:
+            if "LS" in key_part: return {"t": "`", "h": mod_label}
+            return {"t": "`", "h": mod_label}
+        if "KEYBOARD_NON_US_BACKSLASH_AND_PIPE" in key_part:
+            if "LS" in key_part: return {"t": ">", "h": mod_label}
+            if "RA" in key_part: return {"t": "|", "h": mod_label}
+            return {"t": "<", "h": mod_label}
+        if "KEYBOARD_SLASH_AND_QUESTION_MARK" in key_part:
+            if "LS" in key_part: return {"t": "_", "h": mod_label}
+            return {"t": "-", "h": mod_label}
+        if "KEYBOARD_7_AND_AMPERSAND" in key_part and "LS" in key_part: return {"t": "/", "h": mod_label}
+        if "KEYBOARD_MINUS_AND_UNDERSCORE" in key_part and "RA" in key_part: return {"t": "\\", "h": mod_label}
+
+        for k, v in raw_code_map.items():
+            if k in key_part:
+                return {"t": v, "h": mod_label}
+
+    # Layer-taps: &lt_r4 <layer> <key>
+    m = re.search(r"&lt_r4\s+(\d+)\s+(.+)", s)
+    if m:
+        layer_idx, key_part = int(m.group(1)), m.group(2)
+        layer_names = {0: "a1", 1: "a2", 2: "nav", 3: "sym", 4: "sym2", 5: "num"}
+        layer_label = layer_names.get(layer_idx, str(layer_idx))
+        
+        # Check special symbols
+        if "KEYBOARD_SLASH_AND_QUESTION_MARK" in key_part:
+            if "LS" in key_part: return {"t": "_", "h": layer_label}
+            return {"t": "-", "h": layer_label}
+        if "KEYBOARD_6_AND_CARET" in key_part and "LS" in key_part: return {"t": "&", "h": layer_label}
+        if "KEYBOARD_8_AND_ASTERISK" in key_part and "RA" in key_part: return {"t": "[", "h": layer_label}
+        if "KEYBOARD_9_AND_LEFT_PARENTHESIS" in key_part and "RA" in key_part: return {"t": "]", "h": layer_label}
+        if "KEYBOARD_NON_US_BACKSLASH_AND_PIPE" in key_part and "RA" in key_part: return {"t": "|", "h": layer_label}
+        if "KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE" in key_part and "RA" in key_part: return {"t": "~", "h": layer_label}
+        if "KEYBOARD_1_AND_EXCLAMATION" in key_part and "LS" in key_part: return {"t": "!", "h": layer_label}
+        if "KEYBOARD_MINUS_AND_UNDERSCORE" in key_part and "LS" in key_part: return {"t": "?", "h": layer_label}
+        if "KEYBOARD_7_AND_AMPERSAND" in key_part:
+            if "RA" in key_part: return {"t": "{", "h": layer_label}
+            if "LS" in key_part: return {"t": "/", "h": layer_label}
+        if "KEYBOARD_0_AND_RIGHT_PARENTHESIS" in key_part and "RA" in key_part: return {"t": "}", "h": layer_label}
+        if "KEYBOARD_COMMA_AND_LESS_THAN" in key_part and "LS" in key_part: return {"t": ";", "h": layer_label}
+        if "KEYBOARD_5_AND_PERCENT" in key_part and "LS" in key_part: return {"t": "%", "h": layer_label}
+
+        for k, v in raw_code_map.items():
+            if k in key_part:
+                return {"t": v, "h": layer_label}
+
+    return s
+
+combo_map = {
+    "&macro_rl": "RL",
+    "&macro_hn": "HN",
+    "&macro_dt": "DT",
+    "&macro_cy": "CY",
+    "&macro_eo": "EO",
+    "&macro_ui": "UI",
+    "&macro_lr": "LR",
+    "&macro_nb": "NB",
+    "&macro_mt": "MT",
+    "&macro_gy": "GY",
+    "&macro_oe": "OE",
+    "&macro_iu": "IU",
+    "&studio_unlock": "Unlock",
+    "RETURN": "Enter",
+}
+
+def decode_combo_key(s):
+    if not isinstance(s, str):
+        return s
+    if s in combo_map:
+        return combo_map[s]
+    
+    s_norm = s.replace(" ", "_")
+    
+    # Specific German combos
+    if "KEYBOARD_7_AND_AMPERSAND" in s_norm:
+        if "RA" in s_norm: return "{"
+        if "LS" in s_norm: return "/"
+        return "7"
+    if "KEYBOARD_8_AND_ASTERISK" in s_norm:
+        if "RA" in s_norm: return "["
+        if "LS" in s_norm: return "("
+        return "8"
+    if "KEYBOARD_9_AND_LEFT_PARENTHESIS" in s_norm:
+        if "RA" in s_norm: return "]"
+        if "LS" in s_norm: return ")"
+        return "9"
+    if "KEYBOARD_0_AND_RIGHT_PARENTHESIS" in s_norm:
+        if "RA" in s_norm: return "}"
+        return "0"
+    if "KEYBOARD_MINUS_AND_UNDERSCORE" in s_norm:
+        if "RA" in s_norm: return "\\"
+        if "LS" in s_norm: return "?"
+        return "ß"
+    if "KEYBOARD_NON_US_BACKSLASH_AND_PIPE" in s_norm:
+        if "LS" in s_norm: return ">"
+        if "RA" in s_norm: return "|"
+        return "<"
+    if "KEYBOARD_SLASH_AND_QUESTION_MARK" in s_norm:
+        if "LS" in s_norm: return "_"
+        return "-"
+    if "KEYBOARD_E" in s_norm and "RA" in s_norm: return "€"
+    if "KEYBOARD_Q" in s_norm and "RA" in s_norm: return "@"
+
+    for k, v in raw_code_map.items():
+        if k in s_norm:
+            return v
+    return s
+
+def main():
+    root = Path(__file__).resolve().parent.parent
+    config_dir = root / "config"
+    draw_dir = root / "draw"
+
+    # Step 1: Parse keymap
+    res = subprocess.run(
+        ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "parse", "-z", str(config_dir / "twonr9.keymap")],
+        capture_output=True, text=True, check=True
+    )
+    d = yaml.safe_load(res.stdout)
+
+    # Step 2: Clean up keys and combos
+    for layer, keys in d.get("layers", {}).items():
+        for i, k in enumerate(keys):
+            if isinstance(k, str):
+                keys[i] = decode_binding(k)
+            elif isinstance(k, dict) and "t" in k and isinstance(k["t"], str):
+                decoded = decode_binding(k["t"])
+                if isinstance(decoded, dict):
+                    k.update(decoded)
+
+    for c in d.get("combos", []):
+        c["k"] = decode_combo_key(c["k"])
+
+    yaml_out = draw_dir / "twonr9.yaml"
+    with open(yaml_out, "w") as f:
+        yaml.dump(d, f, sort_keys=False)
+
+    # Step 3: Draw SVG
+    svg_out = draw_dir / "twonr9.svg"
+    with open(svg_out, "w") as f:
+        subprocess.run(
+            ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "draw", str(yaml_out), "-j", str(config_dir / "twonr9.json")],
+            stdout=f, check=True
+        )
+
+    print(f"Generated {yaml_out} and {svg_out}")
+
+if __name__ == "__main__":
+    main()
