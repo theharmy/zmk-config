@@ -1,18 +1,18 @@
 name: Build ZMK firmware (nix)
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - config/**
-      - boards/**
-      - build.yaml
-      - .github/workflows/**
-  pull_request:
-    paths:
-      - config/**
-      - boards/**
-      - build.yaml
-      - .github/workflows/**
+  # push:
+  #   paths:
+  #     - config/**
+  #     - boards/**
+  #     - build.yaml
+  #     - .github/workflows/**
+  # pull_request:
+  #   paths:
+  #     - config/**
+  #     - boards/**
+  #     - build.yaml
+  #     - .github/workflows/**
 
 jobs:
   build:
