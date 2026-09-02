@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - config/**
+      - boards/**
       - build.yaml
   pull_request:
     paths:
       - config/**
+      - boards/**
       - build.yaml
 
 jobs:
@@ -16,4 +18,4 @@ jobs:
     with:
       # Set to 'gnuarmemb' (fastest), 'zephyr' or, 'zephyr-full' (most
       # compatible). ZMK Studio requires 'zephyr-full'.
-      toolchain: zephyr
+      toolchain: zephyr-full
