@@ -216,6 +216,7 @@ combos:
   k: RL
   l:
   - a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -224,6 +225,7 @@ combos:
   k: HN
   l:
   - a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -232,6 +234,7 @@ combos:
   k: DT
   l:
   - a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -240,6 +243,7 @@ combos:
   k: CY
   l:
   - a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -248,6 +252,7 @@ combos:
   k: EO
   l:
   - a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -256,6 +261,7 @@ combos:
   k: UI
   l:
   - a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -264,6 +270,7 @@ combos:
   k: LR
   l:
   - a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -272,6 +279,7 @@ combos:
   k: NB
   l:
   - a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -280,6 +288,7 @@ combos:
   k: MT
   l:
   - a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -288,6 +297,7 @@ combos:
   k: GY
   l:
   - a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -296,6 +306,7 @@ combos:
   k: OE
   l:
   - a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -304,6 +315,7 @@ combos:
   k: IU
   l:
   - a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -312,6 +324,7 @@ combos:
   k: '{'
   l:
   - sym
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -320,6 +333,7 @@ combos:
   k: '['
   l:
   - sym
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -328,6 +342,7 @@ combos:
   k: (
   l:
   - sym
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -336,6 +351,7 @@ combos:
   k: )
   l:
   - sym
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -344,6 +360,7 @@ combos:
   k: ']'
   l:
   - sym
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -352,6 +369,7 @@ combos:
   k: '}'
   l:
   - sym
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -360,6 +378,7 @@ combos:
   k: '?'
   l:
   - sym
+  type: symbol
   align: top
   offset: 0.45
 - p:
@@ -369,6 +388,7 @@ combos:
   l:
   - sym
   - nav
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -378,6 +398,7 @@ combos:
   l:
   - sym
   - nav
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -389,6 +410,7 @@ combos:
   - a1
   - a2
   - nav
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -400,6 +422,7 @@ combos:
   - a1
   - a2
   - nav
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -413,6 +436,7 @@ combos:
   - sym
   - sym2
   - num
+  type: util
   align: top
   offset: 0.45
 - p:
@@ -426,6 +450,7 @@ combos:
   - sym
   - sym2
   - num
+  type: util
   align: top
   offset: 0.45
 - p:
@@ -436,6 +461,7 @@ combos:
   - a1
   - a2
   - nav
+  type: util
   align: top
   offset: 0.45
 - p:
@@ -449,6 +475,7 @@ combos:
   - sym
   - sym2
   - num
+  type: util
   align: top
   offset: 0.45
 - p:
@@ -463,6 +490,7 @@ combos:
   - sym
   - sym2
   - num
+  type: util
   align: top
   offset: 1.15
 - p:
@@ -476,6 +504,7 @@ combos:
   - sym
   - sym2
   - num
+  type: symbol
   align: bottom
   offset: 0.85
 - p:
@@ -484,6 +513,7 @@ combos:
   k: '7'
   l:
   - num
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -492,6 +522,7 @@ combos:
   k: '8'
   l:
   - num
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -500,6 +531,7 @@ combos:
   k: '9'
   l:
   - num
+  type: symbol
   align: mid
   offset: 0.0
 - p:
@@ -515,6 +547,7 @@ combos:
   - sym
   - sym2
   - num
+  type: symbol
   align: bottom
   offset: 0.45
 - p:
@@ -530,6 +563,7 @@ combos:
   - sym
   - sym2
   - num
+  type: symbol
   align: bottom
   offset: 0.45
 - p:
@@ -539,5 +573,6 @@ combos:
   k: Unlock
   l:
   - sym
+  type: system
   align: bottom
   offset: 1.15

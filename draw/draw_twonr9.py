@@ -167,9 +167,23 @@ def decode_combo_key(s):
             return v
     return s
 
+def classify_combo_type(k):
+    if isinstance(k, str):
+        if k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"]:
+            return "bigram"
+        if k in ["{", "}", "[", "]", "(", ")", "?", "<", ">", "/", "\\", "-"]:
+            return "symbol"
+        if k in ["Tab", "Enter", "Bspc", "Ctl+Bspc", "Esc", "Shift"]:
+            return "util"
+        if k in ["Unlock", "Boot", "Reset"]:
+            return "system"
+    return "symbol"
+
 def apply_combo_alignment(combos):
     for c in combos:
         p = set(c["p"])
+        k = c.get("k")
+        c["type"] = classify_combo_type(k)
         
         # 1. Vertical Column Combos -> stay in the middle between top and home rows
         if p in [{0, 7}, {1, 8}, {2, 9}, {3, 10}, {4, 11}, {5, 12}]:
@@ -180,7 +194,7 @@ def apply_combo_alignment(combos):
         elif p.issubset({0, 1, 2, 3, 4, 5}):
             c["align"] = "top"
             if len(p) > 2:
-                c["offset"] = 1.15  # Esc on 4 5 3 sits higher above 2-key combos
+                c["offset"] = 1.15  # Esc sits higher
             else:
                 c["offset"] = 0.45  # Tab, Enter, Bspc, Ctrl+Bspc
                 
@@ -188,66 +202,16 @@ def apply_combo_alignment(combos):
         elif p.issubset({6, 7, 8, 9, 10, 11, 12, 13}):
             c["align"] = "bottom"
             if len(p) > 2:
-                c["offset"] = 1.15  # Unlock on 9 8 7 sits lower below Shift
+                c["offset"] = 1.15  # Unlock sits lower
             elif p in [{12, 10}]:
-                c["offset"] = 0.85  # Minus on 12 10 sits slightly lower than adjacent pairs
+                c["offset"] = 0.85  # Minus
             else:
-                c["offset"] = 0.45  # Shift on 9 8, Shift on 11 10
+                c["offset"] = 0.45  # Shift
                 
         # 4. Diagonal / Cross Combos -> centered in middle
         else:
             c["align"] = "mid"
             c["offset"] = 0.0
-
-def extract_label(key):
-    if isinstance(key, dict):
-        if key.get("type") in ["trans", "held"]:
-            return None
-        return key.get("t")
-    if isinstance(key, str):
-        if key in ["___", "", "None", "&trans", "&none"]:
-            return None
-        return key
-    return None
-
-def build_overview_layer(layers):
-    base_l = layers.get("a1", [])
-    nav_l  = layers.get("nav", [])
-    sym_l  = layers.get("sym", [])
-    num_l  = layers.get("num", [])
-    sym2_l = layers.get("sym2", [])
-
-    overview = []
-    for i in range(len(base_l)):
-        b = base_l[i]
-        base_item = dict(b) if isinstance(b, dict) else {"t": b}
-        
-        # Strip hold modifier text from finger keys (0..13) on overview to give corner legends full space
-        if i < 14 and "h" in base_item:
-            del base_item["h"]
-
-        # Corner 1: Top-Right (Nav)
-        nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
-        if nav_lbl and nav_lbl != base_item.get("t"):
-            base_item["tr"] = nav_lbl
-
-        # Corner 2: Top-Left (Sym)
-        sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
-        if sym_lbl and sym_lbl != base_item.get("t"):
-            base_item["tl"] = sym_lbl
-
-        # Corner 3: Bottom-Left (Num)
-        num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
-        if num_lbl and num_lbl != base_item.get("t"):
-            base_item["bl"] = num_lbl
-
-        # Corner 4: Bottom-Right (Sym2)
-        sym2_lbl = extract_label(sym2_l[i]) if i < len(sym2_l) else None
-        if sym2_lbl and sym2_lbl != base_item.get("t"):
-            base_item["br"] = sym2_lbl
-
-        overview.append(base_item)
-    return overview
 
 def main():
     root = Path(__file__).resolve().parent.parent
@@ -281,7 +245,7 @@ def main():
     with open(yaml_out, "w") as f:
         yaml.dump(d, f, sort_keys=False)
 
-    # Step 3: Draw All-Layers SVG
+    # Step 3: Draw All-Layers SVG (2-column layout)
     svg_out = draw_dir / "twonr9.svg"
     with open(svg_out, "w") as f:
         subprocess.run(
@@ -289,20 +253,28 @@ def main():
             stdout=f, check=True
         )
 
-    # Step 4: Build Overview YAML (Base with 4 corners + Combos on separate ghost layer)
-    overview_combos = []
+    # Step 4: Build 4-Board Overview YAML (a1 + a2 + Bigram Combos + Symbol Combos)
+    bigram_combos = []
+    symbol_combos = []
+
     for c in d.get("combos", []):
         c_copy = dict(c)
-        c_copy["l"] = ["Combos"]
-        overview_combos.append(c_copy)
+        if c.get("type") == "bigram":
+            c_copy["l"] = ["Bigrams"]
+            bigram_combos.append(c_copy)
+        else:
+            c_copy["l"] = ["Symbols"]
+            symbol_combos.append(c_copy)
 
     overview_data = {
         "layout": {"zmk_keyboard": "twonr9"},
         "layers": {
-            "Base": build_overview_layer(d.get("layers", {})),
-            "Combos": [""] * 18
+            "a1 (Base)": d.get("layers", {}).get("a1", []),
+            "a2 (Alphas 2)": d.get("layers", {}).get("a2", []),
+            "Bigrams": [""] * 18,
+            "Symbols": [""] * 18,
         },
-        "combos": overview_combos
+        "combos": bigram_combos + symbol_combos
     }
     overview_yaml = draw_dir / "twonr9_overview.yaml"
     with open(overview_yaml, "w") as f:
