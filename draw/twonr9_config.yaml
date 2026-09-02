@@ -68,8 +68,8 @@ draw_config:
   small_pad: 4
   key_w: 90
   key_h: 84
-  combo_w: 42
-  combo_h: 36
+  combo_w: 32
+  combo_h: 24
 
   svg_style: |
     svg path { fill: inherit; }
@@ -104,7 +104,7 @@ draw_config:
     text.tap     { font-weight: 600; font-size: 22px; }
     text.hold    { font-weight: 500; font-size: 16px; fill: #b57614; }
     text.shifted { font-weight: 500; font-size: 15px; }
-    text.combo, text.left, text.right { font-size: 14px; font-weight: 600; }
+    text.combo, text.left, text.right { font-size: 13px; font-weight: 600; }
     text.tl, text.tr, text.bl, text.br { font-size: 15px; font-weight: 700; }
 
     text.hold, text.bl, text.br    { text-anchor: middle; dominant-baseline: auto; }
@@ -113,7 +113,7 @@ draw_config:
     text.right, text.tr, text.br   { text-anchor: end; }
 
     text.layer-activator { text-decoration: underline; font-weight: 600; }
-    text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right { font-size: 10px; }
+    text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right { font-size: 9px; }
 
     text.label, text.footer {
         fill: var(--color-key);
@@ -125,8 +125,9 @@ draw_config:
     text.footer { text-anchor: end; dominant-baseline: auto; font-size: 15px; }
 
     /* Default key and combo styles */
-    rect.key, rect.combo, rect.combo-separate { fill: var(--color-key); stroke-width: 0; }
-    rect.held, rect.combo.held                { fill: var(--color-held); }
+    rect.key, rect.combo-separate { fill: var(--color-key); stroke-width: 0; }
+    rect.combo                    { fill: var(--color-key); stroke-width: 0; fill-opacity: 0.72; opacity: 0.90; }
+    rect.held, rect.combo.held    { fill: var(--color-held); }
 
     /* Layer-specific key tints */
     .layer-a1 rect.key          { fill: #fbf1c7; }
@@ -141,17 +142,17 @@ draw_config:
     [class*="layer-Symbols"] rect.key { fill: var(--color-ghost); }
     [class*="layer-Combos"] rect.key  { fill: var(--color-ghost); }
 
-    /* Combo box colors by category */
-    .combo-bigram rect.combo   { fill: #fabd2f; }
+    /* Combo box colors by category (with translucent fill) */
+    .combo-bigram rect.combo   { fill: #fabd2f; fill-opacity: 0.72; }
     .combo-bigram text.combo   { fill: #3c3836; }
-    .combo-symbol rect.combo   { fill: #83a598; }
+    .combo-symbol rect.combo   { fill: #83a598; fill-opacity: 0.72; }
     .combo-symbol text.combo   { fill: #fbf1c7; }
-    .combo-util rect.combo     { fill: #fe8019; }
+    .combo-util rect.combo     { fill: #fe8019; fill-opacity: 0.72; }
     .combo-util text.combo     { fill: #fbf1c7; }
-    .combo-system rect.combo   { fill: #d3869b; }
+    .combo-system rect.combo   { fill: #d3869b; fill-opacity: 0.72; }
     .combo-system text.combo   { fill: #3c3836; }
 
-    path.combo { stroke: var(--color-dendron); stroke-width: 2.5; stroke-dasharray: 2, 3; opacity: 0.55; fill: none; }
+    path.combo { stroke: var(--color-dendron); stroke-width: 1.5; stroke-dasharray: 2, 3; opacity: 0.35; fill: none; }
 
     text.tl, use.tl { fill: var(--color-fn); }
     text.tr, use.tr { fill: var(--color-nav); }
