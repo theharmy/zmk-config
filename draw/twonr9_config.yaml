@@ -57,19 +57,19 @@ draw_config:
   append_colon_to_layer_header: false
   dark_mode: false
   footer_text: "urob/zmk-config"
-  glyph_tap_size: 15
-  glyph_hold_size: 12
-  glyph_shifted_size: 10
+  glyph_tap_size: 22
+  glyph_hold_size: 17
+  glyph_shifted_size: 15
   legend_rel_y: 1
   outer_pad_w: 12
   outer_pad_h: 12
   inner_pad_w: 10
   inner_pad_h: 10
   small_pad: 4
-  key_w: 60
-  key_h: 56
-  combo_w: 28
-  combo_h: 24
+  key_w: 90
+  key_h: 84
+  combo_w: 42
+  combo_h: 36
 
   svg_style: |
     svg path { fill: inherit; }
@@ -90,7 +90,7 @@ draw_config:
         fill: var(--color-text);
         background-color: var(--color-bg);
         font-family: Calibri, system-ui, sans-serif;
-        font-size: 16px;
+        font-size: 20px;
         font-kerning: normal;
         text-rendering: optimizeLegibility;
     }
@@ -101,11 +101,11 @@ draw_config:
         letter-spacing: 0.02em;
     }
 
-    text.tap     { font-weight: 600; font-size: 16px; }
-    text.hold    { font-weight: 500; font-size: 12px; fill: #b57614; }
-    text.shifted { font-weight: 400; font-size: 11px; }
-    text.combo, text.left, text.right { font-size: 10px; font-weight: 600; }
-    text.tl, text.tr, text.bl, text.br { font-size: 11px; font-weight: 700; }
+    text.tap     { font-weight: 600; font-size: 22px; }
+    text.hold    { font-weight: 500; font-size: 16px; fill: #b57614; }
+    text.shifted { font-weight: 500; font-size: 15px; }
+    text.combo, text.left, text.right { font-size: 14px; font-weight: 600; }
+    text.tl, text.tr, text.bl, text.br { font-size: 15px; font-weight: 700; }
 
     text.hold, text.bl, text.br    { text-anchor: middle; dominant-baseline: auto; }
     text.shifted, text.tl, text.tr { text-anchor: middle; dominant-baseline: hanging; }
@@ -113,7 +113,7 @@ draw_config:
     text.right, text.tr, text.br   { text-anchor: end; }
 
     text.layer-activator { text-decoration: underline; font-weight: 600; }
-    text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right { font-size: 8px; }
+    text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right { font-size: 10px; }
 
     text.label, text.footer {
         fill: var(--color-key);
@@ -121,8 +121,8 @@ draw_config:
         stroke-width: 4;
         paint-order: stroke;
     }
-    text.label  { font-weight: bold; font-size: 18px; text-anchor: start; }
-    text.footer { text-anchor: end; dominant-baseline: auto; font-size: 12px; }
+    text.label  { font-weight: bold; font-size: 24px; text-anchor: start; }
+    text.footer { text-anchor: end; dominant-baseline: auto; font-size: 15px; }
 
     /* Default key and combo styles */
     rect.key, rect.combo, rect.combo-separate { fill: var(--color-key); stroke-width: 0; }
@@ -138,6 +138,8 @@ draw_config:
     .layer-Bigrams rect.key     { fill: var(--color-ghost); }
     .layer-Symbols rect.key     { fill: var(--color-ghost); }
     .layer-Combos rect.key      { fill: var(--color-ghost); }
+    [class*="layer-Symbols"] rect.key { fill: var(--color-ghost); }
+    [class*="layer-Combos"] rect.key  { fill: var(--color-ghost); }
 
     /* Combo box colors by category */
     .combo-bigram rect.combo   { fill: #fabd2f; }
@@ -149,7 +151,7 @@ draw_config:
     .combo-system rect.combo   { fill: #d3869b; }
     .combo-system text.combo   { fill: #3c3836; }
 
-    path.combo { stroke: var(--color-dendron); stroke-width: 2; stroke-dasharray: 2, 3; opacity: 0.55; fill: none; }
+    path.combo { stroke: var(--color-dendron); stroke-width: 2.5; stroke-dasharray: 2, 3; opacity: 0.55; fill: none; }
 
     text.tl, use.tl { fill: var(--color-fn); }
     text.tr, use.tr { fill: var(--color-nav); }
