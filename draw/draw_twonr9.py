@@ -310,25 +310,30 @@ def post_process_svg_colors(svg_path):
     with open(svg_path) as f:
         svg = f.read()
 
-    # Style stacked dual tap text: <tspan ...>A</tspan><tspan ...>/</tspan><tspan ...>B</tspan>
+    # Style horizontal dual tap text on the same baseline (removes vertical dy stacking)
     svg = re.sub(
-        r'<tspan([^>]*)>([A-Za-z0-9,\.\+\-\*\/])</tspan><tspan([^>]*)>/</tspan><tspan([^>]*)>([A-Za-z0-9,\.\+\-\*\/])</tspan>',
-        r'<tspan class="a1-tap"\1>\2</tspan><tspan class="slash-tap"\3>/</tspan><tspan class="a2-tap"\4>\5</tspan>',
+        r'<text([^>]*)>\s*<tspan[^>]*>([A-Za-z0-9,\.\+\-\*\/])</tspan>\s*<tspan[^>]*>/</tspan>\s*<tspan[^>]*>([A-Za-z0-9,\.\+\-\*\/])</tspan>\s*</text>',
+        r'<text\1><tspan class="a1-tap">\2</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">\3</tspan></text>',
         svg
     )
 
-    # Style horizontal dual tap text: A / B
+    # Style horizontal dual tap text if without tspans: A / B
     svg = re.sub(
         r'(<text[^>]*class="[^"]*tap[^"]*"[^>]*>)([A-Za-z0-9,\.\+\-\*\/])(\s*/\s*)([A-Za-z0-9,\.\+\-\*\/])(</text>)',
         r'\1<tspan class="a1-tap">\2</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">\4</tspan>\5',
         svg
     )
 
-    # Style bigram dual text: RL / LR
+    # Style bigram dual text on the same horizontal baseline: RL / LR
     for (b1, b2) in [("RL", "LR"), ("HN", "NB"), ("DT", "MT"), ("CY", "GY"), ("EO", "OE"), ("UI", "IU")]:
         svg = re.sub(
             rf'<text([^>]*)>\s*<tspan[^>]*>{b1}</tspan><tspan[^>]*>[^<]*</tspan>\s*</text>',
             rf'<text\1><tspan class="a1-bigram">{b1}</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">{b2}</tspan></text>',
+            svg
+        )
+        svg = re.sub(
+            rf'(<text[^>]*class="[^"]*combo[^"]*"[^>]*>){b1}\s*/\s*{b2}(</text>)',
+            rf'\1<tspan class="a1-bigram">{b1}</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">{b2}</tspan>\2',
             svg
         )
 

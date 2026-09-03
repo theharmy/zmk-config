@@ -127,9 +127,7 @@ text.br, use.br { fill: var(--color-sys); }
 <g transform="translate(0, 12)">
 <g transform="translate(126, 60)" class="key keypos-0">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">L</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">X</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">L</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">X</tspan></text>
 <text x="-28" y="-28" class="key tl">€</text>
 <text x="28" y="-28" class="key tr">Alt</text>
 <text x="-28" y="28" class="key bl">-</text>
@@ -137,9 +135,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(210, 42)" class="key keypos-1">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">N</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">B</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">N</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">B</tspan></text>
 <text x="-28" y="-28" class="key tl">#</text>
 <text x="28" y="-28" class="key tr">Gui</text>
 <text x="-28" y="28" class="key bl">*</text>
@@ -147,9 +143,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(294, 69)" class="key keypos-2">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">D</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">M</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">D</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">M</tspan></text>
 <text x="-28" y="-28" class="key tl">$</text>
 <text x="28" y="-28" class="key tr">Shift</text>
 <text x="-28" y="28" class="key bl">0</text>
@@ -157,9 +151,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(395, 69)" class="key keypos-3">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">Y</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">W</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">Y</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">W</tspan></text>
 <text x="-28" y="-28" class="key tl">&lt;</text>
 <text x="28" y="-28" class="key tr">←</text>
 <text x="-28" y="28" class="key bl">$</text>
@@ -167,9 +159,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(479, 42)" class="key keypos-4">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">O</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">Q</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">O</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">Q</tspan></text>
 <text x="-28" y="-28" class="key tl">&gt;</text>
 <text x="28" y="-28" class="key tr">↓</text>
 <text x="-28" y="28" class="key bl">5</text>
@@ -177,9 +167,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(563, 60)" class="key keypos-5">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">U</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">,</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">U</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">,</tspan></text>
 <text x="-28" y="-28" class="key tl">^</text>
 <text x="28" y="-28" class="key tr">↑</text>
 <text x="-28" y="28" class="key bl">6</text>
@@ -187,9 +175,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(42, 166)" class="key keypos-6">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">S</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">F</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">S</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">F</tspan></text>
 <text x="-28" y="-28" class="key tl">`</text>
 <text x="28" y="-28" class="key tr">Ctrl</text>
 <text x="-28" y="28" class="key bl">+</text>
@@ -197,36 +183,28 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(126, 144)" class="key keypos-7">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">R</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">V</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">R</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">V</tspan></text>
 <text x="-28" y="-28" class="key tl">_</text>
 <text x="-28" y="28" class="key bl">%</text>
 <text x="28" y="28" class="key br">~</text>
 </g>
 <g transform="translate(210, 126)" class="key keypos-8">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">H</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">P</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">H</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">P</tspan></text>
 <text x="28" y="-28" class="key tr">PgUp</text>
 <text x="-28" y="28" class="key bl">|</text>
 <text x="28" y="28" class="key br">!</text>
 </g>
 <g transform="translate(294, 153)" class="key keypos-9">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">T</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">K</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">T</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">K</tspan></text>
 <text x="-28" y="-28" class="key tl">&amp;</text>
 <text x="-28" y="28" class="key bl">/</text>
 <text x="28" y="28" class="key br">?</text>
 </g>
 <g transform="translate(395, 153)" class="key keypos-10">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">C</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">G</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">C</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">G</tspan></text>
 <text x="-28" y="-28" class="key tl">[</text>
 <text x="28" y="-28" class="key tr">Home</text>
 <text x="-28" y="28" class="key bl">1</text>
@@ -234,9 +212,7 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(479, 126)" class="key keypos-11">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">E</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">J</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">E</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">J</tspan></text>
 <text x="-28" y="-28" class="key tl">]</text>
 <text x="28" y="-28" class="key tr">PgDn</text>
 <text x="-28" y="28" class="key bl">2</text>
@@ -244,18 +220,14 @@ text.br, use.br { fill: var(--color-sys); }
 </g>
 <g transform="translate(563, 144)" class="key keypos-12">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">I</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">.</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">I</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">.</tspan></text>
 <text x="-28" y="-28" class="key tl">|</text>
 <text x="28" y="-28" class="key tr">End</text>
 <text x="-28" y="28" class="key bl">3</text>
 </g>
 <g transform="translate(647, 166)" class="key keypos-13">
 <rect rx="6" ry="6" x="-32" y="-32" width="64" height="64" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan class="a1-tap" x="0" dy="-1.2em">A</tspan><tspan class="slash-tap" x="0" dy="1.2em">/</tspan><tspan class="a2-tap" x="0" dy="1.2em">Z</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">A</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">Z</tspan></text>
 <text x="-28" y="-28" class="key tl">/</text>
 <text x="28" y="-28" class="key tr">→</text>
 <text x="-28" y="28" class="key bl">0</text>
