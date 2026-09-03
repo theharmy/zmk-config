@@ -201,6 +201,18 @@ def decode_binding(s):
     if s in ["&caps_word", "caps_word"]:
         return "⇪"
 
+    # Clustered Nav & Niri Bindings
+    if "mt_home" in s or "NAV_LEFT" in s:
+        return {"t": "←", "h": "Hm"}
+    if "mt_end" in s or "NAV_RIGHT" in s:
+        return {"t": "→", "h": "End"}
+    if "mt_bspc" in s or "NAV_BSPC" in s:
+        return {"t": "⌫", "h": "W-Del"}
+    if "LG(DE_Q)" in s or "LG(Q)" in s or "KEYBOARD_Q" in s and "LG" in s:
+        return "⌘Q"
+    if "LG(TAB)" in s or "KEYBOARD_TAB" in s and "LG" in s:
+        return "⌘⇥"
+
     # Hold-taps: &hml / &hmr
     m = re.search(r"&(?:hml|hmr)\s+([A-Z_]+)\s+(.+)", s)
     if m:

@@ -145,7 +145,7 @@ ZMK_LAYER(a1,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
                   AL(DE_L) GL(DE_N) SL(DE_D)        SR(DE_Y) GR(DE_O) AR(DE_U)
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_S) FN(DE_R) S1(DE_H) S1(DE_T)      S1(DE_C) S1(DE_E) FN(DE_I) CR(DE_A)
+           CL(DE_S) FN(DE_R) NV(DE_H) S1(DE_T)      S1(DE_C) NV(DE_E) FN(DE_I) CR(DE_A)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
                          A2_DUAL   SPC_NAV          MAGIC_SHIFT SMART_NUM
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
@@ -158,21 +158,21 @@ ZMK_LAYER(a2,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
                   AL(DE_X) GL(DE_B) SL(DE_M)        SR(DE_W) GR(DE_Q) AR(DE_COMMA)
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_F) FN(DE_V) S1(DE_P) S1(DE_K)      S1(DE_G) S1(DE_J) FN(DE_DOT) CR(DE_Z)
+           CL(DE_F) FN(DE_V) NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) CR(DE_Z)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
                          &to L_A1  SPC_NAV          MAGIC_SHIFT SMART_NUM
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 ```
 
-#### Layer 2: `nav` (Navigation & Arrow Keys)
+#### Layer 2: `nav` (Navigation & Niri Suite)
 ```c
 ZMK_LAYER(nav,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  &sk LALT &sk LGUI &sk LSHFT       &kp LEFT &kp DOWN &kp UP
-//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           &sk LCTRL &kp HOME &kp PG_UP &kp END     &kp HOME &kp PG_DN &kp PG_UP &kp RIGHT
-//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
+                  &sk LALT &sk LGUI &sk LSHFT       NAV_LEFT &kp DOWN &kp UP
+//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────╮
+           &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) NAV_BSPC &swapper &kp PG_DN &kp PG_UP NAV_RIGHT
+//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴────────╯
                          ___       &to L_A1         MAGIC_SHIFT SMART_NUM
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )

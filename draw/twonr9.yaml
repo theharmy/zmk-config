@@ -19,13 +19,13 @@ layers:
   - t: R
     h: fn
   - t: H
-    h: sym
+    h: nav
   - t: T
     h: sym
   - t: C
     h: sym
   - t: E
-    h: sym
+    h: nav
   - t: I
     h: fn
   - t: A
@@ -57,13 +57,13 @@ layers:
   - t: V
     h: fn
   - t: P
-    h: sym
+    h: nav
   - t: K
     h: sym
   - t: G
     h: sym
   - t: J
-    h: sym
+    h: nav
   - t: .
     h: fn
   - t: Z
@@ -82,17 +82,20 @@ layers:
   - t: "\u2325"
   - t: "\u2318"
   - t: "\u21E7"
-  - "\u2190"
+  - t: "\u2190"
+    h: "\u2196"
   - "\u2193"
   - "\u2191"
   - t: "\u2303"
-  - "\u2196"
-  - "\u21DE"
-  - "\u2198"
-  - "\u2196"
+  - Q
+  - "Gui+\u21E5"
+  - t: "\u232B"
+    h: "Ctl+\u232B"
+  - "\u21F9"
   - "\u21DF"
   - "\u21DE"
-  - "\u2192"
+  - t: "\u2192"
+    h: "\u2198"
   - type: trans
   - t: a1
     h: toggle

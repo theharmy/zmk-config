@@ -40,8 +40,30 @@
 
 /* --- Fast Layer-Taps on Home Row Keys --- */
 #define S1(k)    &lt_r4 L_SYM k    // Hold: Primary Symbols Layer
+#define NV(k)    &lt_r4 L_NAV k    // Hold: Navigation & Niri Suite
 #define FN(k)    &lt_r4 L_FN k     // Hold: Function & Media Layer
 #define NM(k)    &lt_r4 L_NUM k    // Hold: Numpad / Arithmetic Layer
+
+/* --- Clustered Navigation & Long-Tap Jumps (Urob Nav Pattern) --- */
+#define MT_CORE \
+    flavor = "tap-preferred"; \
+    tapping-term-ms = <220>; \
+    quick-tap-ms = <220>; \
+    hold-trigger-key-positions = <0>;
+
+#define MASK_MODS(NAME, MODS, BINDING) \
+    ZMK_MOD_MORPH(NAME, bindings = <BINDING>, <BINDING>; mods = <MODS>;)
+
+MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
+MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
+
+ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_HOLD_TAP(mt_end,  bindings = <&masked_end>,  <&kp>; MT_CORE)
+
+#define NAV_LEFT  &mt_home 0   LEFT   // Tap: Left arrow  | Long-press: Home (Start of line)
+#define NAV_RIGHT &mt_end 0    RIGHT  // Tap: Right arrow | Long-press: End (End of line)
+#define NAV_BSPC  &mt LC(BSPC) BSPC   // Tap: Backspace   | Long-press: Word delete backwards
+#define NAV_DEL   &mt LC(DEL)  DEL    // Tap: Delete      | Long-press: Word delete forward
 
 /* --- Morphing Symbol & Enclosure Pairs --- */
 ZMK_MOD_MORPH(excl_qmark,

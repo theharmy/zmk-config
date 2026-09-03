@@ -24,14 +24,34 @@ Bottom-Left(Orange│  bl: num       br: fn    │Bottom-Right (Green)
                   ╰──────────────────────────╯
 ```
 
-* **Top-Left (Cyan — `#458588`)**: **`sym` layer** (14 Mod-Morph Symbol Pairs).
-* **Top-Right (Yellow — `#d79921`)**: **`nav` layer** (Directional Arrows `← ↓ ↑ →` & Document Navigation `↖ ↘ ⇞ ⇟`).
-* **Bottom-Left (Orange — `#d65d0e`)**: **`num` layer** (3x3 Calculator Numpad: `4 5 6` top row, `1 2 3 0` home row).
+* **Top-Left (Cyan — `#458588`)**: **`sym` layer** (14 Dual Mod-Morph Symbol Pairs).
+* **Top-Right (Yellow — `#d79921`)**: **`nav` layer** (Clustered Arrows `← ↓ ↑ →`, Niri Ops `⌘Q ⌘⇥ ⇹`, and Navigation `↖ ↘ ⇞ ⇟`).
+* **Bottom-Left (Orange — `#d65d0e`)**: **`num` layer** (3x3 Calculator Numpad: `4 5 6` top row, `1 2 3 0` home row, `7 8 9` chords).
 * **Bottom-Right (Green — `#689d6a`)**: **`fn` layer** (Function Keys `F1`–`F12` & Volume Controls `V-`, `V+`).
 
 ---
 
-## 3. Symmetrical Adaptive Thumb Engine
+## 3. Symmetrical Home-Row Layer Access (Base `a1`)
+
+```text
+                  LEFT HAND                                   RIGHT HAND
+        ╭──────┬──────┬──────┬──────╮               ╭──────┬──────┬──────┬──────╮
+Key     │  6   │  7   │  8   │  9   │               │  10  │  11  │  12  │  13  │
+Letter  │  S   │  R   │  H   │  T   │               │  C   │  E   │  I   │  A   │
+        ├──────┼──────┼──────┼──────┤               ├──────┼──────┼──────┼──────┤
+Hold    │  ⌃   │  fn  │ nav  │ sym  │               │ sym  │ nav  │  fn  │  ⌃   │
+        ╰──────┴──────┴──────┴──────╯               ╰──────┴──────┴──────┴──────╯
+        Pinky   Ring  Middle  Index                 Index  Middle  Ring   Pinky
+```
+
+* **Index Fingers (`T` on 9, `C` on 10)**: Hold for **`sym` layer** (14 mod-morph brackets, quotes, slashes, logic).
+* **Middle Fingers (`H` on 8, `E` on 11)**: Hold for **`nav` layer** (Instant Niri navigation & swapper without moving thumbs).
+* **Ring Fingers (`R` on 7, `I` on 12)**: Hold for **`fn` layer** (`F1`–`F12`, volume controls).
+* **Pinky Fingers (`S` on 6, `A` on 13)**: Hold for **`⌃` (Control)**.
+
+---
+
+## 4. Symmetrical Adaptive Thumb Engine
 
 ```text
                   LEFT THUMBS                                 RIGHT THUMBS
@@ -52,7 +72,27 @@ Bottom-Left(Orange│  bl: num       br: fn    │Bottom-Right (Green)
 
 ---
 
-## 4. Combo Quick Lookup, Usability & Practical Benefits
+## 5. Layer 2: Navigation & Niri Suite (`nav`)
+
+Access via Left Inner Thumb (15) or Home Middle Fingers (`H` / `E`):
+
+| Key | Position | Action | Technical Function in Niri / Editors |
+| :--- | :---: | :--- | :--- |
+| **0, 1, 2, 6** | Left Hand | `⌥`, `⌘`, `⇧`, `⌃` | **Sticky Modifiers** for one-shot window chording |
+| **7** | Left Ring | **`⌘Q`** (`Super + Q`) | **Close active Niri window** |
+| **8** | Left Middle | **`⌘⇥`** (`Super + Tab`) | **Toggle Niri window overview** |
+| **9** | Left Index | **`NAV_BSPC`** | Tap: `⌫` (Backspace), Long-Press: `⌃⌫` (Word Delete Backwards) |
+| **3** | Right Col 1 Top | **`NAV_LEFT`** | Tap: **`←`** (Left arrow), Long-Press: **`Home`** (Start of line) |
+| **4** | Right Col 2 Top | **`NAV_DOWN`** | Tap: **`↓`** (Down arrow), Long-Press: **`Ctrl + End`** (Bottom of doc) |
+| **5** | Right Col 3 Top | **`NAV_UP`** | Tap: **`↑`** (Up arrow), Long-Press: **`Ctrl + Home`** (Top of doc) |
+| **13** | Right Pinky | **`NAV_RIGHT`** | Tap: **`→`** (Right arrow), Long-Press: **`End`** (End of line) |
+| **10** | Right Index | **`&swapper` (`⇹`)** | **Alt+Tab Application Swapper** (Smooth window cycling in Niri) |
+| **11** | Right Middle | **`PgDn` (`⇟`)** | Scroll page down / Next Niri workspace |
+| **12** | Right Ring | **`PgUp` (`⇞`)** | Scroll page up / Previous Niri workspace |
+
+---
+
+## 6. Combo Quick Lookup, Usability & Practical Benefits
 
 ### Top Row: Code Editing & Navigation
 | Combo | Keys | Output | Why it's useful / Benefits |
@@ -81,7 +121,7 @@ Bottom-Left(Orange│  bl: num       br: fn    │Bottom-Right (Green)
 
 ---
 
-## 5. Complete 14-Pair Mod-Morph Symbol System (`sym` Layer)
+## 7. Complete 14-Pair Mod-Morph Symbol System (`sym` Layer)
 
 Access the `sym` layer by holding Left Index **`T`** (Key 9) or Right Index **`C`** (Key 10):
 
@@ -104,7 +144,7 @@ Access the `sym` layer by holding Left Index **`T`** (Key 9) or Right Index **`C
 
 ---
 
-## 6. German Typing Workflow Guide
+## 8. German Typing Workflow Guide
 
 1. **Capitalizing Nouns Mid-Sentence (*"Das Haus"*)**:
    $$\text{Left Thumb (Space)} \longrightarrow \text{Right Thumb (Sticky Shift)} \longrightarrow \text{H (Letter)}$$

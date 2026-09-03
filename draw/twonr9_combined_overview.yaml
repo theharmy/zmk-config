@@ -46,30 +46,30 @@ layers:
     br: F4
   - t: R / V
     h: fn
-    tr: "\u2196"
+    tr: Q
     tl: _ -
     bl: '%'
     br: F5
   - t: H / P
-    h: sym
-    tr: "\u21DE"
+    h: nav
+    tr: "Gui+\u21E5"
     tl: '& @'
     bl: /
     br: F6
   - t: T / K
     h: sym
-    tr: "\u2198"
+    tr: "\u232B"
     tl: '| ='
     bl: .
     br: F7
   - t: C / G
     h: sym
-    tr: "\u2196"
+    tr: "\u21F9"
     tl: '[ {'
     bl: '1'
     br: F11
   - t: E / J
-    h: sym
+    h: nav
     tr: "\u21DF"
     tl: '] }'
     bl: '2'
