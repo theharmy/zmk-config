@@ -10,38 +10,38 @@ parse_config:
   raw_binding_map:
     "&sys_reset": Reset
     "&bootloader": Boot
-    "&caps_word": Caps Word
-    "&studio_unlock": Unlock
+    "&caps_word": "⇪"
+    "&studio_unlock": "🔓"
 
   trans_legend: { "t": "", "type": "trans" }
 
   zmk_keycode_map:
-    LALT: Alt
-    RALT: Alt
-    LCTRL: Ctrl
-    RCTRL: Ctrl
-    LGUI: Gui
-    RGUI: Gui
-    LSHFT: Shift
-    RSHFT: Shift
-    LEFT_SHIFT: Shift
-    LEFT_CONTROL: Ctrl
-    LEFT_ALT: Alt
-    LEFT_GUI: Gui
+    LALT: "⌥"
+    RALT: "⌥"
+    LCTRL: "⌃"
+    RCTRL: "⌃"
+    LGUI: "⌘"
+    RGUI: "⌘"
+    LSHFT: "⇧"
+    RSHFT: "⇧"
+    LEFT_SHIFT: "⇧"
+    LEFT_CONTROL: "⌃"
+    LEFT_ALT: "⌥"
+    LEFT_GUI: "⌘"
 
-    BSPC: Bspc
-    DEL: Del
-    ESC: Esc
-    RET: Enter
-    RETURN: Enter
+    BSPC: "⌫"
+    DEL: "⌦"
+    ESC: "⎋"
+    RET: "⏎"
+    RETURN: "⏎"
     SPACE: Spc
-    TAB: Tab
+    TAB: "⇥"
 
-    PG_UP: PgUp
-    PG_DN: PgDn
+    PG_UP: "⇞"
+    PG_DN: "⇟"
     INS: Ins
-    HOME: Home
-    END: End
+    HOME: "↖"
+    END: "↘"
 
     UP: ↑
     DOWN: ↓
@@ -53,24 +53,24 @@ parse_config:
     DOWN_ARROW: ↓
 
 draw_config:
-  n_columns: 2
+  n_columns: 1
   append_colon_to_layer_header: false
   dark_mode: false
   footer_text: "urob/zmk-config"
   shrink_wide_legends: 0
   glyph_tap_size: 22
-  glyph_hold_size: 17
-  glyph_shifted_size: 15
+  glyph_hold_size: 13
+  glyph_shifted_size: 13
   legend_rel_y: 1
-  outer_pad_w: 12
-  outer_pad_h: 12
-  inner_pad_w: 10
-  inner_pad_h: 10
-  small_pad: 4
-  key_w: 96
-  key_h: 90
+  outer_pad_w: 8
+  outer_pad_h: 8
+  inner_pad_w: 9
+  inner_pad_h: 11
+  small_pad: 2
+  key_w: 98
+  key_h: 92
   combo_w: 34
-  combo_h: 24
+  combo_h: 22
 
   svg_style: |
     svg path { fill: inherit; }
@@ -78,15 +78,15 @@ draw_config:
     svg.keymap {
         --color-bg:      #7c6f64;
         --color-key:     #fbf1c7;
-        --color-text:    #3c3836;
+        --color-text:    #282828;
         --color-ghost:   #928374;
         --color-dendron: #d5c4a1;
         --color-held:    #bdae93;
 
-        --color-fn:      #458588;
+        --color-sym:     #458588;
         --color-nav:     #d79921;
         --color-num:     #d65d0e;
-        --color-sys:     #689d6a;
+        --color-fn:      #689d6a;
 
         fill: var(--color-text);
         background-color: var(--color-bg);
@@ -102,18 +102,19 @@ draw_config:
         letter-spacing: 0.02em;
     }
 
-    text.tap     { font-weight: 600; font-size: 22px; }
-    text.hold    { font-weight: 500; font-size: 16px; fill: #b57614; }
-    text.shifted { font-weight: 500; font-size: 15px; }
+    text.tap     { font-weight: 700; font-size: 22px; fill: #282828; }
+    text.hold    { font-weight: 600; font-size: 13px; fill: #b57614; }
+    text.shifted { font-weight: 500; font-size: 13px; }
     text.combo, text.left, text.right { font-size: 13px; font-weight: 600; }
-    text.tl, text.tr, text.bl, text.br { font-size: 15px; font-weight: 700; }
+    text.tl, text.tr, text.bl { font-size: 17px; font-weight: 700; }
+    text.br                   { font-size: 11px; font-weight: 700; }
 
     text.hold, text.bl, text.br    { text-anchor: middle; dominant-baseline: auto; }
     text.shifted, text.tl, text.tr { text-anchor: middle; dominant-baseline: hanging; }
     text.left, text.tl, text.bl    { text-anchor: start; }
     text.right, text.tr, text.br   { text-anchor: end; }
 
-    text.layer-activator { text-decoration: underline; font-weight: 600; }
+    text.layer-activator { font-weight: 700; }
     text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right { font-size: 9px; }
 
     text.label, text.footer {
@@ -135,7 +136,7 @@ draw_config:
     .layer-a2 rect.key          { fill: #ebdbb2; }
     .layer-nav rect.key         { fill: #fdf0cd; }
     .layer-sym rect.key         { fill: #d8eae5; }
-    .layer-sym2 rect.key        { fill: #dbe8d8; }
+    .layer-fn rect.key          { fill: #dbe8d8; }
     .layer-num rect.key         { fill: #fae0d0; }
     .layer-Bigrams rect.key     { fill: var(--color-ghost); }
     .layer-Symbols rect.key     { fill: var(--color-ghost); }
@@ -143,27 +144,95 @@ draw_config:
     [class*="layer-Symbols"] rect.key { fill: var(--color-ghost); }
     [class*="layer-Combos"] rect.key  { fill: var(--color-ghost); }
 
-    /* Combo box colors by category (with translucent fill) */
-    .combo-bigram rect.combo   { fill: #fabd2f; fill-opacity: 0.72; }
-    .combo-bigram text.combo   { fill: #3c3836; }
-    .combo-symbol rect.combo   { fill: #83a598; fill-opacity: 0.72; }
-    .combo-symbol text.combo   { fill: #fbf1c7; }
-    .combo-util rect.combo     { fill: #fe8019; fill-opacity: 0.72; }
-    .combo-util text.combo     { fill: #fbf1c7; }
-    .combo-system rect.combo   { fill: #d3869b; fill-opacity: 0.72; }
-    .combo-system text.combo   { fill: #3c3836; }
+    /* Combo box colors: Neutral, key-like translucent fill for universal combos */
+    rect.combo,
+    .combo.bigram rect.combo, g.combo.bigram rect,
+    .combo.symbol rect.combo, g.combo.symbol rect,
+    .combo.util rect.combo, g.combo.util rect,
+    .combo.system rect.combo, g.combo.system rect,
+    .combo.multi rect.combo, g.combo.multi rect,
+    .combo.sym rect.combo, g.combo.sym rect,
+    .combo.nav rect.combo, g.combo.nav rect,
+    .combo.fn rect.combo, g.combo.fn rect,
+    .combo.a2 rect.combo, g.combo.a2 rect {
+        fill: #ebdbb2 !important;
+        fill-opacity: 0.55;
+        stroke: #d5c4a1;
+        stroke-width: 1px;
+    }
+    text.combo,
+    .combo.bigram text.combo, g.combo.bigram text,
+    .combo.symbol text.combo, g.combo.symbol text,
+    .combo.util text.combo, g.combo.util text,
+    .combo.system text.combo, g.combo.system text,
+    .combo.multi text.combo, g.combo.multi text,
+    .combo.sym text.combo, g.combo.sym text,
+    .combo.nav text.combo, g.combo.nav text,
+    .combo.fn text.combo, g.combo.fn text,
+    .combo.a2 text.combo, g.combo.a2 text {
+        fill: #282828 !important;
+        font-weight: 700;
+    }
 
-    path.combo { stroke: var(--color-dendron); stroke-width: 1.5; stroke-dasharray: 2, 3; opacity: 0.35; fill: none; }
+    /* Colorful Bigrams on Layer Views */
+    .layer-a1 .combo.bigram rect.combo, .layer-a1 g.combo.bigram rect,
+    [class*="layer-a1"] .combo.bigram rect.combo, [class*="layer-a1"] g.combo.bigram rect {
+        fill: #fabd2f !important;
+        fill-opacity: 0.85;
+        stroke: #d79921;
+        stroke-width: 1.5px;
+    }
+    .layer-a1 .combo.bigram text.combo, .layer-a1 g.combo.bigram text,
+    [class*="layer-a1"] .combo.bigram text.combo, [class*="layer-a1"] g.combo.bigram text {
+        fill: #3c3836 !important;
+        font-weight: 700;
+    }
+
+    .layer-a2 .combo.bigram rect.combo, .layer-a2 g.combo.bigram rect,
+    [class*="layer-a2"] .combo.bigram rect.combo, [class*="layer-a2"] g.combo.bigram rect {
+        fill: #b16286 !important;
+        fill-opacity: 0.85;
+        stroke: #8f3f71;
+        stroke-width: 1.5px;
+    }
+    .layer-a2 .combo.bigram text.combo, .layer-a2 g.combo.bigram text,
+    [class*="layer-a2"] .combo.bigram text.combo, [class*="layer-a2"] g.combo.bigram text {
+        fill: #fbf1c7 !important;
+        font-weight: 700;
+    }
+
+    /* ONLY Number Combo Boxes are Orange */
+    .combo.num rect.combo, g.combo.num rect {
+        fill: #d65d0e !important;
+        fill-opacity: 0.90;
+        stroke: #af3a03;
+        stroke-width: 1.5px;
+    }
+    .combo.num text.combo, g.combo.num text {
+        fill: #fbf1c7 !important;
+        font-weight: 700;
+    }
+
+    /* Clearly Visible Combo Connection Lines */
+    path.combo { stroke: #504945; stroke-width: 2.2; stroke-dasharray: 4, 3; opacity: 0.85; fill: none; }
 
     /* Dual-alpha and combo split color classes */
-    tspan.a1-tap, tspan.a1-bigram { fill: #3c3836; font-weight: 700; }
+    tspan.a1-tap, tspan.a1-bigram { fill: #282828; font-weight: 700; }
     tspan.slash-tap               { fill: #7c6f64; font-weight: 400; opacity: 0.6; }
     tspan.a2-tap, tspan.a2-bigram { fill: #b16286; font-weight: 700; }
 
-    text.tl, use.tl { fill: var(--color-fn); }
-    text.tr, use.tr { fill: var(--color-nav); }
-    text.bl, use.bl { fill: var(--color-num); }
-    text.br, use.br { fill: var(--color-sys); }
+    /* Four-Corner Legend Colors */
+    text.tl, use.tl, .tl { fill: #458588 !important; }
+    text.tr, use.tr, .tr { fill: #d79921 !important; }
+    text.bl, use.bl, .bl { fill: #d65d0e !important; }
+    text.br, use.br, .br { fill: #689d6a !important; }
+
+    /* Layer Activation Colors at the Bottom of Keys */
+    .hold-sym { fill: #458588 !important; font-weight: 700; }
+    .hold-nav { fill: #d79921 !important; font-weight: 700; }
+    .hold-num { fill: #d65d0e !important; font-weight: 700; }
+    .hold-fn  { fill: #689d6a !important; font-weight: 700; }
+    .hold-mod { fill: #b57614 !important; font-weight: 600; }
 
     .icon-tabler > path                             { fill: inherit; stroke: inherit; stroke-width: 2; }
     .icon-tabler > path[stroke="none"][fill="none"] { visibility: hidden; }
@@ -177,11 +246,12 @@ draw_config:
             --color-dendron: #7c6f64;
             --color-held:    #665c54;
 
-            --color-fn:      #83a598;
+            --color-sym:     #83a598;
             --color-nav:     #fabd2f;
             --color-num:     #fe8019;
-            --color-sys:     #b8bb26;
+            --color-fn:      #b8bb26;
         }
+        text.tap                      { fill: #ebdbb2; }
         tspan.a1-tap, tspan.a1-bigram { fill: #ebdbb2; font-weight: 700; }
         tspan.slash-tap               { fill: #928374; font-weight: 400; opacity: 0.6; }
         tspan.a2-tap, tspan.a2-bigram { fill: #d3869b; font-weight: 700; }
@@ -189,9 +259,78 @@ draw_config:
         .layer-a2 rect.key          { fill: #48413c; }
         .layer-nav rect.key         { fill: #4a3e2b; }
         .layer-sym rect.key         { fill: #2d3e3a; }
-        .layer-sym2 rect.key        { fill: #2f402c; }
+        .layer-fn rect.key          { fill: #2f402c; }
         .layer-num rect.key         { fill: #4a3528; }
         .layer-Bigrams rect.key     { fill: #504945; }
         .layer-Symbols rect.key     { fill: #504945; }
         .layer-Combos rect.key      { fill: #504945; }
+        text.tl, use.tl, .tl        { fill: #83a598 !important; }
+        text.tr, use.tr, .tr        { fill: #fabd2f !important; }
+        text.bl, use.bl, .bl        { fill: #fe8019 !important; }
+        text.br, use.br, .br        { fill: #b8bb26 !important; }
+        .hold-sym                   { fill: #83a598 !important; font-weight: 700; }
+        .hold-nav                   { fill: #fabd2f !important; font-weight: 700; }
+        .hold-num                   { fill: #fe8019 !important; font-weight: 700; }
+        .hold-fn                    { fill: #b8bb26 !important; font-weight: 700; }
+        .hold-mod                   { fill: #fabd2f !important; font-weight: 600; }
+
+        rect.combo,
+        .combo.bigram rect.combo, g.combo.bigram rect,
+        .combo.symbol rect.combo, g.combo.symbol rect,
+        .combo.util rect.combo, g.combo.util rect,
+        .combo.system rect.combo, g.combo.system rect,
+        .combo.multi rect.combo, g.combo.multi rect,
+        .combo.sym rect.combo, g.combo.sym rect,
+        .combo.nav rect.combo, g.combo.nav rect,
+        .combo.fn rect.combo, g.combo.fn rect,
+        .combo.a2 rect.combo, g.combo.a2 rect {
+            fill: #504945 !important;
+            fill-opacity: 0.55;
+            stroke: #665c54;
+        }
+        text.combo,
+        .combo.bigram text.combo, g.combo.bigram text,
+        .combo.symbol text.combo, g.combo.symbol text,
+        .combo.util text.combo, g.combo.util text,
+        .combo.system text.combo, g.combo.system text,
+        .combo.multi text.combo, g.combo.multi text,
+        .combo.sym text.combo, g.combo.sym text,
+        .combo.nav text.combo, g.combo.nav text,
+        .combo.fn text.combo, g.combo.fn text,
+        .combo.a2 text.combo, g.combo.a2 text {
+            fill: #ebdbb2 !important;
+            font-weight: 700;
+        }
+
+        .layer-a1 .combo.bigram rect.combo, .layer-a1 g.combo.bigram rect,
+        [class*="layer-a1"] .combo.bigram rect.combo, [class*="layer-a1"] g.combo.bigram rect {
+            fill: #fabd2f !important;
+            fill-opacity: 0.90;
+            stroke: #d79921;
+        }
+        .layer-a1 .combo.bigram text.combo, .layer-a1 g.combo.bigram text,
+        [class*="layer-a1"] .combo.bigram text.combo, [class*="layer-a1"] g.combo.bigram text {
+            fill: #282828 !important;
+        }
+
+        .layer-a2 .combo.bigram rect.combo, .layer-a2 g.combo.bigram rect,
+        [class*="layer-a2"] .combo.bigram rect.combo, [class*="layer-a2"] g.combo.bigram rect {
+            fill: #d3869b !important;
+            fill-opacity: 0.90;
+            stroke: #b16286;
+        }
+        .layer-a2 .combo.bigram text.combo, .layer-a2 g.combo.bigram text,
+        [class*="layer-a2"] .combo.bigram text.combo, [class*="layer-a2"] g.combo.bigram text {
+            fill: #282828 !important;
+        }
+
+        .combo.num rect.combo, g.combo.num rect {
+            fill: #fe8019 !important;
+            fill-opacity: 0.90;
+            stroke: #d65d0e;
+        }
+        .combo.num text.combo, g.combo.num text {
+            fill: #282828 !important;
+        }
+        path.combo                  { stroke: #d5c4a1; stroke-width: 2.2; stroke-dasharray: 4, 3; opacity: 0.85; }
     }

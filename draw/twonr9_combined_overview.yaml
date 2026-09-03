@@ -3,97 +3,98 @@ layout:
 layers:
   Combined (a1 / a2):
   - t: L / X
-    h: Alt
-    tr: Alt
-    tl: "\u20AC"
+    h: "\u2325"
+    tr: "\u2325"
+    tl: '!'
     bl: '-'
-    br: '@'
+    br: F1
   - t: N / B
-    h: Gui
-    tr: Gui
+    h: "\u2318"
+    tr: "\u2318"
     tl: '#'
     bl: '*'
-    br: ''''
+    br: F2
   - t: D / M
-    h: Sft
-    tr: Shift
+    h: "\u21E7"
+    tr: "\u21E7"
     tl: $
-    bl: '0'
-    br: '"'
+    bl: '='
+    br: F3
   - t: Y / W
-    h: Sft
+    h: "\u21E7"
     tr: "\u2190"
-    tl: <
-    bl: $
-    br: (
+    tl: (
+    bl: '4'
+    br: F8
   - t: O / Q
-    h: Gui
+    h: "\u2318"
     tr: "\u2193"
-    tl: '>'
+    tl: )
     bl: '5'
-    br: )
+    br: F9
   - t: U / ,
-    h: Alt
+    h: "\u2325"
     tr: "\u2191"
-    tl: ^
+    tl: ':'
     bl: '6'
-    br: ':'
+    br: F10
   - t: S / F
-    h: Ctl
-    tr: Ctrl
+    h: "\u2303"
+    tr: "\u2303"
     tl: '`'
     bl: +
-    br: '*'
+    br: F4
   - t: R / V
-    h: sym2
+    h: fn
+    tr: "\u2196"
     tl: _
     bl: '%'
-    br: '~'
+    br: F5
   - t: H / P
     h: sym
-    tr: PgUp
-    bl: '|'
-    br: '!'
-  - t: T / K
-    h: num
+    tr: "\u21DE"
     tl: '&'
     bl: /
-    br: '?'
+    br: F6
+  - t: T / K
+    h: sym
+    tr: "\u2198"
+    tl: '|'
+    bl: .
+    br: F7
   - t: C / G
-    h: num
-    tr: Home
+    h: sym
+    tr: "\u2196"
     tl: '['
     bl: '1'
-    br: '{'
+    br: F11
   - t: E / J
     h: sym
-    tr: PgDn
+    tr: "\u21DF"
     tl: ']'
     bl: '2'
-    br: '}'
+    br: F12
   - t: I / .
-    h: sym2
-    tr: End
-    tl: '|'
+    h: fn
+    tr: "\u21DE"
+    tl: ;
     bl: '3'
+    br: V-
   - t: A / Z
-    h: Ctl
+    h: "\u2303"
     tr: "\u2192"
     tl: /
     bl: '0'
-    br: \
-  - t: nav
-    h: sticky
+    br: V+
   - t: a2
-    h: sticky
-    tr: a1
-    tl: a1
-    bl: a1
-    br: a1
+    h: a2
   - t: Spc
-    h: Sft
-  - t: num
-    h: sticky
+    h: nav
+  - h: Repeat
+    s: "\u21EA"
+    t: "\u21E7"
+  - h: num
+    t: Num
   Symbols & Utilities:
   - ''
   - ''
@@ -176,165 +177,123 @@ combos:
   width: 54.0
 - p:
   - 0
-  - 7
-  k: '{'
+  - 1
+  k: "\u21E5"
   l:
   - Symbols & Utilities
-  type: symbol
+  type: util
   align: mid
   offset: 0.0
 - p:
   - 1
+  - 2
+  k: "\u23CE"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 4
+  k:
+    t: "\u232B"
+    s: "\u2326"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 5
+  k: "\u2303\u232B"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 4
+  - 5
+  k: "\u238B"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: top
+  offset: 0.12
+- p:
+  - 6
+  - 7
+  k: "\xDF"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 7
   - 8
-  k: '['
+  k: _
   l:
   - Symbols & Utilities
   type: symbol
   align: mid
   offset: 0.0
 - p:
-  - 2
+  - 8
   - 9
-  k: (
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: )
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 13
-  - 4
-  k: ']'
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: '}'
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 0
-  - 1
-  k: '?'
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: top
-  offset: 0.45
-- p:
-  - 1
-  - 9
-  k: <
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 10
-  k: '>'
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 7
-  - 1
-  k: /
-  l:
-  - Symbols & Utilities
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 12
-  k: \
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 0
-  k: Tab
-  l:
-  - Symbols & Utilities
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 2
-  - 1
-  k: Enter
-  l:
-  - Symbols & Utilities
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 3
-  - 4
-  k: Bspc
-  l:
-  - Symbols & Utilities
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 4
-  - 5
-  k: Ctl+Bspc
-  l:
-  - Symbols & Utilities
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 4
-  - 5
-  - 3
-  k: Esc
-  l:
-  - Symbols & Utilities
-  type: util
-  align: top
-  offset: 1.15
-- p:
-  - 12
-  - 10
   k: '-'
   l:
   - Symbols & Utilities
   type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 10
+  - 11
+  k: ':'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 11
+  - 12
+  k: ;
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 14
+  - 15
+  k: "\u21EA"
+  l:
+  - Symbols & Utilities
+  type: system
+  align: mid
+  offset: 0.0
+- p:
+  - 7
+  - 8
+  - 9
+  k: "\U0001F513"
+  l:
+  - Symbols & Utilities
+  type: sym
   align: bottom
-  offset: 0.85
+  offset: 0.07
 - p:
   - 3
   - 10
   k: '7'
   l:
   - Symbols & Utilities
-  type: symbol
+  type: num
   align: mid
   offset: 0.0
 - p:
@@ -343,47 +302,15 @@ combos:
   k: '8'
   l:
   - Symbols & Utilities
-  type: symbol
+  type: num
   align: mid
   offset: 0.0
 - p:
-  - 12
   - 5
+  - 12
   k: '9'
   l:
   - Symbols & Utilities
-  type: symbol
+  type: num
   align: mid
   offset: 0.0
-- p:
-  - 9
-  - 8
-  k:
-    t: Shift
-    h: sticky
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: bottom
-  offset: 0.45
-- p:
-  - 11
-  - 10
-  k:
-    t: Shift
-    h: sticky
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: bottom
-  offset: 0.45
-- p:
-  - 9
-  - 8
-  - 7
-  k: Unlock
-  l:
-  - Symbols & Utilities
-  type: system
-  align: bottom
-  offset: 1.15

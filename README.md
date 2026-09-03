@@ -1,7 +1,61 @@
-# urob's zmk-config
+# TwoNr9 ZMK Workspace — What the Fork?!
 
-[![Firmware](https://github.com/urob/zmk-config/actions/workflows/build-nix.yml/badge.svg)](https://github.com/urob/zmk-config/actions/workflows/build-nix.yml)
-[![Environment](https://github.com/urob/zmk-config/actions/workflows/test-build-env.yml/badge.svg)](https://github.com/urob/zmk-config/actions/workflows/test-build-env.yml)
+[![Firmware](https://github.com/theharmy/zmk-config/actions/workflows/build-nix.yml/badge.svg)](https://github.com/theharmy/zmk-config/actions/workflows/build-nix.yml)
+[![Environment](https://github.com/theharmy/zmk-config/actions/workflows/test-build-env.yml/badge.svg)](https://github.com/theharmy/zmk-config/actions/workflows/test-build-env.yml)
+
+> **AI-Driven Engineering Notice:** Basically all architectural restructuring, keymap engineering, modularization, and visualization pipeline development in this fork were executed by an autonomous AI agent (Google Gemini 3.7 Flash via opencode).
+>
+> 📖 **Comprehensive Technical Guide:** See [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) for full architectural breakdowns, changelogs, hardware targets, and typing guides.
+
+---
+
+## Combined Layout Overview
+
+<img src="./draw/twonr9_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview" width="100%" /><br />
+*(Generated with [keymap-drawer](https://github.com/caksoylar/keymap-drawer) via `just draw-twonr9`)*
+
+---
+
+## TwoNr9 Highlights & Benefits
+
+This repository adapts [Urob's ZMK devicetree workspace](https://github.com/urob/zmk-config) for the **TwoNr9 (18-Key Split Keyboard)** running on Zephyr 4.1 and Hardware Model v2 (`nice_nano@2.0.0//zmk`), highly tuned for German typography, programming, and minimal-latency typing:
+
+### 1. Dual-Alpha Multiplexing & 12 German Bigrams
+* **Base Alphas (`a1`) & Secondary Alphas (`a2`)**: Seamlessly multiplexed across 18 keys.
+* **12 Vertical Bigram Macros**: Single-chord typing for the most frequent German digraphs (`RL`, `HN`, `DT`, `CY`, `EO`, `UI`, `LR`, `NB`, `MT`, `GY`, `OE`, `IU`).
+* **Home-Row German Eszett (`ß`)**: Dedicated chord (`S + R` on `6 7`) for native German orthography.
+
+### 2. Complete 14-Pair Mod-Morph Symbol System
+Every bracket, quote, slash, and punctuation mark is accessible on the **`sym` layer** without combo clutter:
+* `(` / `<` · `)` / `>` · `[` / `{` · `]` / `}`
+* `:` / `"` · `;` / `'` · `/` / `\` · `_` / `-`
+* `!` / `?` · `#` / `~` · `$` / `€` · `` ` `` / `^` · `&` / `@` · `|` / `=`
+
+### 3. Symmetrical Adaptive Thumb Engine
+* **Left Inner Thumb**: **`Space`** (`&spc_morph`: Shift+Tap = `. ` + Sticky Shift) / Hold = **`nav` layer**.
+* **Left Outer Thumb**: **`a2` Dual Mode** (Tap for 1 secondary letter, Hold for continuous words like *BMW*, *Quiz*, *Pflanze*).
+* **Right Inner Thumb**: **`magic_shift`** (Instant Repeat after letters, Sticky Shift on pause for effortless German noun capitalization, Hold for continuous Shift).
+* **Right Outer Thumb**: **`num_word`** (Auto-terminating number entry).
+
+### 4. Right-Hand 3x3 Calculator Numpad
+* Natural 3x3 calculator grid on the right hand (`4 5 6` top row, `1 2 3 0` home row, `7 8 9` vertical chords).
+
+### 5. Developer & Tooling Ecosystem
+* **ZMK Studio**: Live USB RPC keymap editing on the fly.
+* **KeyPeek HID Visualizer**: Real-time layer notification streaming.
+* **Helix Editor Integration**: Native `dts-lsp-server` and `clangd` configured in `.helix/languages.toml` via Nix.
+* **Custom SVG Visualizer**: Multi-layered, Gruvbox-themed SVG drawings (`just draw-twonr9`).
+
+---
+
+## Credits & Attribution
+* **[Urob](https://github.com/urob/zmk-config)**: For the foundational declarative Nix workspace, `zmk-helpers`, `zmk-auto-layer`, `zmk-adaptive-key`, `zmk-tri-state`, and `pin-west`.
+* **TwoNr9 Creator**: For the ultra-compact 18-key split hardware design.
+* **AI Agent Engineering**: Autonomous design and implementation via Gemini 3.7 Flash.
+
+---
+
+# Original urob/zmk-config Documentation
 
 This is my personal [ZMK firmware](https://github.com/zmkfirmware/zmk/) configuration. At its core
 is a 34-key base keymap that adapts to boards of various sizes and layouts (currently a Corneish
@@ -130,33 +184,6 @@ See [`docs/build-env.md`](docs/build-env.md) for a setup guide and a detailed re
 environment itself is [continuously
 tested](https://github.com/urob/zmk-config/actions/workflows/test-build-env.yml) on Linux and macOS.
 
-## Part II: The keymap
-
-<img src="./draw/overview.svg" alt="Keymap layout" width="100%" /><br />
-([Click here](./draw/base.svg) for
-a breakdown by layer – powered by [keymap-drawer](https://github.com/caksoylar/keymap-drawer).)
-
-All boards share the same 34-key base keymap: each `<board>.keymap` is a small adapter that places
-the 34 shared positions onto the physical layout, padding larger boards like the Glove80 with extra
-keys.
-
-### Layers at a glance
-
-The keymap consists of six layers on top of a Colemak-DH base:
-
-| Layer     | Access                                               | Contents                                                                                                             |
-| --------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **Base**  | default                                              | Colemak-DH with homerow mods                                                                                         |
-| **Nav**   | hold left thumb (Space)                              | Arrow cluster (hold for word/page navigation), Alt-Tab swapper, Alt-F4 shortcut, `CANCEL` all layers and smart-modes |
-| **Fn**    | hold left thumb (Return)                             | F-keys (mirroring the numpad layout), media controls, desktop shortcuts                                              |
-| **Num**   | tap Smart-Num for Numword, hold for momentary        | Numpad on the left half                                                                                              |
-| **Sys**   | Num + Fn (must hold Num first)                       | Bluetooth profiles, bootloader, reset                                                                                |
-| **Mouse** | combo <kbd>W</kbd> + <kbd>P</kbd> (auto-toggles off) | Mouse movement, scrolling and buttons on the right half                                                              |
-
-Symbols are mostly on [combos](#using-combos-instead-of-a-symbol-layer) instead of a dedicated
-layer, and a [leader key](#leader-key) provides access to Umlauts, Greek letters and system
-commands without reserving any keys.
-
 ### Timeless homerow mods
 
 [Homerow mods](https://precondition.github.io/home-row-mods) (aka "HRMs") can be a game changer —
@@ -244,9 +271,6 @@ ZMK_HOLD_TAP(hmr,
 
 #### Troubleshooting
 
-Hopefully, the above configuration "just works". If it doesn't, here's a few smaller (and larger)
-things to try.
-
 - **Noticeable delay when tapping HRMs:** Increase `require-prior-idle-ms`. As a rule of thumb, you
   want to set it to at least `10500/x` where `x` is your (relaxed) WPM for English prose.[^3]
 - **False negatives (same-hand):** Reduce `tapping-term-ms` (or disable
@@ -259,141 +283,6 @@ things to try.
 - **False positives (cross-hand):** Increase `require-prior-idle-ms` (or set flavor to
   `tap-preferred`, which requires holding HRMs past tapping term to activate)
 
-### Using combos instead of a symbol layer
-
-I am a big fan of combos for all sorts of things. In terms of comfort, I much prefer them over
-accessing layers that involve lateral thumb movements to be activated, especially when switching
-between layers in rapid succession.
-
-One common concern about overloading the layout with combos is that they lead to misfires.
-Fortunately, the above-mentioned `require-prior-idle-ms` option also works for combos, which in my
-experience all but completely eliminates misfires — even when rolling keys on the home row!
-
-My combo layout aims to place the most used symbols in easy-to-access locations while also making
-them easy to remember. Specifically:
-
-- the top vertical-combo row replicates the symbols on a standard numbers row (except `+` and `&`
-  being swapped)
-- the bottom vertical-combo row is symmetric to the top row (subscript `_` aligns with superscript
-  `^`; minus `-` aligns with `+`; division `/` aligns with multiplication `*`; logical-or `|` aligns
-  with logical-and `&`)
-- parenthesis, braces, brackets are set up symmetrically as horizontal combos with `<`, `>`, `{` and
-  `}` being accessed from the Navigation layer (or when combined with `Shift`)
-- left-hand side combos for `tab`, `esc`, `cut`, `copy` and `paste` that go well with right-handed
-  mouse usage
-
-All combos are defined in
-[`config/combos.dtsi`](https://github.com/urob/zmk-config/blob/main/config/combos.dtsi).
-
-### Smart layers
-
-Two layers turn themselves off again once you're done with them, so they never need an explicit
-exit.
-
-#### Numword
-
-Inspired by Jonas Hietala's
-[Numword](https://www.jonashietala.se/blog/2021/06/03/the-t-34-keyboard-layout/#where-are-the-digits)
-for QMK, I implemented my own [Auto-layer behavior](https://github.com/urob/zmk-auto-layer) for ZMK
-to set up Numword. It is triggered via a single tap on "Smart-Num". Numword continues to be
-activated as long as I type numbers, and deactivates automatically on any other keypress (holding
-it activates a non-sticky num layer).
-
-After using Numword for more than a year now, I have been overall very happy with it. When typing
-single digits, it effectively is a sticky-layer but with the added advantage that I can also use it
-to type multiple digits.
-
-The main downside is that if a sequence of numbers is _immediately_ followed by any of the letters
-on which my numpad is located (WFPRSTXCD), then the automatic deactivation won't work. But this is
-rare — most number sequences are terminated by `space`, `return` or some form of
-punctuation/delimination. To deal with the rare cases where they aren't, there is a `CANCEL` key on
-the navigation-layer that deactivates Numword, Capsword and Smart-mouse. (It also toggles off when
-pressing `Numword` again, but I find it cognitively easier to have a dedicated "off-switch" than
-keeping track of which modes are currently active.)
-
-#### Smart-mouse
-
-Similarly to Numword, I have a smart-mouse layer (activated by comboing <kbd>W</kbd> +
-<kbd>P</kbd>), which replaces the navigation cluster with scroll and mouse-movements, and replaces
-the right thumbs with mouse buttons. Pressing any other key automatically deactivates the layer.
-
-### Multi-purpose keys
-
-The remaining features all follow the same idea: rather than spending scarce keys, give existing
-ones a second job that is unambiguous in context.
-
-#### Magic Repeat/Shift/Capsword
-
-My right thumb triggers three variations of shift as well as repeat: Tapping after any alpha key
-yields key-repeat (to reduce SFUs). Tapping after any other keycode yields sticky-shift (used to
-capitalize alphas). Holding activates a regular shift, and double-tapping (or equivalently shift +
-tap) activates ZMK's Caps-word behavior.
-
-One minor technical detail: While it would be possible to implement the double-tap functionality as
-a tap-dance, this would add a delay when using single taps. To avoid the delays, I instead
-implemented the double-tap functionality as a mod-morph.
-
-#### Navigation cluster
-
-To economize on keys, I am using hold-taps on my navigation cluster, which yield `home`, `end`,
-`begin/end of document`, and `delete word forward/backward` on long-presses. The exact
-implementation is tweaked so that `Ctrl` is silently absorbed in combination with `home` and `end`
-to avoid accidental document-wide operations (which are accessible via the dedicated `begin/end
-document` keys.)
-
-#### Swapper
-
-I am using [Nick Conway](https://github.com/nickconway)'s fantastic
-[tri-state](https://github.com/zmkfirmware/zmk/pull/1366) behavior, implemented as a module, for
-a one-handed Alt-Tab switcher (`PWin` and `NWin`).
-
-#### Leader key
-
-I am using my own implementation of a [Leader key](https://github.com/urob/zmk-leader-key)
-(activated by comboing <kbd>S</kbd> + <kbd>T</kbd>) to bind various behaviors to my layout without
-reserving dedicated keys. Currently, I am using them to bind German Umlauts, Greek letters for math
-usage, and various system commands (e.g., to toggle Bluetooth). See
-[`leader.dtsi`](https://github.com/urob/zmk-config/blob/main/config/leader.dtsi) for the full list
-of leader key sequences.
-
-### Known issues and workarounds
-
-Since I switched from QMK to ZMK I have been very impressed with how easy it is to set up
-relatively complex layouts in ZMK. For the most part I don't miss any functionality (to the
-contrary, I found that ZMK supports many features natively that would require complex user-space
-implementations in QMK). Below are a few remaining issues:
-
-- ZMK does not yet support "tap-only" combos
-  ([#544](https://github.com/zmkfirmware/zmk/issues/544)), requiring a brief pause when wanting to
-  chord HRMs that overlap with combo positions. As a workaround, I implemented all homerow combos
-  as homerow-mod-combos. This is good enough for day-to-day, but does not address all edge cases
-  (eg changing active mods).
-- Very minor: `&bootloader` doesn't work with stm32 boards like the Planck
-  ([#1086](https://github.com/zmkfirmware/zmk/issues/1086))
-
-## Part III: Adapting this config
-
-This config is written for my own keyboards. If you are looking to adopt it, here are the main
-steps:
-
-1. Fork the repository on GitHub or copy parts of it. GitHub disables Actions on new forks — enable
-   them once from the fork's `Actions` tab if you want to [build in the
-   cloud](#building-the-firmware).
-2. Adjust [`build.yaml`](https://github.com/urob/zmk-config/blob/main/build.yaml) to list your
-   boards and shields.
-3. Add a `<board>.keymap` adapter and `<board>.conf` for your keyboard —
-   [`AGENTS.md`](AGENTS.md) has the step-by-step recipe, including how to find or write the
-   key-position labels for a new board.
-4. Edit `config/base.keymap` (and `combos.dtsi`, `leader.dtsi`, `mouse.dtsi`) to taste. Features are
-   self-contained: e.g., if you don't want the leader key or the mouse layer, delete the `#include`
-   and the corresponding entries in `west.yml`.
-5. [Build the firmware](#building-the-firmware) — either by pushing to GitHub and letting the cloud
-   build do the work (no local setup needed), or with the [local build
-   environment](docs/build-env.md).
-
-The customization instructions in [`AGENTS.md`](AGENTS.md) serve double duty: they brief coding
-agents on the repo's conventions, and they read just as well as a human-readable how-to.
-
 ## Related resources
 
 - The official [ZMK documentation](https://zmk.dev/docs) — the reference for everything upstream:
@@ -403,10 +292,6 @@ agents on the repo's conventions, and they read just as well as a human-readable
   of ZMK modules used in this configuration.
 - [pin-west](https://github.com/urob/pin-west), the manifest-locking tool used to [pin the
   firmware](#pinning-the-firmware). It works with any west workspace, not just this one.
-- A ZMK-centric [introduction to
-  Git](https://gist.github.com/urob/68a1e206b2356a01b876ed02d3f542c7). While the original focus on
-  maintaining ZMK forks is less relevant since ZMK has become modular, its lessons are generally
-  applicable to any Git repo.
 
 [^1]:
     I call it "timer-less", because the large tapping-term makes the behavior insensitive to the

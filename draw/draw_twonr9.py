@@ -36,80 +36,193 @@ raw_code_map = {
 
 sorted_raw_codes = sorted(raw_code_map.items(), key=lambda x: len(x[0]), reverse=True)
 
-def decode_binding(s):
+def decode_hid_code(s):
     if not isinstance(s, str):
         return s
+    
+    s_clean = s.replace(" ", "_").upper()
+    
+    # 1. AltGr (RA) combinations
+    if "RA(" in s_clean or "RA_" in s_clean or "RIGHT_ALT" in s_clean:
+        if "KEYBOARD_E" in s_clean: return "€"
+        if "KEYBOARD_Q" in s_clean: return "@"
+        if "NON_US_BACKSLASH" in s_clean: return "|"
+        if "MINUS_AND_UNDERSCORE" in s_clean: return "\\"
+        if "8_AND_ASTERISK" in s_clean: return "["
+        if "9_AND_LEFT_PARENTHESIS" in s_clean: return "]"
+        if "7_AND_AMPERSAND" in s_clean: return "{"
+        if "0_AND_RIGHT_PARENTHESIS" in s_clean: return "}"
+        if "RIGHT_BRACKET" in s_clean: return "~"
+        if "KEYBOARD_M" in s_clean: return "µ"
+        if "2_AND_AT" in s_clean: return "²"
+        if "3_AND_HASH" in s_clean: return "³"
+
+    # 2. Shift (LS) combinations
+    if "LS(" in s_clean or "LS_" in s_clean or "LEFT_SHIFT" in s_clean or "LSHIFT" in s_clean:
+        if "NON_US_BACKSLASH" in s_clean: return ">"
+        if "BACKSLASH_AND_PIPE" in s_clean: return "'"
+        if "1_AND_EXCLAMATION" in s_clean: return "!"
+        if "2_AND_AT" in s_clean: return '"'
+        if "3_AND_HASH" in s_clean: return "§"
+        if "4_AND_DOLLAR" in s_clean: return "$"
+        if "5_AND_PERCENT" in s_clean: return "%"
+        if "6_AND_CARET" in s_clean: return "&"
+        if "7_AND_AMPERSAND" in s_clean: return "/"
+        if "8_AND_ASTERISK" in s_clean: return "("
+        if "9_AND_LEFT_PARENTHESIS" in s_clean: return ")"
+        if "0_AND_RIGHT_PARENTHESIS" in s_clean: return "="
+        if "SLASH_AND_QUESTION_MARK" in s_clean: return "_"
+        if "RIGHT_BRACKET" in s_clean: return "*"
+        if "PERIOD_AND_GREATER_THAN" in s_clean: return ":"
+        if "COMMA_AND_LESS_THAN" in s_clean: return ";"
+        if "MINUS_AND_UNDERSCORE" in s_clean: return "?"
+        if "EQUAL_AND_PLUS" in s_clean: return "`"
+        if "GRAVE_ACCENT" in s_clean: return "°"
+
+    # 3. Plain unshifted keys
+    if "NON_US_BACKSLASH" in s_clean: return "<"
+    if "BACKSLASH_AND_PIPE" in s_clean: return "#"
+    if "RIGHT_BRACKET_AND_RIGHT_BRACE" in s_clean: return "+"
+    if "SLASH_AND_QUESTION_MARK" in s_clean: return "-"
+    if "PERIOD_AND_GREATER_THAN" in s_clean: return "."
+    if "COMMA_AND_LESS_THAN" in s_clean: return ","
+    if "GRAVE_ACCENT" in s_clean: return "^"
+    if "EQUAL_AND_PLUS" in s_clean: return "´"
+    if "MINUS_AND_UNDERSCORE" in s_clean: return "ß"
+    if "APOSTROPHE_AND_QUOTE" in s_clean: return "ä"
+    if "SEMICOLON_AND_COLON" in s_clean: return "ö"
+    if "LEFT_BRACKET_AND_LEFT_BRACE" in s_clean: return "ü"
+
+    # Digits
+    if "0_AND_RIGHT_PARENTHESIS" in s_clean: return "0"
+    if "1_AND_EXCLAMATION" in s_clean: return "1"
+    if "2_AND_AT" in s_clean: return "2"
+    if "3_AND_HASH" in s_clean: return "3"
+    if "4_AND_DOLLAR" in s_clean: return "4"
+    if "5_AND_PERCENT" in s_clean: return "5"
+    if "6_AND_CARET" in s_clean: return "6"
+    if "7_AND_AMPERSAND" in s_clean: return "7"
+    if "8_AND_ASTERISK" in s_clean: return "8"
+    if "9_AND_LEFT_PARENTHESIS" in s_clean: return "9"
+
+    # Direct letters
+    for k, v in sorted_raw_codes:
+        if k in s_clean:
+            return v
+
+    return s
+
+hold_abbr_map = {
+    "Shift": "⇧",
+    "LEFT_SHIFT": "⇧",
+    "LSHFT": "⇧",
+    "Sft": "⇧",
+    "Control": "⌃",
+    "Ctrl": "⌃",
+    "Ctl": "⌃",
+    "LEFT_CONTROL": "⌃",
+    "LCTRL": "⌃",
+    "Alt": "⌥",
+    "LEFT_ALT": "⌥",
+    "LALT": "⌥",
+    "Gui": "⌘",
+    "LEFT_GUI": "⌘",
+    "LGUI": "⌘",
+    "sym": "sym",
+    "fn": "fn",
+    "num": "num",
+    "num_word": "num"
+}
+
+def decode_binding(s):
+    if isinstance(s, dict):
+        res = dict(s)
+        if "t" in res:
+            res["t"] = decode_binding(res["t"])
+            if isinstance(res["t"], dict):
+                inner = res.pop("t")
+                res.update(inner)
+        if "s" in res:
+            res["s"] = decode_hid_code(res["s"])
+            if res["s"] in ["&dot_spc", "dot_spc"]:
+                del res["s"]
+        if "h" in res:
+            res["h"] = hold_abbr_map.get(res["h"], res["h"])
+            if res["h"] == "sticky":
+                del res["h"]
+        return res
+
+    if not isinstance(s, str):
+        return s
+
+    if s in ["A2_DUAL", "&lt_a2"]:
+        return {"t": "a2", "h": "a2"}
+    if s in ["SPC_NAV", "&lt_spc", "&spc_morph", "SPC_SFT"]:
+        return {"t": "Spc", "h": "nav"}
+    if s in ["MAGIC_SHIFT", "&magic_shift", "&shift_repeat", "shift_repeat"]:
+        return {"t": "⇧", "h": "Repeat", "s": "⇪"}
+    if s in ["&smart_num", "SMART_NUM", "&num_dance"]:
+        return {"t": "Num", "h": "num"}
+
+    # Mod-Morph Symbol Pairs
+    if s in ["&excl_qmark", "excl_qmark"]:
+        return {"t": "!", "s": "?"}
+    if s in ["&hash_tilde", "hash_tilde"]:
+        return {"t": "#", "s": "~"}
+    if s in ["&dllr_euro", "dllr_euro"]:
+        return {"t": "$", "s": "€"}
+    if s in ["&grave_caret", "grave_caret"]:
+        return {"t": "`", "s": "^"}
+    if s in ["&under_minus", "under_minus"]:
+        return {"t": "_", "s": "-"}
+    if s in ["&amps_at", "amps_at"]:
+        return {"t": "&", "s": "@"}
+    if s in ["&pipe_equal", "pipe_equal"]:
+        return {"t": "|", "s": "="}
+    if s in ["&lpar_lt", "lpar_lt"]:
+        return {"t": "(", "s": "<"}
+    if s in ["&rpar_gt", "rpar_gt"]:
+        return {"t": ")", "s": ">"}
+    if s in ["&colon_dqt", "colon_dqt"]:
+        return {"t": ":", "s": '"'}
+    if s in ["&lbkt_lbrc", "lbkt_lbrc"]:
+        return {"t": "[", "s": "{"}
+    if s in ["&rbkt_rbrc", "rbkt_rbrc"]:
+        return {"t": "]", "s": "}"}
+    if s in ["&semi_sqt", "semi_sqt"]:
+        return {"t": ";", "s": "'"}
+    if s in ["&fslh_bslh", "fslh_bslh"]:
+        return {"t": "/", "s": "\\"}
+
+    if s in ["&bs_del", "bs_del"]:
+        return {"t": "⌫", "s": "⌦"}
+    if s in ["&swapper", "swapper"]:
+        return "⇹"
+    if s in ["&caps_word", "caps_word"]:
+        return "⇪"
 
     # Hold-taps: &hml / &hmr
     m = re.search(r"&(?:hml|hmr)\s+([A-Z_]+)\s+(.+)", s)
     if m:
         mod_raw, key_part = m.group(1), m.group(2)
-        mod_label = "Alt" if "ALT" in mod_raw else ("Gui" if "GUI" in mod_raw else ("Shift" if "SHI" in mod_raw or "SFT" in mod_raw else "Ctrl"))
-        
-        # Check direct special symbols
-        if "KEYBOARD_E" in key_part and "RA" in key_part: return {"t": "€", "h": mod_label}
-        if "KEYBOARD_Q" in key_part and "RA" in key_part: return {"t": "@", "h": mod_label}
-        if "KEYBOARD_BACKSLASH_AND_PIPE" in key_part:
-            if "LS" in key_part: return {"t": "'", "h": mod_label}
-            return {"t": "#", "h": mod_label}
-        if "KEYBOARD_4_AND_DOLLAR" in key_part: return {"t": "$", "h": mod_label}
-        if "KEYBOARD_2_AND_AT" in key_part and "LS" in key_part: return {"t": '"', "h": mod_label}
-        if "KEYBOARD_8_AND_ASTERISK" in key_part and "LS" in key_part: return {"t": "(", "h": mod_label}
-        if "KEYBOARD_9_AND_LEFT_PARENTHESIS" in key_part and "LS" in key_part: return {"t": ")", "h": mod_label}
-        if "KEYBOARD_PERIOD_AND_GREATER_THAN" in key_part and "LS" in key_part: return {"t": ":", "h": mod_label}
-        if "KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE" in key_part:
-            if "LS" in key_part: return {"t": "*", "h": mod_label}
-            return {"t": "+", "h": mod_label}
-        if "KEYBOARD_GRAVE_ACCENT_AND_TILDE" in key_part: return {"t": "^", "h": mod_label}
-        if "KEYBOARD_EQUAL_AND_PLUS" in key_part:
-            if "LS" in key_part: return {"t": "`", "h": mod_label}
-            return {"t": "`", "h": mod_label}
-        if "KEYBOARD_NON_US_BACKSLASH_AND_PIPE" in key_part:
-            if "LS" in key_part: return {"t": ">", "h": mod_label}
-            if "RA" in key_part: return {"t": "|", "h": mod_label}
-            return {"t": "<", "h": mod_label}
-        if "KEYBOARD_SLASH_AND_QUESTION_MARK" in key_part:
-            if "LS" in key_part: return {"t": "_", "h": mod_label}
-            return {"t": "-", "h": mod_label}
-        if "KEYBOARD_7_AND_AMPERSAND" in key_part and "LS" in key_part: return {"t": "/", "h": mod_label}
-        if "KEYBOARD_MINUS_AND_UNDERSCORE" in key_part and "RA" in key_part: return {"t": "\\", "h": mod_label}
-
-        for k, v in sorted_raw_codes:
-            if k in key_part:
-                return {"t": v, "h": mod_label}
+        mod_label = "⌥" if "ALT" in mod_raw else ("⌘" if "GUI" in mod_raw else ("⇧" if "SHI" in mod_raw or "SFT" in mod_raw else "⌃"))
+        return {"t": decode_hid_code(key_part), "h": mod_label}
 
     # Layer-taps: &lt_r4 <layer> <key>
     m = re.search(r"&lt_r4\s+(\d+)\s+(.+)", s)
     if m:
         layer_idx, key_part = int(m.group(1)), m.group(2)
-        layer_names = {0: "a1", 1: "a2", 2: "nav", 3: "sym", 4: "sym2", 5: "num"}
+        layer_names = {0: "a1", 1: "a2", 2: "nav", 3: "sym", 4: "fn", 5: "num"}
         layer_label = layer_names.get(layer_idx, str(layer_idx))
-        
-        # Check special symbols
-        if "KEYBOARD_SLASH_AND_QUESTION_MARK" in key_part:
-            if "LS" in key_part: return {"t": "_", "h": layer_label}
-            return {"t": "-", "h": layer_label}
-        if "KEYBOARD_6_AND_CARET" in key_part and "LS" in key_part: return {"t": "&", "h": layer_label}
-        if "KEYBOARD_8_AND_ASTERISK" in key_part and "RA" in key_part: return {"t": "[", "h": layer_label}
-        if "KEYBOARD_9_AND_LEFT_PARENTHESIS" in key_part and "RA" in key_part: return {"t": "]", "h": layer_label}
-        if "KEYBOARD_NON_US_BACKSLASH_AND_PIPE" in key_part and "RA" in key_part: return {"t": "|", "h": layer_label}
-        if "KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE" in key_part and "RA" in key_part: return {"t": "~", "h": layer_label}
-        if "KEYBOARD_1_AND_EXCLAMATION" in key_part and "LS" in key_part: return {"t": "!", "h": layer_label}
-        if "KEYBOARD_MINUS_AND_UNDERSCORE" in key_part and "LS" in key_part: return {"t": "?", "h": layer_label}
-        if "KEYBOARD_7_AND_AMPERSAND" in key_part:
-            if "RA" in key_part: return {"t": "{", "h": layer_label}
-            if "LS" in key_part: return {"t": "/", "h": layer_label}
-        if "KEYBOARD_0_AND_RIGHT_PARENTHESIS" in key_part and "RA" in key_part: return {"t": "}", "h": layer_label}
-        if "KEYBOARD_COMMA_AND_LESS_THAN" in key_part and "LS" in key_part: return {"t": ";", "h": layer_label}
-        if "KEYBOARD_5_AND_PERCENT" in key_part and "LS" in key_part: return {"t": "%", "h": layer_label}
+        return {"t": decode_hid_code(key_part), "h": layer_label}
 
-        for k, v in sorted_raw_codes:
-            if k in key_part:
-                return {"t": v, "h": layer_label}
+    # If it contains HID USAGE
+    if "HID_USAGE" in s.upper() or "ZMK_HID" in s.upper() or "ZMK HID" in s:
+        return decode_hid_code(s)
 
     return s
 
-combo_map = {
+combo_symbol_map = {
     "&macro_rl": "RL",
     "&macro_hn": "HN",
     "&macro_dt": "DT",
@@ -122,96 +235,107 @@ combo_map = {
     "&macro_gy": "GY",
     "&macro_oe": "OE",
     "&macro_iu": "IU",
-    "&studio_unlock": "Unlock",
-    "RETURN": "Enter",
+    "&studio_unlock": "🔓",
+    "&caps_word": "⇪",
+    "&swapper": "⇹",
+    "&bs_del": "⌫ / ⌦",
+    "bs_del": "⌫ / ⌦",
+    "RETURN": "⏎",
+    "Enter": "⏎",
+    "TAB": "⇥",
+    "Tab": "⇥",
+    "BSPC": "⌫",
+    "Bspc": "⌫",
+    "DEL": "⌦",
+    "Del": "⌦",
+    "ESC": "⎋",
+    "Esc": "⎋",
+    "Ctl+Bspc": "⌃⌫",
+    "Ctl+⌫": "⌃⌫",
+    "LC(BSPC)": "⌃⌫",
+    "Shift": "⇧",
+    "Sft": "⇧",
+    "LEFT_SHIFT": "⇧",
 }
 
 def decode_combo_key(s):
+    if isinstance(s, dict):
+        res = dict(s)
+        if "t" in res:
+            res["t"] = decode_combo_key(res["t"])
+        if "s" in res:
+            res["s"] = decode_combo_key(res["s"])
+        return res
     if not isinstance(s, str):
         return s
-    if s in combo_map:
-        return combo_map[s]
-    
-    s_norm = s.replace(" ", "_")
-    
-    # Specific German combos
-    if "KEYBOARD_7_AND_AMPERSAND" in s_norm:
-        if "RA" in s_norm: return "{"
-        if "LS" in s_norm: return "/"
-        return "7"
-    if "KEYBOARD_8_AND_ASTERISK" in s_norm:
-        if "RA" in s_norm: return "["
-        if "LS" in s_norm: return "("
-        return "8"
-    if "KEYBOARD_9_AND_LEFT_PARENTHESIS" in s_norm:
-        if "RA" in s_norm: return "]"
-        if "LS" in s_norm: return ")"
-        return "9"
-    if "KEYBOARD_0_AND_RIGHT_PARENTHESIS" in s_norm:
-        if "RA" in s_norm: return "}"
-        return "0"
-    if "KEYBOARD_MINUS_AND_UNDERSCORE" in s_norm:
-        if "RA" in s_norm: return "\\"
-        if "LS" in s_norm: return "?"
-        return "ß"
-    if "KEYBOARD_NON_US_BACKSLASH_AND_PIPE" in s_norm:
-        if "LS" in s_norm: return ">"
-        if "RA" in s_norm: return "|"
-        return "<"
-    if "KEYBOARD_SLASH_AND_QUESTION_MARK" in s_norm:
-        if "LS" in s_norm: return "_"
-        return "-"
-    if "KEYBOARD_E" in s_norm and "RA" in s_norm: return "€"
-    if "KEYBOARD_Q" in s_norm and "RA" in s_norm: return "@"
+    if s in combo_symbol_map:
+        return combo_symbol_map[s]
+    decoded = decode_hid_code(s)
+    if decoded in combo_symbol_map:
+        return combo_symbol_map[decoded]
+    return decoded
 
-    for k, v in sorted_raw_codes:
-        if k in s_norm:
-            return v
-    return s
+def classify_combo_type(c):
+    k = c.get("k")
+    layers = c.get("l", [])
+    
+    # 1. Bigrams
+    if isinstance(k, str) and (k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"] or "RL / LR" in k or "/" in k):
+        return "bigram"
+    if isinstance(k, dict) and "t" in k and "/" in str(k.get("t")):
+        return "bigram"
 
-def classify_combo_type(k):
+    # 2. Number Combos (7, 8, 9 or unique to num layer) -> Orange
+    if isinstance(k, str) and k in ["7", "8", "9"]:
+        return "num"
+    if len(layers) == 1 and "num" in str(layers[0]).lower():
+        return "num"
+
+    # 3. Check if combo is unique to a single sublayer
+    if len(layers) == 1:
+        l0 = str(layers[0]).lower()
+        if "sym" in l0: return "sym"
+        if "nav" in l0: return "nav"
+        if "fn" in l0: return "fn"
+        if "a2" in l0: return "a2"
+        if "a1" in l0: return "a1"
+
+    # 4. Multi-layer combos categorized by type
+    if isinstance(k, dict):
+        k = k.get("t")
     if isinstance(k, str):
-        if k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"] or "/" in k:
-            return "bigram"
-        if k in ["{", "}", "[", "]", "(", ")", "?", "<", ">", "/", "\\", "-"]:
+        if k in ["{", "}", "[", "]", "(", ")", "?", "<", ">", "/", "\\", "-", ";", ":", "_"]:
             return "symbol"
-        if k in ["Tab", "Enter", "Bspc", "Ctl+Bspc", "Esc", "Shift"]:
+        if k in ["⇥", "⏎", "⌫", "⌃⌫", "⎋", "⇧", "Tab", "Enter", "Bspc", "Ctl+Bspc", "Esc", "Shift", "Sft", "NWin", "⇹"]:
             return "util"
-        if k in ["Unlock", "Boot", "Reset"]:
+        if k in ["🔓", "⇪", "Unlock", "Boot", "Reset", "Caps Word"]:
             return "system"
-    return "symbol"
+    return "util"
 
 def apply_combo_alignment(combos):
     for c in combos:
-        p = set(c["p"])
-        k = c.get("k")
-        c["type"] = classify_combo_type(k)
+        p = set(c.get("p", []))
+        c_type = classify_combo_type(c)
+        c["type"] = c_type
         
-        # 1. Vertical Column Combos -> stay in the middle between top and home rows
-        if p in [{0, 7}, {1, 8}, {2, 9}, {3, 10}, {4, 11}, {5, 12}]:
-            c["align"] = "mid"
-            c["offset"] = 0.0
-            
-        # 2. Horizontal Combos on Top Row (0..5) -> offset above the keys
-        elif p.issubset({0, 1, 2, 3, 4, 5}):
-            c["align"] = "top"
-            if len(p) > 2:
-                c["offset"] = 1.15  # Esc sits higher
+        if c.get("k") == "⌫ / ⌦":
+            c["width"] = 46.0
+
+        # Only offset combos if they share keys (e.g. 3-key chords sharing keys with 2-key combos)
+        if len(p) > 2:
+            is_top = p.issubset({0, 1, 2, 3, 4, 5})
+            is_bottom = p.issubset({6, 7, 8, 9, 10, 11, 12, 13})
+            if is_top:
+                c["align"] = "top"
+                c["offset"] = 0.12
+            elif is_bottom:
+                c["align"] = "bottom"
+                c["offset"] = 0.07
             else:
-                c["offset"] = 0.45  # Tab, Enter, Bspc, Ctrl+Bspc
-                
-        # 3. Horizontal Combos on Bottom Row (6..13) -> offset below the keys
-        elif p.issubset({6, 7, 8, 9, 10, 11, 12, 13}):
-            c["align"] = "bottom"
-            if len(p) > 2:
-                c["offset"] = 1.15  # Unlock sits lower
-            elif p in [{12, 10}]:
-                c["offset"] = 0.85  # Minus
-            else:
-                c["offset"] = 0.45  # Shift
-                
-        # 4. Diagonal / Cross Combos -> centered in middle
+                c["align"] = "mid"
+                c["offset"] = 0.0
         else:
+            # All 2-key combos stay in their natural spot between keys without offset
             c["align"] = "mid"
             c["offset"] = 0.0
 
@@ -219,44 +343,59 @@ def extract_label(key):
     if isinstance(key, dict):
         if key.get("type") in ["trans", "held"]:
             return None
-        return key.get("t")
-    if isinstance(key, str):
+        lbl = key.get("t")
+    elif isinstance(key, str):
         if key in ["___", "", "None", "&trans", "&none"]:
             return None
-        return key
-    return None
+        lbl = key
+    else:
+        return None
+
+    if lbl in ["VOL DN", "Vol-", "&kp C_VOL_DN", "C_VOL_DN"]: return "V-"
+    if lbl in ["VOL UP", "Vol+", "&kp C_VOL_UP", "C_VOL_UP"]: return "V+"
+    if lbl in ["PgUp", "PG_UP", "PgU", "⇞"]: return "⇞"
+    if lbl in ["PgDn", "PG_DN", "PgD", "⇟"]: return "⇟"
+    if lbl in ["Home", "HOME", "Hm", "↖"]: return "↖"
+    if lbl in ["End", "END", "↘"]: return "↘"
+    if lbl in ["Alt", "LALT", "LEFT_ALT", "⌥"]: return "⌥"
+    if lbl in ["Gui", "LGUI", "LEFT_GUI", "⌘"]: return "⌘"
+    if lbl in ["Shift", "Sft", "LSHFT", "LEFT_SHIFT", "⇧"]: return "⇧"
+    if lbl in ["Ctrl", "Ctl", "LCTRL", "LEFT_CONTROL", "⌃"]: return "⌃"
+    return lbl
 
 def build_overview_layer(layers, base_layer_name="a1"):
     base_l = layers.get(base_layer_name, [])
     nav_l  = layers.get("nav", [])
     sym_l  = layers.get("sym", [])
     num_l  = layers.get("num", [])
-    sym2_l = layers.get("sym2", [])
+    fn_l   = layers.get("fn", [])
 
     overview = []
     for i in range(len(base_l)):
         b = base_l[i]
         base_item = dict(b) if isinstance(b, dict) else {"t": b}
         
-        # Corner 1: Top-Right (Nav -> Yellow)
-        nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
-        if nav_lbl and nav_lbl != base_item.get("t"):
-            base_item["tr"] = nav_lbl
+        # Only add 4-corner legends for finger keys (0..13)
+        if i < 14:
+            # Corner 1: Top-Right (Nav -> Yellow)
+            nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
+            if nav_lbl and nav_lbl != base_item.get("t"):
+                base_item["tr"] = nav_lbl
 
-        # Corner 2: Top-Left (Sym -> Cyan)
-        sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
-        if sym_lbl and sym_lbl != base_item.get("t"):
-            base_item["tl"] = sym_lbl
+            # Corner 2: Top-Left (Sym -> Cyan)
+            sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
+            if sym_lbl and sym_lbl != base_item.get("t"):
+                base_item["tl"] = sym_lbl
 
-        # Corner 3: Bottom-Left (Num -> Orange)
-        num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
-        if num_lbl and num_lbl != base_item.get("t"):
-            base_item["bl"] = num_lbl
+            # Corner 3: Bottom-Left (Num -> Orange)
+            num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
+            if num_lbl and num_lbl != base_item.get("t"):
+                base_item["bl"] = num_lbl
 
-        # Corner 4: Bottom-Right (Sym2 -> Green)
-        sym2_lbl = extract_label(sym2_l[i]) if i < len(sym2_l) else None
-        if sym2_lbl and sym2_lbl != base_item.get("t"):
-            base_item["br"] = sym2_lbl
+            # Corner 4: Bottom-Right (Fn -> Green)
+            fn_lbl = extract_label(fn_l[i]) if i < len(fn_l) else None
+            if fn_lbl and fn_lbl != base_item.get("t"):
+                base_item["br"] = fn_lbl
 
         overview.append(base_item)
     return overview
@@ -267,23 +406,7 @@ def build_combined_alpha_layer(layers):
     nav_l  = layers.get("nav", [])
     sym_l  = layers.get("sym", [])
     num_l  = layers.get("num", [])
-    sym2_l = layers.get("sym2", [])
-
-    hold_abbr_map = {
-        "Shift": "Sft",
-        "LEFT_SHIFT": "Sft",
-        "Control": "Ctl",
-        "Ctrl": "Ctl",
-        "LEFT_CONTROL": "Ctl",
-        "LCTRL": "Ctl",
-        "Alt": "Alt",
-        "LEFT_ALT": "Alt",
-        "Gui": "Gui",
-        "LEFT_GUI": "Gui",
-        "sym": "sym",
-        "sym2": "sym2",
-        "num": "num"
-    }
+    fn_l   = layers.get("fn", [])
 
     combined = []
     for i in range(len(a1_l)):
@@ -304,25 +427,27 @@ def build_combined_alpha_layer(layers):
         if h_lbl:
             item["h"] = hold_abbr_map.get(h_lbl, h_lbl)
 
-        # Corner 1: Top-Right (Nav -> Yellow)
-        nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
-        if nav_lbl and nav_lbl != t1:
-            item["tr"] = nav_lbl
+        # Only add 4-corner legends for finger keys (0..13)
+        if i < 14:
+            # Corner 1: Top-Right (Nav -> Yellow)
+            nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
+            if nav_lbl and nav_lbl != t1:
+                item["tr"] = nav_lbl
 
-        # Corner 2: Top-Left (Sym -> Cyan)
-        sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
-        if sym_lbl and sym_lbl != t1:
-            item["tl"] = sym_lbl
+            # Corner 2: Top-Left (Sym -> Cyan)
+            sym_lbl = extract_label(sym_l[i]) if i < len(sym_l) else None
+            if sym_lbl and sym_lbl != t1:
+                item["tl"] = sym_lbl
 
-        # Corner 3: Bottom-Left (Num -> Orange)
-        num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
-        if num_lbl and num_lbl != t1:
-            item["bl"] = num_lbl
+            # Corner 3: Bottom-Left (Num -> Orange)
+            num_lbl = extract_label(num_l[i]) if i < len(num_l) else None
+            if num_lbl and num_lbl != t1:
+                item["bl"] = num_lbl
 
-        # Corner 4: Bottom-Right (Sym2 -> Green)
-        sym2_lbl = extract_label(sym2_l[i]) if i < len(sym2_l) else None
-        if sym2_lbl and sym2_lbl != t1:
-            item["br"] = sym2_lbl
+            # Corner 4: Bottom-Right (Fn -> Green)
+            fn_lbl = extract_label(fn_l[i]) if i < len(fn_l) else None
+            if fn_lbl and fn_lbl != t1:
+                item["br"] = fn_lbl
 
         combined.append(item)
     return combined
@@ -331,21 +456,53 @@ def post_process_svg_colors(svg_path):
     with open(svg_path) as f:
         svg = f.read()
 
-    # Style horizontal dual tap text on the same baseline (removes vertical dy stacking)
+    # 1. Colorize 4-Corner Legends directly
+    svg = re.sub(r'(<text[^>]*class="[^"]*\btl\b[^"]*")', r'\1 style="fill: #458588 !important; font-weight: 700;"', svg)
+    svg = re.sub(r'(<text[^>]*class="[^"]*\btr\b[^"]*")', r'\1 style="fill: #d79921 !important; font-weight: 700;"', svg)
+    svg = re.sub(r'(<text[^>]*class="[^"]*\bbl\b[^"]*")', r'\1 style="fill: #d65d0e !important; font-weight: 700;"', svg)
+    svg = re.sub(r'(<text[^>]*class="[^"]*\bbr\b[^"]*")', r'\1 style="fill: #689d6a !important; font-weight: 700;"', svg)
+
+    # 2. Colorize hold / bottom labels based on their layer target or modifier
+    svg = re.sub(
+        r'(<text[^>]*class="[^"]*hold[^"]*"[^>]*>)\s*sym\s*(</text>)',
+        r'\1<tspan class="hold-sym">sym</tspan>\2',
+        svg
+    )
+    svg = re.sub(
+        r'(<text[^>]*class="[^"]*hold[^"]*"[^>]*>)\s*(?:sym2|fn)\s*(</text>)',
+        r'\1<tspan class="hold-fn">fn</tspan>\2',
+        svg
+    )
+    svg = re.sub(
+        r'(<text[^>]*class="[^"]*hold[^"]*"[^>]*>)\s*(?:num|num_word)\s*(</text>)',
+        r'\1<tspan class="hold-num">num</tspan>\2',
+        svg
+    )
+    svg = re.sub(
+        r'(<text[^>]*class="[^"]*hold[^"]*"[^>]*>)\s*nav\s*(</text>)',
+        r'\1<tspan class="hold-nav">nav</tspan>\2',
+        svg
+    )
+    svg = re.sub(
+        r'(<text[^>]*class="[^"]*hold[^"]*"[^>]*>)\s*(⌥|⌘|⇧|⌃|Repeat|Alt|Gui|Sft|Ctl)\s*(</text>)',
+        r'\1<tspan class="hold-mod">\2</tspan>\3',
+        svg
+    )
+
+    # 3. Style horizontal dual tap text on the same baseline (class-based, theme responsive)
     svg = re.sub(
         r'<text([^>]*)>\s*<tspan[^>]*>([A-Za-z0-9,\.\+\-\*\/])</tspan>\s*<tspan[^>]*>/</tspan>\s*<tspan[^>]*>([A-Za-z0-9,\.\+\-\*\/])</tspan>\s*</text>',
         r'<text\1><tspan class="a1-tap">\2</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">\3</tspan></text>',
         svg
     )
 
-    # Style horizontal dual tap text if without tspans: A / B
     svg = re.sub(
         r'(<text[^>]*class="[^"]*tap[^"]*"[^>]*>)([A-Za-z0-9,\.\+\-\*\/])(\s*/\s*)([A-Za-z0-9,\.\+\-\*\/])(</text>)',
         r'\1<tspan class="a1-tap">\2</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">\4</tspan>\5',
         svg
     )
 
-    # Style bigram dual text on the same horizontal baseline: RL / LR
+    # 4. Style bigram dual text on the same horizontal baseline: RL / LR
     for (b1, b2) in [("RL", "LR"), ("HN", "NB"), ("DT", "MT"), ("CY", "GY"), ("EO", "OE"), ("UI", "IU")]:
         svg = re.sub(
             rf'<text([^>]*)>\s*<tspan[^>]*>{b1}</tspan><tspan[^>]*>[^<]*</tspan>\s*</text>',
@@ -357,6 +514,13 @@ def post_process_svg_colors(svg_path):
             rf'\1<tspan class="a1-bigram">{b1}</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">{b2}</tspan>\2',
             svg
         )
+
+    # 5. Style ⌫ / ⌦ combo text
+    svg = re.sub(
+        r'(<text[^>]*class="[^"]*combo[^"]*"[^>]*>)\s*⌫\s*/\s*⌦\s*(</text>)',
+        r'\1<tspan class="a1-tap">⌫</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">⌦</tspan>\2',
+        svg
+    )
 
     with open(svg_path, "w") as f:
         f.write(svg)
@@ -376,15 +540,14 @@ def main():
     # Step 2: Clean up keys and combos
     for layer, keys in d.get("layers", {}).items():
         for i, k in enumerate(keys):
-            if isinstance(k, str):
-                keys[i] = decode_binding(k)
-            elif isinstance(k, dict) and "t" in k and isinstance(k["t"], str):
-                decoded = decode_binding(k["t"])
-                if isinstance(decoded, dict):
-                    k.update(decoded)
+            keys[i] = decode_binding(k)
 
     for c in d.get("combos", []):
         c["k"] = decode_combo_key(c["k"])
+        layers = c.get("l", [])
+        # In the All-Layers diagram (twonr9.svg), only show universal combos on a1 and a2
+        if len(layers) >= 5 or any("all" in str(x).lower() for x in layers) or set(layers) >= {"a1", "a2", "nav", "sym", "fn", "num"}:
+            c["l"] = ["a1", "a2"]
 
     # Apply vertical / horizontal combo offsets
     apply_combo_alignment(d.get("combos", []))
@@ -393,13 +556,50 @@ def main():
     with open(yaml_out, "w") as f:
         yaml.dump(d, f, sort_keys=False)
 
+    # Load base config for column split
+    with open(draw_dir / "twonr9_config.yaml") as f:
+        cfg = yaml.safe_load(f)
+
+    # 2-column config for All-Layers (twonr9.svg)
+    cfg_2col = dict(cfg)
+    cfg_2col["draw_config"] = dict(cfg.get("draw_config", {}))
+    cfg_2col["draw_config"]["n_columns"] = 2
+    cfg_2col_path = draw_dir / "twonr9_config_2col.yaml"
+    with open(cfg_2col_path, "w") as f:
+        yaml.dump(cfg_2col, f, sort_keys=False)
+
+    # 1-column config for General Overview (twonr9_overview.svg) - 10px outer pad, 19px tl
+    cfg_overview = dict(cfg)
+    cfg_overview["draw_config"] = dict(cfg.get("draw_config", {}))
+    cfg_overview["draw_config"]["n_columns"] = 1
+    cfg_overview["draw_config"]["outer_pad_w"] = 10
+    cfg_overview["draw_config"]["outer_pad_h"] = 10
+    svg_style_overview = cfg.get("draw_config", {}).get("svg_style", "")
+    svg_style_overview = svg_style_overview.replace(
+        "text.tl, text.tr, text.bl { font-size: 17px; font-weight: 700; }",
+        "text.tl { font-size: 19px; font-weight: 700; }\n    text.tr, text.bl { font-size: 17px; font-weight: 700; }"
+    )
+    cfg_overview["draw_config"]["svg_style"] = svg_style_overview
+    cfg_overview_path = draw_dir / "twonr9_config_overview.yaml"
+    with open(cfg_overview_path, "w") as f:
+        yaml.dump(cfg_overview, f, sort_keys=False)
+
+    # 1-column config for Combined Overview (twonr9_combined_overview.svg)
+    cfg_combined = dict(cfg)
+    cfg_combined["draw_config"] = dict(cfg.get("draw_config", {}))
+    cfg_combined["draw_config"]["n_columns"] = 1
+    cfg_combined_path = draw_dir / "twonr9_config_combined.yaml"
+    with open(cfg_combined_path, "w") as f:
+        yaml.dump(cfg_combined, f, sort_keys=False)
+
     # Step 3: Draw All-Layers SVG (2-column layout)
     svg_out = draw_dir / "twonr9.svg"
     with open(svg_out, "w") as f:
         subprocess.run(
-            ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "draw", str(yaml_out), "-j", str(config_dir / "twonr9.json")],
+            ["keymap", "-c", str(cfg_2col_path), "draw", str(yaml_out), "-j", str(config_dir / "twonr9.json")],
             stdout=f, check=True
         )
+    post_process_svg_colors(svg_out)
 
     # Step 4: Build Overview YAML (a1 + a2 with their respective bigrams, and Symbols & Util ghost layer)
     overview_combos = []
@@ -433,9 +633,10 @@ def main():
     overview_svg = draw_dir / "twonr9_overview.svg"
     with open(overview_svg, "w") as f:
         subprocess.run(
-            ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "draw", str(overview_yaml), "-j", str(config_dir / "twonr9.json")],
+            ["keymap", "-c", str(cfg_overview_path), "draw", str(overview_yaml), "-j", str(config_dir / "twonr9.json")],
             stdout=f, check=True
         )
+    post_process_svg_colors(overview_svg)
 
     # Step 5: Build Combined Alpha Overview YAML (a1 / a2 merged with dual bigrams & 4-corner legends)
     combined_bigram_map = {
@@ -481,10 +682,15 @@ def main():
     combined_svg = draw_dir / "twonr9_combined_overview.svg"
     with open(combined_svg, "w") as f:
         subprocess.run(
-            ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "draw", str(combined_yaml), "-j", str(config_dir / "twonr9.json")],
+            ["keymap", "-c", str(cfg_combined_path), "draw", str(combined_yaml), "-j", str(config_dir / "twonr9.json")],
             stdout=f, check=True
         )
     post_process_svg_colors(combined_svg)
+
+    # Clean up temp configs
+    if cfg_2col_path.exists(): cfg_2col_path.unlink()
+    if cfg_overview_path.exists(): cfg_overview_path.unlink()
+    if cfg_combined_path.exists(): cfg_combined_path.unlink()
 
     print(f"Generated {svg_out}, {overview_svg}, and {combined_svg}")
 

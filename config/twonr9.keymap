@@ -1,22 +1,25 @@
 /*
- * TwoNr9 ZMK Keymap (18-Key Split Keyboard)
+ * TwoNr9 (18-Key Split Keyboard) Unified Keymap
  *
  * Modular architecture:
  * - config/keys_de.h          -> German keycodes (DE_*)
- * - config/twonr9_keys.h      -> Direct parameter macros: AL(), GL(), SL(), CL(), SR(), GR(), AR(), CR(), S1(), S2(), NM()
+ * - config/twonr9_keys.h      -> Parameterized macros, morphing brackets, sentence space, smart num
  * - config/twonr9_macros.dtsi  -> German bigram digraph macros
- * - config/twonr9_combos.dtsi  -> Categorized combos
+ * - config/twonr9_combos.dtsi  -> Coding & utility combos
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/outputs.h>
+
 #include "keys_de.h"
 
 /* ==============================================================================
- * Global Settings & Timings
+ * Global Behavior Settings & Tunings
  * ============================================================================== */
 
-#define COMBO_TERM 30
 #define QUICK_TAP_MS 175
 
 #include "zmk-helpers/helper.h"
@@ -28,9 +31,9 @@
 #define L_A1   0  // Base Alpha Layer 1
 #define L_A2   1  // Secondary Alpha Layer 2
 #define L_NAV  2  // Navigation & Editing
-#define L_SYM  3  // Primary Symbols & Brackets
-#define L_SYM2 4  // Secondary Symbols & Punctuations
-#define L_NUM  5  // Numpad & Arithmetic
+#define L_SYM  3  // Morphing Brackets & CS Symbols
+#define L_FN   4  // Function Keys & Media
+#define L_NUM  5  // 3x3 Right-Hand Numpad & Arithmetic
 
 #define ALL 0 1 2 3 4 5
 
@@ -83,87 +86,79 @@ ZMK_HOLD_TAP(hmr,
     hold-trigger-on-release;
 )
 
-// Fast Layer-Tap for homerow thumb/inner layer switches
+// Layer-tap for home row sub-layer access
 ZMK_HOLD_TAP(lt_r4,
-    flavor = "tap-preferred";
-    tapping-term-ms = <150>;
-    require-prior-idle-ms = <50>;
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
     bindings = <&mo>, <&kp>;
 )
 
-/* ==============================================================================
- * Modular Includes
- * ============================================================================== */
-
+/* Include modular behaviors, macros, combos, and parameter macros */
 #include "twonr9_keys.h"
 #include "twonr9_macros.dtsi"
 #include "twonr9_combos.dtsi"
 
 /* ==============================================================================
  * Layers
- *
- * Direct Parameter Macro Reference:
- *   AL(k): Left Alt   | GL(k): Left Gui   | SL(k): Left Shift  | CL(k): Left Ctrl
- *   AR(k): Right Alt  | GR(k): Right Gui  | SR(k): Right Shift | CR(k): Right Ctrl
- *   S1(k): Sym Layer  | S2(k): Sym2 Layer | NM(k): Num Layer
  * ============================================================================== */
 
 ZMK_LAYER(a1,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
                   AL(DE_L) GL(DE_N) SL(DE_D)        SR(DE_Y) GR(DE_O) AR(DE_U)
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_S) S2(DE_R) S1(DE_H) NM(DE_T)      NM(DE_C) S1(DE_E) S2(DE_I) CR(DE_A)
+           CL(DE_S) FN(DE_R) S1(DE_H) S1(DE_T)      S1(DE_C) S1(DE_E) FN(DE_I) CR(DE_A)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         &sl L_NAV &sl L_A2       &mt LSHFT SPACE &sl L_NUM
-//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
+                         A2_DUAL   SPC_NAV          MAGIC_SHIFT SMART_NUM
+//                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(a2,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
                   AL(DE_X) GL(DE_B) SL(DE_M)        SR(DE_W) GR(DE_Q) AR(DE_COMMA)
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_F) S2(DE_V) S1(DE_P) NM(DE_K)      NM(DE_G) S1(DE_J) S2(DE_DOT) CR(DE_Z)
+           CL(DE_F) FN(DE_V) S1(DE_P) S1(DE_K)      S1(DE_G) S1(DE_J) FN(DE_DOT) CR(DE_Z)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         ___       &to L_A1       ___             ___
-//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
+                         &to L_A1  SPC_NAV          MAGIC_SHIFT SMART_NUM
+//                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(nav,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  &sk LALT &sk LGUI &sk LSHFT       SR(LEFT) GR(DOWN) AR(UP)
+                  &sk LALT &sk LGUI &sk LSHFT       &kp LEFT &kp DOWN &kp UP
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           &sk LCTRL ___     S1(PG_UP) ___          NM(HOME) S1(PG_DN) S2(END) CR(RIGHT)
+           &sk LCTRL &kp HOME &kp PG_UP &kp END     &kp HOME &kp PG_DN &kp PG_UP &kp RIGHT
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         ___       &to L_A1       ___             ___
-//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
+                         ___       &to L_A1         MAGIC_SHIFT SMART_NUM
+//                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(sym,
-//              ╭─────────┬─────────┬─────────╮      ╭────────┬────────┬────────╮
-                  AL(DE_EURO) GL(DE_HASH) SL(DE_DLLR)  SR(DE_LT) GR(DE_GT) AR(DE_CARET)
-//       ╭──────┼─────────┼─────────┼─────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_GRAVE) S2(DE_UNDER) S1(DE_MINUS) NM(DE_AMPS) NM(DE_LBKT) S1(DE_RBKT) S2(DE_PIPE) CR(DE_FSLH)
-//       ╰──────┴─────────┼─────────┼─────────┤      ├────────┼────────┼────────┴──────╯
-                          ___       &to L_A1         ___      ___
-//                      ╰─────────┴─────────╯        ╰────────┴────────╯
+//              ╭───────────┬───────────┬───────────╮      ╭────────┬────────┬────────────╮
+                  &excl_qmark &hash_tilde &dllr_euro         &lpar_lt &rpar_gt &colon_dqt
+//       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
+            &grave_caret &under_minus &amps_at &pipe_equal  &lbkt_lbrc &rbkt_rbrc &semi_sqt  &fslh_bslh
+//       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
+                            ___         &to L_A1           MAGIC_SHIFT SMART_NUM
+//                        ╰───────────┴───────────╯      ╰───────────┴─────────╯
 )
 
-ZMK_LAYER(sym2,
-//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL(DE_AT) GL(DE_SQT) SL(DE_DQT)   SR(DE_LPAR) GR(DE_RPAR) AR(DE_COLON)
-//       ╭──────┼────────┬────────┬────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_ASTRK) S2(DE_TILDE) S1(DE_EXCL) NM(DE_QMARK) NM(DE_LBRC) S1(DE_RBRC) S2(DE_SEMI) CR(DE_BSLH)
-//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         ___       &to L_A1       ___             ___
-//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
+ZMK_LAYER(fn,
+//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
+                  &kp F1 &kp F2 &kp F3        &kp F8 &kp F9 &kp F10
+//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
+           &kp F4 &kp F5 &kp F6 &kp F7        &kp F11 &kp F12 &kp C_VOL_DN &kp C_VOL_UP
+//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
+                         ___    &to L_A1      MAGIC_SHIFT SMART_NUM
+//                     ╰──────┴──────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(num,
-//              ╭─────────┬─────────┬─────────╮      ╭────────┬────────┬────────╮
-                  AL(DE_MINUS) GL(DE_ASTRK) SL(DE_EQUAL) SR(DE_N4) GR(DE_N5) AR(DE_N6)
-//       ╭──────┼─────────┼─────────┼─────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_PLUS) S2(DE_PRCNT) S1(DE_PIPE) NM(DE_FSLH) NM(DE_N1) S1(DE_N2) S2(DE_N3) CR(DE_N0)
-//       ╰──────┴─────────┼─────────┼─────────┤      ├────────┼────────┼────────┴──────╯
-                          ___       &to L_A1         ___      ___
-//                      ╰─────────┴─────────╯        ╰────────┴────────╯
+//              ╭────────────┬────────────┬────────────╮      ╭────────┬────────┬────────╮
+                  &kp DE_MINUS &kp DE_ASTRK &kp DE_EQUAL        &kp DE_N4 &kp DE_N5 &kp DE_N6
+//       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
+           &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &kp DE_DOT      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
+//       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
+                             ___          &to L_A1            MAGIC_SHIFT SMART_NUM
+//                         ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )

@@ -3,212 +3,189 @@ layout:
 layers:
   a1:
   - t: L
-    h: Alt
+    h: "\u2325"
   - t: N
-    h: Gui
+    h: "\u2318"
   - t: D
-    h: Shift
+    h: "\u21E7"
   - t: Y
-    h: Shift
+    h: "\u21E7"
   - t: O
-    h: Gui
+    h: "\u2318"
   - t: U
-    h: Alt
+    h: "\u2325"
   - t: S
-    h: Ctrl
+    h: "\u2303"
   - t: R
-    h: sym2
+    h: fn
   - t: H
     h: sym
   - t: T
-    h: num
+    h: sym
   - t: C
-    h: num
+    h: sym
   - t: E
     h: sym
   - t: I
-    h: sym2
+    h: fn
   - t: A
-    h: Ctrl
-  - t: nav
-    h: sticky
+    h: "\u2303"
   - t: a2
-    h: sticky
+    h: a2
   - t: Spc
-    h: Shift
-  - t: num
-    h: sticky
+    h: nav
+  - h: Repeat
+    s: "\u21EA"
+    t: "\u21E7"
+  - h: num
+    t: Num
   a2:
   - t: X
-    h: Alt
+    h: "\u2325"
   - t: B
-    h: Gui
+    h: "\u2318"
   - t: M
-    h: Shift
+    h: "\u21E7"
   - t: W
-    h: Shift
+    h: "\u21E7"
   - t: Q
-    h: Gui
+    h: "\u2318"
   - t: ','
-    h: Alt
+    h: "\u2325"
   - t: F
-    h: Ctrl
+    h: "\u2303"
   - t: V
-    h: sym2
+    h: fn
   - t: P
     h: sym
   - t: K
-    h: num
+    h: sym
   - t: G
-    h: num
+    h: sym
   - t: J
     h: sym
   - t: .
-    h: sym2
+    h: fn
   - t: Z
-    h: Ctrl
-  - type: trans
+    h: "\u2303"
   - t: a1
     h: toggle
     type: held
-  - type: trans
-  - type: trans
+  - t: Spc
+    h: nav
+  - h: Repeat
+    s: "\u21EA"
+    t: "\u21E7"
+  - h: num
+    t: Num
   nav:
-  - t: Alt
-    h: sticky
-  - t: Gui
-    h: sticky
-  - t: Shift
-    h: sticky
-  - t: "\u2190"
-    h: Shift
-  - t: "\u2193"
-    h: Gui
-  - t: "\u2191"
-    h: Alt
-  - t: Ctrl
-    h: sticky
+  - t: "\u2325"
+  - t: "\u2318"
+  - t: "\u21E7"
+  - "\u2190"
+  - "\u2193"
+  - "\u2191"
+  - t: "\u2303"
+  - "\u2196"
+  - "\u21DE"
+  - "\u2198"
+  - "\u2196"
+  - "\u21DF"
+  - "\u21DE"
+  - "\u2192"
   - type: trans
-  - t: PgUp
-    h: sym
-  - type: trans
-  - t: Home
-    h: num
-  - t: PgDn
-    h: sym
-  - t: End
-    h: sym2
-  - t: "\u2192"
-    h: Ctrl
-  - type: held
   - t: a1
     h: toggle
-  - type: trans
-  - type: trans
+    type: held
+  - h: Repeat
+    s: "\u21EA"
+    t: "\u21E7"
+  - h: num
+    t: Num
   sym:
-  - t: "\u20AC"
-    h: Alt
-  - t: '#'
-    h: Gui
-  - t: $
-    h: Shift
-  - t: <
-    h: Shift
-  - t: '>'
-    h: Gui
-  - t: ^
-    h: Alt
-  - t: '`'
-    h: Ctrl
-  - t: _
-    h: sym2
-  - t: '-'
-    type: held
-    h: sym
-  - t: '&'
-    h: num
-  - t: '['
-    h: num
-  - t: ']'
-    h: sym
-  - t: '|'
-    h: sym2
-  - t: /
-    h: Ctrl
-  - type: held
-  - t: a1
-    h: toggle
-  - type: trans
-  - type: trans
-  sym2:
-  - t: '@'
-    h: Alt
-  - t: ''''
-    h: Gui
-  - t: '"'
-    h: Shift
-  - t: (
-    h: Shift
-  - t: )
-    h: Gui
-  - t: ':'
-    h: Alt
-  - t: '*'
-    h: Ctrl
-  - t: '~'
-    h: sym2
   - t: '!'
-    h: sym
-  - t: '?'
-    h: num
-  - t: '{'
-    h: num
-  - t: '}'
-    h: sym
-  - t: ;
-    type: held
-    h: sym2
-  - t: \
-    h: Ctrl
-  - type: held
-  - t: a1
-    h: toggle
-  - type: trans
-  - type: trans
-  num:
-  - t: '-'
-    h: Alt
-  - t: '*'
-    h: Gui
-  - t: '0'
-    h: Shift
+    s: '?'
+  - t: '#'
+    s: '~'
   - t: $
-    h: Shift
-  - t: '5'
-    h: Gui
-  - t: '6'
-    h: Alt
-  - t: +
-    h: Ctrl
-  - t: '%'
-    h: sym2
+    s: "\u20AC"
+  - t: (
+    s: <
+  - t: )
+    s: '>'
+  - t: ':'
+    s: '"'
+  - t: '`'
+    s: ^
+  - t: _
+    s: '-'
+  - t: '&'
+    s: '@'
   - t: '|'
-    h: sym
+    s: '='
+  - t: '['
+    s: '{'
+  - t: ']'
+    s: '}'
+  - t: ;
+    s: ''''
   - t: /
-    h: num
-  - t: '1'
-    h: num
-  - t: '2'
-    h: sym
-  - t: '3'
-    h: sym2
-  - t: '0'
-    h: Ctrl
+    s: \
   - type: trans
   - t: a1
     h: toggle
+  - h: Repeat
+    s: "\u21EA"
+    t: "\u21E7"
+  - h: num
+    t: Num
+  fn:
+  - F1
+  - F2
+  - F3
+  - F8
+  - F9
+  - F10
+  - F4
+  - F5
+  - F6
+  - F7
+  - F11
+  - F12
+  - VOL DN
+  - VOL UP
   - type: trans
-  - type: held
+  - t: a1
+    h: toggle
+  - h: Repeat
+    s: "\u21EA"
+    t: "\u21E7"
+  - h: num
+    t: Num
+  num:
+  - '-'
+  - '*'
+  - '='
+  - '4'
+  - '5'
+  - '6'
+  - +
+  - '%'
+  - /
+  - .
+  - '1'
+  - '2'
+  - '3'
+  - '0'
+  - type: trans
+  - t: a1
+    h: toggle
+  - h: Repeat
+    s: "\u21EA"
+    t: "\u21E7"
+  - h: num
+    type: held
+    t: Num
 combos:
 - p:
   - 0
@@ -320,200 +297,134 @@ combos:
   offset: 0.0
 - p:
   - 0
-  - 7
-  k: '{'
+  - 1
+  k: "\u21E5"
   l:
-  - sym
-  type: symbol
+  - a1
+  - a2
+  type: util
   align: mid
   offset: 0.0
 - p:
   - 1
+  - 2
+  k: "\u23CE"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 4
+  k:
+    t: "\u232B"
+    s: "\u2326"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 5
+  k: "\u2303\u232B"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 4
+  - 5
+  k: "\u238B"
+  l:
+  - a1
+  - a2
+  type: util
+  align: top
+  offset: 0.12
+- p:
+  - 6
+  - 7
+  k: "\xDF"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 7
   - 8
-  k: '['
+  k: _
   l:
-  - sym
+  - a1
+  - a2
   type: symbol
   align: mid
   offset: 0.0
 - p:
-  - 2
+  - 8
   - 9
-  k: (
-  l:
-  - sym
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: )
-  l:
-  - sym
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 13
-  - 4
-  k: ']'
-  l:
-  - sym
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: '}'
-  l:
-  - sym
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 0
-  - 1
-  k: '?'
-  l:
-  - sym
-  type: symbol
-  align: top
-  offset: 0.45
-- p:
-  - 1
-  - 9
-  k: <
-  l:
-  - sym
-  - nav
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 10
-  k: '>'
-  l:
-  - sym
-  - nav
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 7
-  - 1
-  k: /
-  l:
-  - sym
-  - a1
-  - a2
-  - nav
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 12
-  k: \
-  l:
-  - sym
-  - a1
-  - a2
-  - nav
-  type: symbol
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 0
-  k: Tab
-  l:
-  - a1
-  - a2
-  - nav
-  - sym
-  - sym2
-  - num
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 2
-  - 1
-  k: Enter
-  l:
-  - a1
-  - a2
-  - nav
-  - sym
-  - sym2
-  - num
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 3
-  - 4
-  k: Bspc
-  l:
-  - a1
-  - a2
-  - nav
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 4
-  - 5
-  k: Ctl+Bspc
-  l:
-  - a1
-  - a2
-  - nav
-  - sym
-  - sym2
-  - num
-  type: util
-  align: top
-  offset: 0.45
-- p:
-  - 4
-  - 5
-  - 3
-  k: Esc
-  l:
-  - a1
-  - a2
-  - nav
-  - sym
-  - sym2
-  - num
-  type: util
-  align: top
-  offset: 1.15
-- p:
-  - 12
-  - 10
   k: '-'
   l:
   - a1
   - a2
-  - nav
-  - sym
-  - sym2
-  - num
   type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 10
+  - 11
+  k: ':'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 11
+  - 12
+  k: ;
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 14
+  - 15
+  k: "\u21EA"
+  l:
+  - a1
+  - a2
+  type: system
+  align: mid
+  offset: 0.0
+- p:
+  - 7
+  - 8
+  - 9
+  k: "\U0001F513"
+  l:
+  - sym
+  type: sym
   align: bottom
-  offset: 0.85
+  offset: 0.07
 - p:
   - 3
   - 10
   k: '7'
   l:
   - num
-  type: symbol
+  type: num
   align: mid
   offset: 0.0
 - p:
@@ -522,57 +433,15 @@ combos:
   k: '8'
   l:
   - num
-  type: symbol
+  type: num
   align: mid
   offset: 0.0
 - p:
-  - 12
   - 5
+  - 12
   k: '9'
   l:
   - num
-  type: symbol
+  type: num
   align: mid
   offset: 0.0
-- p:
-  - 9
-  - 8
-  k:
-    t: Shift
-    h: sticky
-  l:
-  - a1
-  - a2
-  - nav
-  - sym
-  - sym2
-  - num
-  type: symbol
-  align: bottom
-  offset: 0.45
-- p:
-  - 11
-  - 10
-  k:
-    t: Shift
-    h: sticky
-  l:
-  - a1
-  - a2
-  - nav
-  - sym
-  - sym2
-  - num
-  type: symbol
-  align: bottom
-  offset: 0.45
-- p:
-  - 9
-  - 8
-  - 7
-  k: Unlock
-  l:
-  - sym
-  type: system
-  align: bottom
-  offset: 1.15
