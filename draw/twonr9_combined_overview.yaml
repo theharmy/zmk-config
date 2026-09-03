@@ -35,7 +35,7 @@ layers:
   - t: U / ,
     h: "\u2325"
     tr: "\u2191"
-    tl: ': "'
+    tl: ; '
     bl: '6'
     br: F10
   - t: S / F
@@ -77,7 +77,7 @@ layers:
   - t: I / .
     h: fn
     tr: "\u21DE"
-    tl: ; '
+    tl: ': "'
     bl: '3'
     br: V-
   - t: A / Z

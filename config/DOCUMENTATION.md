@@ -115,7 +115,7 @@ Urob's configuration is widely recognized as the gold standard for minimal-key e
 
 ### D. Complete Mod-Morph Symbol System (14 Pairs on `sym`)
 * `(` / `<` · `)` / `>` · `[` / `{` · `]` / `}`
-* `:` / `"` · `;` / `'` · `/` / `\` · `_` / `-`
+* `;` / `'` · `:` / `"` · `/` / `\` · `_` / `-`
 * `!` / `?` · `#` / `~` · `$` / `€` · `` ` `` / `^` · `&` / `@` · `|` / `=`
 
 ---
@@ -182,9 +182,9 @@ ZMK_LAYER(nav,
 ```c
 ZMK_LAYER(sym,
 //              ╭───────────┬───────────┬───────────╮      ╭────────┬────────┬────────────╮
-                  &excl_qmark &hash_tilde &dllr_euro         &lpar_lt &rpar_gt &colon_dqt
+                  &excl_qmark &hash_tilde &dllr_euro         &lpar_lt &rpar_gt &semi_sqt
 //       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
-            &grave_caret &under_minus &amps_at &pipe_equal  &lbkt_lbrc &rbkt_rbrc &semi_sqt  &fslh_bslh
+            &grave_caret &under_minus &amps_at &pipe_equal  &lbkt_lbrc &rbkt_rbrc &colon_dqt &fslh_bslh
 //       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
                             ___         &to L_A1           MAGIC_SHIFT SMART_NUM
 //                        ╰───────────┴───────────╯      ╰───────────┴─────────╯

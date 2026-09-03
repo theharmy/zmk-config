@@ -574,7 +574,7 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     
     <rect x="24" y="44" width="16" height="16" rx="3" style="fill: #458588;"/>
     <text x="48" y="56" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #458588;">Top-Left (Cyan):</text>
-    <text x="165" y="56" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">sym (14 Morphs: ( &lt; ) &gt; [ { ] } : " ; \' / \\ ! ? # ~ $ € ` ^ &amp; @ | =)</text>
+    <text x="165" y="56" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">sym (14 Morphs: ( &lt; ) &gt; [ { ] } ; \' : " / \\ ! ? # ~ $ € ` ^ &amp; @ | =)</text>
     
     <rect x="24" y="68" width="16" height="16" rx="3" style="fill: #d79921;"/>
     <text x="48" y="80" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #d79921;">Top-Right (Yellow):</text>

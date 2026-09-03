@@ -131,8 +131,8 @@ Access the `sym` layer by holding Left Index **`T`** (Key 9) or Right Index **`C
 | **Key 4** (Right Col 2 Top) | **`)`** | **`>`** | Closing parentheses & angle brackets |
 | **Key 10** (Right Col 1 Home) | **`[`** | **`{`** | Array indices `arr[0]`, JSON & code block scopes `{` |
 | **Key 11** (Right Col 2 Home) | **`]`** | **`}`** | Closing array brackets & block scopes `}` |
-| **Key 5** (Right Col 3 Top) | **`:`** | **`"`** | Dictionary keys, Python definitions, string literals `"..."` |
-| **Key 12** (Right Col 3 Home) | **`;`** | **`'`** | Statement terminators `;`, character literals `'c'`, contractions |
+| **Key 5** (Right Col 3 Top) | **`;`** | **`'`** | Statement terminators `;`, character literals `'c'`, contractions (matches `,` on `a2`) |
+| **Key 12** (Right Col 3 Home) | **`:`** | **`"`** | Dictionary keys, Python definitions, string literals `"..."` (matches `.` on `a2`) |
 | **Key 13** (Right Pinky) | **`/`** | **`\`** | File paths `a/b`, comments `//`, escape codes `\n`, regex |
 | **Key 0** (Left Col 1 Top) | **`!`** | **`?`** | Logical NOT `!`, ternary `? :`, nullable types `T?` |
 | **Key 1** (Left Col 2 Top) | **`#`** | **`~`** | Preprocessor `#define`, comments, home directory `~/` |

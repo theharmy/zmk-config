@@ -314,7 +314,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap"><tspan class="a1-tap">U</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">,</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
-<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↑</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">6</text>
 <text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F10</text>
@@ -377,7 +377,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap"><tspan class="a1-tap">I</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">.</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-fn">fn</tspan></text>
-<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇞</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">3</text>
 <text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">V-</text>
@@ -574,7 +574,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
     
     <rect x="24" y="44" width="16" height="16" rx="3" style="fill: #458588;"/>
     <text x="48" y="56" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #458588;">Top-Left (Cyan):</text>
-    <text x="165" y="56" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">sym (14 Morphs: ( &lt; ) &gt; [ { ] } : " ; ' / \ ! ? # ~ $ € ` ^ &amp; @ | =)</text>
+    <text x="165" y="56" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">sym (14 Morphs: ( &lt; ) &gt; [ { ] } ; ' : " / \ ! ? # ~ $ € ` ^ &amp; @ | =)</text>
     
     <rect x="24" y="68" width="16" height="16" rx="3" style="fill: #d79921;"/>
     <text x="48" y="80" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #d79921;">Top-Right (Yellow):</text>

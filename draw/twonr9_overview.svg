@@ -314,7 +314,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">U</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
-<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↑</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">6</text>
 <text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F10</text>
@@ -377,7 +377,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">I</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-fn">fn</tspan></text>
-<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇞</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">3</text>
 <text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">V-</text>
@@ -490,7 +490,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">,</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
-<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↑</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">6</text>
 <text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F10</text>
@@ -553,7 +553,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">.</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-fn">fn</tspan></text>
-<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇞</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">3</text>
 <text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">V-</text>
