@@ -3,6 +3,7 @@
 .west
 /modules
 firmware
+compile_commands.json
 /zephyr
 /zmk
 draw/base.yaml

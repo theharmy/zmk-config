@@ -1,0 +1,38 @@
+# ==============================================================================
+# Helix Editor Language Configuration for ZMK Workspace
+#
+# Provides:
+# - Full C-preprocessor autocomplete and jump-to-definition via clangd
+# - ZMK keymap & header resolution across config/, zmk/, and modules/
+# - Formatting on save via dts-format
+# ==============================================================================
+
+# C / ZMK Keymaps and Headers
+[[language]]
+name = "c"
+scope = "source.c"
+file-types = ["c", "h", "keymap", "dtsi", "dts", "overlay"]
+language-servers = ["clangd"]
+indent = { tab-width = 4, unit = "    " }
+
+[language.formatter]
+command = "dts-format"
+args = ["--fix"]
+
+[language-server.clangd]
+command = "clangd"
+args = [
+  "--compile-commands-dir=.",
+  "--background-index",
+  "--clang-tidy",
+  "--header-insertion=never",
+  "--all-scopes-completion"
+]
+
+# Dedicated Devicetree fallback
+[[language]]
+name = "devicetree"
+scope = "source.dts"
+file-types = ["dts", "dtsi", "overlay", "keymap"]
+language-servers = ["clangd"]
+indent = { tab-width = 4, unit = "    " }

@@ -51,6 +51,7 @@
 
               pkgs.just
               pkgs.yq # Make sure yq resolves to python-yq.
+              pkgs.clang-tools # Provides clangd for Helix / IDE autocomplete
 
               dts-format
               keymap-drawer
