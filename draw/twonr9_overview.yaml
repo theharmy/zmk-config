@@ -58,7 +58,7 @@ layers:
     br: F6
   - t: T
     h: sym
-    tr: "\u232B"
+    tr: R
     tl: '| ='
     bl: .
     br: F7
@@ -152,7 +152,7 @@ layers:
     br: F6
   - t: K
     h: sym
-    tr: "\u232B"
+    tr: R
     tl: '| ='
     bl: .
     br: F7

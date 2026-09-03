@@ -60,10 +60,26 @@ MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
 ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
 ZMK_HOLD_TAP(mt_end,  bindings = <&masked_end>,  <&kp>; MT_CORE)
 
-#define NAV_LEFT  &mt_home 0   LEFT   // Tap: Left arrow  | Long-press: Home (Start of line)
-#define NAV_RIGHT &mt_end 0    RIGHT  // Tap: Right arrow | Long-press: End (End of line)
+#define NAV_LEFT  &mt_home 0   LEFT   // Tap: Left arrow  | Long-press: Home (Start of line / First Col)
+#define NAV_RIGHT &mt_end 0    RIGHT  // Tap: Right arrow | Long-press: End (End of line / Last Col)
+#define NAV_UP    &mt LC(HOME) UP     // Tap: Up arrow    | Long-press: Top of Document (Ctrl+Home)
+#define NAV_DOWN  &mt LC(END)  DOWN   // Tap: Down arrow  | Long-press: Bottom of Document (Ctrl+End)
 #define NAV_BSPC  &mt LC(BSPC) BSPC   // Tap: Backspace   | Long-press: Word delete backwards
 #define NAV_DEL   &mt LC(DEL)  DEL    // Tap: Delete      | Long-press: Word delete forward
+
+/* --- Niri Smart Layout Morph --- */
+// Tap: Super+R (Cycle Column Width 33%/50%/66%) | Shift+Tap: Super+Ctrl+C (Center & Balance Columns)
+ZMK_MOD_MORPH(niri_adjust,
+    bindings = <&kp LG(DE_R)>, <&kp LG(LC(DE_C))>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
+
+/* --- Numpad Decimal Morph --- */
+// Tap: Dot (Code/International) | Shift+Tap: Comma (German Accounting)
+ZMK_MOD_MORPH(dot_comma,
+    bindings = <&kp DE_DOT>, <&kp DE_COMMA>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
 
 /* --- Morphing Symbol & Enclosure Pairs --- */
 ZMK_MOD_MORPH(excl_qmark,

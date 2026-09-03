@@ -351,7 +351,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <text x="0" y="1" class="key tap"><tspan class="a1-tap">T</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">K</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-sym">sym</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">| =</text>
-<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⌫</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">R</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">.</text>
 <text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F7</text>
 </g>

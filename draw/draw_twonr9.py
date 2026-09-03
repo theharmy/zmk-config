@@ -206,8 +206,16 @@ def decode_binding(s):
         return {"t": "←", "h": "Hm"}
     if "mt_end" in s or "NAV_RIGHT" in s:
         return {"t": "→", "h": "End"}
+    if "mt_up" in s or "NAV_UP" in s:
+        return {"t": "↑", "h": "D-Top"}
+    if "mt_down" in s or "NAV_DOWN" in s:
+        return {"t": "↓", "h": "D-End"}
     if "mt_bspc" in s or "NAV_BSPC" in s:
         return {"t": "⌫", "h": "W-Del"}
+    if "niri_adjust" in s:
+        return {"t": "⌘R", "s": "⌘⌃C"}
+    if "dot_comma" in s:
+        return {"t": ".", "s": ","}
     if "LG(DE_Q)" in s or "LG(Q)" in s or "KEYBOARD_Q" in s and "LG" in s:
         return "⌘Q"
     if "LG(TAB)" in s or "KEYBOARD_TAB" in s and "LG" in s:
@@ -373,6 +381,8 @@ def extract_label(key):
     if lbl in ["Gui", "LGUI", "LEFT_GUI", "⌘"]: return "⌘"
     if lbl in ["Shift", "Sft", "LSHFT", "LEFT_SHIFT", "⇧"]: return "⇧"
     if lbl in ["Ctrl", "Ctl", "LCTRL", "LEFT_CONTROL", "⌃"]: return "⌃"
+    if lbl in ["niri_adjust", "&niri_adjust"]: return "⌘R"
+    if lbl in ["dot_comma", "&dot_comma"]: return ". ,"
     return lbl
 
 def extract_sym_label(key):

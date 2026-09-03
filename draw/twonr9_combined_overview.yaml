@@ -58,7 +58,7 @@ layers:
     br: F6
   - t: T / K
     h: sym
-    tr: "\u232B"
+    tr: R
     tl: '| ='
     bl: .
     br: F7
