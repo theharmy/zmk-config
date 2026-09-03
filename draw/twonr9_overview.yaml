@@ -5,85 +5,85 @@ layers:
   - t: L
     h: "\u2325"
     tr: "\u2325"
-    tl: '!'
+    tl: '! ?'
     bl: '-'
     br: F1
   - t: N
     h: "\u2318"
     tr: "\u2318"
-    tl: '#'
+    tl: '# ~'
     bl: '*'
     br: F2
   - t: D
     h: "\u21E7"
     tr: "\u21E7"
-    tl: $
+    tl: "$ \u20AC"
     bl: '='
     br: F3
   - t: Y
     h: "\u21E7"
     tr: "\u2190"
-    tl: (
+    tl: ( <
     bl: '4'
     br: F8
   - t: O
     h: "\u2318"
     tr: "\u2193"
-    tl: )
+    tl: ) >
     bl: '5'
     br: F9
   - t: U
     h: "\u2325"
     tr: "\u2191"
-    tl: ':'
+    tl: ': "'
     bl: '6'
     br: F10
   - t: S
     h: "\u2303"
     tr: "\u2303"
-    tl: '`'
+    tl: '` ^'
     bl: +
     br: F4
   - t: R
     h: fn
     tr: "\u2196"
-    tl: _
+    tl: _ -
     bl: '%'
     br: F5
   - t: H
     h: sym
     tr: "\u21DE"
-    tl: '&'
+    tl: '& @'
     bl: /
     br: F6
   - t: T
     h: sym
     tr: "\u2198"
-    tl: '|'
+    tl: '| ='
     bl: .
     br: F7
   - t: C
     h: sym
     tr: "\u2196"
-    tl: '['
+    tl: '[ {'
     bl: '1'
     br: F11
   - t: E
     h: sym
     tr: "\u21DF"
-    tl: ']'
+    tl: '] }'
     bl: '2'
     br: F12
   - t: I
     h: fn
     tr: "\u21DE"
-    tl: ;
+    tl: ; '
     bl: '3'
     br: V-
   - t: A
     h: "\u2303"
     tr: "\u2192"
-    tl: /
+    tl: / \
     bl: '0'
     br: V+
   - t: a2
@@ -99,85 +99,85 @@ layers:
   - t: X
     h: "\u2325"
     tr: "\u2325"
-    tl: '!'
+    tl: '! ?'
     bl: '-'
     br: F1
   - t: B
     h: "\u2318"
     tr: "\u2318"
-    tl: '#'
+    tl: '# ~'
     bl: '*'
     br: F2
   - t: M
     h: "\u21E7"
     tr: "\u21E7"
-    tl: $
+    tl: "$ \u20AC"
     bl: '='
     br: F3
   - t: W
     h: "\u21E7"
     tr: "\u2190"
-    tl: (
+    tl: ( <
     bl: '4'
     br: F8
   - t: Q
     h: "\u2318"
     tr: "\u2193"
-    tl: )
+    tl: ) >
     bl: '5'
     br: F9
   - t: ','
     h: "\u2325"
     tr: "\u2191"
-    tl: ':'
+    tl: ': "'
     bl: '6'
     br: F10
   - t: F
     h: "\u2303"
     tr: "\u2303"
-    tl: '`'
+    tl: '` ^'
     bl: +
     br: F4
   - t: V
     h: fn
     tr: "\u2196"
-    tl: _
+    tl: _ -
     bl: '%'
     br: F5
   - t: P
     h: sym
     tr: "\u21DE"
-    tl: '&'
+    tl: '& @'
     bl: /
     br: F6
   - t: K
     h: sym
     tr: "\u2198"
-    tl: '|'
+    tl: '| ='
     bl: .
     br: F7
   - t: G
     h: sym
     tr: "\u2196"
-    tl: '['
+    tl: '[ {'
     bl: '1'
     br: F11
   - t: J
     h: sym
     tr: "\u21DF"
-    tl: ']'
+    tl: '] }'
     bl: '2'
     br: F12
   - t: .
     h: fn
     tr: "\u21DE"
-    tl: ;
+    tl: ; '
     bl: '3'
     br: V-
   - t: Z
     h: "\u2303"
     tr: "\u2192"
-    tl: /
+    tl: / \
     bl: '0'
     br: V+
   - t: a1
@@ -372,7 +372,7 @@ combos:
   k: "\xDF"
   l:
   - Symbols & Utilities
-  type: util
+  type: symbol
   align: mid
   offset: 0.0
 - p:

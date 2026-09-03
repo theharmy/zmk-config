@@ -6,6 +6,8 @@
 > **AI-Driven Engineering Notice:** Basically all architectural restructuring, keymap engineering, modularization, and visualization pipeline development in this fork were executed by an autonomous AI agent (Google Gemini 3.7 Flash via opencode).
 >
 > 📖 **Comprehensive Technical Guide:** See [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) for full architectural breakdowns, changelogs, hardware targets, and typing guides.
+>
+> ⚡ **Quick Reference & Visual Infographic:** View [`CHEATSHEET.md`](CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
 
 ---
 

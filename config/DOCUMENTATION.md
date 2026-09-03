@@ -2,6 +2,8 @@
 
 Comprehensive technical documentation for the **TwoNr9 (18-Key Split)** keyboard integrated into the **Urob ZMK Workspace**.
 
+> ⚡ **Quick Reference & Visual Infographic:** View [`CHEATSHEET.md`](../CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
+
 ---
 
 ## Table of Contents
@@ -22,21 +24,22 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 
 ### Key Capabilities Enabled:
 * **Hardware Model v2**: Targets `nice_nano@2.0.0//zmk` on Zephyr 4.1.
-* **German Layout Integration**: Native `keys_de.h` keycodes with German modifier handling.
+* **German Layout Integration**: Native `keys_de.h` keycodes with correct German modifier handling.
 * **Ergonomic Homerow Mods (HRM)**: Positional triggers isolating left hand from right hand to eliminate typing roll misfires.
 * **Dual GUI & Notification Support**:
   * **ZMK Studio**: Real-time on-keyboard layer/keymap remapping via USB RPC.
   * **KeyPeek**: Real-time active layer visualizer via `zmk-raw-hid` and `zmk-keypeek-layer-notifier`.
 * **Symmetrical Adaptive Thumb Engine**:
-  * Left Outer: `A2_DUAL` (Tap: single `a2`, Hold: continuous `a2` words).
-  * Left Inner: `SPC_NAV` (Tap: `Space` with sentence `. ` morph, Hold: `nav` layer).
-  * Right Inner: `MAGIC_SHIFT` (Adaptive Repeat after letters, Sticky Shift on pause for German noun caps, Hold for continuous Shift).
-  * Right Outer: `SMART_NUM` (Auto-terminating `num_word`).
+  * Left Outer (14): `A2_DUAL` (Tap: single `a2`, Hold: continuous `a2` words like *BMW*, *Quiz*, *Pflanze*).
+  * Left Inner (15): `SPC_NAV` (Tap: `Space` with sentence `. ` morph, Hold: `nav` layer).
+  * Right Inner (16): `MAGIC_SHIFT` (Adaptive Repeat after letters, Sticky Shift on pause for German noun caps, Hold for continuous Shift).
+  * Right Outer (17): `SMART_NUM` (Auto-terminating `num_word`).
 * **Complete 14-Pair Mod-Morph Symbol System**: All brackets, quotes, slashes, and punctuation mapped without combo clutter.
 * **Automated Visualizations**:
   * All 6 Layers detailed view: `draw/twonr9.svg`
   * Single-board unified overview with 4-corner layer sub-legends: `draw/twonr9_overview.svg`
   * Combined dual-alpha overview: `draw/twonr9_combined_overview.svg`
+  * All-in-one visual infographic: `draw/twonr9_cheatsheet.svg`
 
 ---
 
@@ -71,7 +74,7 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 ### 5. Automated Drawing System (`draw/draw_twonr9.py` & `draw/twonr9_config.yaml`)
 * **Change**: Created custom parser and decoder script `draw/draw_twonr9.py`.
   * *Reason*: Standard `keymap-drawer` cannot natively parse raw HID usage numbers from localized headers like `keys_de.h`. The script translates all raw codes into clean German legends, unicode symbols, and hold-tap labels.
-* **Change**: Added 2-column detailed layer layout (`draw/twonr9.svg`), single-board overview (`draw/twonr9_overview.svg`), and combined dual-alpha diagram (`draw/twonr9_combined_overview.svg`).
+* **Change**: Added 2-column detailed layer layout (`draw/twonr9.svg`), single-board overview (`draw/twonr9_overview.svg`), combined dual-alpha diagram (`draw/twonr9_combined_overview.svg`), and visual infographic (`draw/twonr9_cheatsheet.svg`).
 
 ---
 
@@ -257,7 +260,7 @@ include:
 ### B. Daily Development Commands
 
 ```bash
-# 1. Generate all 3 visual keymap diagrams (SVG)
+# 1. Generate all visual keymap diagrams & cheatsheet infographic
 just draw-twonr9
 
 # 2. Build all TwoNr9 firmware targets

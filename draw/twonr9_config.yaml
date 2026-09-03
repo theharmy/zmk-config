@@ -106,7 +106,8 @@ draw_config:
     text.hold    { font-weight: 600; font-size: 13px; fill: #b57614; }
     text.shifted { font-weight: 500; font-size: 13px; }
     text.combo, text.left, text.right { font-size: 13px; font-weight: 600; }
-    text.tl, text.tr, text.bl { font-size: 17px; font-weight: 700; }
+    text.tl                   { font-size: 13px; font-weight: 700; }
+    text.tr, text.bl          { font-size: 15px; font-weight: 700; }
     text.br                   { font-size: 11px; font-weight: 700; }
 
     text.hold, text.bl, text.br    { text-anchor: middle; dominant-baseline: auto; }

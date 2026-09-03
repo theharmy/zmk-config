@@ -355,7 +355,7 @@ combos:
   l:
   - a1
   - a2
-  type: util
+  type: symbol
   align: mid
   offset: 0.0
 - p:

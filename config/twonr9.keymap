@@ -3,7 +3,7 @@
  *
  * Modular architecture:
  * - config/keys_de.h          -> German keycodes (DE_*)
- * - config/twonr9_keys.h      -> Parameterized macros, morphing brackets, sentence space, smart num
+ * - config/twonr9_keys.h      -> Parameterized macros, 14 mod-morph pairs, adaptive magic shift, dual a2, smart space, smart num
  * - config/twonr9_macros.dtsi  -> German bigram digraph macros
  * - config/twonr9_combos.dtsi  -> Coding & utility combos
  */

@@ -6,18 +6,18 @@
  * Provides:
  * 1. Parameterized Homerow Modifiers: AL(), GL(), SL(), CL(), SR(), GR(), AR(), CR()
  * 2. Parameterized Fast Layer-Taps: S1() [Sym], FN() [Fn/Media], NM() [Num]
- * 3. Morphing Bracket Pairs:
- *      lpar_lt:   Tap: (  | Shift+Tap: <
- *      rpar_gt:   Tap: )  | Shift+Tap: >
- *      lbkt_lbrc: Tap: [  | Shift+Tap: {
- *      rbkt_rbrc: Tap: ]  | Shift+Tap: }
- * 4. Smart Sentence Space (spc_morph):
- *      Tap: Space | Shift+Tap: ". " + Sticky Shift
- * 5. Morphing Backspace (bs_del):
- *      Tap: Backspace | Shift+Tap: Delete
- * 6. Auto-Terminating Number Word (smart_num via zmk-auto-layer):
+ * 3. 14 Complete Mod-Morph Symbol & Enclosure Pairs on `sym`:
+ *      ( / < · ) / > · [ / { · ] / } · : / " · ; / ' · / / \
+ *      ! / ? · # / ~ · $ / € · ` / ^ · _ / - · & / @ · | / =
+ * 4. Smart Sentence Space with Nav Hold (SPC_NAV):
+ *      Tap: Space | Shift+Tap: ". " + Sticky Shift | Hold: Nav layer
+ * 5. Dual a2 Thumb (A2_DUAL):
+ *      Tap: Single a2 letter | Hold: Continuous a2 words (BMW, Quiz, Pflanze)
+ * 6. Adaptive Magic Shift (MAGIC_SHIFT):
+ *      After letter: Instant Repeat (&key_repeat) | On pause: Sticky Shift | Hold: Shift
+ * 7. Auto-Terminating Number Word (SMART_NUM via zmk-auto-layer):
  *      Tap: num_word | Double-tap: Sticky Num | Hold: Momentary Num
- * 7. One-Key App Switcher (swapper via zmk-tri-state):
+ * 8. One-Key App Switcher (swapper via zmk-tri-state):
  *      Cycles open windows on Alt+Tab and releases Alt when another key is pressed
  * ==============================================================================
  */
