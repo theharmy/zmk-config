@@ -269,6 +269,22 @@ def build_combined_alpha_layer(layers):
     num_l  = layers.get("num", [])
     sym2_l = layers.get("sym2", [])
 
+    hold_abbr_map = {
+        "Shift": "Sft",
+        "LEFT_SHIFT": "Sft",
+        "Control": "Ctl",
+        "Ctrl": "Ctl",
+        "LEFT_CONTROL": "Ctl",
+        "LCTRL": "Ctl",
+        "Alt": "Alt",
+        "LEFT_ALT": "Alt",
+        "Gui": "Gui",
+        "LEFT_GUI": "Gui",
+        "sym": "sym",
+        "sym2": "sym2",
+        "num": "num"
+    }
+
     combined = []
     for i in range(len(a1_l)):
         b1 = a1_l[i]
@@ -282,6 +298,11 @@ def build_combined_alpha_layer(layers):
             item = {"t": f"{t1} / {t2}"}
         else:
             item = dict(b1) if isinstance(b1, dict) else {"t": b1}
+
+        # Add hold function abbreviation
+        h_lbl = b1.get("h") if isinstance(b1, dict) else None
+        if h_lbl:
+            item["h"] = hold_abbr_map.get(h_lbl, h_lbl)
 
         # Corner 1: Top-Right (Nav -> Yellow)
         nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None

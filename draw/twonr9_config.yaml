@@ -67,9 +67,9 @@ draw_config:
   inner_pad_w: 10
   inner_pad_h: 10
   small_pad: 4
-  key_w: 90
-  key_h: 84
-  combo_w: 32
+  key_w: 96
+  key_h: 90
+  combo_w: 34
   combo_h: 24
 
   svg_style: |
