@@ -127,7 +127,7 @@ ZMK_LAYER(nav,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
                   &sk LALT &sk LGUI &sk LSHFT       NAV_LEFT NAV_DOWN NAV_UP
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────╮
-           &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) &niri_adjust &swapper &kp PG_DN &kp PG_UP NAV_RIGHT
+           &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) &niri_adjust &swapper NAV_PGDN NAV_PGUP NAV_RIGHT
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴────────╯
                          ___       &to L_A1         MAGIC_SHIFT SMART_NUM
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯

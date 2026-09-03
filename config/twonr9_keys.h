@@ -64,6 +64,8 @@ ZMK_HOLD_TAP(mt_end,  bindings = <&masked_end>,  <&kp>; MT_CORE)
 #define NAV_RIGHT &mt_end 0    RIGHT  // Tap: Right arrow | Long-press: End (End of line / Last Col)
 #define NAV_UP    &mt LC(HOME) UP     // Tap: Up arrow    | Long-press: Top of Document (Ctrl+Home)
 #define NAV_DOWN  &mt LC(END)  DOWN   // Tap: Down arrow  | Long-press: Bottom of Document (Ctrl+End)
+#define NAV_PGDN  &mt LG(PG_DN) PG_DN // Tap: PgDn (⇟)    | Hold: Super+PgDn (Next Niri Workspace)
+#define NAV_PGUP  &mt LG(PG_UP) PG_UP // Tap: PgUp (⇞)    | Hold: Super+PgUp (Prev Niri Workspace)
 #define NAV_BSPC  &mt LC(BSPC) BSPC   // Tap: Backspace   | Long-press: Word delete backwards
 #define NAV_DEL   &mt LC(DEL)  DEL    // Tap: Delete      | Long-press: Word delete forward
 

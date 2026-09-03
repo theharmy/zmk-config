@@ -169,9 +169,9 @@ ZMK_LAYER(a2,
 ```c
 ZMK_LAYER(nav,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  &sk LALT &sk LGUI &sk LSHFT       NAV_LEFT &kp DOWN &kp UP
+                  &sk LALT &sk LGUI &sk LSHFT       NAV_LEFT NAV_DOWN NAV_UP
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────╮
-           &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) NAV_BSPC &swapper &kp PG_DN &kp PG_UP NAV_RIGHT
+           &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) &niri_adjust &swapper NAV_PGDN NAV_PGUP NAV_RIGHT
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴────────╯
                          ___       &to L_A1         MAGIC_SHIFT SMART_NUM
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
@@ -210,7 +210,7 @@ ZMK_LAYER(num,
 //              ╭────────────┬────────────┬────────────╮      ╭────────┬────────┬────────╮
                   &kp DE_MINUS &kp DE_ASTRK &kp DE_EQUAL        &kp DE_N4 &kp DE_N5 &kp DE_N6
 //       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
-           &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &kp DE_DOT      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
+           &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &dot_comma      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
 //       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
                              ___          &to L_A1            MAGIC_SHIFT SMART_NUM
 //                         ╰────────────┴────────────╯        ╰───────────┴─────────╯

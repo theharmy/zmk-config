@@ -210,6 +210,10 @@ def decode_binding(s):
         return {"t": "↑", "h": "D-Top"}
     if "mt_down" in s or "NAV_DOWN" in s:
         return {"t": "↓", "h": "D-End"}
+    if "NAV_PGDN" in s or "LG(PG_DN)" in s and "PG_DN" in s:
+        return {"t": "⇟", "h": "⌘⇟"}
+    if "NAV_PGUP" in s or "LG(PG_UP)" in s and "PG_UP" in s:
+        return {"t": "⇞", "h": "⌘⇞"}
     if "mt_bspc" in s or "NAV_BSPC" in s:
         return {"t": "⌫", "h": "W-Del"}
     if "niri_adjust" in s:
@@ -588,11 +592,11 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     
     <rect x="24" y="68" width="16" height="16" rx="3" style="fill: #d79921;"/>
     <text x="48" y="80" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #d79921;">Top-Right (Yellow):</text>
-    <text x="165" y="80" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">nav (Arrows ← ↓ ↑ → &amp; Document Navigation ↖ ↘ ⇞ ⇟)</text>
+    <text x="165" y="80" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">nav (Arrows ← ↓ ↑ →, Niri Ops ⌘Q ⌘⇥ ⌘R ⇹ &amp; Doc Jumps ↖ ↘ ⇞ ⇟)</text>
     
     <rect x="24" y="92" width="16" height="16" rx="3" style="fill: #d65d0e;"/>
     <text x="48" y="104" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #d65d0e;">Bottom-Left (Orange):</text>
-    <text x="185" y="104" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">num (3x3 Calculator: 4 5 6 Top, 1 2 3 0 Home, 7 8 9 Chords)</text>
+    <text x="185" y="104" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">num (3x3 Calculator: 4 5 6 Top, 1 2 3 0 Home, . , Decimal, 7 8 9 Chords)</text>
     
     <rect x="24" y="116" width="16" height="16" rx="3" style="fill: #689d6a;"/>
     <text x="48" y="128" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #689d6a;">Bottom-Right (Green):</text>

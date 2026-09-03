@@ -81,14 +81,14 @@ Access via Left Inner Thumb (15) or Home Middle Fingers (`H` / `E`):
 | **0, 1, 2, 6** | Left Hand | `⌥`, `⌘`, `⇧`, `⌃` | **Sticky Modifiers** for one-shot window chording |
 | **7** | Left Ring | **`⌘Q`** (`Super + Q`) | **Close active Niri window** |
 | **8** | Left Middle | **`⌘⇥`** (`Super + Tab`) | **Toggle Niri window overview** |
-| **9** | Left Index | **`NAV_BSPC`** | Tap: `⌫` (Backspace), Long-Press: `⌃⌫` (Word Delete Backwards) |
-| **3** | Right Col 1 Top | **`NAV_LEFT`** | Tap: **`←`** (Left arrow), Long-Press: **`Home`** (Start of line) |
-| **4** | Right Col 2 Top | **`NAV_DOWN`** | Tap: **`↓`** (Down arrow), Long-Press: **`Ctrl + End`** (Bottom of doc) |
-| **5** | Right Col 3 Top | **`NAV_UP`** | Tap: **`↑`** (Up arrow), Long-Press: **`Ctrl + Home`** (Top of doc) |
-| **13** | Right Pinky | **`NAV_RIGHT`** | Tap: **`→`** (Right arrow), Long-Press: **`End`** (End of line) |
+| **9** | Left Index | **`&niri_adjust`** | Tap: **`⌘R`** (Cycle Column Width 33%/50%/66%) \| Shift+Tap: **`⌘⌃C`** (Center & Balance Columns) |
+| **3** | Right Col 1 Top | **`NAV_LEFT`** | Tap: **`←`** (Left arrow), Long-Press: **`Home`** (Start of line / First Column) |
+| **4** | Right Col 2 Top | **`NAV_DOWN`** | Tap: **`↓`** (Down arrow), Long-Press: **`Ctrl + End`** (Bottom of document / buffer) |
+| **5** | Right Col 3 Top | **`NAV_UP`** | Tap: **`↑`** (Up arrow), Long-Press: **`Ctrl + Home`** (Top of document / buffer) |
+| **13** | Right Pinky | **`NAV_RIGHT`** | Tap: **`→`** (Right arrow), Long-Press: **`End`** (End of line / Last Column) |
 | **10** | Right Index | **`&swapper` (`⇹`)** | **Alt+Tab Application Swapper** (Smooth window cycling in Niri) |
-| **11** | Right Middle | **`PgDn` (`⇟`)** | Scroll page down / Next Niri workspace |
-| **12** | Right Ring | **`PgUp` (`⇞`)** | Scroll page up / Previous Niri workspace |
+| **11** | Right Middle | **`NAV_PGDN`** | Tap: **`PgDn` (`⇟`)**, Hold: **`⌘⇟` (`Super + PgDn`)** $\rightarrow$ **Next Niri Workspace** |
+| **12** | Right Ring | **`NAV_PGUP`** | Tap: **`PgUp` (`⇞`)**, Hold: **`⌘⇞` (`Super + PgUp`)** $\rightarrow$ **Previous Niri Workspace** |
 
 ---
 
