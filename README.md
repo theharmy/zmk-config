@@ -1,5 +1,7 @@
 # TwoNr9 ZMK Workspace — What the Fork?!
 
+*THIS IS GEMINI BASED SLOP*
+
 [![Firmware](https://github.com/theharmy/zmk-config/actions/workflows/build-nix.yml/badge.svg)](https://github.com/theharmy/zmk-config/actions/workflows/build-nix.yml)
 [![Environment](https://github.com/theharmy/zmk-config/actions/workflows/test-build-env.yml/badge.svg)](https://github.com/theharmy/zmk-config/actions/workflows/test-build-env.yml)
 
