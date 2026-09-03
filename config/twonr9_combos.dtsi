@@ -1,0 +1,67 @@
+/*
+ * ==============================================================================
+ * TwoNr9 Combo Definitions (Modular Include)
+ * ==============================================================================
+ *
+ * REASONING:
+ * - Separated into its own module following Urob's clean config architecture.
+ * - Categorized by behavior and layer filtering:
+ *   1. Vertical German Digraph Bigrams (Layer 0 & Layer 1)
+ *   2. Brackets & Enclosures (Layer 3)
+ *   3. Multi-Layer Symbols & Navigation
+ *   4. Universal Utilities (Active on all layers via ALL)
+ *   5. Numpad Shortcuts (Layer 5)
+ *   6. Protected Chords (Shift Repeat, Studio Unlock with 200ms idle)
+ * ==============================================================================
+ */
+
+#pragma once
+
+// --- Layer 0: Vertical Bigrams ---
+ZMK_COMBO(combo_rl, &macro_rl, 0 7, L_A1)
+ZMK_COMBO(combo_hn, &macro_hn, 1 8, L_A1)
+ZMK_COMBO(combo_dt, &macro_dt, 2 9, L_A1)
+ZMK_COMBO(combo_cy, &macro_cy, 3 10, L_A1)
+ZMK_COMBO(combo_eo, &macro_eo, 4 11, L_A1)
+ZMK_COMBO(combo_ui, &macro_ui, 5 12, L_A1)
+
+// --- Layer 1: Vertical Bigrams ---
+ZMK_COMBO(combo_lr, &macro_lr, 0 7, L_A2)
+ZMK_COMBO(combo_nb, &macro_nb, 1 8, L_A2)
+ZMK_COMBO(combo_mt, &macro_mt, 2 9, L_A2)
+ZMK_COMBO(combo_gy, &macro_gy, 3 10, L_A2)
+ZMK_COMBO(combo_oe, &macro_oe, 4 11, L_A2)
+ZMK_COMBO(combo_iu, &macro_iu, 5 12, L_A2)
+
+// --- Layer 3: Brackets & Enclosures ---
+ZMK_COMBO(combo_lbrc,     &kp DE_LBRC,  0 7,  L_SYM)
+ZMK_COMBO(combo_lbrk,     &kp DE_LBKT,  1 8,  L_SYM)
+ZMK_COMBO(combo_lpar,     &kp DE_LPAR,  2 9,  L_SYM)
+ZMK_COMBO(combo_rpar,     &kp DE_RPAR,  3 10, L_SYM)
+ZMK_COMBO(combo_rbrk,     &kp DE_RBKT,  13 4, L_SYM)
+ZMK_COMBO(combo_rbrc,     &kp DE_RBRC,  5 12, L_SYM)
+ZMK_COMBO(combo_question, &kp DE_QMARK, 0 1,  L_SYM)
+
+// --- Multi-Layer Symbols & Navigation ---
+ZMK_COMBO(combo_lt,    &kp DE_LT,        1 9,   L_SYM L_NAV)
+ZMK_COMBO(combo_gt,    &kp DE_GT,        4 10,  L_SYM L_NAV)
+ZMK_COMBO(combo_fslsh, &kp DE_FSLH,      7 1,   L_SYM L_A1 L_A2 L_NAV)
+ZMK_COMBO(combo_bslsh, &kp DE_BSLH,      4 12,  L_SYM L_A1 L_A2 L_NAV)
+
+// --- Universal Utilities (Active on All Layers via ALL) ---
+ZMK_COMBO(combo_tab,   &kp TAB,          1 0,   ALL)
+ZMK_COMBO(combo_rtn,   &kp RETURN,       2 1,   ALL)
+ZMK_COMBO(combo_bspc,  &kp BSPC,         3 4,   L_A1 L_A2 L_NAV)
+ZMK_COMBO(combo_cbspc, &kp LC(BSPC),     4 5,   ALL)
+ZMK_COMBO(combo_esc,   &kp ESC,          4 5 3, ALL)
+ZMK_COMBO(combo_minus, &kp DE_MINUS,     12 10, ALL)
+
+// --- Layer 5: Numpad Numbers ---
+ZMK_COMBO(combo_7, &kp DE_N7, 3 10, L_NUM)
+ZMK_COMBO(combo_8, &kp DE_N8, 4 11, L_NUM)
+ZMK_COMBO(combo_9, &kp DE_N9, 12 5, L_NUM)
+
+// --- Chords with Custom Timeouts / Prior Idle ---
+ZMK_COMBO(combo_rpt,      &sk LEFT_SHIFT,  9 8,   ALL, 40)
+ZMK_COMBO(combo_repeat_r, &sk LEFT_SHIFT,  11 10, ALL, 40)
+ZMK_COMBO(combo_stdio,    &studio_unlock,  9 8 7, L_SYM, 50, 200)

@@ -1,23 +1,30 @@
 # ==============================================================================
 # Helix Editor Language Configuration for ZMK Workspace
-#
-# Provides:
-# - Full C-preprocessor autocomplete and jump-to-definition via clangd
-# - ZMK keymap & header resolution across config/, zmk/, and modules/
-# - Formatting on save via dts-format
 # ==============================================================================
 
-# C / ZMK Keymaps and Headers
+# 1. Devicetree & Keymaps via dedicated dts-lsp-server
 [[language]]
-name = "c"
-scope = "source.c"
-file-types = ["c", "h", "keymap", "dtsi", "dts", "overlay"]
-language-servers = ["clangd"]
+name = "devicetree"
+scope = "source.dts"
+file-types = ["keymap", "dtsi", "dts", "overlay"]
+language-servers = ["dts-lsp"]
 indent = { tab-width = 4, unit = "    " }
 
 [language.formatter]
 command = "dts-format"
 args = ["--fix"]
+
+[language-server.dts-lsp]
+command = "dts-lsp-server"
+args = ["--stdio"]
+
+# 2. C / Headers via clangd
+[[language]]
+name = "c"
+scope = "source.c"
+file-types = ["c", "h"]
+language-servers = ["clangd"]
+indent = { tab-width = 4, unit = "    " }
 
 [language-server.clangd]
 command = "clangd"
@@ -28,11 +35,3 @@ args = [
   "--header-insertion=never",
   "--all-scopes-completion"
 ]
-
-# Dedicated Devicetree fallback
-[[language]]
-name = "devicetree"
-scope = "source.dts"
-file-types = ["dts", "dtsi", "overlay", "keymap"]
-language-servers = ["clangd"]
-indent = { tab-width = 4, unit = "    " }

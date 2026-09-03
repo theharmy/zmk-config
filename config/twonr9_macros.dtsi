@@ -1,0 +1,20 @@
+/*
+ * TwoNr9 German Bigram Digraph Macros
+ *
+ * Emits common German letter pairs in a single chord.
+ */
+
+#pragma once
+
+ZMK_MACRO(macro_rl, bindings = <&kp DE_R &kp DE_L>;)
+ZMK_MACRO(macro_hn, bindings = <&kp DE_H &kp DE_N>;)
+ZMK_MACRO(macro_dt, bindings = <&kp DE_D &kp DE_T>;)
+ZMK_MACRO(macro_cy, bindings = <&kp DE_C &kp DE_Y>;)
+ZMK_MACRO(macro_eo, bindings = <&kp DE_E &kp DE_O>;)
+ZMK_MACRO(macro_ui, bindings = <&kp DE_U &kp DE_I>;)
+ZMK_MACRO(macro_lr, bindings = <&kp DE_L &kp DE_R>;)
+ZMK_MACRO(macro_nb, bindings = <&kp DE_N &kp DE_B>;)
+ZMK_MACRO(macro_mt, bindings = <&kp DE_M &kp DE_T>;)
+ZMK_MACRO(macro_gy, bindings = <&kp DE_G &kp DE_Y>;)
+ZMK_MACRO(macro_oe, bindings = <&kp DE_O &kp DE_E>;)
+ZMK_MACRO(macro_iu, bindings = <&kp DE_I &kp DE_U>;)

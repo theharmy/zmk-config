@@ -2,6 +2,7 @@
 , buildNpmPackage
 , esbuild
 , fetchFromGitHub
+, makeWrapper
 , nodejs_22
 }:
 
@@ -28,7 +29,7 @@ buildNpmPackage rec {
   # Keep in sync with server/package-lock.json.
   npmDepsHash = "sha256-zt/FdoevcA5XsF2Zew2isrLkUWgrACPkHkOWuL8k5D8=";
 
-  nativeBuildInputs = [ esbuild ];
+  nativeBuildInputs = [ esbuild makeWrapper ];
 
   # Skip the license-checker step, which requires network access.
   buildPhase = ''
@@ -47,6 +48,10 @@ buildNpmPackage rec {
     runHook preInstall
     mkdir -p $out/dist
     cp dist/server.js $out/dist/
+
+    mkdir -p $out/bin
+    makeWrapper "${nodejs_22}/bin/node" "$out/bin/dts-lsp-server" \
+      --add-flags "$out/dist/server.js"
     runHook postInstall
   '';
 
@@ -54,5 +59,6 @@ buildNpmPackage rec {
     description = "Devicetree language server";
     homepage = "https://github.com/kylebonnici/dts-lsp";
     license = lib.licenses.asl20;
+    mainProgram = "dts-lsp-server";
   };
 }

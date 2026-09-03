@@ -30,11 +30,10 @@
         };
         keymap-drawer = pkgs.python3Packages.callPackage ./nix/keymap-drawer.nix {};
         pin-west = pkgs.python3Packages.callPackage "${inputs.pin-west}/package.nix" {};
+        dts-lsp-server = pkgs.callPackage ./nix/dts-lsp-server.nix {};
         dts-format = pkgs.callPackage ./nix/dts-format.nix {
           dts-linter = pkgs.callPackage ./nix/dts-linter.nix {
-            # Uncomment to build against the pinned dts-lsp instead of the
-            # server bundled with dts-linter.
-            # dts-lsp-server = pkgs.callPackage ./nix/dts-lsp-server.nix {};
+            inherit dts-lsp-server;
           };
         };
       in {
@@ -52,6 +51,7 @@
               pkgs.just
               pkgs.yq # Make sure yq resolves to python-yq.
               pkgs.clang-tools # Provides clangd for Helix / IDE autocomplete
+              dts-lsp-server # Dedicated Devicetree LSP for Helix
 
               dts-format
               keymap-drawer

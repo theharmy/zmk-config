@@ -37,7 +37,7 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 
 Below is an exhaustive log of every change made across the workspace, including the technical reasons and upstream references.
 
-### 1. Keymap Architecture (`config/twonr9.keymap`)
+### 1. Keymap Architecture & Modular Organization (`config/twonr9.keymap`)
 * **Change**: Converted raw devicetree syntax to `zmk-helpers` macros (`ZMK_HOLD_TAP`, `ZMK_MACRO`, `ZMK_COMBO`, `ZMK_LAYER`).
   * *Reason*: `zmk-helpers` generates clean nodes, standardizes naming, and prevents syntax errors when chording modifiers.
 * **Change**: Corrected `hold-trigger-key-positions` for `hml` and `hmr`.
@@ -45,8 +45,16 @@ Below is an exhaustive log of every change made across the workspace, including 
   * *Reference*: [ZMK Positional Hold-Tap Documentation](https://zmk.dev/docs/behaviors/hold-tap#positional-hold-tap-and-hold-trigger-key-positions)
 * **Change**: Defined `#define ALL 0 1 2 3 4 5`.
   * *Reason*: In C preprocessors, `ALL` was undefined, causing devicetree syntax parse errors. Defining `ALL` allows multi-layer combos (`Tab`, `Enter`, `Esc`, `Bspc`, `Ctrl+Bspc`, `Minus`, `Shift repeat`) to apply across all 6 layers.
-* **Change**: Introduced compact 4–6 character token shorthands (`al_*`, `gl_*`, `sl_*`, `cl_*`, `s1_*`, `s2_*`, `num_*`, `sl_NAV`, `spc_SFT`, etc.).
-  * *Reason*: Replaces sprawling line definitions with a clean, hand-aligned ASCII box art grid that matches physical key placements.
+* **Change**: Extracted key definitions into modular components:
+  * `config/twonr9_keys.h`: Parameterized function macros (`AL(k)`, `GL(k)`, `SL(k)`, `CL(k)`, `SR(k)`, `GR(k)`, `AR(k)`, `CR(k)`, `S1(k)`, `S2(k)`, `NM(k)`).
+  * `config/twonr9_macros.dtsi`: German bigram digraph macros.
+  * `config/twonr9_combos.dtsi`: Categorized combo definitions.
+  * *Reason*: Completely eliminates static 1:1 token definitions. You can change any key on any layer simply by editing its keycode right inside the layer grid (e.g. `AL(DE_L)` $\rightarrow$ `AL(DE_A)` to change L to A) without needing to touch any other file or define list.
+
+### 2. Editor & LSP Integration for Helix (`.helix/languages.toml` & `flake.nix`)
+* **Change**: Configured `.helix/languages.toml` with native `dts-lsp-server` for `.keymap`, `.dtsi`, and `.overlay` files, and `clangd` for C headers.
+  * *Reason*: Resolved `behaviors.dtsi not found` and `unknown type name "hml"` errors caused by `clangd` attempting to parse Devicetree syntax as pure C code.
+  * *Reason*: Packaged `dts-lsp-server` directly into the Nix development shell (`flake.nix`) for out-of-the-box autocomplete, hover documentation, and jump-to-definition in Helix.
 
 ### 2. Shield & Module Setup (`boards/shields/twonr9/` & `config/zephyr/module.yml`)
 * **Change**: Added shield overlays, layout metadata, and Kconfigs into `boards/shields/twonr9/` and `config/boards/shields/twonr9/`.
@@ -158,83 +166,94 @@ ZMK_TRI_STATE(swapper, bindings = <&kt LALT>, <&kp TAB>, <&kt LALT>;)
                      ╰──────┴──────╯      ╰──────┴──────╯
 ```
 
+### Direct Parameter Macros Reference (`config/twonr9_keys.h`)
+* `AL(k)` / `AR(k)`: Left / Right Alt + key `k`
+* `GL(k)` / `GR(k)`: Left / Right Gui + key `k`
+* `SL(k)` / `SR(k)`: Left / Right Shift + key `k`
+* `CL(k)` / `CR(k)`: Left / Right Ctrl + key `k`
+* `S1(k)`: Sym Layer on hold + key `k` on tap
+* `S2(k)`: Sym2 Layer on hold + key `k` on tap
+* `NM(k)`: Num Layer on hold + key `k` on tap
+
+---
+
 ### Layer Overview
 
 #### Layer 0: `a1` (Base QWERTZ Alphas)
 ```c
 ZMK_LAYER(a1,
-//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
-                  al_L   gl_N   sl_D          sr_Y   gr_O   ar_U
-//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
-           cl_S   s2_R   s1_H   num_T         num_C  s1_E   s2_I   cr_A
-//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         sl_NAV sl_A2         spc_SFT sl_NUM
-//                     ╰──────┴──────╯      ╰──────┴──────╯
+//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
+                  AL(DE_L) GL(DE_N) SL(DE_D)        SR(DE_Y) GR(DE_O) AR(DE_U)
+//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
+           CL(DE_S) S2(DE_R) S1(DE_H) NM(DE_T)      NM(DE_C) S1(DE_E) S2(DE_I) CR(DE_A)
+//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
+                         &sl L_NAV &sl L_A2       &mt LSHFT SPACE &sl L_NUM
+//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
 )
 ```
 
 #### Layer 1: `a2` (Secondary Alphas)
 ```c
 ZMK_LAYER(a2,
-//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
-                  al_X   gl_B   sl_M          sr_W   gr_Q   ar_CMA
-//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
-           cl_F   s2_V   s1_P   num_K         num_G  s1_J   s2_DOT cr_Z
-//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___    to_BASE       ___    ___
-//                     ╰──────┴──────╯      ╰──────┴──────╯
+//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
+                  AL(DE_X) GL(DE_B) SL(DE_M)        SR(DE_W) GR(DE_Q) AR(DE_COMMA)
+//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
+           CL(DE_F) S2(DE_V) S1(DE_P) NM(DE_K)      NM(DE_G) S1(DE_J) S2(DE_DOT) CR(DE_Z)
+//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
+                         ___       &to L_A1       ___             ___
+//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
 )
 ```
 
 #### Layer 2: `nav` (Navigation & Movement)
 ```c
 ZMK_LAYER(nav,
-//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
-                  sk_ALT sk_GUI sk_SFT        sr_LFT gr_DWN ar_UP
-//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
-           sk_CTL ___    s1_PGUP ___          num_HOM s1_PGDN s2_END cr_RGT
-//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___    to_BASE       ___    ___
-//                     ╰──────┴──────╯      ╰──────┴──────╯
+//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
+                  &sk LALT &sk LGUI &sk LSHFT       SR(LEFT) GR(DOWN) AR(UP)
+//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
+           &sk LCTRL ___     S1(PG_UP) ___          NM(HOME) S1(PG_DN) S2(END) CR(RIGHT)
+//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
+                         ___       &to L_A1       ___             ___
+//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
 )
 ```
 
 #### Layer 3: `sym` (Primary Symbols & Enclosures)
 ```c
 ZMK_LAYER(sym,
-//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
-                  al_EUR gl_HSH sl_DLR        sr_LT  gr_GT  ar_CRT
-//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
-           cl_GRV s2_UND s1_MIN num_AMP       num_LBK s1_RBK s2_PIP cr_SLH
-//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___    to_BASE       ___    ___
-//                     ╰──────┴──────╯      ╰──────┴──────╯
+//              ╭─────────┬─────────┬─────────╮      ╭────────┬────────┬────────╮
+                  AL(DE_EURO) GL(DE_HASH) SL(DE_DLLR)  SR(DE_LT) GR(DE_GT) AR(DE_CARET)
+//       ╭──────┼─────────┼─────────┼─────────┤      ├────────┼────────┼────────┼──────╮
+           CL(DE_GRAVE) S2(DE_UNDER) S1(DE_MINUS) NM(DE_AMPS) NM(DE_LBKT) S1(DE_RBKT) S2(DE_PIPE) CR(DE_FSLH)
+//       ╰──────┴─────────┼─────────┼─────────┤      ├────────┼────────┼────────┴──────╯
+                          ___       &to L_A1         ___      ___
+//                      ╰─────────┴─────────╯        ╰────────┴────────╯
 )
 ```
 
 #### Layer 4: `sym2` (Secondary Symbols & Punctuations)
 ```c
 ZMK_LAYER(sym2,
-//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
-                  al_AT  gl_SQT sl_DQT        sr_LPR gr_RPR ar_CLN
-//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
-           cl_AST s2_TLD s1_EXC num_QMK       num_LBC s1_RBC s2_SMI cr_BSL
-//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___    to_BASE       ___    ___
-//                     ╰──────┴──────╯      ╰──────┴──────╯
+//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
+                  AL(DE_AT) GL(DE_SQT) SL(DE_DQT)   SR(DE_LPAR) GR(DE_RPAR) AR(DE_COLON)
+//       ╭──────┼────────┬────────┬────────┤      ├────────┼────────┼────────┼──────╮
+           CL(DE_ASTRK) S2(DE_TILDE) S1(DE_EXCL) NM(DE_QMARK) NM(DE_LBRC) S1(DE_RBRC) S2(DE_SEMI) CR(DE_BSLH)
+//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
+                         ___       &to L_A1       ___             ___
+//                     ╰─────────┴─────────╯      ╰───────────────┴─────────╯
 )
 ```
 
 #### Layer 5: `num` (Numpad & Arithmetic)
 ```c
 ZMK_LAYER(num,
-//              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
-                  al_MIN gl_AST sl_EQL        sr_N4  gr_N5  ar_N6
-//       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
-           cl_PLS s2_PCT s1_PIP num_SLH       num_N1 s1_N2  s2_N3  cr_N0
-//       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___    to_BASE       ___    ___
-//                     ╰──────┴──────╯      ╰──────┴──────╯
+//              ╭─────────┬─────────┬─────────╮      ╭────────┬────────┬────────╮
+                  AL(DE_MINUS) GL(DE_ASTRK) SL(DE_EQUAL) SR(DE_N4) GR(DE_N5) AR(DE_N6)
+//       ╭──────┼─────────┼─────────┼─────────┤      ├────────┼────────┼────────┼──────╮
+           CL(DE_PLUS) S2(DE_PRCNT) S1(DE_PIPE) NM(DE_FSLH) NM(DE_N1) S1(DE_N2) S2(DE_N3) CR(DE_N0)
+//       ╰──────┴─────────┼─────────┼─────────┤      ├────────┼────────┼────────┴──────╯
+                          ___       &to L_A1         ___      ___
+//                      ╰─────────┴─────────╯        ╰────────┴────────╯
 )
 ```
 
