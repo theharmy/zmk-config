@@ -584,152 +584,171 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     <rect x="0" y="0" width="736" height="580" rx="8" class="cs-card-bg" style="fill: var(--color-held); fill-opacity: 0.25; stroke: var(--color-dendron); stroke-width: 1.5;"/>
     
     <!-- 4-Corner Sub-Layer Legends Key -->
-    <text x="24" y="28" style="text-anchor: start; font-size: 15px; font-weight: bold; fill: var(--color-text);">4-CORNER SUB-LAYER LEGENDS</text>
+    <text x="24" y="28" style="text-anchor: start; font-size: 14px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">FOUR-CORNER SUB-LAYER LEGENDS</text>
     
-    <rect x="24" y="44" width="16" height="16" rx="3" style="fill: #458588;"/>
-    <text x="48" y="56" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #458588;">Top-Left (Cyan):</text>
-    <text x="165" y="56" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">sym (14 Morphs: ( &lt; ) &gt; [ { ] } ; \' : " / \\ ! ? # ~ $ € ` ^ &amp; @ | =)</text>
+    <g transform="translate(24, 42)">
+      <rect x="0" y="0" width="14" height="14" rx="3" style="fill: #458588;"/>
+      <text x="22" y="11" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #458588;">Top-Left (Cyan):</text>
+      <text x="130" y="11" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">sym — 14 Morphs: ( &lt; ) &gt; [ { ] } ; \' : " / \\ ! ? # ~ $ € ` ^ &amp; @ | =</text>
+    </g>
     
-    <rect x="24" y="68" width="16" height="16" rx="3" style="fill: #d79921;"/>
-    <text x="48" y="80" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #d79921;">Top-Right (Yellow):</text>
-    <text x="165" y="80" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">nav (Arrows ← ↓ ↑ →, Niri Ops ⌘Q ⌘⇥ ⌘R ⇹ &amp; Doc Jumps ↖ ↘ ⇞ ⇟)</text>
+    <g transform="translate(24, 64)">
+      <rect x="0" y="0" width="14" height="14" rx="3" style="fill: #d79921;"/>
+      <text x="22" y="11" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d79921;">Top-Right (Yellow):</text>
+      <text x="142" y="11" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">nav — Arrows ← ↓ ↑ →, Niri Ops ⌘Q ⌘⇥ ⌘R ⇹, Workspace ⌘⇞ ⌘⇟</text>
+    </g>
     
-    <rect x="24" y="92" width="16" height="16" rx="3" style="fill: #d65d0e;"/>
-    <text x="48" y="104" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #d65d0e;">Bottom-Left (Orange):</text>
-    <text x="185" y="104" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">num (3x3 Calculator: 4 5 6 Top, 1 2 3 0 Home, . , Decimal, 7 8 9 Chords)</text>
+    <g transform="translate(24, 86)">
+      <rect x="0" y="0" width="14" height="14" rx="3" style="fill: #d65d0e;"/>
+      <text x="22" y="11" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d65d0e;">Bottom-Left (Orange):</text>
+      <text x="160" y="11" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">num — 4 5 6 Top, 1 2 3 0 Home, . , Decimal Morph, 7 8 9 Chords</text>
+    </g>
     
-    <rect x="24" y="116" width="16" height="16" rx="3" style="fill: #689d6a;"/>
-    <text x="48" y="128" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #689d6a;">Bottom-Right (Green):</text>
-    <text x="185" y="128" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">fn (F1-F12 Functions &amp; Volume Controls V- V+)</text>
+    <g transform="translate(24, 108)">
+      <rect x="0" y="0" width="14" height="14" rx="3" style="fill: #689d6a;"/>
+      <text x="22" y="11" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #689d6a;">Bottom-Right (Green):</text>
+      <text x="160" y="11" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">fn — Function F1-F12 &amp; Volume Controls V- V+</text>
+    </g>
 
     <!-- Symmetrical Adaptive Thumb Engine -->
-    <text x="24" y="172" style="text-anchor: start; font-size: 15px; font-weight: bold; fill: var(--color-text);">SYMMETRICAL ADAPTIVE THUMB ENGINE</text>
+    <text x="24" y="152" style="text-anchor: start; font-size: 14px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">ADAPTIVE THUMB ENGINE</text>
 
     <!-- Thumb 14 -->
-    <rect x="24" y="188" width="162" height="120" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
-    <text x="105" y="210" style="font-size: 13px; font-weight: bold; fill: var(--color-text);">Thumb 14 (Left Outer)</text>
-    <text x="105" y="230" style="font-size: 12px; font-weight: bold; fill: #b16286;">a2 Dual Mode</text>
-    <text x="105" y="252" style="font-size: 11px; fill: var(--color-text);">• Tap: 1 secondary alpha</text>
-    <text x="105" y="270" style="font-size: 11px; fill: var(--color-text);">• Hold: continuous a2</text>
-    <text x="105" y="290" style="font-size: 10px; fill: #7c6f64;">(BMW, Quiz, Pflanze)</text>
+    <rect x="24" y="168" width="162" height="110" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
+    <text x="105" y="188" style="font-size: 12px; font-weight: bold; fill: var(--color-text);">Thumb 14 (L-Out)</text>
+    <text x="105" y="206" style="font-size: 11.5px; font-weight: bold; fill: #b16286;">a2 Dual Mode</text>
+    <text x="105" y="228" style="font-size: 11px; fill: var(--color-text);">Tap: 1 Sticky a2</text>
+    <text x="105" y="246" style="font-size: 11px; fill: var(--color-text);">Hold: Continuous a2</text>
+    <text x="105" y="264" style="font-size: 10px; fill: #7c6f64;">(BMW, Quiz, Pflanze)</text>
 
     <!-- Thumb 15 -->
-    <rect x="198" y="188" width="162" height="120" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
-    <text x="279" y="210" style="font-size: 13px; font-weight: bold; fill: var(--color-text);">Thumb 15 (Left Inner)</text>
-    <text x="279" y="230" style="font-size: 12px; font-weight: bold; fill: #d79921;">Space / Nav Hold</text>
-    <text x="279" y="252" style="font-size: 11px; fill: var(--color-text);">• Tap: Spacebar</text>
-    <text x="279" y="270" style="font-size: 11px; fill: var(--color-text);">• Shift+Tap: ". " morph</text>
-    <text x="279" y="290" style="font-size: 10px; fill: #7c6f64;">• Hold: Nav layer</text>
+    <rect x="198" y="168" width="162" height="110" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
+    <text x="279" y="188" style="font-size: 12px; font-weight: bold; fill: var(--color-text);">Thumb 15 (L-In)</text>
+    <text x="279" y="206" style="font-size: 11.5px; font-weight: bold; fill: #d79921;">Space / Nav</text>
+    <text x="279" y="228" style="font-size: 11px; fill: var(--color-text);">Tap: Spacebar</text>
+    <text x="279" y="246" style="font-size: 11px; fill: var(--color-text);">Shift+Tap: ". " Morph</text>
+    <text x="279" y="264" style="font-size: 10px; fill: #7c6f64;">Hold: nav Layer</text>
 
     <!-- Thumb 16 -->
-    <rect x="372" y="188" width="162" height="120" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
-    <text x="453" y="210" style="font-size: 13px; font-weight: bold; fill: var(--color-text);">Thumb 16 (Right Inner)</text>
-    <text x="453" y="230" style="font-size: 12px; font-weight: bold; fill: #b57614;">Magic Shift</text>
-    <text x="453" y="252" style="font-size: 11px; fill: var(--color-text);">• After letter: Repeat (tt,ll)</text>
-    <text x="453" y="270" style="font-size: 11px; fill: var(--color-text);">• On pause: Sticky Shift</text>
-    <text x="453" y="290" style="font-size: 10px; fill: #7c6f64;">• Hold: Continuous Shift</text>
+    <rect x="372" y="168" width="162" height="110" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
+    <text x="453" y="188" style="font-size: 12px; font-weight: bold; fill: var(--color-text);">Thumb 16 (R-In)</text>
+    <text x="453" y="206" style="font-size: 11.5px; font-weight: bold; fill: #b57614;">Magic Shift</text>
+    <text x="453" y="228" style="font-size: 11px; fill: var(--color-text);">After char: Repeat (tt)</text>
+    <text x="453" y="246" style="font-size: 11px; fill: var(--color-text);">On pause: Sticky Shift</text>
+    <text x="453" y="264" style="font-size: 10px; fill: #7c6f64;">Hold: Shift | S-Tap: ⇪</text>
 
     <!-- Thumb 17 -->
-    <rect x="546" y="188" width="162" height="120" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
-    <text x="627" y="210" style="font-size: 13px; font-weight: bold; fill: var(--color-text);">Thumb 17 (Right Outer)</text>
-    <text x="627" y="230" style="font-size: 12px; font-weight: bold; fill: #d65d0e;">Smart Num</text>
-    <text x="627" y="252" style="font-size: 11px; fill: var(--color-text);">• Tap: num_word entry</text>
-    <text x="627" y="270" style="font-size: 11px; fill: var(--color-text);">(Auto-drops on space/alpha)</text>
-    <text x="627" y="290" style="font-size: 10px; fill: #7c6f64;">• Hold: Momentary Num</text>
+    <rect x="546" y="168" width="162" height="110" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
+    <text x="627" y="188" style="font-size: 12px; font-weight: bold; fill: var(--color-text);">Thumb 17 (R-Out)</text>
+    <text x="627" y="206" style="font-size: 11.5px; font-weight: bold; fill: #d65d0e;">Smart Num</text>
+    <text x="627" y="228" style="font-size: 11px; fill: var(--color-text);">Tap: num_word entry</text>
+    <text x="627" y="246" style="font-size: 11px; fill: var(--color-text);">(Auto-drops on space)</text>
+    <text x="627" y="264" style="font-size: 10px; fill: #7c6f64;">Hold: Momentary Num</text>
 
     <!-- German Typing Rhythm Box -->
-    <rect x="24" y="325" width="684" height="235" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
-    <text x="44" y="348" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: var(--color-text);">GERMAN TYPING FLOW &amp; SPEED TECHNIQUES</text>
-    <text x="44" y="374" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">• <tspan font-weight="bold">German Noun Capitalization:</tspan> Left Thumb 15 (Space) → Right Thumb 16 (Sticky Shift) → Noun Letter</text>
-    <text x="44" y="396" style="text-anchor: start; font-size: 12px; fill: #7c6f64;">  (Shift automatically arms for exactly 1 letter and disarms immediately after — no holding required)</text>
+    <rect x="24" y="300" width="684" height="260" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
+    <text x="44" y="324" style="text-anchor: start; font-size: 13.5px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">SPEED &amp; TYPING FLOW PATTERNS</text>
     
-    <text x="44" y="426" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">• <tspan font-weight="bold">Double Letters (Schifffahrt, Bitte, Alles):</tspan> Type letter → Right Thumb 16 (Instant Repeat)</text>
-    <text x="44" y="448" style="text-anchor: start; font-size: 12px; fill: #7c6f64;">  (Outputs repeated character instantly with zero finger movement or layer delay)</text>
+    <text x="44" y="352" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d79921;">• Noun Capitalization:</text>
+    <text x="200" y="352" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Space (15) → Sticky Shift (16) → Letter (Auto-disarms)</text>
+    
+    <text x="44" y="382" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #b57614;">• Double Letters:</text>
+    <text x="160" y="382" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Type letter → Thumb 16 (Instant repeat: tt, ee, ll, ff)</text>
+    
+    <text x="44" y="412" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #458588;">• German Eszett (ß):</text>
+    <text x="180" y="412" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Pinch S + R (6 + 7) on base (Straße, groß, weiß)</text>
 
-    <text x="44" y="478" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">• <tspan font-weight="bold">German Eszett (Straße, groß, weiß):</tspan> Pinch Left Home Keys 6 + 7 (S + R) on base</text>
-    <text x="44" y="500" style="text-anchor: start; font-size: 12px; fill: #7c6f64;">  (Outputs native ß instantly without switching to special symbol layers)</text>
+    <text x="44" y="442" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #b16286;">• Secondary Alphas:</text>
+    <text x="185" y="442" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Tap 14 for 1 letter | Hold 14 for words (BMW, Quiz)</text>
 
-    <text x="44" y="530" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">• <tspan font-weight="bold">Continuous Secondary Alphas (BMW, Quiz):</tspan> Hold Left Thumb 14 (a2 Dual) → Type letters</text>
+    <text x="44" y="472" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d79921;">• Niri Window Suite:</text>
+    <text x="185" y="472" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Hold 15 / H / E → ⌘Q (Close), ⌘⇥ (Overview), ⌘R (Width), ⇹ (Swapper)</text>
+
+    <text x="44" y="502" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #689d6a;">• Workspace Navigation:</text>
+    <text x="215" y="502" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Hold 15 / H / E → NAV_PGDN (⌘⇟ Next), NAV_PGUP (⌘⇞ Prev)</text>
+
+    <text x="44" y="532" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d65d0e;">• Document Jumps:</text>
+    <text x="175" y="532" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Long-press ← (Home), → (End), ↑ (Doc Top), ↓ (Doc End)</text>
   </g>
 
   <!-- RIGHT COLUMN CARD (x=776, width=736, height=580) -->
   <g transform="translate(776, 410)" class="cheatsheet-right">
     <rect x="0" y="0" width="736" height="580" rx="8" class="cs-card-bg" style="fill: var(--color-held); fill-opacity: 0.25; stroke: var(--color-dendron); stroke-width: 1.5;"/>
-    <text x="24" y="28" style="text-anchor: start; font-size: 15px; font-weight: bold; fill: var(--color-text);">COMBO LOOKUP, USABILITY &amp; PRACTICAL BENEFITS</text>
+    <text x="24" y="28" style="text-anchor: start; font-size: 14px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">COMBO QUICK LOOKUP &amp; SHORTCUTS</text>
 
     <!-- Top Row Combos -->
-    <text x="24" y="54" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #fe8019;">TOP ROW: CODE EDITING &amp; NAVIGATION</text>
+    <text x="24" y="52" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #fe8019;">EDITING &amp; NAVIGATION (TOP ROW)</text>
     
-    <rect x="24" y="66" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="81" style="font-size: 13px; font-weight: bold; fill: #282828;">⇥</text>
-    <text x="66" y="80" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Tab (0+1):</text>
-    <text x="130" y="80" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Instant code indentation, autocomplete &amp; form navigation (Left hand)</text>
+    <rect x="24" y="62" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="76" style="font-size: 12px; font-weight: bold; fill: #282828;">⇥</text>
+    <text x="62" y="76" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Tab (0+1):</text>
+    <text x="130" y="76" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Indent &amp; autocomplete (Left Hand)</text>
 
-    <rect x="24" y="94" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="109" style="font-size: 13px; font-weight: bold; fill: #282828;">⏎</text>
-    <text x="66" y="108" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Enter (1+2):</text>
-    <text x="140" y="108" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Execute shell commands, insert newlines without moving right hand</text>
+    <rect x="24" y="88" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="102" style="font-size: 12px; font-weight: bold; fill: #282828;">⏎</text>
+    <text x="62" y="102" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Enter (1+2):</text>
+    <text x="140" y="102" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Newline &amp; execute command (Left Hand)</text>
 
-    <rect x="24" y="122" width="46" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="47" y="137" style="font-size: 12px; font-weight: bold; fill: #282828;">⌫ / ⌦</text>
-    <text x="78" y="136" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Bspc / Del (3+4):</text>
-    <text x="185" y="136" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Morph: Tap for Backspace, Shift+Tap for forward Delete</text>
+    <rect x="24" y="114" width="46" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="47" y="128" style="font-size: 11px; font-weight: bold; fill: #282828;">⌫/⌦</text>
+    <text x="78" y="128" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Bspc / Del (3+4):</text>
+    <text x="185" y="128" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Tap: Backspace | Shift+Tap: Delete</text>
 
-    <rect x="24" y="150" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="165" style="font-size: 12px; font-weight: bold; fill: #282828;">⌃⌫</text>
-    <text x="66" y="164" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Word Delete (4+5):</text>
-    <text x="190" y="164" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Delete entire previous word in IDEs and terminal in one quick pinch</text>
+    <rect x="24" y="140" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="154" style="font-size: 11px; font-weight: bold; fill: #282828;">⌃⌫</text>
+    <text x="62" y="154" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Word Del (4+5):</text>
+    <text x="170" y="154" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Delete entire previous word in IDE / shell</text>
 
-    <rect x="24" y="178" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="193" style="font-size: 13px; font-weight: bold; fill: #282828;">⎋</text>
-    <text x="66" y="192" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Esc (3+4+5):</text>
-    <text x="140" y="192" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Instant modal exit for Helix / Vim normal mode &amp; dialogs (Offset Top)</text>
+    <rect x="24" y="166" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="180" style="font-size: 12px; font-weight: bold; fill: #282828;">⎋</text>
+    <text x="62" y="180" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Esc (3+4+5):</text>
+    <text x="140" y="180" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Helix / Vim normal mode &amp; dialog exit (Offset Top)</text>
 
     <!-- Home Row Combos -->
-    <text x="24" y="226" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #458588;">HOME ROW: CODING SYMBOLS &amp; GERMAN ORTHOGRAPHY</text>
+    <text x="24" y="212" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #458588;">CODING SYMBOLS &amp; ORTHOGRAPHY (HOME ROW)</text>
 
-    <rect x="24" y="238" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="253" style="font-size: 13px; font-weight: bold; fill: #282828;">ß</text>
-    <text x="66" y="252" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Eszett (6+7):</text>
-    <text x="146" y="252" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">S + R chord on base for native German words (Straße, groß, weiß)</text>
+    <rect x="24" y="222" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="236" style="font-size: 12px; font-weight: bold; fill: #282828;">ß</text>
+    <text x="62" y="236" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Eszett (6+7):</text>
+    <text x="142" y="236" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">S + R chord on base (Straße, groß, weiß)</text>
 
-    <rect x="24" y="266" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="281" style="font-size: 13px; font-weight: bold; fill: #282828;">_</text>
-    <text x="66" y="280" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Underscore (7+8):</text>
-    <text x="180" y="280" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Single-chord snake_case variable &amp; function naming</text>
+    <rect x="24" y="248" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="262" style="font-size: 12px; font-weight: bold; fill: #282828;">_</text>
+    <text x="62" y="262" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Underscore (7+8):</text>
+    <text x="175" y="262" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Instant snake_case identifier naming</text>
 
-    <rect x="24" y="294" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="309" style="font-size: 13px; font-weight: bold; fill: #282828;">-</text>
-    <text x="66" y="308" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Minus (8+9):</text>
-    <text x="146" y="308" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Hyphenated words, negative values, and CLI flags (--flag)</text>
+    <rect x="24" y="274" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="288" style="font-size: 12px; font-weight: bold; fill: #282828;">-</text>
+    <text x="62" y="288" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Minus (8+9):</text>
+    <text x="142" y="288" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Hyphens, subtraction, CLI flags (--opt)</text>
 
-    <rect x="24" y="322" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="337" style="font-size: 13px; font-weight: bold; fill: #282828;">:</text>
-    <text x="66" y="336" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Colon (10+11):</text>
-    <text x="155" y="336" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Rust :: namespace paths, Python defs &amp; JSON key-value pairs</text>
+    <rect x="24" y="300" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="314" style="font-size: 12px; font-weight: bold; fill: #282828;">:</text>
+    <text x="62" y="314" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Colon (10+11):</text>
+    <text x="150" y="314" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Rust :: namespace paths, Python defs &amp; JSON pairs</text>
 
-    <rect x="24" y="350" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="365" style="font-size: 13px; font-weight: bold; fill: #282828;">;</text>
-    <text x="66" y="364" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Semicolon (11+12):</text>
-    <text x="185" y="364" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Statement terminators for C, Rust, TypeScript, Java</text>
+    <rect x="24" y="326" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="340" style="font-size: 12px; font-weight: bold; fill: #282828;">;</text>
+    <text x="62" y="340" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Semicolon (11+12):</text>
+    <text x="180" y="340" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Statement terminators for C, Rust, TS, Java</text>
 
     <!-- System & Numbers -->
-    <text x="24" y="400" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: #d3869b;">SYSTEM &amp; NUMPAD SHORTCUTS</text>
+    <text x="24" y="372" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d3869b;">SYSTEM &amp; NUMPAD SHORTCUTS</text>
 
-    <rect x="24" y="412" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="427" style="font-size: 13px; font-weight: bold; fill: #282828;">⇪</text>
-    <text x="66" y="426" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Caps Word (14+15):</text>
-    <text x="185" y="426" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Type UPPERCASE_CONSTANTS (auto-deactivates on space/enter)</text>
+    <rect x="24" y="382" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="396" style="font-size: 12px; font-weight: bold; fill: #282828;">⇪</text>
+    <text x="62" y="396" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Caps Word (14+15):</text>
+    <text x="185" y="396" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">UPPERCASE_CONSTANTS (Auto-exits on space/enter)</text>
 
-    <rect x="24" y="440" width="34" height="22" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
-    <text x="41" y="455" style="font-size: 13px; font-weight: bold; fill: #282828;">🔓</text>
-    <text x="66" y="454" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Studio Unlock (7+8+9):</text>
-    <text x="210" y="454" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Unlocks live ZMK Studio key remapping (on Sym layer, Offset Bottom)</text>
+    <rect x="24" y="408" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
+    <text x="39" y="422" style="font-size: 12px; font-weight: bold; fill: #282828;">🔓</text>
+    <text x="62" y="422" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Studio Unlock (7+8+9):</text>
+    <text x="210" y="422" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Live ZMK Studio key remapping (on sym, Offset Bottom)</text>
 
-    <rect x="24" y="468" width="34" height="22" rx="4" style="fill: #d65d0e; stroke: #af3a03; stroke-width: 1.5;"/>
-    <text x="41" y="483" style="font-size: 12px; font-weight: bold; fill: #fbf1c7;">7 8 9</text>
-    <text x="66" y="482" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d65d0e;">Numpad Chords (3+10, 4+11, 5+12):</text>
-    <text x="280" y="482" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Vertical chords on Num layer for upper digits</text>
+    <rect x="24" y="434" width="30" height="20" rx="4" style="fill: #d65d0e; stroke: #af3a03; stroke-width: 1.5;"/>
+    <text x="39" y="448" style="font-size: 10.5px; font-weight: bold; fill: #fbf1c7;">7 8 9</text>
+    <text x="62" y="448" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d65d0e;">Num Chords (3+10, 4+11, 5+12):</text>
+    <text x="275" y="448" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Vertical chords on num for calculator top row</text>
   </g>
 '''
 
