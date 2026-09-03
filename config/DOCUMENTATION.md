@@ -66,10 +66,11 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * **Change**: Added `config/zephyr/module.yml` declaring `board_root: .`.
   * *Reason*: Under Zephyr Hardware Model v2, user configs must declare a module root so that ZMK and Zephyr discover custom shields both in local CLI builds and inside GitHub Actions CI containers without deprecation warnings.
 
-### 4. Build Matrix & CI Configuration (`build.yaml` & `.github/workflows/build-nix.yml`)
+### 4. Build Matrix & CI Configuration (`build.yaml`, `.github/workflows/build-nix.yml`, `.github/workflows/test-build-env.yml`)
 * **Change**: Updated board target names to `nice_nano@2.0.0//zmk`.
 * **Change**: Configured ZMK Studio target with snippet `studio-rpc-usb-uart` and raw HID adapter (`shield: twonr9_left raw_hid_adapter`).
 * **Change**: Set `toolchain: zephyr-full` in `.github/workflows/build-nix.yml` for Protobuf compilation.
+* **Change**: Updated `.github/workflows/test-build-env.yml` to target `just build twonr9_left` and `just draw-twonr9` (replacing legacy `planck` tests).
 
 ### 5. Automated Drawing System (`draw/draw_twonr9.py` & `draw/twonr9_config.yaml`)
 * **Change**: Created custom parser and decoder script `draw/draw_twonr9.py`.
