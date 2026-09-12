@@ -223,3 +223,10 @@ _check_yq_version:
         echo "Please install python-yq or use the included nix shell" >&2
         exit 1
     fi
+
+# start the layout trainer web app
+[group('trainer')]
+[doc('start layout trainer web app')]
+trainer:
+    cd trainer && npm run dev
+
