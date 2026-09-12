@@ -9,3 +9,4 @@ compile_commands.json
 /zmk
 draw/base.yaml
 draw/overview.yaml
+/trainer
