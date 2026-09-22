@@ -225,20 +225,26 @@ def decode_binding(s):
     if "LG(TAB)" in s or "KEYBOARD_TAB" in s and "LG" in s:
         return "⌘⇥"
 
-    # Hold-taps: &hml / &hmr
-    m = re.search(r"&(?:hml|hmr)\s+([A-Z_]+)\s+(.+)", s)
+    # Hold-taps: &hml / &hmr / &hml_* / &hmr_*
+    m = re.search(r"&(?:hml|hmr)(?:_[a-z])?\s+([A-Z_]+)\s+(.+)", s)
     if m:
         mod_raw, key_part = m.group(1), m.group(2)
         mod_label = "⌥" if "ALT" in mod_raw else ("⌘" if "GUI" in mod_raw else ("⇧" if "SHI" in mod_raw or "SFT" in mod_raw else "⌃"))
         return {"t": decode_hid_code(key_part), "h": mod_label}
 
-    # Layer-taps: &lt_r4 <layer> <key>
-    m = re.search(r"&lt_r4\s+(\d+)\s+(.+)", s)
+    # Layer-taps: &lt_r4 / &lt_h / &lt_i / &lt_v
+    m = re.search(r"&(?:lt_r4|lt_[hinv])\s+(?:L_[A-Z]+|\d+)\s+(.+)", s)
     if m:
-        layer_idx, key_part = int(m.group(1)), m.group(2)
-        layer_names = {0: "a1", 1: "a2", 2: "nav", 3: "sym", 4: "fn", 5: "num"}
-        layer_label = layer_names.get(layer_idx, str(layer_idx))
+        key_part = m.group(1)
+        layer_label = "nav" if "lt_h" in s else ("fn" if ("lt_i" in s or "lt_v" in s) else "sym")
         return {"t": decode_hid_code(key_part), "h": layer_label}
+
+    # Adaptive keys: &ak_l, &ak_h, etc.
+    if s.startswith("&ak_") or ("ak_" in s and not "adaptive" in s):
+        parts = s.split("ak_")
+        if len(parts) > 1:
+            letter = parts[-1].strip()[0].upper()
+            return letter
 
     # If it contains HID USAGE
     if "HID_USAGE" in s.upper() or "ZMK_HID" in s.upper() or "ZMK HID" in s:

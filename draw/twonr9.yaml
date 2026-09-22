@@ -2,7 +2,7 @@ layout:
   zmk_keyboard: twonr9
 layers:
   a1:
-  - t: '&ak_l'
+  - t: L
     h: "\u2325"
   - t: N
     h: "\u2318"
@@ -10,23 +10,23 @@ layers:
     h: "\u21E7"
   - t: Y
     h: "\u21E7"
-  - t: '&ak_o'
+  - t: O
     h: RIGHT GUI
-  - t: '&ak_u'
+  - t: U
     h: RIGHT ALT
   - t: S
     h: "\u2303"
   - t: R
-    h: fn
-  - t: '&ak_h'
+    h: sym
+  - t: H
     h: nav
   - t: T
     h: sym
   - t: C
     h: sym
   - t: E
-    h: nav
-  - t: '&ak_i'
+    h: sym
+  - t: I
     h: fn
   - t: A
     h: "\u2303"
@@ -40,11 +40,11 @@ layers:
   - h: num
     t: Num
   a2:
-  - t: '&ak_x'
+  - t: X
     h: "\u2325"
-  - t: '&ak_b'
+  - t: B
     h: "\u2318"
-  - t: '&ak_m'
+  - t: M
     h: "\u21E7"
   - t: W
     h: "\u21E7"
@@ -54,18 +54,18 @@ layers:
     h: "\u2325"
   - t: F
     h: "\u2303"
-  - t: '&ak_v'
+  - t: V
     h: fn
   - t: P
-    h: nav
+    h: sym
   - t: K
     h: sym
   - t: G
     h: sym
   - t: J
-    h: nav
+    h: sym
   - t: .
-    h: fn
+    h: sym
   - t: Z
     h: "\u2303"
   - t: a1

@@ -267,9 +267,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <g transform="translate(0, 8)">
 <g transform="translate(138, 65)" class="key keypos-0">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">&amp;ak_l</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">&amp;ak_x</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">L</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">X</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">! ?</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⌥</text>
@@ -278,9 +276,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(230, 46)" class="key keypos-1">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">N</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">&amp;ak_b</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">N</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">B</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;"># ~</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⌘</text>
@@ -289,9 +285,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(322, 75)" class="key keypos-2">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">D</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">&amp;ak_m</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">D</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">M</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⇧</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">$ €</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇧</text>
@@ -309,9 +303,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(524, 46)" class="key keypos-4">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">&amp;ak_o</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">Q</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">O</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">Q</tspan></text>
 <text x="0" y="33" class="key hold">RIGHT GUI</text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">) &gt;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↓</text>
@@ -320,9 +312,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(616, 65)" class="key keypos-5">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">&amp;ak_u</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">,</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">U</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">,</tspan></text>
 <text x="0" y="33" class="key hold">RIGHT ALT</text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↑</text>
@@ -340,10 +330,8 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(138, 157)" class="key keypos-7">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">R</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">&amp;ak_v</tspan>
-</text>
-<text x="0" y="33" class="key hold"><tspan class="hold-fn">fn</tspan></text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">R</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">V</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-sym">sym</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">_ -</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">Q</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">%</text>
@@ -351,9 +339,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(230, 138)" class="key keypos-8">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">&amp;ak_h</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">P</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">H</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">P</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">&amp; @</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">/</text>
@@ -380,7 +366,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <g transform="translate(524, 138)" class="key keypos-11">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap"><tspan class="a1-tap">E</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">J</tspan></text>
-<text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-sym">sym</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">] }</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇟</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">2</text>
@@ -388,9 +374,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(616, 157)" class="key keypos-12">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">
-<tspan x="0" dy="-1.2em">&amp;ak_i</tspan><tspan x="0" dy="1.2em">/</tspan><tspan x="0" dy="1.2em">.</tspan>
-</text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">I</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">.</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-fn">fn</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇞</text>

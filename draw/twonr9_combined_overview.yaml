@@ -2,19 +2,19 @@ layout:
   zmk_keyboard: twonr9
 layers:
   Combined (a1 / a2):
-  - t: '&ak_l / &ak_x'
+  - t: L / X
     h: "\u2325"
     tr: "\u2325"
     tl: '! ?'
     bl: '-'
     br: F1
-  - t: N / &ak_b
+  - t: N / B
     h: "\u2318"
     tr: "\u2318"
     tl: '# ~'
     bl: '*'
     br: F2
-  - t: D / &ak_m
+  - t: D / M
     h: "\u21E7"
     tr: "\u21E7"
     tl: "$ \u20AC"
@@ -26,13 +26,13 @@ layers:
     tl: ( <
     bl: '4'
     br: F8
-  - t: '&ak_o / Q'
+  - t: O / Q
     h: RIGHT GUI
     tr: "\u2193"
     tl: ) >
     bl: '5'
     br: F9
-  - t: '&ak_u / ,'
+  - t: U / ,
     h: RIGHT ALT
     tr: "\u2191"
     tl: ; '
@@ -44,13 +44,13 @@ layers:
     tl: '` ^'
     bl: +
     br: F4
-  - t: R / &ak_v
-    h: fn
+  - t: R / V
+    h: sym
     tr: Q
     tl: _ -
     bl: '%'
     br: F5
-  - t: '&ak_h / P'
+  - t: H / P
     h: nav
     tl: '& @'
     bl: /
@@ -68,12 +68,12 @@ layers:
     bl: '1'
     br: F11
   - t: E / J
-    h: nav
+    h: sym
     tr: "\u21DF"
     tl: '] }'
     bl: '2'
     br: F12
-  - t: '&ak_i / .'
+  - t: I / .
     h: fn
     tr: "\u21DE"
     tl: ': "'
