@@ -209,12 +209,194 @@ ZMK_MOD_MORPH(magic_shift_tap,
 ZMK_ADAPTIVE_KEY(shift_repeat,
     bindings = <&sk LSHFT>;
     repeat {
-        trigger-keys = <A B C D E F G H I J K L M N O P Q R S T U V W X Y Z>;
+        trigger-keys = <
+            A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+            DE_SZ DE_A_UMLAUT DE_O_UMLAUT DE_U_UMLAUT
+            DE_N1 DE_N2 DE_N3 DE_N4 DE_N5 DE_N6 DE_N7 DE_N8 DE_N9 DE_N0
+            DE_LPAR DE_RPAR DE_LT DE_GT DE_LBKT DE_RBKT DE_LBRC DE_RBRC
+            DE_COLON DE_DQT DE_SEMI DE_SQT DE_DOT DE_COMMA
+            DE_PLUS DE_MINUS DE_ASTRK DE_FSLH DE_BSLH DE_EQUAL DE_PRCNT
+            DE_PIPE DE_AMPS DE_UNDER DE_EXCL DE_QMARK DE_HASH DE_TILDE
+            DE_DLLR DE_EURO DE_GRAVE DE_CARET DE_AT
+        >;
         bindings = <&key_repeat>;
         max-prior-idle-ms = <1200>;
         strict-modifiers;
     };
 )
+
+/* --- Custom Adaptive Key Swap Rules --- */
+// 1. r hl: After R -> H outputs L, L outputs H
+// 2. u oi: After U -> O outputs I, I outputs O
+// 3. q iu: After Q -> I outputs U, U outputs I
+// 4. r mv: After R -> M outputs V, V outputs M
+// 5. n bx: After N -> B outputs X, X outputs B
+
+/ {
+    behaviors {
+        ak_h: ak_h {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_H>;
+            tr_rh { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_L>; };
+        };
+        ak_l: ak_l {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_L>;
+            tr_rl { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_H>; };
+        };
+
+        ak_o: ak_o {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_O>;
+            tr_uo { trigger-keys = <DE_U>; max-prior-idle-ms = <300>; bindings = <&kp DE_I>; };
+        };
+
+        ak_i: ak_i {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_I>;
+            tr_ui { trigger-keys = <DE_U>; max-prior-idle-ms = <300>; bindings = <&kp DE_O>; };
+            tr_qi { trigger-keys = <DE_Q>; max-prior-idle-ms = <300>; bindings = <&kp DE_U>; };
+        };
+
+        ak_u: ak_u {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_U>;
+            tr_qu { trigger-keys = <DE_Q>; max-prior-idle-ms = <300>; bindings = <&kp DE_I>; };
+        };
+
+        ak_m: ak_m {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_M>;
+            tr_rm { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_V>; };
+        };
+        ak_v: ak_v {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_V>;
+            tr_rv { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_M>; };
+        };
+
+        ak_b: ak_b {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_B>;
+            tr_nb { trigger-keys = <DE_N>; max-prior-idle-ms = <300>; bindings = <&kp DE_X>; };
+        };
+        ak_x: ak_x {
+            compatible = "zmk,behavior-adaptive-key";
+            #binding-cells = <0>;
+            bindings = <&kp DE_X>;
+            tr_nx { trigger-keys = <DE_N>; max-prior-idle-ms = <300>; bindings = <&kp DE_B>; };
+        };
+
+        hml_l: hml_l {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&ak_l>;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
+            hold-trigger-on-release;
+        };
+        lt_h: lt_h {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            bindings = <&mo>, <&ak_h>;
+        };
+        hmr_o: hmr_o {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&ak_o>;
+            hold-trigger-key-positions = <KEYS_L THUMBS>;
+            hold-trigger-on-release;
+        };
+        lt_i: lt_i {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            bindings = <&mo>, <&ak_i>;
+        };
+        hmr_u: hmr_u {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&ak_u>;
+            hold-trigger-key-positions = <KEYS_L THUMBS>;
+            hold-trigger-on-release;
+        };
+        hml_x: hml_x {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&ak_x>;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
+            hold-trigger-on-release;
+        };
+        hml_b: hml_b {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&ak_b>;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
+            hold-trigger-on-release;
+        };
+        hml_m: hml_m {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&ak_m>;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
+            hold-trigger-on-release;
+        };
+        lt_v: lt_v {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            bindings = <&mo>, <&ak_v>;
+        };
+    };
+};
+
+#define AL_L &hml_l LEFT_ALT 0
+#define NV_H &lt_h L_NAV 0
+#define GR_O &hmr_o RIGHT_GUI 0
+#define FN_I &lt_i L_FN 0
+#define AR_U &hmr_u RIGHT_ALT 0
+#define AL_X &hml_x LEFT_ALT 0
+#define GL_B &hml_b LEFT_GUI 0
+#define SL_M &hml_m LEFT_SHIFT 0
+#define FN_V &lt_v L_FN 0
 
 /* --- Auto-Terminating Number Word (smart_num) --- */
 ZMK_TAP_DANCE(num_dance,

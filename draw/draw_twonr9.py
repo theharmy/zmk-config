@@ -646,29 +646,32 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     <text x="627" y="264" style="font-size: 10px; fill: #7c6f64;">Hold: Momentary Num</text>
 
     <!-- German Typing Rhythm Box -->
-    <rect x="24" y="300" width="684" height="260" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
-    <text x="44" y="324" style="text-anchor: start; font-size: 13.5px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">SPEED &amp; TYPING FLOW PATTERNS</text>
+    <rect x="24" y="285" width="684" height="275" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
+    <text x="44" y="308" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">SPEED, FLOW &amp; ADAPTIVE KEYS</text>
     
-    <text x="44" y="352" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d79921;">• Noun Capitalization:</text>
-    <text x="200" y="352" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Space (15) → Sticky Shift (16) → Letter (Auto-disarms)</text>
+    <text x="44" y="332" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #d79921;">• Noun Capitalization:</text>
+    <text x="180" y="332" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Space (15) → Sticky Shift (16) → Letter (Auto-disarms)</text>
     
-    <text x="44" y="382" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #b57614;">• Double Letters:</text>
-    <text x="160" y="382" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Type letter → Thumb 16 (Instant repeat: tt, ee, ll, ff)</text>
+    <text x="44" y="356" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b57614;">• Symbol &amp; Double Repeat:</text>
+    <text x="195" y="356" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Thumb 16 after char repeats letters, numbers &amp; symbols (==, ++, ::)</text>
     
-    <text x="44" y="412" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #458588;">• German Eszett (ß):</text>
-    <text x="180" y="412" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Pinch S + R (6 + 7) on base (Straße, groß, weiß)</text>
+    <text x="44" y="380" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #458588;">• German Eszett (ß):</text>
+    <text x="175" y="380" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Pinch S + R (6 + 7) on base (Straße, groß, weiß)</text>
 
-    <text x="44" y="442" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #b16286;">• Secondary Alphas:</text>
-    <text x="185" y="442" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Tap 14 for 1 letter | Hold 14 for words (BMW, Quiz)</text>
+    <text x="44" y="404" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Adaptive Key Swaps:</text>
+    <text x="180" y="404" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">r hl, u oi, q iu, r mv, n bx swap letters on roll to eliminate SFBs</text>
 
-    <text x="44" y="472" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d79921;">• Niri Window Suite:</text>
-    <text x="185" y="472" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Hold 15 / H / E → ⌘Q (Close), ⌘⇥ (Overview), ⌘R (Width), ⇹ (Swapper)</text>
+    <text x="44" y="428" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Secondary Alphas:</text>
+    <text x="175" y="428" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Tap 14 for 1 letter | Hold 14 for words (BMW, Quiz)</text>
 
-    <text x="44" y="502" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #689d6a;">• Workspace Navigation:</text>
-    <text x="215" y="502" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Hold 15 / H / E → NAV_PGDN (⌘⇟ Next), NAV_PGUP (⌘⇞ Prev)</text>
+    <text x="44" y="452" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #d79921;">• Niri Window Suite:</text>
+    <text x="175" y="452" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Hold 15 / H / E → ⌘Q (Close), ⌘⇥ (Overview), ⌘R (Width), ⇹ (Swapper)</text>
 
-    <text x="44" y="532" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d65d0e;">• Document Jumps:</text>
-    <text x="175" y="532" style="text-anchor: start; font-size: 12px; fill: var(--color-text);">Long-press ← (Home), → (End), ↑ (Doc Top), ↓ (Doc End)</text>
+    <text x="44" y="476" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #689d6a;">• Workspace Navigation:</text>
+    <text x="195" y="476" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Hold 15 / H / E → NAV_PGDN (⌘⇟ Next), NAV_PGUP (⌘⇞ Prev)</text>
+
+    <text x="44" y="500" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #d65d0e;">• Document Jumps:</text>
+    <text x="165" y="500" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Long-press ← (Home), → (End), ↑ (Doc Top), ↓ (Doc End)</text>
   </g>
 
   <!-- RIGHT COLUMN CARD (x=776, width=736, height=580) -->

@@ -2,7 +2,7 @@ layout:
   zmk_keyboard: twonr9
 layers:
   a1:
-  - t: L
+  - t: '&ak_l'
     h: "\u2325"
   - t: N
     h: "\u2318"
@@ -10,15 +10,15 @@ layers:
     h: "\u21E7"
   - t: Y
     h: "\u21E7"
-  - t: O
-    h: "\u2318"
-  - t: U
-    h: "\u2325"
+  - t: '&ak_o'
+    h: RIGHT GUI
+  - t: '&ak_u'
+    h: RIGHT ALT
   - t: S
     h: "\u2303"
   - t: R
     h: fn
-  - t: H
+  - t: '&ak_h'
     h: nav
   - t: T
     h: sym
@@ -26,7 +26,7 @@ layers:
     h: sym
   - t: E
     h: nav
-  - t: I
+  - t: '&ak_i'
     h: fn
   - t: A
     h: "\u2303"
@@ -40,11 +40,11 @@ layers:
   - h: num
     t: Num
   a2:
-  - t: X
+  - t: '&ak_x'
     h: "\u2325"
-  - t: B
+  - t: '&ak_b'
     h: "\u2318"
-  - t: M
+  - t: '&ak_m'
     h: "\u21E7"
   - t: W
     h: "\u21E7"
@@ -54,7 +54,7 @@ layers:
     h: "\u2325"
   - t: F
     h: "\u2303"
-  - t: V
+  - t: '&ak_v'
     h: fn
   - t: P
     h: nav
@@ -90,7 +90,8 @@ layers:
     h: "Ctl+\u2196"
   - t: "\u2303"
   - Q
-  - "Gui+\u21E5"
+  - t: "Gui+\u21E5"
+    type: held
   - t: R
     s: C
   - "\u21F9"
@@ -103,7 +104,6 @@ layers:
   - type: trans
   - t: a1
     h: toggle
-    type: held
   - h: Repeat
     s: "\u21EA"
     t: "\u21E7"
@@ -159,7 +159,8 @@ layers:
   - F7
   - F11
   - F12
-  - VOL DN
+  - t: VOL DN
+    type: held
   - VOL UP
   - type: trans
   - t: a1

@@ -118,6 +118,15 @@ Urob's configuration is widely recognized as the gold standard for minimal-key e
 * `;` / `'` · `:` / `"` · `/` / `\` · `_` / `-`
 * `!` / `?` · `#` / `~` · `$` / `€` · `` ` `` / `^` · `&` / `@` · `|` / `=`
 
+### E. Adaptive Key Swaps & Symbol Auto-Repeat
+* **Adaptive Key Swaps (SFB Elimination)**:
+  * **`r hl`** (After `R`): Pressing `H` outputs `L` (fast `rl` roll), pressing `L` outputs `H`.
+  * **`u oi`** (After `U`): Pressing `O` outputs `I` (fast `ui` roll), pressing `I` outputs `O`.
+  * **`q iu`** (After `Q`): Pressing `I` outputs `U` (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs `I`.
+  * **`r mv`** (After `R`): Pressing `M` outputs `V` (fast `rv` roll), pressing `V` outputs `M`.
+  * **`n bx`** (After `N`): Pressing `B` outputs `X` (fast `nx` roll), pressing `X` outputs `B`.
+* **Expanded Symbol & Number Auto-Repeat**: Tapping Magic Shift immediately after typing any symbol or number (`==`, `++`, `::`, `//`, `!=`, `->`, `**`, `11`, `00`) instantly repeats that character.
+
 ---
 
 ## 5. TwoNr9 Keymap & Layer Reference

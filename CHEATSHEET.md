@@ -168,3 +168,17 @@ Access `sym` by holding Left Index **`T`** (Key 9) or Right Index **`C`** (Key 1
 
 5. **Niri Window Management**:
    $$\text{Hold 15 / H / E} \longrightarrow \text{⌘Q (Close), ⌘⇥ (Overview), ⌘R (Width), ⇹ (Swapper), ⌘⇞/⌘⇟ (Workspaces)}$$
+
+---
+
+## 9. Adaptive Key Swaps & Symbol Repeat
+
+1. **Adaptive Key Swaps (SFB Elimination)**:
+   * **`r hl`** (After `R`): Pressing `H` outputs **`L`** (fast `rl` roll), pressing `L` outputs **`H`**.
+   * **`u oi`** (After `U`): Pressing `O` outputs **`I`** (fast `ui` roll), pressing `I` outputs **`O`**.
+   * **`q iu`** (After `Q`): Pressing `I` outputs **`U`** (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs **`I`**.
+   * **`r mv`** (After `R`): Pressing `M` outputs **`V`** (fast `rv` roll), pressing `V` outputs **`M`**.
+   * **`n bx`** (After `N`): Pressing `B` outputs **`X`** (fast `nx` roll), pressing `X` outputs **`B`**.
+
+2. **Expanded Symbol & Number Auto-Repeat (`MAGIC_SHIFT`)**:
+   * Tapping Magic Shift (Thumb 16) immediately after typing **any symbol or number** (`==`, `++`, `::`, `//`, `!=`, `->`, `**`, `11`, `00`) instantly repeats that character.
