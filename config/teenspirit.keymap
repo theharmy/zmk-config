@@ -1,0 +1,5 @@
+/*
+ * Teenspirit (18-Key Split-Like Keyboard) Keymap using TwoNr9 Architecture
+ */
+
+#include "twonr9.keymap"

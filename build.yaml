@@ -28,3 +28,11 @@ include:
   # 4. Settings Reset Shield - Diagnostic utility to clear corrupted Bluetooth bonds
   - board: nice_nano@2.0.0//zmk
     shield: settings_reset
+
+  # 5. Teenspirit Target (Xiao RP2040)
+  - board: xiao_rp2040//zmk
+    shield: teenspirit
+
+  # 6. Settings Reset Shield for Teenspirit
+  - board: xiao_rp2040//zmk
+    shield: settings_reset
