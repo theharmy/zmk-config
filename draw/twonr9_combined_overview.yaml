@@ -15,21 +15,21 @@ layers:
     bl: '*'
     br: F2
   - t: D / M
-    h: "\u21E7"
+    h: "\u2303"
     tr: "\u21E7"
     tl: "$ \u20AC"
     bl: '='
     br: F3
   - t: Y / W
-    h: "\u21E7"
+    h: "\u2303"
     tr: "\u2190"
-    tl: ( <
+    tl: ( )
     bl: '4'
     br: F8
   - t: O / Q
     h: RIGHT GUI
     tr: "\u2193"
-    tl: ) >
+    tl: '[ ]'
     bl: '5'
     br: F9
   - t: U / ,
@@ -39,7 +39,7 @@ layers:
     bl: '6'
     br: F10
   - t: S / F
-    h: "\u2303"
+    h: "\u21E7"
     tr: "\u2303"
     tl: '` ^'
     bl: +
@@ -58,19 +58,19 @@ layers:
   - t: T / K
     h: sym
     tr: R
-    tl: '| ='
+    tl: = |
     bl: .
     br: F7
   - t: C / G
     h: sym
     tr: "\u21F9"
-    tl: '[ {'
+    tl: '{ }'
     bl: '1'
     br: F11
   - t: E / J
     h: sym
     tr: "\u21DF"
-    tl: '] }'
+    tl: < >
     bl: '2'
     br: F12
   - t: I / .
@@ -79,18 +79,17 @@ layers:
     tl: ': "'
     bl: '3'
   - t: A / Z
-    h: "\u2303"
+    h: "\u21E7"
     tr: "\u2192"
     tl: / \
     bl: '0'
     br: V+
+  - t: nav
+    h: nav
   - t: a2
     h: a2
   - t: Spc
     h: nav
-  - h: Repeat
-    s: "\u21EA"
-    t: "\u21E7"
   - h: num
     t: Num
   Symbols & Utilities:
@@ -232,7 +231,7 @@ combos:
   offset: 0.0
 - p:
   - 7
-  - 8
+  - 9
   k: _
   l:
   - Symbols & Utilities
@@ -240,8 +239,8 @@ combos:
   align: mid
   offset: 0.0
 - p:
+  - 7
   - 8
-  - 9
   k: '-'
   l:
   - Symbols & Utilities
@@ -258,7 +257,7 @@ combos:
   align: mid
   offset: 0.0
 - p:
-  - 11
+  - 10
   - 12
   k: ;
   l:
@@ -285,6 +284,28 @@ combos:
   type: sym
   align: bottom
   offset: 0.07
+- p:
+  - 8
+  - 9
+  k:
+    t: "\u21E7"
+    h: sticky
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 10
+  - 11
+  k:
+    t: "\u21E7"
+    h: sticky
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10

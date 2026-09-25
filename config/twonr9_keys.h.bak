@@ -201,18 +201,6 @@ ZMK_HOLD_TAP(lt_a2,
 
 #define A2_DUAL &lt_a2 L_A2 L_A2
 
-
-
-ZMK_HOLD_TAP(lt_NAV,
-    flavor = "balanced";
-    tapping-term-ms = <200>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    bindings = <&mo>, <&sl>;
-)
-
-#define NAV_DUAL &lt_NAV L_NAV L_NAV
-
-
 /* --- Magic Shift (Adaptive Repeat / Sticky Shift / Hold Shift) --- */
 #define MAGIC_SHIFT &magic_shift LSHFT 0
 
@@ -417,7 +405,7 @@ ZMK_ADAPTIVE_KEY(shift_repeat,
 #define AR_U &hmr_u RIGHT_ALT 0
 #define AL_X &hml_x LEFT_ALT 0
 #define GL_B &hml_b LEFT_GUI 0
-#define CL_M &hml_m LEFT_CONTROL 0
+#define SL_M &hml_m LEFT_SHIFT 0
 #define FN_V &lt_v L_FN 0
 
 /* --- Auto-Terminating Number Word (smart_num) --- */

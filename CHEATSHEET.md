@@ -1,6 +1,7 @@
 # TwoNr9 (18-Key Split) Keyboard Cheatsheet & Usability Guide
 
 > **Visual Infographic:** View [`draw/twonr9_cheatsheet.svg`](draw/twonr9_cheatsheet.svg) for the all-in-one visual card reference.
+> **Pocket Card:** Quick reference with adaptive keys: [`CHEATSHEET_POCKET.md`](CHEATSHEET_POCKET.md).
 
 ---
 

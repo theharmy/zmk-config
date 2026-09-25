@@ -106,21 +106,21 @@ ZMK_HOLD_TAP(lt_r4,
 
 ZMK_LAYER(a1,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL_L     GL(DE_N) SL(DE_D)        SR(DE_Y) GR_O     AR_U
+                  AL_L     GL(DE_N) CL(DE_D)        CR(DE_Y) GR_O     AR_U
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_S) FN(DE_R) NV_H     S1(DE_T)      S1(DE_C) NV(DE_E) FN_I     CR(DE_A)
+           SL(DE_S) FN(DE_R) NV_H     S1(DE_T)      S1(DE_C) NV(DE_E) FN_I     SR(DE_A)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         A2_DUAL   SPC_NAV          MAGIC_SHIFT SMART_NUM
+                         SMART_NUM  A2_DUAL            SPC_NAV    NAV_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(a2,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL_X     GL_B     SL_M            SR(DE_W) GR(DE_Q) AR(DE_COMMA)
+                  AL_X     GL_B     CL_M            CR(DE_W) GR(DE_Q) AR(DE_COMMA)
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_F) FN_V     NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) CR(DE_Z)
+           SL(DE_F) FN_V     NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) SR(DE_Z)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         &to L_A1  SPC_NAV          MAGIC_SHIFT SMART_NUM
+                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
@@ -130,17 +130,17 @@ ZMK_LAYER(nav,
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────╮
            &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) &niri_adjust &swapper NAV_PGDN NAV_PGUP NAV_RIGHT
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴────────╯
-                         ___       &to L_A1         MAGIC_SHIFT SMART_NUM
+                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(sym,
 //              ╭───────────┬───────────┬───────────╮      ╭────────┬────────┬────────────╮
-                  &excl_qmark &hash_tilde &dllr_euro         &lpar_lt &rpar_gt &semi_sqt
+                  &excl_qmark &hash_tilde &dllr_euro         &lpar_rpar &lbkt_rbkt &semi_sqt
 //       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
-            &grave_caret &under_minus &amps_at &pipe_equal  &lbkt_lbrc &rbkt_rbrc &colon_dqt &fslh_bslh
+            &grave_caret &under_minus &amps_at &equal_pipe  &lbrc_rbrc &lt_gt &colon_dqt &fslh_bslh
 //       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
-                            ___         &to L_A1           MAGIC_SHIFT SMART_NUM
+                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
 //                        ╰───────────┴───────────╯      ╰───────────┴─────────╯
 )
 
@@ -150,7 +150,7 @@ ZMK_LAYER(fn,
 //       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
            &kp F4 &kp F5 &kp F6 &kp F7        &kp F11 &kp F12 &kp C_VOL_DN &kp C_VOL_UP
 //       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___    &to L_A1      MAGIC_SHIFT SMART_NUM
+                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
 //                     ╰──────┴──────╯      ╰───────────┴─────────╯
 )
 
@@ -160,6 +160,6 @@ ZMK_LAYER(num,
 //       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
            &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &dot_comma      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
 //       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
-                             ___          &to L_A1            MAGIC_SHIFT SMART_NUM
-//                         ╰────────────┴────────────╯        ╰───────────┴─────────╯
+                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
+//                           ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )

@@ -7,15 +7,15 @@ layers:
   - t: N
     h: "\u2318"
   - t: D
-    h: "\u21E7"
+    h: "\u2303"
   - t: Y
-    h: "\u21E7"
+    h: "\u2303"
   - t: O
     h: RIGHT GUI
   - t: U
     h: RIGHT ALT
   - t: S
-    h: "\u2303"
+    h: "\u21E7"
   - t: R
     h: sym
   - t: H
@@ -29,14 +29,13 @@ layers:
   - t: I
     h: fn
   - t: A
-    h: "\u2303"
+    h: "\u21E7"
+  - t: nav
+    h: nav
   - t: a2
     h: a2
   - t: Spc
     h: nav
-  - h: Repeat
-    s: "\u21EA"
-    t: "\u21E7"
   - h: num
     t: Num
   a2:
@@ -45,15 +44,15 @@ layers:
   - t: B
     h: "\u2318"
   - t: M
-    h: "\u21E7"
+    h: "\u2303"
   - t: W
-    h: "\u21E7"
+    h: "\u2303"
   - t: Q
     h: "\u2318"
   - t: ','
     h: "\u2325"
   - t: F
-    h: "\u2303"
+    h: "\u21E7"
   - t: V
     h: fn
   - t: P
@@ -67,15 +66,14 @@ layers:
   - t: .
     h: sym
   - t: Z
-    h: "\u2303"
+    h: "\u21E7"
+  - t: nav
+    h: nav
   - t: a1
     h: toggle
     type: held
   - t: Spc
     h: nav
-  - h: Repeat
-    s: "\u21EA"
-    t: "\u21E7"
   - h: num
     t: Num
   nav:
@@ -101,12 +99,12 @@ layers:
     h: "Gui+\u21DE"
   - t: "\u2192"
     h: "\u2198"
-  - type: trans
+  - t: nav
+    h: nav
   - t: a1
     h: toggle
-  - h: Repeat
-    s: "\u21EA"
-    t: "\u21E7"
+  - t: Spc
+    h: nav
   - h: num
     t: Num
   sym:
@@ -117,9 +115,9 @@ layers:
   - t: $
     s: "\u20AC"
   - t: (
-    s: <
-  - t: )
-    s: '>'
+    s: )
+  - t: '['
+    s: ']'
   - t: ;
     s: ''''
   - t: '`'
@@ -128,22 +126,22 @@ layers:
     s: '-'
   - t: '&'
     s: '@'
-  - t: '|'
-    s: '='
-  - t: '['
-    s: '{'
-  - t: ']'
+  - t: '='
+    s: '|'
+  - t: '{'
     s: '}'
+  - t: <
+    s: '>'
   - t: ':'
     s: '"'
   - t: /
     s: \
-  - type: trans
+  - t: nav
+    h: nav
   - t: a1
     h: toggle
-  - h: Repeat
-    s: "\u21EA"
-    t: "\u21E7"
+  - t: Spc
+    h: nav
   - h: num
     t: Num
   fn:
@@ -162,12 +160,12 @@ layers:
   - t: VOL DN
     type: held
   - VOL UP
-  - type: trans
+  - t: nav
+    h: nav
   - t: a1
     h: toggle
-  - h: Repeat
-    s: "\u21EA"
-    t: "\u21E7"
+  - t: Spc
+    h: nav
   - h: num
     t: Num
   num:
@@ -186,12 +184,12 @@ layers:
   - '2'
   - '3'
   - '0'
-  - type: trans
+  - t: nav
+    h: nav
   - t: a1
     h: toggle
-  - h: Repeat
-    s: "\u21EA"
-    t: "\u21E7"
+  - t: Spc
+    h: nav
   - h: num
     type: held
     t: Num
@@ -369,7 +367,7 @@ combos:
   offset: 0.0
 - p:
   - 7
-  - 8
+  - 9
   k: _
   l:
   - a1
@@ -378,8 +376,8 @@ combos:
   align: mid
   offset: 0.0
 - p:
+  - 7
   - 8
-  - 9
   k: '-'
   l:
   - a1
@@ -398,7 +396,7 @@ combos:
   align: mid
   offset: 0.0
 - p:
-  - 11
+  - 10
   - 12
   k: ;
   l:
@@ -427,6 +425,30 @@ combos:
   type: sym
   align: bottom
   offset: 0.07
+- p:
+  - 8
+  - 9
+  k:
+    t: "\u21E7"
+    h: sticky
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 10
+  - 11
+  k:
+    t: "\u21E7"
+    h: sticky
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
 - p:
   - 3
   - 10
