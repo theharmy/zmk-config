@@ -343,10 +343,9 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<a href="#nav">
-<text x="0" y="1" class="key tap layer-activator">nav</text>
-</a><a href="#nav">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="1" class="key tap">Num</text>
+<a href="#num">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
 </a></g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -363,9 +362,10 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </a></g>
 <g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Num</text>
-<a href="#num">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
+<a href="#sym">
+<text x="0" y="1" class="key tap layer-activator">sym</text>
+</a><a href="#sym">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 <g class="combo bigram combopos-0">
 <rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo bigram"/>
@@ -536,10 +536,9 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<a href="#nav">
-<text x="0" y="1" class="key tap layer-activator">nav</text>
-</a><a href="#nav">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="1" class="key tap">Num</text>
+<a href="#num">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
 </a></g>
 <g transform="translate(331, 276) rotate(16.0)" class="key held keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
@@ -555,9 +554,10 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </a></g>
 <g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Num</text>
-<a href="#num">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
+<a href="#sym">
+<text x="0" y="1" class="key tap layer-activator">sym</text>
+</a><a href="#sym">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 <g class="combo bigram combopos-0">
 <rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo bigram"/>
@@ -715,10 +715,9 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<a href="#nav">
-<text x="0" y="1" class="key tap layer-activator">nav</text>
-</a><a href="#nav">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="1" class="key tap">Num</text>
+<a href="#num">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
 </a></g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -734,9 +733,10 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </a></g>
 <g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Num</text>
-<a href="#num">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
+<a href="#sym">
+<text x="0" y="1" class="key tap layer-activator">sym</text>
+</a><a href="#sym">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 </g>
 </g>
@@ -815,10 +815,9 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<a href="#nav">
-<text x="0" y="1" class="key tap layer-activator">nav</text>
-</a><a href="#nav">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="1" class="key tap">Num</text>
+<a href="#num">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
 </a></g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -832,11 +831,12 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <a href="#nav">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
 </a></g>
-<g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
-<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Num</text>
-<a href="#num">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
+<g transform="translate(516, 262) rotate(-6.0)" class="key held keypos-17">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
+<a href="#sym">
+<text x="0" y="1" class="key held tap layer-activator">sym</text>
+</a><a href="#sym">
+<text x="0" y="33" class="key held hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 <g class="combo sym combopos-0">
 <path d="M230,225 h-86 a6.0,6.0 0 0 1 -6.0,-6.0 v-31" class="combo"/>
@@ -912,10 +912,9 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<a href="#nav">
-<text x="0" y="1" class="key tap layer-activator">nav</text>
-</a><a href="#nav">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="1" class="key tap">Num</text>
+<a href="#num">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
 </a></g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -931,9 +930,10 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </a></g>
 <g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Num</text>
-<a href="#num">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-num">num</tspan></text>
+<a href="#sym">
+<text x="0" y="1" class="key tap layer-activator">sym</text>
+</a><a href="#sym">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 </g>
 </g>
@@ -997,12 +997,11 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">0</text>
 </g>
-<g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
-<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<a href="#nav">
-<text x="0" y="1" class="key tap layer-activator">nav</text>
-</a><a href="#nav">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
+<g transform="translate(239, 262) rotate(6.0)" class="key held keypos-14">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
+<text x="0" y="1" class="key held tap">Num</text>
+<a href="#num">
+<text x="0" y="33" class="key held hold layer-activator"><tspan class="hold-num">num</tspan></text>
 </a></g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -1016,11 +1015,12 @@ text.br, use.br, .br { fill: #689d6a !important; }
 <a href="#nav">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
 </a></g>
-<g transform="translate(516, 262) rotate(-6.0)" class="key held keypos-17">
-<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
-<text x="0" y="1" class="key held tap">Num</text>
-<a href="#num">
-<text x="0" y="33" class="key held hold layer-activator"><tspan class="hold-num">num</tspan></text>
+<g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<a href="#sym">
+<text x="0" y="1" class="key tap layer-activator">sym</text>
+</a><a href="#sym">
+<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 <g class="combo num combopos-0">
 <rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo num"/>

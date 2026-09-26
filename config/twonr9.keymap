@@ -110,7 +110,7 @@ ZMK_LAYER(a1,
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
            SL(DE_S) FN(DE_R) NV_H     S1(DE_T)      S1(DE_C) NV(DE_E) FN_I     SR(DE_A)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         SMART_NUM  A2_DUAL            SPC_NAV    NAV_DUAL
+                         SMART_NUM  A2_DUAL            SPC_NAV    SYM_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
@@ -120,7 +120,7 @@ ZMK_LAYER(a2,
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
            SL(DE_F) FN_V     NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) SR(DE_Z)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
+                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
@@ -130,7 +130,7 @@ ZMK_LAYER(nav,
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────╮
            &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) &niri_adjust &swapper NAV_PGDN NAV_PGUP NAV_RIGHT
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴────────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
+                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
@@ -140,7 +140,7 @@ ZMK_LAYER(sym,
 //       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
             &grave_caret &under_minus &amps_at &equal_pipe  &lbrc_rbrc &lt_gt &colon_dqt &fslh_bslh
 //       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
+                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                        ╰───────────┴───────────╯      ╰───────────┴─────────╯
 )
 
@@ -150,7 +150,7 @@ ZMK_LAYER(fn,
 //       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
            &kp F4 &kp F5 &kp F6 &kp F7        &kp F11 &kp F12 &kp C_VOL_DN &kp C_VOL_UP
 //       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
+                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                     ╰──────┴──────╯      ╰───────────┴─────────╯
 )
 
@@ -160,6 +160,6 @@ ZMK_LAYER(num,
 //       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
            &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &dot_comma      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
 //       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   NAV_DUAL
+                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                           ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )

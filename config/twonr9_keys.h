@@ -203,14 +203,14 @@ ZMK_HOLD_TAP(lt_a2,
 
 
 
-ZMK_HOLD_TAP(lt_NAV,
+ZMK_HOLD_TAP(lt_SYM,
     flavor = "balanced";
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
     bindings = <&mo>, <&sl>;
 )
 
-#define NAV_DUAL &lt_NAV L_NAV L_NAV
+#define SYM_DUAL &lt_SYM L_SYM L_SYM
 
 
 /* --- Magic Shift (Adaptive Repeat / Sticky Shift / Hold Shift) --- */

@@ -30,14 +30,14 @@ layers:
     h: fn
   - t: A
     h: "\u21E7"
-  - t: nav
-    h: nav
+  - h: num
+    t: Num
   - t: a2
     h: a2
   - t: Spc
     h: nav
-  - h: num
-    t: Num
+  - t: sym
+    h: sym
   a2:
   - t: X
     h: "\u2325"
@@ -67,15 +67,15 @@ layers:
     h: sym
   - t: Z
     h: "\u21E7"
-  - t: nav
-    h: nav
+  - h: num
+    t: Num
   - t: a1
     h: toggle
     type: held
   - t: Spc
     h: nav
-  - h: num
-    t: Num
+  - t: sym
+    h: sym
   nav:
   - t: "\u2325"
   - t: "\u2318"
@@ -99,14 +99,14 @@ layers:
     h: "Gui+\u21DE"
   - t: "\u2192"
     h: "\u2198"
-  - t: nav
-    h: nav
+  - h: num
+    t: Num
   - t: a1
     h: toggle
   - t: Spc
     h: nav
-  - h: num
-    t: Num
+  - t: sym
+    h: sym
   sym:
   - t: '!'
     s: '?'
@@ -136,14 +136,15 @@ layers:
     s: '"'
   - t: /
     s: \
-  - t: nav
-    h: nav
+  - h: num
+    t: Num
   - t: a1
     h: toggle
   - t: Spc
     h: nav
-  - h: num
-    t: Num
+  - t: sym
+    h: sym
+    type: held
   fn:
   - F1
   - F2
@@ -160,14 +161,14 @@ layers:
   - t: VOL DN
     type: held
   - VOL UP
-  - t: nav
-    h: nav
+  - h: num
+    t: Num
   - t: a1
     h: toggle
   - t: Spc
     h: nav
-  - h: num
-    t: Num
+  - t: sym
+    h: sym
   num:
   - '-'
   - '*'
@@ -184,15 +185,15 @@ layers:
   - '2'
   - '3'
   - '0'
-  - t: nav
-    h: nav
+  - h: num
+    type: held
+    t: Num
   - t: a1
     h: toggle
   - t: Spc
     h: nav
-  - h: num
-    type: held
-    t: Num
+  - t: sym
+    h: sym
 combos:
 - p:
   - 0

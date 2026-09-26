@@ -391,8 +391,8 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">nav</text>
-<text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="1" class="key tap">Num</text>
+<text x="0" y="33" class="key hold"><tspan class="hold-num">num</tspan></text>
 </g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -406,8 +406,8 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Num</text>
-<text x="0" y="33" class="key hold"><tspan class="hold-num">num</tspan></text>
+<text x="0" y="1" class="key tap">sym</text>
+<text x="0" y="33" class="key hold"><tspan class="hold-sym">sym</tspan></text>
 </g>
 <g class="combo bigram combopos-0">
 <rect rx="6" ry="6" x="111" y="100" width="54" height="22" class="combo bigram"/>

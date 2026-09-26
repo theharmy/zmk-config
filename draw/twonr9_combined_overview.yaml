@@ -84,14 +84,14 @@ layers:
     tl: / \
     bl: '0'
     br: V+
-  - t: nav
-    h: nav
+  - h: num
+    t: Num
   - t: a2
     h: a2
   - t: Spc
     h: nav
-  - h: num
-    t: Num
+  - t: sym
+    h: sym
   Symbols & Utilities:
   - ''
   - ''
