@@ -105,7 +105,7 @@ layers:
     tl: '# ~'
     bl: '*'
     br: F2
-  - t: M
+  - t: V
     h: "\u2303"
     tr: "\u21E7"
     tl: "$ \u20AC"
@@ -135,7 +135,7 @@ layers:
     tl: '` ^'
     bl: +
     br: F4
-  - t: V
+  - t: M
     h: fn
     tr: Q
     tl: _ -

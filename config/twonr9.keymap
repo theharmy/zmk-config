@@ -116,9 +116,9 @@ ZMK_LAYER(a1,
 
 ZMK_LAYER(a2,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL_X     GL_B     CL_M            CR(DE_W) GR(DE_Q) AR(DE_COMMA)
+                  AL_X     GL_B     CL_V            CR(DE_W) GR(DE_Q) AR(DE_COMMA)
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           SL(DE_F) FN_V     NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) SR(DE_Z)
+           SL(DE_F) FN_M     NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) SR(DE_Z)
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
                          SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯

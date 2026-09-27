@@ -388,25 +388,51 @@ ZMK_ADAPTIVE_KEY(shift_repeat,
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
         };
-        hml_m: hml_m {
+
+        // old m position, pre-swap
+        // hml_m: hml_m {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     #binding-cells = <2>;
+        //     flavor = "balanced";
+        //     tapping-term-ms = <280>;
+        //     quick-tap-ms = <QUICK_TAP_MS>;
+        //     require-prior-idle-ms = <150>;
+        //     bindings = <&kp>, <&ak_m>;
+        //     hold-trigger-key-positions = <KEYS_R THUMBS>;
+        //     hold-trigger-on-release;
+        // };
+
+        hml_v: hml_v {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <QUICK_TAP_MS>;
             require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&ak_m>;
+            bindings = <&kp>, <&ak_v>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
         };
-        lt_v: lt_v {
+
+        //old V position, pre-swap
+        // lt_v: lt_v {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     #binding-cells = <2>;
+        //     flavor = "balanced";
+        //     tapping-term-ms = <200>;
+        //     quick-tap-ms = <QUICK_TAP_MS>;
+        //     bindings = <&mo>, <&ak_v>;
+        // };
+
+        lt_m: lt_m {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <QUICK_TAP_MS>;
-            bindings = <&mo>, <&ak_v>;
+            bindings = <&mo>, <&ak_m>;
         };
+ 
     };
 };
 
@@ -417,8 +443,13 @@ ZMK_ADAPTIVE_KEY(shift_repeat,
 #define AR_U &hmr_u RIGHT_ALT 0
 #define AL_X &hml_x LEFT_ALT 0
 #define GL_B &hml_b LEFT_GUI 0
-#define CL_M &hml_m LEFT_CONTROL 0
-#define FN_V &lt_v L_FN 0
+// #define CL_M &hml_m LEFT_CONTROL 0
+// #define FN_V &lt_v L_FN 0
+
+#define CL_V &hml_v LEFT_CONTROL 0
+#define FN_M &lt_m L_FN 0
+
+
 
 /* --- Auto-Terminating Number Word (smart_num) --- */
 ZMK_TAP_DANCE(num_dance,

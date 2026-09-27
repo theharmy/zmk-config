@@ -43,7 +43,7 @@ layers:
     h: "\u2325"
   - t: B
     h: "\u2318"
-  - t: M
+  - t: V
     h: "\u2303"
   - t: W
     h: "\u2303"
@@ -53,7 +53,7 @@ layers:
     h: "\u2325"
   - t: F
     h: "\u21E7"
-  - t: V
+  - t: M
     h: fn
   - t: P
     h: sym

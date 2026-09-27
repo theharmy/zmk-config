@@ -14,7 +14,7 @@ layers:
     tl: '# ~'
     bl: '*'
     br: F2
-  - t: D / M
+  - t: D / V
     h: "\u2303"
     tr: "\u21E7"
     tl: "$ \u20AC"
@@ -44,7 +44,7 @@ layers:
     tl: '` ^'
     bl: +
     br: F4
-  - t: R / V
+  - t: R / M
     h: sym
     tr: Q
     tl: _ -

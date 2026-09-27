@@ -470,7 +470,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(322, 75)" class="key keypos-2">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">M</text>
+<text x="0" y="1" class="key tap">V</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌃</tspan></text>
 </g>
 <g transform="translate(432, 75)" class="key keypos-3">
@@ -495,7 +495,7 @@ text.br, use.br, .br { fill: #689d6a !important; }
 </g>
 <g transform="translate(138, 157)" class="key keypos-7">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">V</text>
+<text x="0" y="1" class="key tap">M</text>
 <a href="#fn">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-fn">fn</tspan></text>
 </a></g>
