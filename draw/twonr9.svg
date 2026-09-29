@@ -13,6 +13,11 @@ svg.keymap {
     --color-nav:     #d79921;
     --color-num:     #d65d0e;
     --color-fn:      #689d6a;
+    --color-ak:      #b16286;
+    --color-ak-r:    #b16286;
+    --color-ak-u:    #83a598;
+    --color-ak-q:    #fb4934;
+    --color-ak-n:    #8ec07c;
 
     fill: var(--color-text);
     background-color: var(--color-bg);
@@ -177,6 +182,11 @@ text.br, use.br, .br { fill: #689d6a !important; }
         --color-nav:     #fabd2f;
         --color-num:     #fe8019;
         --color-fn:      #b8bb26;
+        --color-ak:      #d3869b;
+        --color-ak-r:    #d3869b;
+        --color-ak-u:    #83a598;
+        --color-ak-q:    #fb4934;
+        --color-ak-n:    #8ec07c;
     }
     text.tap                      { fill: #ebdbb2; }
     tspan.a1-tap, tspan.a1-bigram { fill: #ebdbb2; font-weight: 700; }
@@ -261,6 +271,27 @@ text.br, use.br, .br { fill: #689d6a !important; }
     }
     path.combo                  { stroke: #d5c4a1; stroke-width: 2.2; stroke-dasharray: 4, 3; opacity: 0.85; }
 }
+
+rect.ak-r    { stroke: var(--color-ak-r); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-mv   { stroke: var(--color-ak-r); stroke-width: 2; stroke-dasharray: 2 3; }
+rect.ak-u    { stroke: var(--color-ak-u); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-q    { stroke: var(--color-ak-q); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-n    { stroke: var(--color-ak-n); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-i1   { stroke: var(--color-ak-u); stroke-width: 2; stroke-dasharray: 5 5; }
+rect.ak-i2   { fill: none !important; stroke: var(--color-ak-q); stroke-width: 2; stroke-dasharray: 5 5; stroke-dashoffset: 5; }
+text.ak-r    { fill: var(--color-ak-r) !important; }
+text.ak-u    { fill: var(--color-ak-u) !important; }
+text.ak-q    { fill: var(--color-ak-q) !important; }
+text.ak-n    { fill: var(--color-ak-n) !important; }
+
+rect.ak-card   { fill: var(--color-held); fill-opacity: 0.25; stroke: var(--color-dendron); stroke-width: 1.5; }
+text.ak-title  { fill: var(--color-ak) !important; }
+text.ak-body   { fill: var(--color-text) !important; }
+tspan.ak-tr-r, tspan.ak-lt-r { fill: var(--color-ak-r) !important; }
+tspan.ak-tr-u, tspan.ak-lt-u { fill: var(--color-ak-u) !important; }
+tspan.ak-tr-q, tspan.ak-lt-q { fill: var(--color-ak-q) !important; }
+tspan.ak-tr-n, tspan.ak-lt-n { fill: var(--color-ak-n) !important; }
+tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; }
 </style>
 <g transform="translate(8, 0)" class="layer-a1">
 <text x="0" y="4" class="label" id="a1">a1</text>

@@ -568,6 +568,148 @@ def post_process_svg_colors(svg_path):
     with open(svg_path, "w") as f:
         f.write(svg)
 
+def add_adaptive_overview(svg_path):
+    # zmk-adaptive-key letters by board and keypos, colored by trigger set:
+    #   R-set (pink):  L H (a1, long-dash 5 3) + M V (a2, dotted 2 3)
+    #   U-set (blue):  O    Q-set (red): U    N-set (aqua): B X
+    #   key I serves both U and Q -> U-colored letter, interleaved U/Q dashes
+    a1_keys = {
+        0: ("ak-r", "ak-r"),   # L after R
+        4: ("ak-u", "ak-u"),   # O after U
+        5: ("ak-q", "ak-q"),   # U after Q
+        8: ("ak-r", "ak-r"),   # H after R
+        12: ("ak-i", "ak-u"),  # I after U and Q
+    }
+    a2_keys = {
+        0: ("ak-n", "ak-n"),   # X after N
+        1: ("ak-n", "ak-n"),   # B after N
+        2: ("ak-mv", "ak-r"),  # V after R
+        7: ("ak-mv", "ak-r"),  # M after R
+    }
+
+    with open(svg_path) as f:
+        svg = f.read()
+
+    # Segment by layer group: keypos indices are only unique per board, and
+    # a2's thumb key uses class "key held keypos-15" (shifting global order).
+    def layer_start(marker):
+        i = svg.index(marker)
+        return svg.rindex("<g ", 0, i)
+
+    a1_start = layer_start('class="layer-a1 (Base)"')
+    a2_start = layer_start('class="layer-a2 (Alphas 2)"')
+    sym_start = layer_start('class="layer-Symbols')
+
+    key_re = re.compile(
+        r'(<g transform="[^"]*" class="[^"]*keypos-(\d+)">)(.*?)(</g>)', re.S
+    )
+
+    def mark_segment(segment, keys):
+        def mark(m):
+            pos = int(m.group(2))
+            if pos not in keys:
+                return m.group(0)
+            rect_cls, text_cls = keys[pos]
+            body = m.group(3)
+            # Dashed accent outline on the keycap (class-driven so the
+            # colors resolve from the stylesheet's CSS variables)
+            def rect_sub(rm):
+                full = rm.group(0)
+                if rect_cls == "ak-i":
+                    # twin rects: U-colored dashes interleaved with Q-colored
+                    # ones (stroke-dashoffset shifts the pattern by one dash)
+                    t1 = re.sub(r'class="([^"]*)"',
+                                lambda c: 'class="{} ak-i1"'.format(c.group(1)),
+                                full, count=1)
+                    t2 = re.sub(r'class="([^"]*)"',
+                                lambda c: 'class="{} ak-i2"'.format(c.group(1)),
+                                full, count=1)
+                    return t1 + t2
+                return re.sub(r'class="([^"]*)"',
+                              lambda c: 'class="{} {}"'.format(c.group(1), rect_cls),
+                              full, count=1)
+
+            body = re.sub(r'<rect[^>]*class="key[^"]*"[^>]*?/>', rect_sub,
+                          body, count=1)
+            # Accent tap letter
+            body = re.sub(
+                r'(<text[^>]*class=")([^"]*)("[^>]*?)(>)',
+                r'\1\2 ' + text_cls + r'\3\4',
+                body,
+                count=1,
+            )
+            return m.group(1) + body + m.group(4)
+
+        return key_re.sub(mark, segment)
+
+    svg = (
+        svg[:a1_start]
+        + mark_segment(svg[a1_start:a2_start], a1_keys)
+        + mark_segment(svg[a2_start:sym_start], a2_keys)
+        + svg[sym_start:]
+    )
+
+    # Extend canvas by 150px and shift the layers below a1 down by the same
+    # amount, opening a slot for the legend card right after the first keymap
+    svg = re.sub(
+        r'width="(\d+)" height="(\d+)" viewBox="0 0 (\d+) (\d+)"',
+        lambda m: 'width="{}" height="{}" viewBox="0 0 {} {}"'.format(
+            m.group(1),
+            int(m.group(2)) + 150,
+            m.group(3),
+            int(m.group(4)) + 150,
+        ),
+        svg,
+        count=1,
+    )
+
+    for marker in ('class="layer-a2 (Alphas 2)"', 'class="layer-Symbols'):
+        i = svg.index(marker)
+        gs = svg.rindex("<g ", 0, i)
+        ge = svg.index(">", gs)
+        svg = (
+            svg[:gs]
+            + re.sub(
+                r"(translate\([^,]+,\s*)(-?\d+)(\))",
+                lambda m: m.group(1) + str(int(m.group(2)) + 150) + m.group(3),
+                svg[gs:ge],
+                count=1,
+            )
+            + svg[ge:]
+        )
+
+    svg = re.sub(
+        r'(<text[^>]*\by=")(\d+(?:\.\d+)?)("[^>]*class="footer")',
+        lambda m: m.group(1) + "{:.1f}".format(float(m.group(2)) + 150) + m.group(3),
+        svg,
+        count=1,
+    )
+
+    ak_body = 'text-anchor: start; font-size: 13px;'
+    legend = '''
+  <!-- ADAPTIVE KEYS LEGEND -->
+  <g transform="translate(10, 352)">
+    <rect x="0" y="0" width="754" height="130" rx="8" class="ak-card"/>
+    <text x="24" y="30" class="ak-title" style="text-anchor: start; font-size: 14px; font-weight: bold; letter-spacing: 0.5px;">ADAPTIVE KEYS &#8635;</text>
+    <text x="230" y="30" class="ak-body" style="text-anchor: start; font-size: 11.5px; opacity: 0.85;">dashed keys swap partners within 300 ms of the trigger letter</text>
+
+    <text x="24" y="62" class="ak-body" style="{ak_body}"><tspan class="ak-tr-r">after R</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-r">H &#8644; L  &#183;  M &#8644; V</tspan></text>
+
+    <text x="24" y="92" class="ak-body" style="{ak_body}"><tspan class="ak-tr-u">after U</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-u">O &#8644; I</tspan></text>
+    <text x="264" y="92" class="ak-body" style="{ak_body}"><tspan class="ak-tr-q">after Q</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-q">I &#8644; U</tspan></text>
+    <text x="504" y="92" class="ak-body" style="{ak_body}"><tspan class="ak-tr-n">after N</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-n">B &#8644; X</tspan></text>
+
+    <text x="24" y="118" class="ak-body" style="text-anchor: start; font-size: 12px; opacity: 0.85;">adaptive letters &#8212; a1: L H O I U  &#183;  a2: X B M V</text>
+  </g>
+'''.replace("{ak_body}", ak_body)
+
+    # Place the legend immediately before the (shifted) second keymap
+    i = svg.index('class="layer-a2 (Alphas 2)"')
+    a2_start = svg.rindex("<g ", 0, i)
+    svg = svg[:a2_start] + legend + "\n  " + svg[a2_start:]
+    with open(svg_path, "w") as f:
+        f.write(svg)
+
 def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path, config_dir):
     # Step A: Render the 2-column wide combined layout
     res = subprocess.run(
@@ -872,6 +1014,7 @@ def main():
             stdout=f, check=True
         )
     post_process_svg_colors(overview_svg)
+    add_adaptive_overview(overview_svg)
 
     # Step 5: Build Combined Alpha Overview YAML (a1 / a2 merged with dual bigrams & 4-corner legends)
     combined_bigram_map = {
