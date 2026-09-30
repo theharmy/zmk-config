@@ -22,9 +22,9 @@ ZMK_COMBO(combo_eo, &macro_eo, 4 11, L_A1)
 ZMK_COMBO(combo_ui, &macro_ui, 5 12, L_A1)
 
 // --- Layer 1: Vertical Bigrams ---
-ZMK_COMBO(combo_lr, &macro_lr, 0 7, L_A2)
+ZMK_COMBO(combo_rm, &macro_rm, 0 7, L_A2)
 ZMK_COMBO(combo_nb, &macro_nb, 1 8, L_A2)
-ZMK_COMBO(combo_mt, &macro_mt, 2 9, L_A2)
+ZMK_COMBO(combo_kt, &macro_kt, 2 9, L_A2)
 ZMK_COMBO(combo_gy, &macro_gy, 3 10, L_A2)
 ZMK_COMBO(combo_oe, &macro_oe, 4 11, L_A2)
 ZMK_COMBO(combo_iu, &macro_iu, 5 12, L_A2)

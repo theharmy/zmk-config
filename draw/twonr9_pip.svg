@@ -1,0 +1,40 @@
+<svg width="480" height="270" viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, system-ui, sans-serif">
+  <rect x="1" y="1" width="478" height="268" rx="14" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="16" y="30" font-size="15" font-weight="bold" fill="#ebdbb2" letter-spacing="1.5">TWONR9 &#8212; QUICK REF</text>
+  <line x1="16" y1="42" x2="464" y2="42" stroke="#3c3836" stroke-width="1"/>
+  <text x="16" y="60" font-size="10" font-weight="bold" fill="#a89984" letter-spacing="2">BIGRAM CHORDS</text>
+  <text x="16" y="86" font-size="12" font-weight="bold" fill="#d79921" dominant-baseline="middle">a1</text>
+    <rect x="46" y="74" width="56" height="24" rx="6" fill="#d79921"/>
+    <text x="74" y="86" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">RL</text>
+    <rect x="110" y="74" width="56" height="24" rx="6" fill="#d79921"/>
+    <text x="138" y="86" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">HN</text>
+    <rect x="174" y="74" width="56" height="24" rx="6" fill="#d79921"/>
+    <text x="202" y="86" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">DT</text>
+    <rect x="238" y="74" width="56" height="24" rx="6" fill="#d79921"/>
+    <text x="266" y="86" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">CY</text>
+    <rect x="302" y="74" width="56" height="24" rx="6" fill="#d79921"/>
+    <text x="330" y="86" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">EO</text>
+    <rect x="366" y="74" width="56" height="24" rx="6" fill="#d79921"/>
+    <text x="394" y="86" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">UI</text>
+
+  <text x="16" y="118" font-size="12" font-weight="bold" fill="#a06cd5" dominant-baseline="middle">a2</text>
+    <rect x="46" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
+    <text x="74" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">LR</text>
+    <rect x="110" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
+    <text x="138" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">NB</text>
+    <rect x="174" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
+    <text x="202" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">MT</text>
+    <rect x="238" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
+    <text x="266" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">GY</text>
+    <rect x="302" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
+    <text x="330" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">OE</text>
+    <rect x="366" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
+    <text x="394" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">IU</text>
+
+  <text x="16" y="148" font-size="10" font-weight="bold" fill="#a89984" letter-spacing="2">ADAPTIVE KEYS</text>
+    <text x="16" y="170" font-size="14" dominant-baseline="middle"><tspan font-weight="bold" fill="#d3869b">after R</tspan><tspan fill="#a89984" dx="5">&#8594;</tspan><tspan fill="#d3869b" dx="5">H &#8644; L  &#183;  M &#8644; V</tspan></text>
+    <text x="16" y="192" font-size="14" dominant-baseline="middle"><tspan font-weight="bold" fill="#83a598">after U</tspan><tspan fill="#a89984" dx="5">&#8594;</tspan><tspan fill="#83a598" dx="5">O &#8644; I</tspan></text>
+    <text x="16" y="214" font-size="14" dominant-baseline="middle"><tspan font-weight="bold" fill="#fb4934">after Q</tspan><tspan fill="#a89984" dx="5">&#8594;</tspan><tspan fill="#fb4934" dx="5">I &#8644; U</tspan></text>
+    <text x="16" y="236" font-size="14" dominant-baseline="middle"><tspan font-weight="bold" fill="#8ec07c">after N</tspan><tspan fill="#a89984" dx="5">&#8594;</tspan><tspan fill="#8ec07c" dx="5">B &#8644; X</tspan></text>
+    <text x="16" y="257" font-size="10" fill="#a89984">swap partners within 300 ms of the trigger letter</text>
+</svg>

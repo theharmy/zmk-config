@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import subprocess
+import shutil
 import yaml
 import re
 from pathlib import Path
@@ -710,6 +711,60 @@ def add_adaptive_overview(svg_path):
     with open(svg_path, "w") as f:
         f.write(svg)
 
+def build_pip_svg(out_path):
+    # Small 16:9 reference card meant to be floated as a picture-in-picture
+    # window (e.g. swayimg + a niri window-rule). Uses literal hex colors only
+    # -- plain SVG viewers cannot resolve CSS custom properties.
+    # Bigrams and adaptive rules mirror config/twonr9.keymap / the overview.
+    a1_bigrams = ["RL", "HN", "DT", "CY", "EO", "UI"]   # base layer, amber
+    a2_bigrams = ["LR", "NB", "MT", "GY", "OE", "IU"]   # alphas 2, violet
+    adaptive_rows = [
+        ("after R", "#d3869b", "H &#8644; L  &#183;  M &#8644; V"),
+        ("after U", "#83a598", "O &#8644; I"),
+        ("after Q", "#fb4934", "I &#8644; U"),
+        ("after N", "#8ec07c", "B &#8644; X"),
+    ]
+
+    def chip(x, y, label, fill):
+        return (
+            f'    <rect x="{x}" y="{y}" width="56" height="24" rx="6" fill="{fill}"/>\n'
+            f'    <text x="{x + 28}" y="{y + 12}" font-size="13" font-weight="bold"'
+            f' fill="#282828" text-anchor="middle" dominant-baseline="middle">{label}</text>\n'
+        )
+
+    def chip_row(cy, labels, fill):
+        return "".join(chip(46 + i * 64, cy - 12, lab, fill) for i, lab in enumerate(labels))
+
+    parts = [
+        '<svg width="480" height="270" viewBox="0 0 480 270"'
+        ' xmlns="http://www.w3.org/2000/svg" font-family="Calibri, system-ui, sans-serif">',
+        '  <rect x="1" y="1" width="478" height="268" rx="14" fill="#282828" stroke="#504945" stroke-width="2"/>',
+        '  <text x="16" y="30" font-size="15" font-weight="bold" fill="#ebdbb2" letter-spacing="1.5">TWONR9 &#8212; QUICK REF</text>',
+        '  <line x1="16" y1="42" x2="464" y2="42" stroke="#3c3836" stroke-width="1"/>',
+        '  <text x="16" y="60" font-size="10" font-weight="bold" fill="#a89984" letter-spacing="2">BIGRAM CHORDS</text>',
+        '  <text x="16" y="86" font-size="12" font-weight="bold" fill="#d79921" dominant-baseline="middle">a1</text>',
+        chip_row(86, a1_bigrams, "#d79921"),
+        '  <text x="16" y="118" font-size="12" font-weight="bold" fill="#a06cd5" dominant-baseline="middle">a2</text>',
+        chip_row(118, a2_bigrams, "#a06cd5"),
+        '  <text x="16" y="148" font-size="10" font-weight="bold" fill="#a89984" letter-spacing="2">ADAPTIVE KEYS</text>',
+    ]
+    for i, (trigger, color, letters) in enumerate(adaptive_rows):
+        parts.append(
+            f'    <text x="16" y="{170 + i * 22}" font-size="14" dominant-baseline="middle">'
+            f'<tspan font-weight="bold" fill="{color}">{trigger}</tspan>'
+            f'<tspan fill="#a89984" dx="5">&#8594;</tspan>'
+            f'<tspan fill="{color}" dx="5">{letters}</tspan></text>'
+        )
+    parts.append(
+        '    <text x="16" y="257" font-size="10" fill="#a89984">'
+        'swap partners within 300 ms of the trigger letter</text>'
+    )
+    parts.append("</svg>")
+
+    with open(out_path, "w") as f:
+        f.write("\n".join(parts) + "\n")
+
+
 def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path, config_dir):
     # Step A: Render the 2-column wide combined layout
     res = subprocess.run(
@@ -1069,12 +1124,27 @@ def main():
     cheatsheet_svg = draw_dir / "twonr9_cheatsheet.svg"
     build_cheatsheet_svg(cfg_2col_path, combined_yaml, cheatsheet_svg, config_dir)
 
+    # Step 7: Small floating reference card (bigrams + adaptive keys)
+    pip_svg = draw_dir / "twonr9_pip.svg"
+    build_pip_svg(pip_svg)
+    pip_png = draw_dir / "twonr9_pip.png"
+    if shutil.which("rsvg-convert"):
+        subprocess.run(
+            ["rsvg-convert", "-w", "960", "-h", "540", "-o", str(pip_png), str(pip_svg)],
+            check=True,
+        )
+    elif shutil.which("resvg"):
+        subprocess.run(["resvg", "-z", "2", str(pip_svg), str(pip_png)], check=True)
+    else:
+        print("note: neither rsvg-convert nor resvg found; skipped twonr9_pip.png")
+
     # Clean up temp configs
     if cfg_2col_path.exists(): cfg_2col_path.unlink()
     if cfg_overview_path.exists(): cfg_overview_path.unlink()
     if cfg_combined_path.exists(): cfg_combined_path.unlink()
 
-    print(f"Generated {svg_out}, {overview_svg}, {combined_svg}, and {cheatsheet_svg}")
+    pip_note = f", {pip_svg}" + (f" + {pip_png.name}" if pip_png.exists() else "")
+    print(f"Generated {svg_out}, {overview_svg}, {combined_svg}, and {cheatsheet_svg}{pip_note}")
 
 if __name__ == "__main__":
     main()
