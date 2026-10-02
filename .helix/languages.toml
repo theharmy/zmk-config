@@ -33,5 +33,5 @@ args = [
   "--background-index",
   "--clang-tidy",
   "--header-insertion=never",
-  "--all-scopes-completion"
+  "--all-scopes-completion",
 ]

@@ -260,9 +260,9 @@ combo_symbol_map = {
     "&macro_cy": "CY",
     "&macro_eo": "EO",
     "&macro_ui": "UI",
-    "&macro_lr": "LR",
+    "&macro_rm": "RM",
     "&macro_nb": "NB",
-    "&macro_mt": "MT",
+    "&macro_kt": "KT",
     "&macro_gy": "GY",
     "&macro_oe": "OE",
     "&macro_iu": "IU",
@@ -311,7 +311,7 @@ def classify_combo_type(c):
     layers = c.get("l", [])
     
     # 1. Bigrams
-    if isinstance(k, str) and (k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"] or "RL / LR" in k or "/" in k):
+    if isinstance(k, str) and (k in ["RL", "HN", "DT", "CY", "EO", "UI", "RM", "NB", "KT", "GY", "OE", "IU"] or "RL / RM" in k or "/" in k):
         return "bigram"
     if isinstance(k, dict) and "t" in k and "/" in str(k.get("t")):
         return "bigram"
@@ -546,8 +546,8 @@ def post_process_svg_colors(svg_path):
         svg
     )
 
-    # 4. Style bigram dual text on the same horizontal baseline: RL / LR
-    for (b1, b2) in [("RL", "LR"), ("HN", "NB"), ("DT", "MT"), ("CY", "GY"), ("EO", "OE"), ("UI", "IU")]:
+    # 4. Style bigram dual text on the same horizontal baseline: RL / RM
+    for (b1, b2) in [("RL", "RM"), ("HN", "NB"), ("DT", "KT"), ("CY", "GY"), ("EO", "OE"), ("UI", "IU")]:
         svg = re.sub(
             rf'<text([^>]*)>\s*<tspan[^>]*>{b1}</tspan><tspan[^>]*>[^<]*</tspan>\s*</text>',
             rf'<text\1><tspan class="a1-bigram">{b1}</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">{b2}</tspan></text>',
@@ -717,7 +717,7 @@ def build_pip_svg(out_path):
     # -- plain SVG viewers cannot resolve CSS custom properties.
     # Bigrams and adaptive rules mirror config/twonr9.keymap / the overview.
     a1_bigrams = ["RL", "HN", "DT", "CY", "EO", "UI"]   # base layer, amber
-    a2_bigrams = ["LR", "NB", "MT", "GY", "OE", "IU"]   # alphas 2, violet
+    a2_bigrams = ["RM", "NB", "KT", "GY", "OE", "IU"]   # alphas 2, violet
     adaptive_rows = [
         ("after R", "#d3869b", "H &#8644; L  &#183;  M &#8644; V"),
         ("after U", "#83a598", "O &#8644; I"),
@@ -1042,10 +1042,10 @@ def main():
         if "a1" in layers and k in ["RL", "HN", "DT", "CY", "EO", "UI"]:
             c_copy["l"] = ["a1 (Base)"]
             overview_combos.append(c_copy)
-        elif "a2" in layers and k in ["LR", "NB", "MT", "GY", "OE", "IU"]:
+        elif "a2" in layers and k in ["RM", "NB", "KT", "GY", "OE", "IU"]:
             c_copy["l"] = ["a2 (Alphas 2)"]
             overview_combos.append(c_copy)
-        elif not (k in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"]):
+        elif not (k in ["RL", "HN", "DT", "CY", "EO", "UI", "RM", "NB", "KT", "GY", "OE", "IU"]):
             c_copy["l"] = ["Symbols & Utilities"]
             overview_combos.append(c_copy)
 
@@ -1073,9 +1073,9 @@ def main():
 
     # Step 5: Build Combined Alpha Overview YAML (a1 / a2 merged with dual bigrams & 4-corner legends)
     combined_bigram_map = {
-        (0, 7): "RL / LR",
+        (0, 7): "RL / RM",
         (1, 8): "HN / NB",
-        (2, 9): "DT / MT",
+        (2, 9): "DT / KT",
         (3, 10): "CY / GY",
         (4, 11): "EO / OE",
         (5, 12): "UI / IU",
@@ -1095,7 +1095,7 @@ def main():
 
     for c in d.get("combos", []):
         k = c.get("k")
-        if k not in ["RL", "HN", "DT", "CY", "EO", "UI", "LR", "NB", "MT", "GY", "OE", "IU"]:
+        if k not in ["RL", "HN", "DT", "CY", "EO", "UI", "RM", "NB", "KT", "GY", "OE", "IU"]:
             c_copy = dict(c)
             c_copy["l"] = ["Symbols & Utilities"]
             combined_combos.append(c_copy)

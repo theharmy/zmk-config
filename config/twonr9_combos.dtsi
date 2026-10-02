@@ -40,7 +40,7 @@ ZMK_COMBO(combo_esc,      &kp ESC,       3 4 5, ALL)                     // Righ
 ZMK_COMBO(combo_sz,       &kp DE_SZ,     6 7,   L_A1 L_A2)               // Left Home (6+7): German ß (Eszett)
 ZMK_COMBO(combo_under,    &kp DE_UNDER,  7 9,   ALL)                     // Left Home (7+8): snake_case Underscore
 ZMK_COMBO(combo_minus,    &kp DE_MINUS,  7 8,   ALL)                     // Left Home (8+9): Hyphen / Minus
-ZMK_COMBO(combo_colon,    &kp DE_COLON,  10 11, ALL)                     // Right Home (10+11): Colon :
+ZMK_COMBO(combo_colon,    &kp DE_COLON,  11 12, ALL)                     // Right Home (10+11): Colon :
 ZMK_COMBO(combo_semi,     &kp DE_SEMI,   10 12, ALL)                     // Right Home (11+12): Statement Semicolon ;
 
 // --- Universal Utilities ---

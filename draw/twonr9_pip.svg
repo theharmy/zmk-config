@@ -19,11 +19,11 @@
 
   <text x="16" y="118" font-size="12" font-weight="bold" fill="#a06cd5" dominant-baseline="middle">a2</text>
     <rect x="46" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
-    <text x="74" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">LR</text>
+    <text x="74" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">RM</text>
     <rect x="110" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
     <text x="138" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">NB</text>
     <rect x="174" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
-    <text x="202" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">MT</text>
+    <text x="202" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">KT</text>
     <rect x="238" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>
     <text x="266" y="118" font-size="13" font-weight="bold" fill="#282828" text-anchor="middle" dominant-baseline="middle">GY</text>
     <rect x="302" y="106" width="56" height="24" rx="6" fill="#a06cd5"/>

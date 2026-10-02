@@ -590,17 +590,17 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </a><a href="#sym">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
-<g class="combo a2 combopos-0">
-<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo a2"/>
-<text x="138" y="111" class="combo a2 tap">&amp;macro_rm</text>
+<g class="combo bigram combopos-0">
+<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo bigram"/>
+<text x="138" y="111" class="combo bigram tap">RM</text>
 </g>
 <g class="combo bigram combopos-1">
 <rect rx="6" ry="6" x="213" y="81" width="34" height="22" class="combo bigram"/>
 <text x="230" y="92" class="combo bigram tap">NB</text>
 </g>
-<g class="combo a2 combopos-2">
-<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo a2"/>
-<text x="322" y="121" class="combo a2 tap">&amp;macro_kt</text>
+<g class="combo bigram combopos-2">
+<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo bigram"/>
+<text x="322" y="121" class="combo bigram tap">KT</text>
 </g>
 <g class="combo bigram combopos-3">
 <rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo bigram"/>

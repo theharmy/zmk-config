@@ -3,7 +3,7 @@
 .direnv
 .west
 /modules
-firmware
+# firmware
 compile_commands.json
 /zephyr
 /zmk

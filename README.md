@@ -25,7 +25,7 @@ This repository adapts [Urob's ZMK devicetree workspace](https://github.com/urob
 ### 1. Dual-Alpha Multiplexing & 12 German Bigrams
 
 - **Base Alphas (`a1`) & Secondary Alphas (`a2`)**: Seamlessly multiplexed across 18 keys.
-- **12 Vertical Bigram Macros**: Single-chord typing for the most frequent German digraphs (`RL`, `HN`, `DT`, `CY`, `EO`, `UI`, `LR`, `NB`, `MT`, `GY`, `OE`, `IU`).
+- **12 Vertical Bigram Macros**: Single-chord typing for the most frequent German digraphs (`RL`, `HN`, `DT`, `CY`, `EO`, `UI`, `RM`, `NB`, `KT`, `GY`, `OE`, `IU`).
 - **Home-Row German Eszett (`ß`)**: Dedicated chord (`S + R` on `6 7`) for native German orthography.
 
 ### 2. Complete 14-Pair Mod-Morph Symbol System

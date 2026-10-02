@@ -261,10 +261,10 @@ combos:
 - p:
   - 0
   - 7
-  k: '&macro_rm'
+  k: RM
   l:
-  - Symbols & Utilities
-  type: a2
+  - a2 (Alphas 2)
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -279,10 +279,10 @@ combos:
 - p:
   - 2
   - 9
-  k: '&macro_kt'
+  k: KT
   l:
-  - Symbols & Utilities
-  type: a2
+  - a2 (Alphas 2)
+  type: bigram
   align: mid
   offset: 0.0
 - p:

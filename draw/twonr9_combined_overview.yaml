@@ -115,7 +115,7 @@ combos:
 - p:
   - 0
   - 7
-  k: RL / LR
+  k: RL / RM
   l:
   - Combined (a1 / a2)
   align: mid
@@ -135,7 +135,7 @@ combos:
 - p:
   - 2
   - 9
-  k: DT / MT
+  k: DT / KT
   l:
   - Combined (a1 / a2)
   align: mid
@@ -172,24 +172,6 @@ combos:
   offset: 0.0
   type: bigram
   width: 54.0
-- p:
-  - 0
-  - 7
-  k: '&macro_rm'
-  l:
-  - Symbols & Utilities
-  type: a2
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: '&macro_kt'
-  l:
-  - Symbols & Utilities
-  type: a2
-  align: mid
-  offset: 0.0
 - p:
   - 0
   - 1
