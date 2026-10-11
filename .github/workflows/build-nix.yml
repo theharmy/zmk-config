@@ -18,8 +18,10 @@ jobs:
   build:
     uses: urob/zmk-actions/.github/workflows/build-user-config.yml@main
     with:
-      # Toolchain for the cloud build: 'gnuarmemb' (fastest), 'zephyr'
-      # (default, used here) or 'zephyr-full' (most compatible). The nix-based
-      # local environment builds every target — including the ZMK Studio one —
-      # so the cloud toolchain does not need bumping to 'zephyr-full'.
-      toolchain: zephyr
+      # Toolchain for the cloud build: 'gnuarmemb' (fastest), 'zephyr' (default)
+      # or 'zephyr-full' (most compatible). The ZMK Studio target needs
+      # 'zephyr-full': nanopb regenerates its protobuf bindings and shells out
+      # to `protoc`, which the 'zephyr' toolchain does not provide (verified by
+      # the run failing with FileNotFoundError: 'protoc'). The local nix
+      # environment ships protoc, which is why `just build` succeeds either way.
+      toolchain: zephyr-full

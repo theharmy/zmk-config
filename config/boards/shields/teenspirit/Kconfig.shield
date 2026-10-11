@@ -1,2 +1,0 @@
-config SHIELD_TEENSPIRIT
-    def_bool $(shields_list_contains,teenspirit)

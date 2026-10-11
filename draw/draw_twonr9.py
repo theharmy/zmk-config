@@ -126,9 +126,21 @@ hold_abbr_map = {
     "Alt": "⌥",
     "LEFT_ALT": "⌥",
     "LALT": "⌥",
+    "RALT": "⌥",
+    "RIGHT_ALT": "⌥",
+    "RIGHT ALT": "⌥",
     "Gui": "⌘",
     "LEFT_GUI": "⌘",
     "LGUI": "⌘",
+    "RGUI": "⌘",
+    "RIGHT_GUI": "⌘",
+    "RIGHT GUI": "⌘",
+    "RSHFT": "⇧",
+    "RIGHT_SHIFT": "⇧",
+    "RIGHT SHIFT": "⇧",
+    "RCTRL": "⌃",
+    "RIGHT_CONTROL": "⌃",
+    "RIGHT CONTROL": "⌃",
     "sym": "sym",
     "fn": "fn",
     "num": "num",
@@ -230,14 +242,35 @@ def decode_binding(s):
     m = re.search(r"&(?:hml|hmr)(?:_[a-z])?\s+([A-Z_]+)\s+(.+)", s)
     if m:
         mod_raw, key_part = m.group(1), m.group(2)
-        mod_label = "⌥" if "ALT" in mod_raw else ("⌘" if "GUI" in mod_raw else ("⇧" if "SHI" in mod_raw or "SFT" in mod_raw else "⌃"))
+        if "ALT" in mod_raw:
+            mod_label = "⌥"
+        elif "GUI" in mod_raw:
+            mod_label = "⌘"
+        elif "SHFT" in mod_raw or "SHIFT" in mod_raw:
+            mod_label = "⇧"
+        else:
+            mod_label = "⌃"
         return {"t": decode_hid_code(key_part), "h": mod_label}
 
-    # Layer-taps: &lt_r4 / &lt_h / &lt_i / &lt_v
-    m = re.search(r"&(?:lt_r4|lt_[hinv])\s+(?:L_[A-Z]+|\d+)\s+(.+)", s)
+    # Layer-taps: legacy named nodes (&lt_r4 / &lt_h / &lt_i / &lt_v) and the
+    # current plain &lt override. The `keymap` CLI resolves the layer argument
+    # to its numeric index, so accept both "L_NAV" and "2".
+    m = re.search(r"&(lt_r4|lt_[hinv]|lt)\s+(L_[A-Z]+|\d+)\s+(.+)", s)
     if m:
-        key_part = m.group(1)
-        layer_label = "nav" if "lt_h" in s else ("fn" if ("lt_i" in s or "lt_v" in s) else "sym")
+        node, layer, key_part = m.group(1), m.group(2), m.group(3)
+        if node == "lt_h":
+            layer_label = "nav"
+        elif node in ("lt_i", "lt_v"):
+            layer_label = "fn"
+        elif node == "lt_r4":
+            layer_label = "sym"
+        else:
+            layer_label = {
+                "L_A1": "a1", "L_A2": "a2", "L_NAV": "nav",
+                "L_SYM": "sym", "L_FN": "fn", "L_NUM": "num",
+                "0": "a1", "1": "a2", "2": "nav", "3": "sym",
+                "4": "fn", "5": "num",
+            }.get(layer, "sym")
         return {"t": decode_hid_code(key_part), "h": layer_label}
 
     # Adaptive keys: &ak_l, &ak_h, etc.

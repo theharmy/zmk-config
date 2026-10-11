@@ -101,6 +101,20 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * *Why some remain*: The four thumb behaviors that keep it have **no** `require-prior-idle-ms`, so their `quick-tap-ms` is genuinely live; removing it there would change behavior.
   * *Verified*: Devicetree diff showed exactly 12 `quick-tap-ms` lines removed and nothing added; the four live sites and ZMK's built-in `mt` behaviors retained theirs.
 
+### 9. Teenspirit Target Removed & Push CI Enabled (2026-10-11, `build.yaml` + `.github/workflows/`)
+* **Change**: Dropped the Teenspirit (xiao_rp2040) target entirely — the two `build.yaml` entries (teenspirit + its `settings_reset`), the `config/boards/shields/teenspirit/` shield definition, and both `.uf2` artifacts. Re-enabled the commented-out `push`/`pull_request` path-filtered triggers on `build-nix.yml`, so CI now runs on every push touching `config/**`, `boards/**`, `build.yaml` or the workflows.
+  * *Reason*: The teenspirit shield ships no keymap, so both CI workflows failed on it every run (`Failed to locate keymap file!` → `#error "Keymap node not found"`). The target was unused.
+  * *Toolchain fix*: The nix workflow's ZMK Studio job failed with `FileNotFoundError: 'protoc'` — nanopb regenerates its protobuf bindings and shells out to `protoc`, which urob's `zephyr` toolchain does not provide. Set `toolchain: zephyr-full` in `build-nix.yml` (the local nix environment ships protoc, which is why `just build` always succeeded).
+  * *Verified*: After removal, `git grep teenspirit` returns nothing; CI re-run passes on all four remaining targets.
+
+### 10. Diagram Regeneration & Draw-Parser Fixes (2026-10-11, `draw/`)
+* **Change**: Regenerated all tracked diagrams with `just draw-twonr9` (they were 10 days stale and still showed the pre-swap layout), and fixed three bugs in `draw/draw_twonr9.py` that made the parser misread the current keymap:
+  * *`&lt` recognition*: The layer-tap branch only matched the **legacy** node names (`&lt_r4`, `&lt_h`, `&lt_i`, `&lt_v`). The current plain `&lt` override fell through with **no hold label at all**. It now matches `&lt` too and derives the label from the layer argument — accepting both the `L_NAV` form and the numeric index the `keymap` CLI emits (`nav`=2, `sym`=3, `fn`=4, `num`=5).
+  * *Shift detection*: The mod label used `"SHI" in mod_raw`, which is **false** for `LSHFT`/`RSHFT` (no "SHI" substring) — so every Shift key was drawn as Ctrl (⌃). Now tests `"SHFT"`/`"SHIFT"`, so `T`, `C`, `K`, `G` correctly show ⇧.
+  * *Right-hand modifiers*: `hold_abbr_map` had no entries for `RIGHT ALT`/`RIGHT GUI`, leaving raw text on the adaptive keys. Added `RALT`/`RGUI`/`RSHFT`/`RCTRL` and their long forms.
+  * *Reason*: Two of these (the `&lt` gap and Shift mislabel) were **pre-existing** — the old diagrams had already been wrong; the row-swap simply moved far more keys onto `&lt`/mod holds and made it obvious.
+  * *Verified*: All 36 hold labels across `a1`/`a2` now match `config/twonr9.keymap` binding-for-binding (`a1`: L→fn N→nav D→sym Y→sym O→nav U→fn / S→⌃ R→⌥ H→⌘ T→⇧ C→⇧ E→⌘ I→⌥ A→⌃). All four alpha-layer modifier glyphs render with the `hold-mod` color class, and no raw `RIGHT …` text remains in the SVGs.
+
 ---
 
 ## 3. The Power of Urob's ZMK Architecture
@@ -318,12 +332,6 @@ include:
 
   - board: nice_nano@2.0.0//zmk
     shield: settings_reset
-
-  - board: xiao_rp2040//zmk
-    shield: teenspirit
-
-  - board: xiao_rp2040//zmk
-    shield: settings_reset
 ```
 
 ### Generated Firmware Artifacts (`firmware/`)
@@ -331,8 +339,6 @@ include:
 2. **`twonr9_left-nice_nano@2.0.0__zmk.uf2`**: Central (Left) half (standard lightweight build).
 3. **`twonr9_right-nice_nano@2.0.0__zmk.uf2`**: Peripheral (Right) half.
 4. **`settings_reset-nice_nano@2.0.0__zmk.uf2`**: Diagnostic firmware to clear corrupted BLE bond storage.
-5. **`teenspirit-xiao_rp2040__zmk.uf2`**: Teenspirit (Xiao RP2040) target.
-6. **`settings_reset-xiao_rp2040__zmk.uf2`**: Diagnostic firmware for the Teenspirit target.
 
 ---
 

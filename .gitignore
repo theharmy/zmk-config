@@ -19,3 +19,4 @@ draw/overview.yaml
 # --- Local-only scratch ---
 config/backups/
 /trainer
+__pycache__

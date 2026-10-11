@@ -3,33 +3,33 @@ layout:
 layers:
   a1:
   - t: L
-    h: "\u2325"
-  - t: N
-    h: "\u2318"
-  - t: D
-    h: "\u2303"
-  - t: Y
-    h: "\u2303"
-  - t: O
-    h: RIGHT GUI
-  - t: U
-    h: RIGHT ALT
-  - t: S
-    h: "\u21E7"
-  - t: R
-    h: sym
-  - t: H
-    h: nav
-  - t: T
-    h: sym
-  - t: C
-    h: sym
-  - t: E
-    h: sym
-  - t: I
     h: fn
-  - t: A
+  - t: N
+    h: nav
+  - t: D
+    h: sym
+  - t: Y
+    h: sym
+  - t: O
+    h: nav
+  - t: U
+    h: fn
+  - t: S
+    h: "\u2303"
+  - t: R
+    h: "\u2325"
+  - t: H
+    h: "\u2318"
+  - t: T
     h: "\u21E7"
+  - t: C
+    h: "\u21E7"
+  - t: E
+    h: "\u2318"
+  - t: I
+    h: "\u2325"
+  - t: A
+    h: "\u2303"
   - h: num
     t: Num
   - t: a2
@@ -40,33 +40,33 @@ layers:
     h: sym
   a2:
   - t: X
-    h: "\u2325"
-  - t: B
-    h: "\u2318"
-  - t: V
-    h: "\u2303"
-  - t: W
-    h: "\u2303"
-  - t: Q
-    h: "\u2318"
-  - t: ','
-    h: "\u2325"
-  - t: F
-    h: "\u21E7"
-  - t: M
     h: fn
+  - t: B
+    h: nav
+  - t: V
+    h: sym
+  - t: W
+    h: sym
+  - t: Q
+    h: nav
+  - t: ','
+    h: fn
+  - t: F
+    h: "\u2303"
+  - t: M
+    h: "\u2325"
   - t: P
-    h: sym
+    h: "\u2318"
   - t: K
-    h: sym
-  - t: G
-    h: sym
-  - t: J
-    h: sym
-  - t: .
-    h: sym
-  - t: Z
     h: "\u21E7"
+  - t: G
+    h: "\u21E7"
+  - t: J
+    h: "\u2318"
+  - t: .
+    h: "\u2325"
+  - t: Z
+    h: "\u2303"
   - h: num
     t: Num
   - t: a1
@@ -84,12 +84,12 @@ layers:
     h: "\u2196"
   - t: "\u2193"
     h: "Ctl+\u2198"
+    type: held
   - t: "\u2191"
     h: "Ctl+\u2196"
   - t: "\u2303"
   - Q
-  - t: "Gui+\u21E5"
-    type: held
+  - "Gui+\u21E5"
   - t: R
     s: C
   - "\u21F9"
@@ -146,7 +146,8 @@ layers:
     h: sym
     type: held
   fn:
-  - F1
+  - t: F1
+    type: held
   - F2
   - F3
   - F8
@@ -158,8 +159,7 @@ layers:
   - F7
   - F11
   - F12
-  - t: VOL DN
-    type: held
+  - VOL DN
   - VOL UP
   - h: num
     t: Num
@@ -387,8 +387,8 @@ combos:
   align: mid
   offset: 0.0
 - p:
-  - 10
   - 11
+  - 12
   k: ':'
   l:
   - a1
@@ -430,8 +430,9 @@ combos:
   - 8
   - 9
   k:
-    t: "\u21E7"
-    h: sticky
+    t: '&shift_repeat'
+    h: "\u21E7"
+    s: "\u21EA"
   l:
   - a1
   - a2
@@ -442,8 +443,9 @@ combos:
   - 10
   - 11
   k:
-    t: "\u21E7"
-    h: sticky
+    t: '&shift_repeat'
+    h: "\u21E7"
+    s: "\u21EA"
   l:
   - a1
   - a2
