@@ -1,27 +1,23 @@
 name: Build ZMK firmware (nix)
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - config/**
-      - boards/**
-      - build.yaml
-      - .github/workflows/**
-  pull_request:
-    paths:
-      - config/**
-      - boards/**
-      - build.yaml
-      - .github/workflows/**
+  # push:
+  #   paths:
+  #     - config/**
+  #     - boards/**
+  #     - build.yaml
+  #     - .github/workflows/**
+  # pull_request:
+  #   paths:
+  #     - config/**
+  #     - boards/**
+  #     - build.yaml
+  #     - .github/workflows/**
 
 jobs:
   build:
     uses: urob/zmk-actions/.github/workflows/build-user-config.yml@main
     with:
-      # Toolchain for the cloud build: 'gnuarmemb' (fastest), 'zephyr' (default)
-      # or 'zephyr-full' (most compatible). The ZMK Studio target needs
-      # 'zephyr-full': nanopb regenerates its protobuf bindings and shells out
-      # to `protoc`, which the 'zephyr' toolchain does not provide (verified by
-      # the run failing with FileNotFoundError: 'protoc'). The local nix
-      # environment ships protoc, which is why `just build` succeeds either way.
-      toolchain: zephyr-full
+      # Set to 'gnuarmemb' (fastest), 'zephyr' or, 'zephyr-full' (most
+      # compatible). ZMK Studio requires 'zephyr-full'.
+      toolchain: zephyr
