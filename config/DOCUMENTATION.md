@@ -26,15 +26,18 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * **Hardware Model v2**: Targets `nice_nano@2.0.0//zmk` on Zephyr 4.1.
 * **German Layout Integration**: Native `keys_de.h` keycodes with correct German modifier handling.
 * **Ergonomic Homerow Mods (HRM)**: Positional triggers isolating left hand from right hand to eliminate typing roll misfires.
+* **Row-Split Hold Model**: On both alpha layers, the **top row is layer-taps** (`fn` / `nav` / `sym`) and the **home row is modifiers** (`CTRL` / `ALT` / `GUI` / `SHIFT`), mirrored across the two halves. See [§5](#5-twonr9-keymap--layer-reference).
 * **Dual GUI & Notification Support**:
   * **ZMK Studio**: Real-time on-keyboard layer/keymap remapping via USB RPC.
   * **KeyPeek**: Real-time active layer visualizer via `zmk-raw-hid` and `zmk-keypeek-layer-notifier`.
-* **Symmetrical Adaptive Thumb Engine**:
-  * Left Outer (14): `A2_DUAL` (Tap: single `a2`, Hold: continuous `a2` words like *BMW*, *Quiz*, *Pflanze*).
-  * Left Inner (15): `SPC_NAV` (Tap: `Space` with sentence `. ` morph, Hold: `nav` layer).
-  * Right Inner (16): `MAGIC_SHIFT` (Adaptive Repeat after letters, Sticky Shift on pause for German noun caps, Hold for continuous Shift).
-  * Right Outer (17): `SMART_NUM` (Auto-terminating `num_word`).
+* **Adaptive Thumb Engine** (both alpha layers share the same thumb cluster):
+  * Left Outer (14): `SMART_NUM` (Tap: `num_word`, Hold: momentary `num`).
+  * Left Inner (15): `A2_DUAL` (Tap: single `a2`, Hold: continuous `a2` words like *BMW*, *Quiz*, *Pflanze*).
+  * Right Inner (16): `SPC_NAV` (Tap: `Space` with sentence `. ` morph, Hold: `nav` layer).
+  * Right Outer (17): `SYM_DUAL` (Tap: single `sym`, Hold: continuous `sym`).
+  * *Note*: `MAGIC_SHIFT` is not on the thumbs — it is reached via the `shiftl` (8+9) and `shiftr` (10+11) combos on every layer.
 * **Complete 14-Pair Mod-Morph Symbol System**: All brackets, quotes, slashes, and punctuation mapped without combo clutter.
+* **Nine Adaptive Keys**: Context-aware bigram-swap keys (eliminate same-finger rolls like `rhl`, `uo`, `qi`) wired through their own hold-taps. See [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat) and [`config/twonr9_adaptive_keys.h`](twonr9_adaptive_keys.h).
 * **Automated Visualizations**:
   * All 6 Layers detailed view: `draw/twonr9.svg`
   * Single-board unified overview with 4-corner layer sub-legends: `draw/twonr9_overview.svg`
@@ -53,7 +56,8 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * **Change**: Defined `#define ALL 0 1 2 3 4 5`.
   * *Reason*: Allows universal coding combos (`⇥`, `⏎`, `⌫ / ⌦`, `⌃⌫`, `⎋`, `_`, `-`, `:`, `;`, `⇪`) to apply across all layers.
 * **Change**: Extracted key definitions into modular components:
-  * `config/twonr9_keys.h`: Parameterized function macros (`AL()`, `GL()`, `SL()`, `CL()`, `SR()`, `GR()`, `AR()`, `CR()`, `S1()`, `FN()`, `NM()`), `MAGIC_SHIFT`, `A2_DUAL`, `SPC_NAV`, and 14 mod-morph pairs.
+  * `config/twonr9_keys.h`: Mod-morph pairs, nav long-taps, `MAGIC_SHIFT`, `A2_DUAL`/`SYM_DUAL`, `SPC_NAV`, `SMART_NUM`, `swapper`.
+  * `config/twonr9_adaptive_keys.h`: Adaptive swap rules (`AK`/`AK2`/`AK_PAIR`), their hold-taps (`MAKE_AK_HM`/`MAKE_AK_LT`), and the nine grid aliases (`FN_L`, `GL_H`, …).
   * `config/twonr9_macros.dtsi`: German bigram digraph macros.
   * `config/twonr9_combos.dtsi`: Categorized combo definitions.
 
@@ -77,6 +81,26 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * *Reason*: Standard `keymap-drawer` cannot natively parse raw HID usage numbers from localized headers like `keys_de.h`. The script translates all raw codes into clean German legends, unicode symbols, and hold-tap labels.
 * **Change**: Added 2-column detailed layer layout (`draw/twonr9.svg`), single-board overview (`draw/twonr9_overview.svg`), combined dual-alpha diagram (`draw/twonr9_combined_overview.svg`), and visual infographic (`draw/twonr9_cheatsheet.svg`).
 
+### 6. Adaptive Keys Split Into Their Own Module (2026-10-11, `config/twonr9_adaptive_keys.h`)
+* **Change**: Moved all nine adaptive keys out of `twonr9_keys.h` into a new `config/twonr9_adaptive_keys.h`.
+  * *Reason*: Each key's swap rule, hold wiring and grid name now sit in one contiguous group, so reworking a single adaptive key touches one block instead of scattering across `twonr9_keys.h`. `twonr9_keys.h` dropped from 256 to 182 lines.
+  * *Structure*: `AK_TRIG`/`AK`/`AK2`/`AK_PAIR` generate the adaptive nodes; `MAKE_AK_HM`/`MAKE_AK_LT` wire each into a hold-tap; a trailing `#define` gives it its grid alias.
+  * *Verified*: Devicetree diff showed all `ak_*` nodes and all 6 layer bindings byte-identical to before the split — only file layout changed.
+
+### 7. Grid Row-Swap: Layers to Top Row, Mods to Home Row (2026-10-11, `config/twonr9.keymap`)
+* **Change**: On both `a1` and `a2`, the **top row became layer-taps** (`L_FN` / `L_NAV` / `L_SYM`) and the **home row became modifiers** (`LCTRL` / `LALT` / `LGUI` / `LSHFT`), mirrored on the right half with right-hand modifiers (`RCTRL` / `RALT` / `RGUI` / `RSHFT`). Alpha letters did not move — only each key's hold behavior changed.
+  * *Reason*: Consolidates holds by role — every layer access is on the top row, every modifier on the home row — and removes a pre-existing handedness inconsistency (`&hmr LCTRL DE_Y`, a right-hand key holding left Ctrl).
+  * *Adaptive keys*: 7 of the 9 keys flipped generator (`MAKE_AK_HM` ↔ `MAKE_AK_LT`) and were renamed to match their new hold (e.g. `AL_L`→`FN_L`, `NV_H`→`GL_H`, `FN_I`→`AR_I`).
+  * *Trigger sets*: `TRIG_L`/`TRIG_R` are hand-based, not row-based, so no trigger positions needed changing.
+  * *Combos*: All position-based and unaffected — no letter moved, so every combo still finds its keys in place.
+  * *Verified*: Devicetree diff showed only the 9 adaptive hold-taps and 4 grid lines changed; all combo nodes and `ak_*` nodes byte-identical. Left 34.07% FLASH / 28.84% RAM, right 23.42% / 13.86% — matching baseline.
+
+### 8. quick-tap-ms Removed From Gated Hold-Taps (2026-10-11, `config/twonr9.keymap` + `twonr9_adaptive_keys.h`)
+* **Change**: Omitted `quick-tap-ms` from `MAKE_HRM`, the `&lt` override, `MAKE_AK_HM` and `MAKE_AK_LT`. Kept `QUICK_TAP_MS` (175) on `lt_spc`, `lt_dual`, `magic_shift` and `smart_num`.
+  * *Reason*: In ZMK's `is_quick_tap()`, the same-key quick-tap branch is only evaluated **after** the `require-prior-idle-ms` gate has already failed. Since `HRM_IDLE`/`LT_IDLE` are both 300, any `quick-tap-ms` value ≤ 300 is unreachable on those behaviors — the property was dead. `require-prior-idle-ms = <300>` remains the sole gate, which also matches urob's timeless HRM (his config sets no `quick-tap-ms` at all).
+  * *Why some remain*: The four thumb behaviors that keep it have **no** `require-prior-idle-ms`, so their `quick-tap-ms` is genuinely live; removing it there would change behavior.
+  * *Verified*: Devicetree diff showed exactly 12 `quick-tap-ms` lines removed and nothing added; the four live sites and ZMK's built-in `mt` behaviors retained theirs.
+
 ---
 
 ## 3. The Power of Urob's ZMK Architecture
@@ -85,8 +109,10 @@ Urob's configuration is widely recognized as the gold standard for minimal-key e
 
 ### 1. "Timeless" Homerow Mod Tuning
 * `flavor = "balanced"`: Activates as a hold only if another key is pressed and released while held.
-* `require-prior-idle-ms = <150>`: Holds only trigger if you pause typing for 150ms before pressing the key. During fast typing streams, keys *always* output as letters even if fingers overlap.
+* `require-prior-idle-ms = <300>`: Holds only trigger if you pause typing for 300ms before pressing the key. During fast typing streams, keys *always* output as letters even if fingers overlap.
+  * *Note*: urob's reference config uses `150`. This config deliberately doubles it to `300` — a stricter gate, so accidental mods during continuous typing are rarer, but intentional mods right after a word need a slightly longer pause. `HRM_IDLE` and `LT_IDLE` are independent constants; either can be tuned without touching the other.
 * `hold-trigger-key-positions`: A left-hand modifier will *never* activate if you press another left-hand key.
+* **No `quick-tap-ms`**: It is deliberately omitted here. ZMK's `is_quick_tap()` only evaluates its same-key quick-tap branch *after* the `require-prior-idle-ms` gate has failed, so with a 300ms idle window any `quick-tap-ms` value ≤ 300 is unreachable. Omitting it also matches urob, whose config sets none.
 
 ### 2. Micro-Module Ecosystem
 * `zmk-helpers`: Standardized key positions, hold-taps, morphs, and macros.
@@ -98,7 +124,23 @@ Urob's configuration is widely recognized as the gold standard for minimal-key e
 
 ## 4. Advanced Behaviors & Smart Engine
 
+### Tuning Constants (single source of truth)
+
+Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
+
+| Constant | Value | Meaning |
+|----------|-------|---------|
+| `QUICK_TAP_MS` | 175 | Same-key quick-tap window — **only** on the ungated thumb behaviors (`lt_spc`, `lt_dual`, `magic_shift`, `smart_num`) |
+| `HRM_TERM` | 280 | Homerow-mod tapping term (`hml`/`hmr`, `MAKE_AK_HM`) |
+| `HRM_IDLE` | 300 | Homerow-mod require-prior-idle |
+| `LT_TERM` | 200 | Layer-tap tapping term (`&lt`, `MAKE_AK_LT`) |
+| `LT_IDLE` | 300 | Layer-tap require-prior-idle |
+| `AK_MS` | 300 | Adaptive-key swap window (max prior idle for triggers) |
+
 ### A. Adaptive `magic_shift` (`MAGIC_SHIFT`)
+* **Reachability**: Not bound to any thumb key. Reached only via two home-row combos, active on every layer (`ALL`):
+  * **`shiftl`** — home row 8+9 (left hand inner pair)
+  * **`shiftr`** — home row 10+11 (right hand inner pair)
 * **After typing a letter**: Acts immediately as **`&key_repeat`** (repeats the last character: *tt*, *ee*, *ll*, *ff*, *mm*, *ss* with zero delay).
 * **After a pause / start of word**: Acts as **`&sk LSHFT` (Sticky Shift)** (arms Shift for German noun capitalization without holding).
 * **Hold**: Acts as standard continuous **`&kp LSHFT`**.
@@ -125,6 +167,7 @@ Urob's configuration is widely recognized as the gold standard for minimal-key e
   * **`q iu`** (After `Q`): Pressing `I` outputs `U` (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs `I`.
   * **`r mv`** (After `R`): Pressing `M` outputs `V` (fast `rv` roll), pressing `V` outputs `M`.
   * **`n bx`** (After `N`): Pressing `B` outputs `X` (fast `nx` roll), pressing `X` outputs `B`.
+  * *Where these live*: The swap rules, hold wiring, and grid aliases for all nine adaptive keys are defined in [`config/twonr9_adaptive_keys.h`](twonr9_adaptive_keys.h). Each key's rule, hold-tap, and `#define` sit together in one group, so reworking a single adaptive key touches one contiguous block.
 * **Expanded Symbol & Number Auto-Repeat**: Tapping Magic Shift immediately after typing any symbol or number (`==`, `++`, `::`, `//`, `!=`, `->`, `**`, `11`, `00`) instantly repeats that character.
 
 ---
@@ -149,30 +192,58 @@ Urob's configuration is widely recognized as the gold standard for minimal-key e
 ### Layer Overview
 
 #### Layer 0: `a1` (Base QWERTZ Alphas)
+
+Top row = layer-taps · Home row = modifiers (mirrored on the right half).
+
 ```c
 ZMK_LAYER(a1,
-//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL(DE_L) GL(DE_N) SL(DE_D)        SR(DE_Y) GR(DE_O) AR(DE_U)
-//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_S) FN(DE_R) NV(DE_H) S1(DE_T)      S1(DE_C) NV(DE_E) FN(DE_I) CR(DE_A)
-//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         A2_DUAL   SPC_NAV          MAGIC_SHIFT SMART_NUM
-//                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
+//                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
+                            FN_L              &lt L_NAV DE_N    &lt L_SYM DE_D           &lt L_SYM DE_Y    NV_O              FN_U
+//       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
+          &hml LCTRL DE_S   &hml LALT DE_R    GL_H              &hml LSHFT DE_T          &hmr RSHFT DE_C   &hmr RGUI DE_E    AR_I              &hmr RCTRL DE_A
+//       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
+                                              SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
+//                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
 )
 ```
 
+| Pos | Key | Hold | Pos | Key | Hold |
+|-----|-----|------|-----|-----|------|
+| 0 | L *(adaptive)* | `FN_L` (fn) | 3 | Y | `&lt L_SYM` |
+| 1 | N | `&lt L_NAV` (nav) | 4 | O *(adaptive)* | `NV_O` (nav) |
+| 2 | D | `&lt L_SYM` (sym) | 5 | U *(adaptive)* | `FN_U` (fn) |
+| 6 | S | `&hml LCTRL` | 10 | C | `&hmr RSHFT` |
+| 7 | R | `&hml LALT` | 11 | E | `&hmr RGUI` |
+| 8 | H *(adaptive)* | `GL_H` (GUI) | 12 | I *(adaptive)* | `AR_I` (RALT) |
+| 9 | T | `&hml LSHFT` | 13 | A | `&hmr RCTRL` |
+
 #### Layer 1: `a2` (Secondary Alphas)
+
+Same row-split: top row = layer-taps, home row = modifiers.
+
 ```c
 ZMK_LAYER(a2,
-//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL(DE_X) GL(DE_B) SL(DE_M)        SR(DE_W) GR(DE_Q) AR(DE_COMMA)
-//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           CL(DE_F) FN(DE_V) NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) CR(DE_Z)
-//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         &to L_A1  SPC_NAV          MAGIC_SHIFT SMART_NUM
-//                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
+//                            ╭────────────────────┬────────────────────┬────────────────────╮      ╭────────────────────┬────────────────────┬────────────────────╮
+                               FN_X                 NV_B                 SY_V                        &lt L_SYM DE_W       &lt L_NAV DE_Q       &lt L_FN DE_COMMA
+//       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+          &hml LCTRL DE_F      AL_M                 &hml LGUI DE_P       &hml LSHFT DE_K             &hmr RSHFT DE_G      &hmr RGUI DE_J       &hmr RALT DE_DOT     &hmr RCTRL DE_Z
+//       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
+                                                    SMART_NUM            &to L_A1                    SPC_NAV              SYM_DUAL
+//                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯
 )
 ```
+
+| Pos | Key | Hold | Pos | Key | Hold |
+|-----|-----|------|-----|-----|------|
+| 0 | X *(adaptive)* | `FN_X` (fn) | 3 | W | `&lt L_SYM` |
+| 1 | B *(adaptive)* | `NV_B` (nav) | 4 | Q | `&lt L_NAV` |
+| 2 | V *(adaptive)* | `SY_V` (sym) | 5 | `,` | `&lt L_FN` |
+| 6 | F | `&hml LCTRL` | 10 | G | `&hmr RSHFT` |
+| 7 | M *(adaptive)* | `AL_M` (LALT) | 11 | J | `&hmr RGUI` |
+| 8 | P | `&hml LGUI` | 12 | `.` | `&hmr RALT` |
+| 9 | K | `&hml LSHFT` | 13 | Z | `&hmr RCTRL` |
+
+> **Adaptive keys** (marked *adaptive*) additionally rewrite their own output based on the preceding bigram — see [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat). Their hold wiring lives in [`config/twonr9_adaptive_keys.h`](twonr9_adaptive_keys.h).
 
 #### Layer 2: `nav` (Navigation & Niri Suite)
 ```c
@@ -182,7 +253,7 @@ ZMK_LAYER(nav,
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────╮
            &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) &niri_adjust &swapper NAV_PGDN NAV_PGUP NAV_RIGHT
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴────────╯
-                         ___       &to L_A1         MAGIC_SHIFT SMART_NUM
+               SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 ```
@@ -191,11 +262,11 @@ ZMK_LAYER(nav,
 ```c
 ZMK_LAYER(sym,
 //              ╭───────────┬───────────┬───────────╮      ╭────────┬────────┬────────────╮
-                  &excl_qmark &hash_tilde &dllr_euro         &lpar_lt &rpar_gt &semi_sqt
+                  &excl_qmark &hash_tilde &dllr_euro         &lpar_rpar &lbkt_rbkt &semi_sqt
 //       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
-            &grave_caret &under_minus &amps_at &pipe_equal  &lbkt_lbrc &rbkt_rbrc &colon_dqt &fslh_bslh
+            &grave_caret &under_minus &amps_at &equal_pipe  &lbrc_rbrc &lt_gt &colon_dqt &fslh_bslh
 //       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
-                            ___         &to L_A1           MAGIC_SHIFT SMART_NUM
+                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                        ╰───────────┴───────────╯      ╰───────────┴─────────╯
 )
 ```
@@ -208,8 +279,8 @@ ZMK_LAYER(fn,
 //       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
            &kp F4 &kp F5 &kp F6 &kp F7        &kp F11 &kp F12 &kp C_VOL_DN &kp C_VOL_UP
 //       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___    &to L_A1      MAGIC_SHIFT SMART_NUM
-//                     ╰──────┴──────╯      ╰───────────┴─────────╯
+                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
+//                     ╰───────────┴──────────╯      ╰───────────┴─────────╯
 )
 ```
 
@@ -221,7 +292,7 @@ ZMK_LAYER(num,
 //       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
            &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &dot_comma      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
 //       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
-                             ___          &to L_A1            MAGIC_SHIFT SMART_NUM
+                             SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                         ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )
 ```
@@ -247,6 +318,12 @@ include:
 
   - board: nice_nano@2.0.0//zmk
     shield: settings_reset
+
+  - board: xiao_rp2040//zmk
+    shield: teenspirit
+
+  - board: xiao_rp2040//zmk
+    shield: settings_reset
 ```
 
 ### Generated Firmware Artifacts (`firmware/`)
@@ -254,6 +331,8 @@ include:
 2. **`twonr9_left-nice_nano@2.0.0__zmk.uf2`**: Central (Left) half (standard lightweight build).
 3. **`twonr9_right-nice_nano@2.0.0__zmk.uf2`**: Peripheral (Right) half.
 4. **`settings_reset-nice_nano@2.0.0__zmk.uf2`**: Diagnostic firmware to clear corrupted BLE bond storage.
+5. **`teenspirit-xiao_rp2040__zmk.uf2`**: Teenspirit (Xiao RP2040) target.
+6. **`settings_reset-xiao_rp2040__zmk.uf2`**: Diagnostic firmware for the Teenspirit target.
 
 ---
 

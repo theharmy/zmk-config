@@ -4,21 +4,22 @@
  * ==============================================================================
  *
  * Provides:
- * 1. Parameterized Homerow Modifiers: AL(), GL(), SL(), CL(), SR(), GR(), AR(), CR()
- * 2. Parameterized Fast Layer-Taps: S1() [Sym], FN() [Fn/Media], NM() [Num]
- * 3. 14 Complete Mod-Morph Symbol & Enclosure Pairs on `sym`:
+ * 1. 14 Complete Mod-Morph Symbol & Enclosure Pairs on `sym`:
  *      ( / < · ) / > · [ / { · ] / } · : / " · ; / ' · / / \
  *      ! / ? · # / ~ · $ / € · ` / ^ · _ / - · & / @ · | / =
- * 4. Smart Sentence Space with Nav Hold (SPC_NAV):
+ * 2. Smart Sentence Space with Nav Hold (SPC_NAV):
  *      Tap: Space | Shift+Tap: ". " + Sticky Shift | Hold: Nav layer
- * 5. Dual a2 Thumb (A2_DUAL):
- *      Tap: Single a2 letter | Hold: Continuous a2 words (BMW, Quiz, Pflanze)
- * 6. Adaptive Magic Shift (MAGIC_SHIFT):
+ * 3. Dual Thumbs (A2_DUAL / SYM_DUAL, shared lt_dual):
+ *      Tap: Momentary layer | Hold: Sticky layer
+ * 4. Adaptive Magic Shift (MAGIC_SHIFT):
  *      After letter: Instant Repeat (&key_repeat) | On pause: Sticky Shift | Hold: Shift
- * 7. Auto-Terminating Number Word (SMART_NUM via zmk-auto-layer):
+ * 5. Auto-Terminating Number Word (SMART_NUM via zmk-auto-layer):
  *      Tap: num_word | Double-tap: Sticky Num | Hold: Momentary Num
- * 8. One-Key App Switcher (swapper via zmk-tri-state):
+ * 6. One-Key App Switcher (swapper via zmk-tri-state):
  *      Cycles open windows on Alt+Tab and releases Alt when another key is pressed
+ *
+ * Adaptive keys (swap rules, their hold-taps and grid names) live separately in
+ * config/twonr9_adaptive_keys.h.
  * ==============================================================================
  */
 
@@ -26,30 +27,14 @@
 
 #include <behaviors/num_word.dtsi>
 
-/* --- Homerow Modifiers on Left Hand --- */
-#define AL(k)    &hml LEFT_ALT k
-#define GL(k)    &hml LEFT_GUI k
-#define SL(k)    &hml LEFT_SHIFT k
-#define CL(k)    &hml LCTRL k
-
-/* --- Homerow Modifiers on Right Hand --- */
-#define SR(k)    &hmr RIGHT_SHIFT k
-#define GR(k)    &hmr RIGHT_GUI k
-#define AR(k)    &hmr RIGHT_ALT k
-#define CR(k)    &hmr LCTRL k
-
-/* --- Fast Layer-Taps on Home Row Keys --- */
-#define S1(k)    &lt_r4 L_SYM k    // Hold: Primary Symbols Layer
-#define NV(k)    &lt_r4 L_NAV k    // Hold: Navigation & Niri Suite
-#define FN(k)    &lt_r4 L_FN k     // Hold: Function & Media Layer
-#define NM(k)    &lt_r4 L_NUM k    // Hold: Numpad / Arithmetic Layer
-
 /* --- Clustered Navigation & Long-Tap Jumps (Urob Nav Pattern) --- */
 #define MT_CORE \
     flavor = "tap-preferred"; \
     tapping-term-ms = <220>; \
     quick-tap-ms = <220>; \
     hold-trigger-key-positions = <0>;
+
+&mt { MT_CORE }; // Trigger tap-action on all interrupts for plain &mt keys too.
 
 #define MASK_MODS(NAME, MODS, BINDING) \
     ZMK_MOD_MORPH(NAME, bindings = <BINDING>, <BINDING>; mods = <MODS>;)
@@ -76,98 +61,36 @@ ZMK_MOD_MORPH(niri_adjust,
     mods = <(MOD_LSFT|MOD_RSFT)>;
 )
 
+/* --- Shift-Morph Pairs: Tap = PLAIN, Shift+Tap = SHIFTED --- */
+#define SHIFT_PAIR(NAME, PLAIN, SHIFTED) \
+    ZMK_MOD_MORPH(NAME, bindings = <&kp PLAIN>, <&kp SHIFTED>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+
 /* --- Numpad Decimal Morph --- */
 // Tap: Dot (Code/International) | Shift+Tap: Comma (German Accounting)
-ZMK_MOD_MORPH(dot_comma,
-    bindings = <&kp DE_DOT>, <&kp DE_COMMA>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
+SHIFT_PAIR(dot_comma,   DE_DOT,    DE_COMMA)
 
 /* --- Morphing Symbol & Enclosure Pairs --- */
-ZMK_MOD_MORPH(excl_qmark,
-    bindings = <&kp DE_EXCL>, <&kp DE_QMARK>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(hash_tilde,
-    bindings = <&kp DE_HASH>, <&kp DE_TILDE>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(dllr_euro,
-    bindings = <&kp DE_DLLR>, <&kp DE_EURO>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(grave_caret,
-    bindings = <&kp DE_GRAVE>, <&kp DE_CARET>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(under_minus,
-    bindings = <&kp DE_UNDER>, <&kp DE_MINUS>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(amps_at,
-    bindings = <&kp DE_AMPS>, <&kp DE_AT>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(equal_pipe,
-    bindings = <&kp DE_EQUAL>, <&kp DE_PIPE>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(lpar_rpar,
-    bindings = <&kp DE_LPAR>, <&kp DE_RPAR>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(lbkt_rbkt,
-    bindings = <&kp DE_LBKT>, <&kp DE_RBKT>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(lbrc_rbrc,
-    bindings = <&kp DE_LBRC>, <&kp DE_RBRC>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(lt_gt,
-    bindings = <&kp DE_LT>, <&kp DE_GT>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(colon_dqt,
-    bindings = <&kp DE_COLON>, <&kp DE_DQT>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-// ZMK_MOD_MORPH(lbkt_lbrc,
-//     bindings = <&kp DE_LBKT>, <&kp DE_LBRC>;
-//     mods = <(MOD_LSFT|MOD_RSFT)>;
-// )
-
-// ZMK_MOD_MORPH(rbkt_rbrc,
-//     bindings = <&kp DE_RBKT>, <&kp DE_RBRC>;
-//     mods = <(MOD_LSFT|MOD_RSFT)>;
-// )
-
-ZMK_MOD_MORPH(semi_sqt,
-    bindings = <&kp DE_SEMI>, <&kp DE_SQT>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-
-ZMK_MOD_MORPH(fslh_bslh,
-    bindings = <&kp DE_FSLH>, <&kp DE_BSLH>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
+SHIFT_PAIR(excl_qmark,  DE_EXCL,   DE_QMARK)
+SHIFT_PAIR(hash_tilde,  DE_HASH,   DE_TILDE)
+SHIFT_PAIR(dllr_euro,   DE_DLLR,   DE_EURO)
+SHIFT_PAIR(grave_caret, DE_GRAVE,  DE_CARET)
+SHIFT_PAIR(under_minus, DE_UNDER,  DE_MINUS)
+SHIFT_PAIR(amps_at,     DE_AMPS,   DE_AT)
+SHIFT_PAIR(equal_pipe,  DE_EQUAL,  DE_PIPE)
+SHIFT_PAIR(lpar_rpar,   DE_LPAR,   DE_RPAR)
+SHIFT_PAIR(lbkt_rbkt,   DE_LBKT,   DE_RBKT)
+SHIFT_PAIR(lbrc_rbrc,   DE_LBRC,   DE_RBRC)
+SHIFT_PAIR(lt_gt,       DE_LT,     DE_GT)
+SHIFT_PAIR(colon_dqt,   DE_COLON,  DE_DQT)
+SHIFT_PAIR(semi_sqt,    DE_SEMI,   DE_SQT)
+SHIFT_PAIR(fslh_bslh,   DE_FSLH,   DE_BSLH)
 
 /* --- Morphing Backspace / Delete --- */
+// Tap: Backspace | Shift+Tap: Shift+Delete (keeps shift, cf. urob)
 ZMK_MOD_MORPH(bs_del,
     bindings = <&kp BSPC>, <&kp DEL>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
+    keep-mods = <MOD_RSFT>;
 )
 
 /* --- Smart Sentence Space with Nav Hold --- */
@@ -191,26 +114,16 @@ ZMK_HOLD_TAP(lt_spc,
 
 #define SPC_NAV &lt_spc L_NAV 0
 
-/* --- Dual a2 Thumb (Tap: Single a2, Hold: Continuous a2) --- */
-ZMK_HOLD_TAP(lt_a2,
+/* --- Dual Thumbs (Tap: Single Momentary, Hold: Sticky Layer) --- */
+ZMK_HOLD_TAP(lt_dual,
     flavor = "balanced";
-    tapping-term-ms = <200>;
+    tapping-term-ms = <LT_TERM>;
     quick-tap-ms = <QUICK_TAP_MS>;
     bindings = <&mo>, <&sl>;
 )
 
-#define A2_DUAL &lt_a2 L_A2 L_A2
-
-
-
-ZMK_HOLD_TAP(lt_SYM,
-    flavor = "balanced";
-    tapping-term-ms = <200>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    bindings = <&mo>, <&sl>;
-)
-
-#define SYM_DUAL &lt_SYM L_SYM L_SYM
+#define A2_DUAL  &lt_dual L_A2 L_A2
+#define SYM_DUAL &lt_dual L_SYM L_SYM
 
 
 /* --- Magic Shift (Adaptive Repeat / Sticky Shift / Hold Shift) --- */
@@ -242,214 +155,10 @@ ZMK_ADAPTIVE_KEY(shift_repeat,
             DE_DLLR DE_EURO DE_GRAVE DE_CARET DE_AT
         >;
         bindings = <&key_repeat>;
-        max-prior-idle-ms = <1200>;
+        max-prior-idle-ms = <500>;
         strict-modifiers;
     };
 )
-
-/* --- Custom Adaptive Key Swap Rules --- */
-// 1. r hl: After R -> H outputs L, L outputs H
-// 2. u oi: After U -> O outputs I, I outputs O
-// 3. q iu: After Q -> I outputs U, U outputs I
-// 4. r mv: After R -> M outputs V, V outputs M
-// 5. n bx: After N -> B outputs X, X outputs B
-
-/ {
-    behaviors {
-        ak_h: ak_h {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_H>;
-            tr_rh { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_L>; };
-        };
-        ak_l: ak_l {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_L>;
-            tr_rl { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_H>; };
-        };
-
-        ak_o: ak_o {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_O>;
-            tr_uo { trigger-keys = <DE_U>; max-prior-idle-ms = <300>; bindings = <&kp DE_I>; };
-        };
-
-        ak_i: ak_i {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_I>;
-            tr_ui { trigger-keys = <DE_U>; max-prior-idle-ms = <300>; bindings = <&kp DE_O>; };
-            tr_qi { trigger-keys = <DE_Q>; max-prior-idle-ms = <300>; bindings = <&kp DE_U>; };
-        };
-
-        ak_u: ak_u {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_U>;
-            tr_qu { trigger-keys = <DE_Q>; max-prior-idle-ms = <300>; bindings = <&kp DE_I>; };
-        };
-
-        ak_m: ak_m {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_M>;
-            tr_rm { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_V>; };
-        };
-        ak_v: ak_v {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_V>;
-            tr_rv { trigger-keys = <DE_R>; max-prior-idle-ms = <300>; bindings = <&kp DE_M>; };
-        };
-
-        ak_b: ak_b {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_B>;
-            tr_nb { trigger-keys = <DE_N>; max-prior-idle-ms = <300>; bindings = <&kp DE_X>; };
-        };
-        ak_x: ak_x {
-            compatible = "zmk,behavior-adaptive-key";
-            #binding-cells = <0>;
-            bindings = <&kp DE_X>;
-            tr_nx { trigger-keys = <DE_N>; max-prior-idle-ms = <300>; bindings = <&kp DE_B>; };
-        };
-
-        hml_l: hml_l {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&ak_l>;
-            hold-trigger-key-positions = <KEYS_R THUMBS>;
-            hold-trigger-on-release;
-        };
-        lt_h: lt_h {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            bindings = <&mo>, <&ak_h>;
-        };
-        hmr_o: hmr_o {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&ak_o>;
-            hold-trigger-key-positions = <KEYS_L THUMBS>;
-            hold-trigger-on-release;
-        };
-        lt_i: lt_i {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            bindings = <&mo>, <&ak_i>;
-        };
-        hmr_u: hmr_u {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&ak_u>;
-            hold-trigger-key-positions = <KEYS_L THUMBS>;
-            hold-trigger-on-release;
-        };
-        hml_x: hml_x {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&ak_x>;
-            hold-trigger-key-positions = <KEYS_R THUMBS>;
-            hold-trigger-on-release;
-        };
-        hml_b: hml_b {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&ak_b>;
-            hold-trigger-key-positions = <KEYS_R THUMBS>;
-            hold-trigger-on-release;
-        };
-
-        // old m position, pre-swap
-        // hml_m: hml_m {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     #binding-cells = <2>;
-        //     flavor = "balanced";
-        //     tapping-term-ms = <280>;
-        //     quick-tap-ms = <QUICK_TAP_MS>;
-        //     require-prior-idle-ms = <150>;
-        //     bindings = <&kp>, <&ak_m>;
-        //     hold-trigger-key-positions = <KEYS_R THUMBS>;
-        //     hold-trigger-on-release;
-        // };
-
-        hml_v: hml_v {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&ak_v>;
-            hold-trigger-key-positions = <KEYS_R THUMBS>;
-            hold-trigger-on-release;
-        };
-
-        //old V position, pre-swap
-        // lt_v: lt_v {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     #binding-cells = <2>;
-        //     flavor = "balanced";
-        //     tapping-term-ms = <200>;
-        //     quick-tap-ms = <QUICK_TAP_MS>;
-        //     bindings = <&mo>, <&ak_v>;
-        // };
-
-        lt_m: lt_m {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            bindings = <&mo>, <&ak_m>;
-        };
- 
-    };
-};
-
-#define AL_L &hml_l LEFT_ALT 0
-#define NV_H &lt_h L_NAV 0
-#define GR_O &hmr_o RIGHT_GUI 0
-#define FN_I &lt_i L_FN 0
-#define AR_U &hmr_u RIGHT_ALT 0
-#define AL_X &hml_x LEFT_ALT 0
-#define GL_B &hml_b LEFT_GUI 0
-// #define CL_M &hml_m LEFT_CONTROL 0
-// #define FN_V &lt_v L_FN 0
-
-#define CL_V &hml_v LEFT_CONTROL 0
-#define FN_M &lt_m L_FN 0
-
-
 
 /* --- Auto-Terminating Number Word (smart_num) --- */
 ZMK_TAP_DANCE(num_dance,

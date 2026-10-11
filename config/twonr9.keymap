@@ -2,8 +2,9 @@
  * TwoNr9 (18-Key Split Keyboard) Unified Keymap
  *
  * Modular architecture:
- * - config/keys_de.h          -> German keycodes (DE_*)
- * - config/twonr9_keys.h      -> Parameterized macros, 14 mod-morph pairs, adaptive magic shift, dual a2, smart space, smart num
+ * - config/keys_de.h           -> German keycodes (DE_*)
+ * - config/twonr9_keys.h       -> Mod-morph pairs, adaptive magic shift, dual a2, smart space, smart num
+ * - config/twonr9_adaptive_keys.h -> Adaptive key swap rules, their hold-taps & grid names
  * - config/twonr9_macros.dtsi  -> German bigram digraph macros
  * - config/twonr9_combos.dtsi  -> Coding & utility combos
  */
@@ -20,9 +21,28 @@
  * Global Behavior Settings & Tunings
  * ============================================================================== */
 
+/* Quick-tap window, used ONLY by the hold-taps that have no require-prior-idle
+ * gate: lt_spc, lt_dual, magic_shift and smart_num in twonr9_keys.h.
+ *
+ * Do not add this to the homerow mods, layer-taps or adaptive keys. Those all
+ * set require-prior-idle-ms (HRM_IDLE / LT_IDLE = 300), and ZMK only evaluates
+ * quick-tap-ms once that larger window has failed -- so any value <= 300 there
+ * is unreachable. urob's timeless HRM omits quick-tap-ms for the same reason. */
 #define QUICK_TAP_MS 175
 
+/* Hold-tap tuning (single source of truth, used by the twonr9_*.h includes) */
+#define HRM_TERM  280 // Homerow mods: tapping term
+#define HRM_IDLE  300 // Homerow mods: require prior idle
+#define LT_TERM   200 // Layer-taps: tapping term
+#define LT_IDLE   300 // Layer-taps: require prior idle
+#define AK_MS     300 // Adaptive keys: max prior idle for triggers
+
 #include "zmk-helpers/helper.h"
+
+
+&sl { // Allow sticky mods to chord across sticky layers.
+  ignore-modifiers;
+};
 
 /* ==============================================================================
  * Layer Definitions
@@ -57,6 +77,11 @@
 #define THUMBS_R 16 17
 #define THUMBS   THUMBS_L THUMBS_R
 
+/* Hold-tap trigger sets: a key holds when its *other* hand (plus any thumb)
+ * is chording. Named by the hand the key sits on, so TRIG_L is KEYS_R. */
+#define TRIG_L   KEYS_R THUMBS // Trigger set for a key on the left hand
+#define TRIG_R   KEYS_L THUMBS // Trigger set for a key on the right hand
+
 #define XXX &none
 #define ___ &trans
 
@@ -64,39 +89,33 @@
  * Custom Behaviors: Timeless Homerow Mods & Layer-Taps
  * ============================================================================== */
 
-// Left-hand Homerow Mods (trigger only when chording right-hand keys or thumbs)
-ZMK_HOLD_TAP(hml,
-    flavor = "balanced";
-    tapping-term-ms = <280>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    require-prior-idle-ms = <500>; //while slow af
-    bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <KEYS_R THUMBS>;
-    hold-trigger-on-release;
-)
+/* Timeless homerow mods, urob-style (see the cradio.keymap example in
+ * modules/zmk/helpers): balanced flavour, 280ms tapping term, positional
+ * hold-triggers limited to the opposite hand + thumbs, decided on release.
+ *
+ * quick-tap-ms is deliberately omitted, matching urob, and would be inert if
+ * present: ZMK's is_quick_tap() only evaluates its same-key quick-tap branch
+ * once require-prior-idle-ms has already failed, so with HRM_IDLE = 300 that
+ * branch needs a value > 300 to ever be reachable. HRM_IDLE alone is the gate. */
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                 \
+    ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";          \
+                 tapping-term-ms = <HRM_TERM>;                                 \
+                 require-prior-idle-ms = <HRM_IDLE>; hold-trigger-on-release;  \
+                 hold-trigger-key-positions = <TRIGGER_POS>;)
 
-// Right-hand Homerow Mods (trigger only when chording left-hand keys or thumbs)
-ZMK_HOLD_TAP(hmr,
-    flavor = "balanced";
-    tapping-term-ms = <280>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    require-prior-idle-ms = <500>; // while slow af
-    bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <KEYS_L THUMBS>;
-    hold-trigger-on-release;
-)
+MAKE_HRM(hml, &kp, &kp, TRIG_L) // Left-hand Homerow Mods (hold when chording right-hand keys or thumbs).
+MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording left-hand keys or thumbs).
 
-// Layer-tap for home row sub-layer access
-ZMK_HOLD_TAP(lt_r4,
+&lt { // Layer-taps (overrides ZMK's built-in, urob-style): now on the top row.
     flavor = "balanced";
-    tapping-term-ms = <200>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    require-prior-idle-ms = <500>;
-    bindings = <&mo>, <&kp>;
-)
+    tapping-term-ms = <LT_TERM>;
+    // quick-tap-ms omitted: dead below LT_IDLE (300), see MAKE_HRM above.
+    require-prior-idle-ms = <LT_IDLE>;
+};
 
 /* Include modular behaviors, macros, combos, and parameter macros */
 #include "twonr9_keys.h"
+#include "twonr9_adaptive_keys.h"
 #include "twonr9_macros.dtsi"
 #include "twonr9_combos.dtsi"
 
@@ -105,23 +124,23 @@ ZMK_HOLD_TAP(lt_r4,
  * ============================================================================== */
 
 ZMK_LAYER(a1,
-//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL_L     GL(DE_N) CL(DE_D)        CR(DE_Y) GR_O     AR_U
-//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           SL(DE_S) FN(DE_R) NV_H     S1(DE_T)      S1(DE_C) NV(DE_E) FN_I     SR(DE_A)
-//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         SMART_NUM  A2_DUAL            SPC_NAV    SYM_DUAL
-//                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
+//                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
+                            FN_L              &lt L_NAV DE_N    &lt L_SYM DE_D           &lt L_SYM DE_Y    NV_O              FN_U
+//       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
+          &hml LCTRL DE_S   &hml LALT DE_R    GL_H              &hml LSHFT DE_T          &hmr RSHFT DE_C   &hmr RGUI DE_E    AR_I              &hmr RCTRL DE_A
+//       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
+                                              SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
+//                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
 )
 
 ZMK_LAYER(a2,
-//              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-                  AL_X     GL_B     CL_V            CR(DE_W) GR(DE_Q) AR(DE_COMMA)
-//       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-           SL(DE_F) FN_M     NV(DE_P) S1(DE_K)      S1(DE_G) NV(DE_J) FN(DE_DOT) SR(DE_Z)
-//       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
-//                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
+//                            ╭────────────────────┬────────────────────┬────────────────────╮      ╭────────────────────┬────────────────────┬────────────────────╮
+                               FN_X                 NV_B                 SY_V                        &lt L_SYM DE_W       &lt L_NAV DE_Q       &lt L_FN DE_COMMA
+//       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+          &hml LCTRL DE_F      AL_M                 &hml LGUI DE_P       &hml LSHFT DE_K             &hmr RSHFT DE_G      &hmr RGUI DE_J       &hmr RALT DE_DOT     &hmr RCTRL DE_Z
+//       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
+                                                    SMART_NUM            &to L_A1                    SPC_NAV              SYM_DUAL
+//                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯
 )
 
 ZMK_LAYER(nav,

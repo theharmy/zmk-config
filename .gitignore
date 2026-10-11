@@ -1,13 +1,21 @@
+# --- Build / toolchain state (matches urob) ---
 .build
 .cache
 .direnv
 .west
+
+# --- Vendored checkouts, restored by `just init` ---
 /modules
-# firmware
-compile_commands.json
 /zephyr
 /zmk
+
+# --- Build outputs (generated locally) ---
+compile_commands.json
+
+# --- Generated diagram sources (rebuild with `just draw`) ---
 draw/base.yaml
 draw/overview.yaml
+
+# --- Local-only scratch ---
+config/backups/
 /trainer
-trainer

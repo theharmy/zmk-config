@@ -1,23 +1,25 @@
 name: Build ZMK firmware (nix)
 on:
   workflow_dispatch:
-  # push:
-  #   paths:
-  #     - config/**
-  #     - boards/**
-  #     - build.yaml
-  #     - .github/workflows/**
-  # pull_request:
-  #   paths:
-  #     - config/**
-  #     - boards/**
-  #     - build.yaml
-  #     - .github/workflows/**
+  push:
+    paths:
+      - config/**
+      - boards/**
+      - build.yaml
+      - .github/workflows/**
+  pull_request:
+    paths:
+      - config/**
+      - boards/**
+      - build.yaml
+      - .github/workflows/**
 
 jobs:
   build:
     uses: urob/zmk-actions/.github/workflows/build-user-config.yml@main
     with:
-      # Set to 'gnuarmemb' (fastest), 'zephyr' or, 'zephyr-full' (most
-      # compatible). ZMK Studio requires 'zephyr-full'.
+      # Toolchain for the cloud build: 'gnuarmemb' (fastest), 'zephyr'
+      # (default, used here) or 'zephyr-full' (most compatible). The nix-based
+      # local environment builds every target — including the ZMK Studio one —
+      # so the cloud toolchain does not need bumping to 'zephyr-full'.
       toolchain: zephyr
