@@ -1,11 +1,11 @@
 # TwoNr9 ZMK Workspace — What the Fork?!
 
-_THIS IS GEMINI BASED SLOP_ THE WHOLE REPO SHOULD/WILL GET IMPROVEMENTS OVER TIME, BETTER ORGANIZATION ETC. IT WORKS AS EXPECTED.
+This repo is significantly improved from the Gemini slop, now MiMo Slop plus good old handywork. Slop will be reduced with time
+
+~~THIS IS GEMINI BASED SLOP THE WHOLE REPO SHOULD/WILL GET IMPROVEMENTS OVER TIME, BETTER ORGANIZATION ETC. IT WORKS AS EXPECTED.~~
 
 [![Firmware](https://github.com/theharmy/zmk-config/actions/workflows/build-nix.yml/badge.svg)](https://github.com/theharmy/zmk-config/actions/workflows/build-nix.yml) [![Environment](https://github.com/theharmy/zmk-config/actions/workflows/test-build-env.yml/badge.svg)](https://github.com/theharmy/zmk-config/actions/workflows/test-build-env.yml)
 
-> **AI-Driven Engineering Notice:** Basically all architectural restructuring, keymap engineering, modularization, and visualization pipeline development in this fork were executed by an autonomous AI agent (Google Gemini 3.7 Flash via opencode).
->
 > 📖 **Comprehensive Technical Guide:** See [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) for full architectural breakdowns, changelogs, hardware targets, and typing guides.
 >
 > ⚡ **Quick Reference & Visual Infographic:** View [`CHEATSHEET.md`](CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
