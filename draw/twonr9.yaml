@@ -4,7 +4,7 @@ layers:
   a1:
   - t: L
     h: fn
-  - t: N
+  - t: M
     h: nav
   - t: D
     h: sym
@@ -14,21 +14,21 @@ layers:
     h: nav
   - t: U
     h: fn
-  - t: S
+  - t: N
     h: "\u2303"
   - t: R
     h: "\u2325"
-  - t: H
-    h: "\u2318"
   - t: T
+    h: "\u2318"
+  - t: H
     h: "\u21E7"
-  - t: C
+  - t: S
     h: "\u21E7"
-  - t: E
+  - t: A
     h: "\u2318"
   - t: I
-    h: "\u2325"
-  - t: A
+    h: "\u2318"
+  - t: E
     h: "\u2303"
   - h: num
     t: Num
@@ -41,31 +41,31 @@ layers:
   a2:
   - t: X
     h: fn
-  - t: B
-    h: nav
   - t: V
+    h: nav
+  - t: B
     h: sym
-  - t: W
+  - t: G
     h: sym
-  - t: Q
+  - t: P
     h: nav
   - t: ','
     h: fn
-  - t: F
-    h: "\u2303"
-  - t: M
-    h: "\u2325"
   - t: P
-    h: "\u2318"
+    h: "\u2303"
+  - t: W
+    h: "\u2325"
   - t: K
+    h: "\u2318"
+  - t: F
     h: "\u21E7"
-  - t: G
+  - t: C
     h: "\u21E7"
-  - t: J
+  - t: Z
     h: "\u2318"
   - t: .
     h: "\u2325"
-  - t: Z
+  - t: J
     h: "\u2303"
   - h: num
     t: Num
@@ -84,7 +84,6 @@ layers:
     h: "\u2196"
   - t: "\u2193"
     h: "Ctl+\u2198"
-    type: held
   - t: "\u2191"
     h: "Ctl+\u2196"
   - t: "\u2303"
@@ -105,6 +104,7 @@ layers:
     h: toggle
   - t: Spc
     h: nav
+    type: held
   - t: sym
     h: sym
   sym:
@@ -146,8 +146,7 @@ layers:
     h: sym
     type: held
   fn:
-  - t: F1
-    type: held
+  - F1
   - F2
   - F3
   - F8
@@ -195,114 +194,6 @@ layers:
   - t: sym
     h: sym
 combos:
-- p:
-  - 0
-  - 7
-  k: RL
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: HN
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: DT
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: CY
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 11
-  k: EO
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: UI
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 0
-  - 7
-  k: RM
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: NB
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: KT
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: GY
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 11
-  k: OE
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: IU
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
 - p:
   - 0
   - 1
@@ -477,5 +368,113 @@ combos:
   l:
   - num
   type: num
+  align: mid
+  offset: 0.0
+- p:
+  - 0
+  - 7
+  k: RL
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 1
+  - 8
+  k: KT
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 2
+  - 9
+  k: '&macro_mb'
+  l:
+  - a1
+  type: a1
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 10
+  k: '&macro_ys'
+  l:
+  - a1
+  type: a1
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 11
+  k: EO
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 12
+  k: UI
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 0
+  - 7
+  k: '&macro_rw'
+  l:
+  - a2
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 1
+  - 8
+  k: '&macro_mt'
+  l:
+  - a2
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 2
+  - 9
+  k: '&macro_sch'
+  l:
+  - a2
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 10
+  k: '&macro_gs'
+  l:
+  - a2
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 11
+  k: OE
+  l:
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 12
+  k: IU
+  l:
+  - a2
+  type: bigram
   align: mid
   offset: 0.0

@@ -304,7 +304,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </a></g>
 <g transform="translate(230, 46)" class="key keypos-1">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">N</text>
+<text x="0" y="1" class="key tap">M</text>
 <a href="#nav">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
 </a></g>
@@ -334,7 +334,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </a></g>
 <g transform="translate(46, 182)" class="key keypos-6">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">S</text>
+<text x="0" y="1" class="key tap">N</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌃</tspan></text>
 </g>
 <g transform="translate(138, 157)" class="key keypos-7">
@@ -344,32 +344,32 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </g>
 <g transform="translate(230, 138)" class="key keypos-8">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">H</text>
+<text x="0" y="1" class="key tap">T</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
 </g>
 <g transform="translate(322, 167)" class="key keypos-9">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">T</text>
+<text x="0" y="1" class="key tap">H</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⇧</tspan></text>
 </g>
 <g transform="translate(432, 167)" class="key keypos-10">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">C</text>
+<text x="0" y="1" class="key tap">S</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⇧</tspan></text>
 </g>
 <g transform="translate(524, 138)" class="key keypos-11">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">E</text>
+<text x="0" y="1" class="key tap">A</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
 </g>
 <g transform="translate(616, 157)" class="key keypos-12">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">I</text>
-<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
 </g>
 <g transform="translate(708, 182)" class="key keypos-13">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">A</text>
+<text x="0" y="1" class="key tap">E</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌃</tspan></text>
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
@@ -398,93 +398,93 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </a><a href="#sym">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
-<g class="combo bigram combopos-0">
-<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo bigram"/>
-<text x="138" y="111" class="combo bigram tap">RL</text>
-</g>
-<g class="combo bigram combopos-1">
-<rect rx="6" ry="6" x="213" y="81" width="34" height="22" class="combo bigram"/>
-<text x="230" y="92" class="combo bigram tap">HN</text>
-</g>
-<g class="combo bigram combopos-2">
-<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo bigram"/>
-<text x="322" y="121" class="combo bigram tap">DT</text>
-</g>
-<g class="combo bigram combopos-3">
-<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo bigram"/>
-<text x="432" y="121" class="combo bigram tap">CY</text>
-</g>
-<g class="combo bigram combopos-4">
-<rect rx="6" ry="6" x="507" y="81" width="34" height="22" class="combo bigram"/>
-<text x="524" y="92" class="combo bigram tap">EO</text>
-</g>
-<g class="combo bigram combopos-5">
-<rect rx="6" ry="6" x="599" y="100" width="34" height="22" class="combo bigram"/>
-<text x="616" y="111" class="combo bigram tap">UI</text>
-</g>
-<g class="combo util combopos-6">
+<g class="combo util combopos-0">
 <rect rx="6" ry="6" x="167" y="45" width="34" height="22" class="combo util"/>
 <text x="184" y="56" class="combo util tap">⇥</text>
 </g>
-<g class="combo util combopos-7">
+<g class="combo util combopos-1">
 <rect rx="6" ry="6" x="259" y="50" width="34" height="22" class="combo util"/>
 <text x="276" y="61" class="combo util tap">⏎</text>
 </g>
-<g class="combo util combopos-8">
+<g class="combo util combopos-2">
 <rect rx="6" ry="6" x="461" y="50" width="34" height="22" class="combo util"/>
 <text x="478" y="61" class="combo util tap">⌫</text>
 <text x="478" y="52" class="combo util shifted">⌦</text>
 </g>
-<g class="combo util combopos-9">
+<g class="combo util combopos-3">
 <rect rx="6" ry="6" x="553" y="45" width="34" height="22" class="combo util"/>
 <text x="570" y="56" class="combo util tap">⌃⌫</text>
 </g>
-<g class="combo util combopos-10">
+<g class="combo util combopos-4">
 <path d="M524,-17 h-86 a6.0,6.0 0 0 0 -6.0,6.0 v55" class="combo"/>
 <path d="M524,-17 l0,32" class="combo"/>
 <path d="M524,-17 h86 a6.0,6.0 0 0 1 6.0,6.0 v45" class="combo"/>
 <rect rx="6" ry="6" x="507" y="-28" width="34" height="22" class="combo util"/>
 <text x="524" y="-17" class="combo util tap">⎋</text>
 </g>
-<g class="combo symbol combopos-11">
+<g class="combo symbol combopos-5">
 <rect rx="6" ry="6" x="75" y="159" width="34" height="22" class="combo symbol"/>
 <text x="92" y="170" class="combo symbol tap">ß</text>
 </g>
-<g class="combo symbol combopos-12">
+<g class="combo symbol combopos-6">
 <path d="M230,162 l-61,-3" class="combo"/>
 <path d="M230,162 l61,3" class="combo"/>
 <rect rx="6" ry="6" x="213" y="151" width="34" height="22" class="combo symbol"/>
 <text x="230" y="162" class="combo symbol tap">_</text>
 </g>
-<g class="combo symbol combopos-13">
+<g class="combo symbol combopos-7">
 <rect rx="6" ry="6" x="167" y="137" width="34" height="22" class="combo symbol"/>
 <text x="184" y="148" class="combo symbol tap">-</text>
 </g>
-<g class="combo symbol combopos-14">
+<g class="combo symbol combopos-8">
 <rect rx="6" ry="6" x="553" y="137" width="34" height="22" class="combo symbol"/>
 <text x="570" y="148" class="combo symbol tap">:</text>
 </g>
-<g class="combo symbol combopos-15">
+<g class="combo symbol combopos-9">
 <path d="M524,162 l-61,3" class="combo"/>
 <path d="M524,162 l61,-3" class="combo"/>
 <rect rx="6" ry="6" x="507" y="151" width="34" height="22" class="combo symbol"/>
 <text x="524" y="162" class="combo symbol tap">;</text>
 </g>
-<g class="combo system combopos-16">
+<g class="combo system combopos-10">
 <rect rx="6" ry="6" x="268" y="258" width="34" height="22" class="combo system"/>
 <text x="285" y="269" class="combo system tap">⇪</text>
 </g>
-<g class="combo util combopos-17">
+<g class="combo util combopos-11">
 <rect rx="6" ry="6" x="259" y="142" width="34" height="22" class="combo util"/>
 <text x="276" y="153" class="combo util tap">&amp;shift_repeat</text>
 <text x="276" y="162" class="combo util hold"><tspan class="hold-mod">⇧</tspan></text>
 <text x="276" y="144" class="combo util shifted">⇪</text>
 </g>
-<g class="combo util combopos-18">
+<g class="combo util combopos-12">
 <rect rx="6" ry="6" x="461" y="142" width="34" height="22" class="combo util"/>
 <text x="478" y="153" class="combo util tap">&amp;shift_repeat</text>
 <text x="478" y="162" class="combo util hold"><tspan class="hold-mod">⇧</tspan></text>
 <text x="478" y="144" class="combo util shifted">⇪</text>
+</g>
+<g class="combo bigram combopos-13">
+<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo bigram"/>
+<text x="138" y="111" class="combo bigram tap">RL</text>
+</g>
+<g class="combo bigram combopos-14">
+<rect rx="6" ry="6" x="213" y="81" width="34" height="22" class="combo bigram"/>
+<text x="230" y="92" class="combo bigram tap">KT</text>
+</g>
+<g class="combo a1 combopos-15">
+<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo a1"/>
+<text x="322" y="121" class="combo a1 tap">&amp;macro_mb</text>
+</g>
+<g class="combo a1 combopos-16">
+<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo a1"/>
+<text x="432" y="121" class="combo a1 tap">&amp;macro_ys</text>
+</g>
+<g class="combo bigram combopos-17">
+<rect rx="6" ry="6" x="507" y="81" width="34" height="22" class="combo bigram"/>
+<text x="524" y="92" class="combo bigram tap">EO</text>
+</g>
+<g class="combo bigram combopos-18">
+<rect rx="6" ry="6" x="599" y="100" width="34" height="22" class="combo bigram"/>
+<text x="616" y="111" class="combo bigram tap">UI</text>
 </g>
 </g>
 </g>
@@ -499,25 +499,25 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </a></g>
 <g transform="translate(230, 46)" class="key keypos-1">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">B</text>
+<text x="0" y="1" class="key tap">V</text>
 <a href="#nav">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
 </a></g>
 <g transform="translate(322, 75)" class="key keypos-2">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">V</text>
+<text x="0" y="1" class="key tap">B</text>
 <a href="#sym">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 <g transform="translate(432, 75)" class="key keypos-3">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">W</text>
+<text x="0" y="1" class="key tap">G</text>
 <a href="#sym">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
 <g transform="translate(524, 46)" class="key keypos-4">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Q</text>
+<text x="0" y="1" class="key tap">P</text>
 <a href="#nav">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
 </a></g>
@@ -529,32 +529,32 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </a></g>
 <g transform="translate(46, 182)" class="key keypos-6">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">F</text>
+<text x="0" y="1" class="key tap">P</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌃</tspan></text>
 </g>
 <g transform="translate(138, 157)" class="key keypos-7">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">M</text>
+<text x="0" y="1" class="key tap">W</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
 </g>
 <g transform="translate(230, 138)" class="key keypos-8">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">P</text>
+<text x="0" y="1" class="key tap">K</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
 </g>
 <g transform="translate(322, 167)" class="key keypos-9">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">K</text>
+<text x="0" y="1" class="key tap">F</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⇧</tspan></text>
 </g>
 <g transform="translate(432, 167)" class="key keypos-10">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">G</text>
+<text x="0" y="1" class="key tap">C</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⇧</tspan></text>
 </g>
 <g transform="translate(524, 138)" class="key keypos-11">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">J</text>
+<text x="0" y="1" class="key tap">Z</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
 </g>
 <g transform="translate(616, 157)" class="key keypos-12">
@@ -564,7 +564,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </g>
 <g transform="translate(708, 182)" class="key keypos-13">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Z</text>
+<text x="0" y="1" class="key tap">J</text>
 <text x="0" y="33" class="key hold"><tspan class="hold-mod">⌃</tspan></text>
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
@@ -592,93 +592,93 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </a><a href="#sym">
 <text x="0" y="33" class="key hold layer-activator"><tspan class="hold-sym">sym</tspan></text>
 </a></g>
-<g class="combo bigram combopos-0">
-<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo bigram"/>
-<text x="138" y="111" class="combo bigram tap">RM</text>
-</g>
-<g class="combo bigram combopos-1">
-<rect rx="6" ry="6" x="213" y="81" width="34" height="22" class="combo bigram"/>
-<text x="230" y="92" class="combo bigram tap">NB</text>
-</g>
-<g class="combo bigram combopos-2">
-<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo bigram"/>
-<text x="322" y="121" class="combo bigram tap">KT</text>
-</g>
-<g class="combo bigram combopos-3">
-<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo bigram"/>
-<text x="432" y="121" class="combo bigram tap">GY</text>
-</g>
-<g class="combo bigram combopos-4">
-<rect rx="6" ry="6" x="507" y="81" width="34" height="22" class="combo bigram"/>
-<text x="524" y="92" class="combo bigram tap">OE</text>
-</g>
-<g class="combo bigram combopos-5">
-<rect rx="6" ry="6" x="599" y="100" width="34" height="22" class="combo bigram"/>
-<text x="616" y="111" class="combo bigram tap">IU</text>
-</g>
-<g class="combo util combopos-6">
+<g class="combo util combopos-0">
 <rect rx="6" ry="6" x="167" y="45" width="34" height="22" class="combo util"/>
 <text x="184" y="56" class="combo util tap">⇥</text>
 </g>
-<g class="combo util combopos-7">
+<g class="combo util combopos-1">
 <rect rx="6" ry="6" x="259" y="50" width="34" height="22" class="combo util"/>
 <text x="276" y="61" class="combo util tap">⏎</text>
 </g>
-<g class="combo util combopos-8">
+<g class="combo util combopos-2">
 <rect rx="6" ry="6" x="461" y="50" width="34" height="22" class="combo util"/>
 <text x="478" y="61" class="combo util tap">⌫</text>
 <text x="478" y="52" class="combo util shifted">⌦</text>
 </g>
-<g class="combo util combopos-9">
+<g class="combo util combopos-3">
 <rect rx="6" ry="6" x="553" y="45" width="34" height="22" class="combo util"/>
 <text x="570" y="56" class="combo util tap">⌃⌫</text>
 </g>
-<g class="combo util combopos-10">
+<g class="combo util combopos-4">
 <path d="M524,-17 h-86 a6.0,6.0 0 0 0 -6.0,6.0 v55" class="combo"/>
 <path d="M524,-17 l0,32" class="combo"/>
 <path d="M524,-17 h86 a6.0,6.0 0 0 1 6.0,6.0 v45" class="combo"/>
 <rect rx="6" ry="6" x="507" y="-28" width="34" height="22" class="combo util"/>
 <text x="524" y="-17" class="combo util tap">⎋</text>
 </g>
-<g class="combo symbol combopos-11">
+<g class="combo symbol combopos-5">
 <rect rx="6" ry="6" x="75" y="159" width="34" height="22" class="combo symbol"/>
 <text x="92" y="170" class="combo symbol tap">ß</text>
 </g>
-<g class="combo symbol combopos-12">
+<g class="combo symbol combopos-6">
 <path d="M230,162 l-61,-3" class="combo"/>
 <path d="M230,162 l61,3" class="combo"/>
 <rect rx="6" ry="6" x="213" y="151" width="34" height="22" class="combo symbol"/>
 <text x="230" y="162" class="combo symbol tap">_</text>
 </g>
-<g class="combo symbol combopos-13">
+<g class="combo symbol combopos-7">
 <rect rx="6" ry="6" x="167" y="137" width="34" height="22" class="combo symbol"/>
 <text x="184" y="148" class="combo symbol tap">-</text>
 </g>
-<g class="combo symbol combopos-14">
+<g class="combo symbol combopos-8">
 <rect rx="6" ry="6" x="553" y="137" width="34" height="22" class="combo symbol"/>
 <text x="570" y="148" class="combo symbol tap">:</text>
 </g>
-<g class="combo symbol combopos-15">
+<g class="combo symbol combopos-9">
 <path d="M524,162 l-61,3" class="combo"/>
 <path d="M524,162 l61,-3" class="combo"/>
 <rect rx="6" ry="6" x="507" y="151" width="34" height="22" class="combo symbol"/>
 <text x="524" y="162" class="combo symbol tap">;</text>
 </g>
-<g class="combo system combopos-16">
+<g class="combo system combopos-10">
 <rect rx="6" ry="6" x="268" y="258" width="34" height="22" class="combo system"/>
 <text x="285" y="269" class="combo system tap">⇪</text>
 </g>
-<g class="combo util combopos-17">
+<g class="combo util combopos-11">
 <rect rx="6" ry="6" x="259" y="142" width="34" height="22" class="combo util"/>
 <text x="276" y="153" class="combo util tap">&amp;shift_repeat</text>
 <text x="276" y="162" class="combo util hold"><tspan class="hold-mod">⇧</tspan></text>
 <text x="276" y="144" class="combo util shifted">⇪</text>
 </g>
-<g class="combo util combopos-18">
+<g class="combo util combopos-12">
 <rect rx="6" ry="6" x="461" y="142" width="34" height="22" class="combo util"/>
 <text x="478" y="153" class="combo util tap">&amp;shift_repeat</text>
 <text x="478" y="162" class="combo util hold"><tspan class="hold-mod">⇧</tspan></text>
 <text x="478" y="144" class="combo util shifted">⇪</text>
+</g>
+<g class="combo a2 combopos-13">
+<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo a2"/>
+<text x="138" y="111" class="combo a2 tap">&amp;macro_rw</text>
+</g>
+<g class="combo a2 combopos-14">
+<rect rx="6" ry="6" x="213" y="81" width="34" height="22" class="combo a2"/>
+<text x="230" y="92" class="combo a2 tap">&amp;macro_mt</text>
+</g>
+<g class="combo a2 combopos-15">
+<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo a2"/>
+<text x="322" y="121" class="combo a2 tap">&amp;macro_sch</text>
+</g>
+<g class="combo a2 combopos-16">
+<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo a2"/>
+<text x="432" y="121" class="combo a2 tap">&amp;macro_gs</text>
+</g>
+<g class="combo bigram combopos-17">
+<rect rx="6" ry="6" x="507" y="81" width="34" height="22" class="combo bigram"/>
+<text x="524" y="92" class="combo bigram tap">OE</text>
+</g>
+<g class="combo bigram combopos-18">
+<rect rx="6" ry="6" x="599" y="100" width="34" height="22" class="combo bigram"/>
+<text x="616" y="111" class="combo bigram tap">IU</text>
 </g>
 </g>
 </g>
@@ -702,10 +702,10 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <text x="0" y="1" class="key tap">←</text>
 <text x="0" y="33" class="key hold">↖</text>
 </g>
-<g transform="translate(524, 46)" class="key held keypos-4">
-<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
-<text x="0" y="1" class="key held tap">↓</text>
-<text x="0" y="33" class="key held hold">Ctl+↘</text>
+<g transform="translate(524, 46)" class="key keypos-4">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap">↓</text>
+<text x="0" y="33" class="key hold">Ctl+↘</text>
 </g>
 <g transform="translate(616, 65)" class="key keypos-5">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -760,11 +760,11 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <text x="0" y="1" class="key tap layer-activator">a1</text>
 </a><text x="0" y="33" class="key hold">toggle</text>
 </g>
-<g transform="translate(423, 276) rotate(-16.0)" class="key keypos-16">
-<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Spc</text>
+<g transform="translate(423, 276) rotate(-16.0)" class="key held keypos-16">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
+<text x="0" y="1" class="key held tap">Spc</text>
 <a href="#nav">
-<text x="0" y="33" class="key hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
+<text x="0" y="33" class="key held hold layer-activator"><tspan class="hold-nav">nav</tspan></text>
 </a></g>
 <g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -885,9 +885,9 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <g transform="translate(8, 709)" class="layer-fn">
 <text x="0" y="4" class="label" id="fn">fn</text>
 <g transform="translate(0, 8)">
-<g transform="translate(138, 65)" class="key held keypos-0">
-<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
-<text x="0" y="1" class="key held tap">F1</text>
+<g transform="translate(138, 65)" class="key keypos-0">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap">F1</text>
 </g>
 <g transform="translate(230, 46)" class="key keypos-1">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>

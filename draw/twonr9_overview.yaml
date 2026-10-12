@@ -7,7 +7,8 @@ layers:
     tr: "\u2325"
     tl: '! ?'
     bl: '-'
-  - t: N
+    br: F1
+  - t: M
     h: nav
     tr: "\u2318"
     tl: '# ~'
@@ -27,6 +28,7 @@ layers:
     br: F8
   - t: O
     h: nav
+    tr: "\u2193"
     tl: '[ ]'
     bl: '5'
     br: F9
@@ -36,7 +38,7 @@ layers:
     tl: ; '
     bl: '6'
     br: F10
-  - t: S
+  - t: N
     h: "\u2303"
     tr: "\u2303"
     tl: '` ^'
@@ -48,37 +50,37 @@ layers:
     tl: _ -
     bl: '%'
     br: F5
-  - t: H
+  - t: T
     h: "\u2318"
     tr: "Gui+\u21E5"
     tl: '& @'
     bl: /
     br: F6
-  - t: T
+  - t: H
     h: "\u21E7"
     tr: R
     tl: = |
     bl: .
     br: F7
-  - t: C
+  - t: S
     h: "\u21E7"
     tr: "\u21F9"
     tl: '{ }'
     bl: '1'
     br: F11
-  - t: E
+  - t: A
     h: "\u2318"
     tr: "\u21DF"
     tl: < >
     bl: '2'
     br: F12
   - t: I
-    h: "\u2325"
+    h: "\u2318"
     tr: "\u21DE"
     tl: ': "'
     bl: '3'
     br: V-
-  - t: A
+  - t: E
     h: "\u2303"
     tr: "\u2192"
     tl: / \
@@ -98,26 +100,28 @@ layers:
     tr: "\u2325"
     tl: '! ?'
     bl: '-'
-  - t: B
+    br: F1
+  - t: V
     h: nav
     tr: "\u2318"
     tl: '# ~'
     bl: '*'
     br: F2
-  - t: V
+  - t: B
     h: sym
     tr: "\u21E7"
     tl: "$ \u20AC"
     bl: '='
     br: F3
-  - t: W
+  - t: G
     h: sym
     tr: "\u2190"
     tl: ( )
     bl: '4'
     br: F8
-  - t: Q
+  - t: P
     h: nav
+    tr: "\u2193"
     tl: '[ ]'
     bl: '5'
     br: F9
@@ -127,37 +131,37 @@ layers:
     tl: ; '
     bl: '6'
     br: F10
-  - t: F
+  - t: P
     h: "\u2303"
     tr: "\u2303"
     tl: '` ^'
     bl: +
     br: F4
-  - t: M
+  - t: W
     h: "\u2325"
     tr: Q
     tl: _ -
     bl: '%'
     br: F5
-  - t: P
+  - t: K
     h: "\u2318"
     tr: "Gui+\u21E5"
     tl: '& @'
     bl: /
     br: F6
-  - t: K
+  - t: F
     h: "\u21E7"
     tr: R
     tl: = |
     bl: .
     br: F7
-  - t: G
+  - t: C
     h: "\u21E7"
     tr: "\u21F9"
     tl: '{ }'
     bl: '1'
     br: F11
-  - t: J
+  - t: Z
     h: "\u2318"
     tr: "\u21DF"
     tl: < >
@@ -169,7 +173,7 @@ layers:
     tl: ': "'
     bl: '3'
     br: V-
-  - t: Z
+  - t: J
     h: "\u2303"
     tr: "\u2192"
     tl: / \
@@ -204,114 +208,6 @@ layers:
   - ''
   - ''
 combos:
-- p:
-  - 0
-  - 7
-  k: RL
-  l:
-  - a1 (Base)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: HN
-  l:
-  - a1 (Base)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: DT
-  l:
-  - a1 (Base)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: CY
-  l:
-  - a1 (Base)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 11
-  k: EO
-  l:
-  - a1 (Base)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: UI
-  l:
-  - a1 (Base)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 0
-  - 7
-  k: RM
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: NB
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: KT
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: GY
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 11
-  k: OE
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: IU
-  l:
-  - a2 (Alphas 2)
-  type: bigram
-  align: mid
-  offset: 0.0
 - p:
   - 0
   - 1
@@ -473,5 +369,104 @@ combos:
   l:
   - Symbols & Utilities
   type: num
+  align: mid
+  offset: 0.0
+- p:
+  - 0
+  - 7
+  k: RL
+  l:
+  - a1 (Base)
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 2
+  - 9
+  k: '&macro_mb'
+  l:
+  - Symbols & Utilities
+  type: a1
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 10
+  k: '&macro_ys'
+  l:
+  - Symbols & Utilities
+  type: a1
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 11
+  k: EO
+  l:
+  - a1 (Base)
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 12
+  k: UI
+  l:
+  - a1 (Base)
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 0
+  - 7
+  k: '&macro_rw'
+  l:
+  - Symbols & Utilities
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 1
+  - 8
+  k: '&macro_mt'
+  l:
+  - Symbols & Utilities
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 2
+  - 9
+  k: '&macro_sch'
+  l:
+  - Symbols & Utilities
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 10
+  k: '&macro_gs'
+  l:
+  - Symbols & Utilities
+  type: a2
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 11
+  k: OE
+  l:
+  - a2 (Alphas 2)
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 12
+  k: IU
+  l:
+  - a2 (Alphas 2)
+  type: bigram
   align: mid
   offset: 0.0
