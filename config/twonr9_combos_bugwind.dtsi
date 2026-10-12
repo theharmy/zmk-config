@@ -1,0 +1,30 @@
+/*
+ * ==============================================================================
+ * TwoNr9 Combo Definitions (Modular Include)
+ * ==============================================================================
+ *
+ * Categorized by functionality:
+ * 1. Vertical German Digraph Bigrams (Layer 0 & Layer 1)
+ * 2. Coding & Navigation Combos (Tab, Enter, Esc, Backspace, Delete)
+ * 3. Fast Programming Symbols (Under, Minus, Colon, Semi)
+ * 4. System Chords (Caps Word, Studio Unlock with 200ms idle)
+ * ==============================================================================
+ */
+
+#pragma once
+
+// --- Layer 0: Vertical Bigrams ---
+ZMK_COMBO(combo_rl, &macro_rl, 0 7, L_A1)
+ZMK_COMBO(combo_kt, &macro_kt, 1 8, L_A1)
+ZMK_COMBO(combo_mb, &macro_mb, 2 9, L_A1)
+ZMK_COMBO(combo_ys, &macro_ys, 3 10, L_A1)
+ZMK_COMBO(combo_eo, &macro_eo, 4 11, L_A1)
+ZMK_COMBO(combo_ui, &macro_ui, 5 12, L_A1)
+
+// --- Layer 1: Vertical Bigrams ---
+ZMK_COMBO(combo_rw, &macro_rw, 0 7, L_A2)
+ZMK_COMBO(combo_mt, &macro_mt, 1 8, L_A2)
+ZMK_COMBO(combo_sch, &macro_sch, 2 9, L_A2)
+ZMK_COMBO(combo_gs, &macro_gs, 3 10, L_A2)
+ZMK_COMBO(combo_oe, &macro_oe, 4 11, L_A2)
+ZMK_COMBO(combo_iu, &macro_iu, 5 12, L_A2)
