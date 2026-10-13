@@ -14,7 +14,11 @@ This repo is significantly improved from the Gemini slop, now MiMo Slop plus goo
 
 ## Combined Layout Overview
 
-<img src="./draw/twonr9_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview" width="100%" /><br /> _(Generated with [keymap-drawer](https://github.com/caksoylar/keymap-drawer) via `just draw-twonr9`)_
+<img src="./draw/twonr9_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (bugwind)" width="100%" /><br /> _(bugwind — generated with [keymap-drawer](https://github.com/caksoylar/keymap-drawer) via `just draw-twonr9`)_
+
+Optional **srht** backup variant ([full diagrams](#two-keymap-variants-on-one-shield-definition)):
+
+<img src="./draw/twonr9_srht_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (srht)" width="100%" /><br /> _(srht — via `just draw-twonr9 srht`)_
 
 ---
 
@@ -22,13 +26,33 @@ This repo is significantly improved from the Gemini slop, now MiMo Slop plus goo
 
 This repository adapts [Urob's ZMK devicetree workspace](https://github.com/urob/zmk-config) for the **TwoNr9 (18-Key Split Keyboard)** running on Zephyr 4.1 and Hardware Model v2 (`nice_nano@2.0.0//zmk`), highly tuned for German typography, programming, and minimal-latency typing:
 
-### 1. Dual-Alpha Multiplexing & 12 German Bigrams
+### 1. Two Keymap Variants on One Shield Definition
+
+The hardware is defined once; the keymap is selected by shield name, so `just build <target>` and CI resolve the right file with no extra flags:
+
+| | **bugwind** (default) | **srht** (backup) |
+| --- | --- | --- |
+| Shield | `twonr9_left` / `twonr9_right` | `twonr9_srht_left` / `twonr9_srht_right` |
+| Keymap | [`config/twonr9.keymap`](config/twonr9.keymap) | [`config/twonr9_srht.keymap`](config/twonr9_srht.keymap) |
+| Adaptive keys | none — every letter bound directly | 9 adaptive keys |
+| Bigrams (a1) | `RL` `KT` `MB` `YS` `EO` `UI` | `RL` `HN` `DT` `CY` `EO` `UI` |
+| Bigrams (a2) | `RW` `MT` `SCH` `GS` `OE` `IU` | `RM` `NB` `KT` `GY` `OE` `IU` |
+| ß chord (6+7) | `N + R` | `S + R` |
+| Built by | `build.yaml` (CI) | `build-srht.yaml`, on demand |
+
+```bash
+just build all          # bugwind + settings_reset (what CI builds)
+just build-srht         # the optional srht backup
+just draw-twonr9        # diagrams for bugwind; add `srht` or `all` for both
+```
+
+### 2. Dual-Alpha Multiplexing & 12 German Bigrams
 
 - **Base Alphas (`a1`) & Secondary Alphas (`a2`)**: Seamlessly multiplexed across 18 keys.
-- **12 Vertical Bigram Macros**: Single-chord typing for the most frequent German digraphs (`RL`, `HN`, `DT`, `CY`, `EO`, `UI`, `RM`, `NB`, `KT`, `GY`, `OE`, `IU`).
-- **Home-Row German Eszett (`ß`)**: Dedicated chord (`S + R` on `6 7`) for native German orthography.
+- **12 Vertical Bigram Macros**: Single-chord typing for the most frequent German digraphs — bugwind `RL` `KT` `MB` `YS` `EO` `UI` / `RW` `MT` `SCH` `GS` `OE` `IU`, srht `RL` `HN` `DT` `CY` `EO` `UI` / `RM` `NB` `KT` `GY` `OE` `IU`.
+- **Home-Row German Eszett (`ß`)**: Dedicated chord on `6 7` for native German orthography — `N + R` on bugwind, `S + R` on srht.
 
-### 2. Complete 14-Pair Mod-Morph Symbol System
+### 3. Complete 14-Pair Mod-Morph Symbol System
 
 Every bracket, quote, slash, and punctuation mark is accessible on the **`sym` layer** without combo clutter:
 
@@ -36,18 +60,21 @@ Every bracket, quote, slash, and punctuation mark is accessible on the **`sym` l
 - `:` / `"` · `;` / `'` · `/` / `\` · `_` / `-`
 - `!` / `?` · `#` / `~` · `$` / `€` · `` ` `` / `^` · `&` / `@` · `|` / `=`
 
-### 3. Symmetrical Adaptive Thumb Engine
+### 4. Symmetrical Adaptive Thumb Engine
 
-- **Left Inner Thumb**: **`Space`** (`&spc_morph`: Shift+Tap = `. ` + Sticky Shift) / Hold = **`nav` layer**.
-- **Left Outer Thumb**: **`a2` Dual Mode** (Tap for 1 secondary letter, Hold for continuous words like _BMW_, _Quiz_, _Pflanze_).
-- **Right Inner Thumb**: **`magic_shift`** (Instant Repeat after letters, Sticky Shift on pause for effortless German noun capitalization, Hold for continuous Shift).
-- **Right Outer Thumb**: **`num_word`** (Auto-terminating number entry).
+Both alpha layers share the same four-thumb cluster (outer → inner):
 
-### 4. Right-Hand 3x3 Calculator Numpad
+- **Left Outer (14)**: **`SMART_NUM`** — Tap: `num_word` (auto-terminating number entry), Hold: momentary `num` layer.
+- **Left Inner (15)**: **`A2_DUAL`** — Tap: one `a2` letter, Hold: continuous `a2` for words like _BMW_, _Quiz_, _Pflanze_. On `a2` itself this thumb toggles back to `a1`.
+- **Right Inner (16)**: **`SPC_NAV`** — Tap: `Space` with the sentence-ending `. ` morph, Hold: `nav` layer.
+- **Right Outer (17)**: **`SYM_DUAL`** — Tap: one `sym` symbol, Hold: continuous `sym` layer.
+- **`MAGIC_SHIFT`** is not on the thumbs — it is reached via the `shiftl` (8+9) and `shiftr` (10+11) combos on every layer, and repeats after any character.
+
+### 5. Right-Hand 3x3 Calculator Numpad
 
 - Natural 3x3 calculator grid on the right hand (`4 5 6` top row, `1 2 3 0` home row, `7 8 9` vertical chords).
 
-### 5. Developer & Tooling Ecosystem
+### 6. Developer & Tooling Ecosystem
 
 - **ZMK Studio**: Live USB RPC keymap editing on the fly.
 - **KeyPeek HID Visualizer**: Real-time layer notification streaming.

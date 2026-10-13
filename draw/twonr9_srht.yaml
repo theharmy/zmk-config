@@ -1,0 +1,481 @@
+layout:
+  zmk_keyboard: twonr9_srht
+layers:
+  a1:
+  - t: L
+    h: fn
+  - t: N
+    h: nav
+  - t: D
+    h: sym
+  - t: Y
+    h: sym
+  - t: O
+    h: nav
+  - t: U
+    h: fn
+  - t: S
+    h: "\u2303"
+  - t: R
+    h: "\u2325"
+  - t: H
+    h: "\u2318"
+  - t: T
+    h: "\u21E7"
+  - t: C
+    h: "\u21E7"
+  - t: E
+    h: "\u2318"
+  - t: I
+    h: "\u2325"
+  - t: A
+    h: "\u2303"
+  - h: num
+    t: Num
+  - t: a2
+    h: a2
+  - t: Spc
+    h: nav
+  - t: sym
+    h: sym
+  a2:
+  - t: X
+    h: fn
+  - t: B
+    h: nav
+  - t: V
+    h: sym
+  - t: W
+    h: sym
+  - t: Q
+    h: nav
+  - t: ','
+    h: fn
+  - t: F
+    h: "\u2303"
+  - t: M
+    h: "\u2325"
+  - t: P
+    h: "\u2318"
+  - t: K
+    h: "\u21E7"
+  - t: G
+    h: "\u21E7"
+  - t: J
+    h: "\u2318"
+  - t: .
+    h: "\u2325"
+  - t: Z
+    h: "\u2303"
+  - h: num
+    t: Num
+  - t: a1
+    h: toggle
+    type: held
+  - t: Spc
+    h: nav
+  - t: sym
+    h: sym
+  nav:
+  - t: "\u2325"
+  - t: "\u2318"
+  - t: "\u21E7"
+  - t: "\u2190"
+    h: "\u2196"
+  - t: "\u2193"
+    h: "Ctl+\u2198"
+    type: held
+  - t: "\u2191"
+    h: "Ctl+\u2196"
+  - t: "\u2303"
+  - Q
+  - "Gui+\u21E5"
+  - t: R
+    s: C
+  - "\u21F9"
+  - t: "\u21DF"
+    h: "Gui+\u21DF"
+  - t: "\u21DE"
+    h: "Gui+\u21DE"
+  - t: "\u2192"
+    h: "\u2198"
+  - h: num
+    t: Num
+  - t: a1
+    h: toggle
+  - t: Spc
+    h: nav
+  - t: sym
+    h: sym
+  sym:
+  - t: '!'
+    s: '?'
+  - t: '#'
+    s: '~'
+  - t: $
+    s: "\u20AC"
+  - t: (
+    s: )
+  - t: '['
+    s: ']'
+  - t: ;
+    s: ''''
+  - t: '`'
+    s: ^
+  - t: _
+    s: '-'
+  - t: '&'
+    s: '@'
+  - t: '='
+    s: '|'
+  - t: '{'
+    s: '}'
+  - t: <
+    s: '>'
+  - t: ':'
+    s: '"'
+  - t: /
+    s: \
+  - h: num
+    t: Num
+  - t: a1
+    h: toggle
+  - t: Spc
+    h: nav
+  - t: sym
+    h: sym
+    type: held
+  fn:
+  - t: F1
+    type: held
+  - F2
+  - F3
+  - F8
+  - F9
+  - F10
+  - F4
+  - F5
+  - F6
+  - F7
+  - F11
+  - F12
+  - VOL DN
+  - VOL UP
+  - h: num
+    t: Num
+  - t: a1
+    h: toggle
+  - t: Spc
+    h: nav
+  - t: sym
+    h: sym
+  num:
+  - '-'
+  - '*'
+  - '='
+  - '4'
+  - '5'
+  - '6'
+  - +
+  - '%'
+  - /
+  - t: .
+    s: ','
+  - '1'
+  - '2'
+  - '3'
+  - '0'
+  - h: num
+    type: held
+    t: Num
+  - t: a1
+    h: toggle
+  - t: Spc
+    h: nav
+  - t: sym
+    h: sym
+combos:
+- p:
+  - 0
+  - 1
+  k: "\u21E5"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 1
+  - 2
+  k: "\u23CE"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 4
+  k:
+    t: "\u232B"
+    s: "\u2326"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 5
+  k: "\u2303\u232B"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 4
+  - 5
+  k: "\u238B"
+  l:
+  - a1
+  - a2
+  type: util
+  align: top
+  offset: 0.12
+- p:
+  - 6
+  - 7
+  k: "\xDF"
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 7
+  - 9
+  k: _
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 7
+  - 8
+  k: '-'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 11
+  - 12
+  k: ':'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 10
+  - 12
+  k: ;
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.0
+- p:
+  - 14
+  - 15
+  k: "\u21EA"
+  l:
+  - a1
+  - a2
+  type: system
+  align: mid
+  offset: 0.0
+- p:
+  - 7
+  - 8
+  - 9
+  k: "\U0001F513"
+  l:
+  - sym
+  type: sym
+  align: bottom
+  offset: 0.07
+- p:
+  - 8
+  - 9
+  k:
+    t: '&shift_repeat'
+    h: "\u21E7"
+    s: "\u21EA"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 10
+  - 11
+  k:
+    t: '&shift_repeat'
+    h: "\u21E7"
+    s: "\u21EA"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 10
+  k: '7'
+  l:
+  - num
+  type: num
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 11
+  k: '8'
+  l:
+  - num
+  type: num
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 12
+  k: '9'
+  l:
+  - num
+  type: num
+  align: mid
+  offset: 0.0
+- p:
+  - 0
+  - 7
+  k: RL
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 1
+  - 8
+  k: HN
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 2
+  - 9
+  k: DT
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 10
+  k: CY
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 11
+  k: EO
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 12
+  k: UI
+  l:
+  - a1
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 0
+  - 7
+  k: RM
+  l:
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 1
+  - 8
+  k: NB
+  l:
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 2
+  - 9
+  k: KT
+  l:
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 3
+  - 10
+  k: GY
+  l:
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 4
+  - 11
+  k: OE
+  l:
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 12
+  k: IU
+  l:
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0

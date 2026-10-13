@@ -75,7 +75,7 @@ layers:
     bl: '2'
     br: F12
   - t: I
-    h: "\u2318"
+    h: "\u2325"
     tr: "\u21DE"
     tl: ': "'
     bl: '3'
@@ -119,7 +119,7 @@ layers:
     tl: ( )
     bl: '4'
     br: F8
-  - t: P
+  - t: Q
     h: nav
     tr: "\u2193"
     tl: '[ ]'
@@ -381,21 +381,30 @@ combos:
   align: mid
   offset: 0.0
 - p:
+  - 1
+  - 8
+  k: KT
+  l:
+  - a1 (Base)
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
   - 2
   - 9
-  k: '&macro_mb'
+  k: MB
   l:
-  - Symbols & Utilities
-  type: a1
+  - a1 (Base)
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 3
   - 10
-  k: '&macro_ys'
+  k: YS
   l:
-  - Symbols & Utilities
-  type: a1
+  - a1 (Base)
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -419,37 +428,37 @@ combos:
 - p:
   - 0
   - 7
-  k: '&macro_rw'
+  k: RW
   l:
-  - Symbols & Utilities
-  type: a2
+  - a2 (Alphas 2)
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 1
   - 8
-  k: '&macro_mt'
+  k: MT
   l:
-  - Symbols & Utilities
-  type: a2
+  - a2 (Alphas 2)
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 2
   - 9
-  k: '&macro_sch'
+  k: SCH
   l:
-  - Symbols & Utilities
-  type: a2
+  - a2 (Alphas 2)
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 3
   - 10
-  k: '&macro_gs'
+  k: GS
   l:
-  - Symbols & Utilities
-  type: a2
+  - a2 (Alphas 2)
+  type: bigram
   align: mid
   offset: 0.0
 - p:

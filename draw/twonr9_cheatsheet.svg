@@ -334,7 +334,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </g>
 <g transform="translate(524, 46)" class="key keypos-4">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap"><tspan class="a1-tap">O</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">P</tspan></text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">O</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">Q</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">[ ]</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↓</text>
@@ -407,7 +407,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <g transform="translate(616, 157)" class="key keypos-12">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap"><tspan class="a1-tap">I</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">.</tspan></text>
-<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇞</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">3</text>
@@ -444,19 +444,19 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </g>
 <g class="combo bigram combopos-0">
 <rect rx="6" ry="6" x="111" y="100" width="54" height="22" class="combo bigram"/>
-<text x="138" y="111" class="combo bigram tap"><tspan class="a1-bigram">RL</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">RM</tspan></text>
+<text x="138" y="111" class="combo bigram tap"><tspan class="a1-bigram">RL</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">RW</tspan></text>
 </g>
 <g class="combo bigram combopos-1">
 <rect rx="6" ry="6" x="203" y="81" width="54" height="22" class="combo bigram"/>
-<text x="230" y="92" class="combo bigram tap"><tspan class="a1-bigram">HN</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">NB</tspan></text>
+<text x="230" y="92" class="combo bigram tap"><tspan class="a1-bigram">KT</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">MT</tspan></text>
 </g>
 <g class="combo bigram combopos-2">
 <rect rx="6" ry="6" x="295" y="110" width="54" height="22" class="combo bigram"/>
-<text x="322" y="121" class="combo bigram tap"><tspan class="a1-bigram">DT</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">KT</tspan></text>
+<text x="322" y="121" class="combo bigram tap"><tspan class="a1-bigram">MB</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">SCH</tspan></text>
 </g>
 <g class="combo bigram combopos-3">
 <rect rx="6" ry="6" x="405" y="110" width="54" height="22" class="combo bigram"/>
-<text x="432" y="121" class="combo bigram tap"><tspan class="a1-bigram">CY</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">GY</tspan></text>
+<text x="432" y="121" class="combo bigram tap"><tspan class="a1-bigram">YS</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">GS</tspan></text>
 </g>
 <g class="combo bigram combopos-4">
 <rect rx="6" ry="6" x="497" y="81" width="54" height="22" class="combo bigram"/>
@@ -608,30 +608,6 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <rect rx="6" ry="6" x="599" y="100" width="34" height="22" class="combo num"/>
 <text x="616" y="111" class="combo num tap">9</text>
 </g>
-<g class="combo a1 combopos-17">
-<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo a1"/>
-<text x="322" y="121" class="combo a1 tap">&amp;macro_mb</text>
-</g>
-<g class="combo a1 combopos-18">
-<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo a1"/>
-<text x="432" y="121" class="combo a1 tap">&amp;macro_ys</text>
-</g>
-<g class="combo a2 combopos-19">
-<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo a2"/>
-<text x="138" y="111" class="combo a2 tap">&amp;macro_rw</text>
-</g>
-<g class="combo a2 combopos-20">
-<rect rx="6" ry="6" x="213" y="81" width="34" height="22" class="combo a2"/>
-<text x="230" y="92" class="combo a2 tap">&amp;macro_mt</text>
-</g>
-<g class="combo a2 combopos-21">
-<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo a2"/>
-<text x="322" y="121" class="combo a2 tap">&amp;macro_sch</text>
-</g>
-<g class="combo a2 combopos-22">
-<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo a2"/>
-<text x="432" y="121" class="combo a2 tap">&amp;macro_gs</text>
-</g>
 </g>
 </g>
 <text x="1533.0" y="372.0" class="footer">urob/zmk-config</text>
@@ -712,10 +688,10 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
     <text x="195" y="356" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Thumb 16 after char repeats letters, numbers &amp; symbols (==, ++, ::)</text>
     
     <text x="44" y="380" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #458588;">• German Eszett (ß):</text>
-    <text x="175" y="380" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Pinch S + R (6 + 7) on base (Straße, groß, weiß)</text>
+    <text x="175" y="380" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Pinch N + R (6 + 7) on base (Straße, groß, weiß)</text>
 
-    <text x="44" y="404" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Adaptive Key Swaps:</text>
-    <text x="180" y="404" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">r hl, u oi, q iu, r mv, n bx swap letters on roll to eliminate SFBs</text>
+    <text x="44" y="404" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Adaptive Keys:</text>
+    <text x="180" y="404" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">None — every letter is bound directly on the grid</text>
 
     <text x="44" y="428" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Secondary Alphas:</text>
     <text x="175" y="428" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Tap 14 for 1 letter | Hold 14 for words (BMW, Quiz)</text>
@@ -769,7 +745,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
     <rect x="24" y="222" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="236" style="font-size: 12px; font-weight: bold; fill: #282828;">ß</text>
     <text x="62" y="236" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Eszett (6+7):</text>
-    <text x="142" y="236" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">S + R chord on base (Straße, groß, weiß)</text>
+    <text x="142" y="236" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">N + R chord on base (Straße, groß, weiß)</text>
 
     <rect x="24" y="248" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="262" style="font-size: 12px; font-weight: bold; fill: #282828;">_</text>

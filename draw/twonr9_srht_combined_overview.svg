@@ -1,0 +1,611 @@
+<svg width="770" height="717" viewBox="0 0 770 717" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<style>svg path { fill: inherit; }
+
+svg.keymap {
+    --color-bg:      #7c6f64;
+    --color-key:     #fbf1c7;
+    --color-text:    #282828;
+    --color-ghost:   #928374;
+    --color-dendron: #d5c4a1;
+    --color-held:    #bdae93;
+
+    --color-sym:     #458588;
+    --color-nav:     #d79921;
+    --color-num:     #d65d0e;
+    --color-fn:      #689d6a;
+    --color-ak:      #b16286;
+    --color-ak-r:    #b16286;
+    --color-ak-u:    #83a598;
+    --color-ak-q:    #fb4934;
+    --color-ak-n:    #8ec07c;
+
+    fill: var(--color-text);
+    background-color: var(--color-bg);
+    font-family: Calibri, system-ui, sans-serif;
+    font-size: 20px;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+}
+
+text {
+    text-anchor: middle;
+    dominant-baseline: middle;
+    letter-spacing: 0.02em;
+}
+
+text.tap     { font-weight: 700; font-size: 22px; fill: #282828; }
+text.hold    { font-weight: 600; font-size: 13px; fill: #b57614; }
+text.shifted { font-weight: 500; font-size: 13px; }
+text.combo, text.left, text.right { font-size: 13px; font-weight: 600; }
+text.tl                   { font-size: 13px; font-weight: 700; }
+text.tr, text.bl          { font-size: 15px; font-weight: 700; }
+text.br                   { font-size: 11px; font-weight: 700; }
+
+text.hold, text.bl, text.br    { text-anchor: middle; dominant-baseline: auto; }
+text.shifted, text.tl, text.tr { text-anchor: middle; dominant-baseline: hanging; }
+text.left, text.tl, text.bl    { text-anchor: start; }
+text.right, text.tr, text.br   { text-anchor: end; }
+
+text.layer-activator { font-weight: 700; }
+text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right { font-size: 9px; }
+
+text.label, text.footer {
+    fill: var(--color-key);
+    stroke: var(--color-bg);
+    stroke-width: 4;
+    paint-order: stroke;
+}
+text.label  { font-weight: bold; font-size: 24px; text-anchor: start; }
+text.footer { text-anchor: end; dominant-baseline: auto; font-size: 15px; }
+
+/* Default key and combo styles */
+rect.key, rect.combo-separate { fill: var(--color-key); stroke-width: 0; }
+rect.combo                    { fill: var(--color-key); stroke-width: 0; fill-opacity: 0.72; opacity: 0.90; }
+rect.held, rect.combo.held    { fill: var(--color-held); }
+
+/* Layer-specific key tints */
+.layer-a1 rect.key          { fill: #fbf1c7; }
+.layer-a2 rect.key          { fill: #ebdbb2; }
+.layer-nav rect.key         { fill: #fdf0cd; }
+.layer-sym rect.key         { fill: #d8eae5; }
+.layer-fn rect.key          { fill: #dbe8d8; }
+.layer-num rect.key         { fill: #fae0d0; }
+.layer-Bigrams rect.key     { fill: var(--color-ghost); }
+.layer-Symbols rect.key     { fill: var(--color-ghost); }
+.layer-Combos rect.key      { fill: var(--color-ghost); }
+[class*="layer-Symbols"] rect.key { fill: var(--color-ghost); }
+[class*="layer-Combos"] rect.key  { fill: var(--color-ghost); }
+
+/* Combo box colors: Neutral, key-like translucent fill for universal combos */
+rect.combo,
+.combo.bigram rect.combo, g.combo.bigram rect,
+.combo.symbol rect.combo, g.combo.symbol rect,
+.combo.util rect.combo, g.combo.util rect,
+.combo.system rect.combo, g.combo.system rect,
+.combo.multi rect.combo, g.combo.multi rect,
+.combo.sym rect.combo, g.combo.sym rect,
+.combo.nav rect.combo, g.combo.nav rect,
+.combo.fn rect.combo, g.combo.fn rect,
+.combo.a2 rect.combo, g.combo.a2 rect {
+    fill: #ebdbb2 !important;
+    fill-opacity: 0.55;
+    stroke: #d5c4a1;
+    stroke-width: 1px;
+}
+text.combo,
+.combo.bigram text.combo, g.combo.bigram text,
+.combo.symbol text.combo, g.combo.symbol text,
+.combo.util text.combo, g.combo.util text,
+.combo.system text.combo, g.combo.system text,
+.combo.multi text.combo, g.combo.multi text,
+.combo.sym text.combo, g.combo.sym text,
+.combo.nav text.combo, g.combo.nav text,
+.combo.fn text.combo, g.combo.fn text,
+.combo.a2 text.combo, g.combo.a2 text {
+    fill: #282828 !important;
+    font-weight: 700;
+}
+
+/* Colorful Bigrams on Layer Views */
+.layer-a1 .combo.bigram rect.combo, .layer-a1 g.combo.bigram rect,
+[class*="layer-a1"] .combo.bigram rect.combo, [class*="layer-a1"] g.combo.bigram rect {
+    fill: #fabd2f !important;
+    fill-opacity: 0.85;
+    stroke: #d79921;
+    stroke-width: 1.5px;
+}
+.layer-a1 .combo.bigram text.combo, .layer-a1 g.combo.bigram text,
+[class*="layer-a1"] .combo.bigram text.combo, [class*="layer-a1"] g.combo.bigram text {
+    fill: #3c3836 !important;
+    font-weight: 700;
+}
+
+.layer-a2 .combo.bigram rect.combo, .layer-a2 g.combo.bigram rect,
+[class*="layer-a2"] .combo.bigram rect.combo, [class*="layer-a2"] g.combo.bigram rect {
+    fill: #b16286 !important;
+    fill-opacity: 0.85;
+    stroke: #8f3f71;
+    stroke-width: 1.5px;
+}
+.layer-a2 .combo.bigram text.combo, .layer-a2 g.combo.bigram text,
+[class*="layer-a2"] .combo.bigram text.combo, [class*="layer-a2"] g.combo.bigram text {
+    fill: #fbf1c7 !important;
+    font-weight: 700;
+}
+
+/* ONLY Number Combo Boxes are Orange */
+.combo.num rect.combo, g.combo.num rect {
+    fill: #d65d0e !important;
+    fill-opacity: 0.90;
+    stroke: #af3a03;
+    stroke-width: 1.5px;
+}
+.combo.num text.combo, g.combo.num text {
+    fill: #fbf1c7 !important;
+    font-weight: 700;
+}
+
+/* Clearly Visible Combo Connection Lines */
+path.combo { stroke: #504945; stroke-width: 2.2; stroke-dasharray: 4, 3; opacity: 0.85; fill: none; }
+
+/* Dual-alpha and combo split color classes */
+tspan.a1-tap, tspan.a1-bigram { fill: #282828; font-weight: 700; }
+tspan.slash-tap               { fill: #7c6f64; font-weight: 400; opacity: 0.6; }
+tspan.a2-tap, tspan.a2-bigram { fill: #b16286; font-weight: 700; }
+
+/* Four-Corner Legend Colors */
+text.tl, use.tl, .tl { fill: #458588 !important; }
+text.tr, use.tr, .tr { fill: #d79921 !important; }
+text.bl, use.bl, .bl { fill: #d65d0e !important; }
+text.br, use.br, .br { fill: #689d6a !important; }
+
+/* Layer Activation Colors at the Bottom of Keys */
+.hold-sym { fill: #458588 !important; font-weight: 700; }
+.hold-nav { fill: #d79921 !important; font-weight: 700; }
+.hold-num { fill: #d65d0e !important; font-weight: 700; }
+.hold-fn  { fill: #689d6a !important; font-weight: 700; }
+.hold-mod { fill: #b57614 !important; font-weight: 600; }
+
+.icon-tabler > path                             { fill: inherit; stroke: inherit; stroke-width: 2; }
+.icon-tabler > path[stroke="none"][fill="none"] { visibility: hidden; }
+
+@media (prefers-color-scheme: dark) {
+    svg.keymap {
+        --color-bg:      #282828;
+        --color-key:     #3c3836;
+        --color-text:    #ebdbb2;
+        --color-ghost:   #504945;
+        --color-dendron: #7c6f64;
+        --color-held:    #665c54;
+
+        --color-sym:     #83a598;
+        --color-nav:     #fabd2f;
+        --color-num:     #fe8019;
+        --color-fn:      #b8bb26;
+        --color-ak:      #d3869b;
+        --color-ak-r:    #d3869b;
+        --color-ak-u:    #83a598;
+        --color-ak-q:    #fb4934;
+        --color-ak-n:    #8ec07c;
+    }
+    text.tap                      { fill: #ebdbb2; }
+    tspan.a1-tap, tspan.a1-bigram { fill: #ebdbb2; font-weight: 700; }
+    tspan.slash-tap               { fill: #928374; font-weight: 400; opacity: 0.6; }
+    tspan.a2-tap, tspan.a2-bigram { fill: #d3869b; font-weight: 700; }
+    .layer-a1 rect.key          { fill: #3c3836; }
+    .layer-a2 rect.key          { fill: #48413c; }
+    .layer-nav rect.key         { fill: #4a3e2b; }
+    .layer-sym rect.key         { fill: #2d3e3a; }
+    .layer-fn rect.key          { fill: #2f402c; }
+    .layer-num rect.key         { fill: #4a3528; }
+    .layer-Bigrams rect.key     { fill: #504945; }
+    .layer-Symbols rect.key     { fill: #504945; }
+    .layer-Combos rect.key      { fill: #504945; }
+    text.tl, use.tl, .tl        { fill: #83a598 !important; }
+    text.tr, use.tr, .tr        { fill: #fabd2f !important; }
+    text.bl, use.bl, .bl        { fill: #fe8019 !important; }
+    text.br, use.br, .br        { fill: #b8bb26 !important; }
+    .hold-sym                   { fill: #83a598 !important; font-weight: 700; }
+    .hold-nav                   { fill: #fabd2f !important; font-weight: 700; }
+    .hold-num                   { fill: #fe8019 !important; font-weight: 700; }
+    .hold-fn                    { fill: #b8bb26 !important; font-weight: 700; }
+    .hold-mod                   { fill: #fabd2f !important; font-weight: 600; }
+
+    rect.combo,
+    .combo.bigram rect.combo, g.combo.bigram rect,
+    .combo.symbol rect.combo, g.combo.symbol rect,
+    .combo.util rect.combo, g.combo.util rect,
+    .combo.system rect.combo, g.combo.system rect,
+    .combo.multi rect.combo, g.combo.multi rect,
+    .combo.sym rect.combo, g.combo.sym rect,
+    .combo.nav rect.combo, g.combo.nav rect,
+    .combo.fn rect.combo, g.combo.fn rect,
+    .combo.a2 rect.combo, g.combo.a2 rect {
+        fill: #504945 !important;
+        fill-opacity: 0.55;
+        stroke: #665c54;
+    }
+    text.combo,
+    .combo.bigram text.combo, g.combo.bigram text,
+    .combo.symbol text.combo, g.combo.symbol text,
+    .combo.util text.combo, g.combo.util text,
+    .combo.system text.combo, g.combo.system text,
+    .combo.multi text.combo, g.combo.multi text,
+    .combo.sym text.combo, g.combo.sym text,
+    .combo.nav text.combo, g.combo.nav text,
+    .combo.fn text.combo, g.combo.fn text,
+    .combo.a2 text.combo, g.combo.a2 text {
+        fill: #ebdbb2 !important;
+        font-weight: 700;
+    }
+
+    .layer-a1 .combo.bigram rect.combo, .layer-a1 g.combo.bigram rect,
+    [class*="layer-a1"] .combo.bigram rect.combo, [class*="layer-a1"] g.combo.bigram rect {
+        fill: #fabd2f !important;
+        fill-opacity: 0.90;
+        stroke: #d79921;
+    }
+    .layer-a1 .combo.bigram text.combo, .layer-a1 g.combo.bigram text,
+    [class*="layer-a1"] .combo.bigram text.combo, [class*="layer-a1"] g.combo.bigram text {
+        fill: #282828 !important;
+    }
+
+    .layer-a2 .combo.bigram rect.combo, .layer-a2 g.combo.bigram rect,
+    [class*="layer-a2"] .combo.bigram rect.combo, [class*="layer-a2"] g.combo.bigram rect {
+        fill: #d3869b !important;
+        fill-opacity: 0.90;
+        stroke: #b16286;
+    }
+    .layer-a2 .combo.bigram text.combo, .layer-a2 g.combo.bigram text,
+    [class*="layer-a2"] .combo.bigram text.combo, [class*="layer-a2"] g.combo.bigram text {
+        fill: #282828 !important;
+    }
+
+    .combo.num rect.combo, g.combo.num rect {
+        fill: #fe8019 !important;
+        fill-opacity: 0.90;
+        stroke: #d65d0e;
+    }
+    .combo.num text.combo, g.combo.num text {
+        fill: #282828 !important;
+    }
+    path.combo                  { stroke: #d5c4a1; stroke-width: 2.2; stroke-dasharray: 4, 3; opacity: 0.85; }
+}
+
+rect.ak-r    { stroke: var(--color-ak-r); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-mv   { stroke: var(--color-ak-r); stroke-width: 2; stroke-dasharray: 2 3; }
+rect.ak-u    { stroke: var(--color-ak-u); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-q    { stroke: var(--color-ak-q); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-n    { stroke: var(--color-ak-n); stroke-width: 2; stroke-dasharray: 5 3; }
+rect.ak-i1   { stroke: var(--color-ak-u); stroke-width: 2; stroke-dasharray: 5 5; }
+rect.ak-i2   { fill: none !important; stroke: var(--color-ak-q); stroke-width: 2; stroke-dasharray: 5 5; stroke-dashoffset: 5; }
+text.ak-r    { fill: var(--color-ak-r) !important; }
+text.ak-u    { fill: var(--color-ak-u) !important; }
+text.ak-q    { fill: var(--color-ak-q) !important; }
+text.ak-n    { fill: var(--color-ak-n) !important; }
+
+rect.ak-card   { fill: var(--color-held); fill-opacity: 0.25; stroke: var(--color-dendron); stroke-width: 1.5; }
+text.ak-title  { fill: var(--color-ak) !important; }
+text.ak-body   { fill: var(--color-text) !important; }
+tspan.ak-tr-r, tspan.ak-lt-r { fill: var(--color-ak-r) !important; }
+tspan.ak-tr-u, tspan.ak-lt-u { fill: var(--color-ak-u) !important; }
+tspan.ak-tr-q, tspan.ak-lt-q { fill: var(--color-ak-q) !important; }
+tspan.ak-tr-n, tspan.ak-lt-n { fill: var(--color-ak-n) !important; }
+tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; }
+</style>
+<g transform="translate(8, 0)" class="layer-Combined (a1 / a2)">
+<text x="0" y="4" class="label" id="Combined-a1--a2">Combined (a1 / a2)</text>
+<g transform="translate(0, 8)">
+<g transform="translate(138, 65)" class="key keypos-0">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">L</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">X</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-fn">fn</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">! ?</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⌥</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">-</text>
+</g>
+<g transform="translate(230, 46)" class="key keypos-1">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">N</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">B</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;"># ~</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⌘</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">*</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F2</text>
+</g>
+<g transform="translate(322, 75)" class="key keypos-2">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">D</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">V</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-sym">sym</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">$ €</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇧</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">=</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F3</text>
+</g>
+<g transform="translate(432, 75)" class="key keypos-3">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">Y</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">W</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-sym">sym</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">( )</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">←</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">4</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F8</text>
+</g>
+<g transform="translate(524, 46)" class="key keypos-4">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">O</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">Q</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">[ ]</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">5</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F9</text>
+</g>
+<g transform="translate(616, 65)" class="key keypos-5">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">U</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">,</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-fn">fn</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">; &#x27;</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↑</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">6</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F10</text>
+</g>
+<g transform="translate(46, 182)" class="key keypos-6">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">S</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">F</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌃</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">` ^</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⌃</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">+</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F4</text>
+</g>
+<g transform="translate(138, 157)" class="key keypos-7">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">R</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">M</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">_ -</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">Q</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">%</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F5</text>
+</g>
+<g transform="translate(230, 138)" class="key keypos-8">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">H</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">P</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">&amp; @</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">Gui+⇥</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">/</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F6</text>
+</g>
+<g transform="translate(322, 167)" class="key keypos-9">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">T</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">K</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⇧</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">= |</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">R</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">.</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F7</text>
+</g>
+<g transform="translate(432, 167)" class="key keypos-10">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">C</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">G</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⇧</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">{ }</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇹</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">1</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F11</text>
+</g>
+<g transform="translate(524, 138)" class="key keypos-11">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">E</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">J</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">&lt; &gt;</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇟</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">2</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">F12</text>
+</g>
+<g transform="translate(616, 157)" class="key keypos-12">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">I</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">.</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇞</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">3</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">V-</text>
+</g>
+<g transform="translate(708, 182)" class="key keypos-13">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">A</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">Z</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌃</tspan></text>
+<text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">/ \</text>
+<text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">→</text>
+<text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">0</text>
+<text x="35" y="33" class="key br" style="fill: #689d6a !important; font-weight: 700;">V+</text>
+</g>
+<g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap">Num</text>
+<text x="0" y="33" class="key hold"><tspan class="hold-num">num</tspan></text>
+</g>
+<g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap">a2</text>
+<text x="0" y="33" class="key hold">a2</text>
+</g>
+<g transform="translate(423, 276) rotate(-16.0)" class="key keypos-16">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap">Spc</text>
+<text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
+</g>
+<g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+<text x="0" y="1" class="key tap">sym</text>
+<text x="0" y="33" class="key hold"><tspan class="hold-sym">sym</tspan></text>
+</g>
+<g class="combo bigram combopos-0">
+<rect rx="6" ry="6" x="111" y="100" width="54" height="22" class="combo bigram"/>
+<text x="138" y="111" class="combo bigram tap"><tspan class="a1-bigram">RL</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">RM</tspan></text>
+</g>
+<g class="combo bigram combopos-1">
+<rect rx="6" ry="6" x="203" y="81" width="54" height="22" class="combo bigram"/>
+<text x="230" y="92" class="combo bigram tap"><tspan class="a1-bigram">HN</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">NB</tspan></text>
+</g>
+<g class="combo bigram combopos-2">
+<rect rx="6" ry="6" x="295" y="110" width="54" height="22" class="combo bigram"/>
+<text x="322" y="121" class="combo bigram tap"><tspan class="a1-bigram">DT</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">KT</tspan></text>
+</g>
+<g class="combo bigram combopos-3">
+<rect rx="6" ry="6" x="405" y="110" width="54" height="22" class="combo bigram"/>
+<text x="432" y="121" class="combo bigram tap"><tspan class="a1-bigram">CY</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">GY</tspan></text>
+</g>
+<g class="combo bigram combopos-4">
+<rect rx="6" ry="6" x="497" y="81" width="54" height="22" class="combo bigram"/>
+<text x="524" y="92" class="combo bigram tap"><tspan class="a1-bigram">EO</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">OE</tspan></text>
+</g>
+<g class="combo bigram combopos-5">
+<rect rx="6" ry="6" x="589" y="100" width="54" height="22" class="combo bigram"/>
+<text x="616" y="111" class="combo bigram tap"><tspan class="a1-bigram">UI</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">IU</tspan></text>
+</g>
+</g>
+</g>
+<g transform="translate(8, 341)" class="layer-Symbols &amp; Utilities">
+<text x="0" y="4" class="label" id="Symbols--Utilities">Symbols &amp; Utilities</text>
+<g transform="translate(0, 36)">
+<g transform="translate(138, 65)" class="key keypos-0">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(230, 46)" class="key keypos-1">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(322, 75)" class="key keypos-2">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(432, 75)" class="key keypos-3">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(524, 46)" class="key keypos-4">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(616, 65)" class="key keypos-5">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(46, 182)" class="key keypos-6">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(138, 157)" class="key keypos-7">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(230, 138)" class="key keypos-8">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(322, 167)" class="key keypos-9">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(432, 167)" class="key keypos-10">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(524, 138)" class="key keypos-11">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(616, 157)" class="key keypos-12">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(708, 182)" class="key keypos-13">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(423, 276) rotate(-16.0)" class="key keypos-16">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g transform="translate(516, 262) rotate(-6.0)" class="key keypos-17">
+<rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
+</g>
+<g class="combo util combopos-0">
+<rect rx="6" ry="6" x="167" y="45" width="34" height="22" class="combo util"/>
+<text x="184" y="56" class="combo util tap">⇥</text>
+</g>
+<g class="combo util combopos-1">
+<rect rx="6" ry="6" x="259" y="50" width="34" height="22" class="combo util"/>
+<text x="276" y="61" class="combo util tap">⏎</text>
+</g>
+<g class="combo util combopos-2">
+<rect rx="6" ry="6" x="461" y="50" width="34" height="22" class="combo util"/>
+<text x="478" y="61" class="combo util tap">⌫</text>
+<text x="478" y="52" class="combo util shifted">⌦</text>
+</g>
+<g class="combo util combopos-3">
+<rect rx="6" ry="6" x="553" y="45" width="34" height="22" class="combo util"/>
+<text x="570" y="56" class="combo util tap">⌃⌫</text>
+</g>
+<g class="combo util combopos-4">
+<path d="M524,-17 h-86 a6.0,6.0 0 0 0 -6.0,6.0 v55" class="combo"/>
+<path d="M524,-17 l0,32" class="combo"/>
+<path d="M524,-17 h86 a6.0,6.0 0 0 1 6.0,6.0 v45" class="combo"/>
+<rect rx="6" ry="6" x="507" y="-28" width="34" height="22" class="combo util"/>
+<text x="524" y="-17" class="combo util tap">⎋</text>
+</g>
+<g class="combo symbol combopos-5">
+<rect rx="6" ry="6" x="75" y="159" width="34" height="22" class="combo symbol"/>
+<text x="92" y="170" class="combo symbol tap">ß</text>
+</g>
+<g class="combo symbol combopos-6">
+<path d="M230,162 l-61,-3" class="combo"/>
+<path d="M230,162 l61,3" class="combo"/>
+<rect rx="6" ry="6" x="213" y="151" width="34" height="22" class="combo symbol"/>
+<text x="230" y="162" class="combo symbol tap">_</text>
+</g>
+<g class="combo symbol combopos-7">
+<rect rx="6" ry="6" x="167" y="137" width="34" height="22" class="combo symbol"/>
+<text x="184" y="148" class="combo symbol tap">-</text>
+</g>
+<g class="combo symbol combopos-8">
+<rect rx="6" ry="6" x="553" y="137" width="34" height="22" class="combo symbol"/>
+<text x="570" y="148" class="combo symbol tap">:</text>
+</g>
+<g class="combo symbol combopos-9">
+<path d="M524,162 l-61,3" class="combo"/>
+<path d="M524,162 l61,-3" class="combo"/>
+<rect rx="6" ry="6" x="507" y="151" width="34" height="22" class="combo symbol"/>
+<text x="524" y="162" class="combo symbol tap">;</text>
+</g>
+<g class="combo system combopos-10">
+<rect rx="6" ry="6" x="268" y="258" width="34" height="22" class="combo system"/>
+<text x="285" y="269" class="combo system tap">⇪</text>
+</g>
+<g class="combo sym combopos-11">
+<path d="M230,225 h-86 a6.0,6.0 0 0 1 -6.0,-6.0 v-31" class="combo"/>
+<path d="M230,225 l0,-56" class="combo"/>
+<path d="M230,225 h86 a6.0,6.0 0 0 0 6.0,-6.0 v-21" class="combo"/>
+<rect rx="6" ry="6" x="213" y="214" width="34" height="22" class="combo sym"/>
+<text x="230" y="225" class="combo sym tap">🔓</text>
+</g>
+<g class="combo util combopos-12">
+<rect rx="6" ry="6" x="259" y="142" width="34" height="22" class="combo util"/>
+<text x="276" y="153" class="combo util tap">&amp;shift_repeat</text>
+<text x="276" y="162" class="combo util hold"><tspan class="hold-mod">⇧</tspan></text>
+<text x="276" y="144" class="combo util shifted">⇪</text>
+</g>
+<g class="combo util combopos-13">
+<rect rx="6" ry="6" x="461" y="142" width="34" height="22" class="combo util"/>
+<text x="478" y="153" class="combo util tap">&amp;shift_repeat</text>
+<text x="478" y="162" class="combo util hold"><tspan class="hold-mod">⇧</tspan></text>
+<text x="478" y="144" class="combo util shifted">⇪</text>
+</g>
+<g class="combo num combopos-14">
+<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo num"/>
+<text x="432" y="121" class="combo num tap">7</text>
+</g>
+<g class="combo num combopos-15">
+<rect rx="6" ry="6" x="507" y="81" width="34" height="22" class="combo num"/>
+<text x="524" y="92" class="combo num tap">8</text>
+</g>
+<g class="combo num combopos-16">
+<rect rx="6" ry="6" x="599" y="100" width="34" height="22" class="combo num"/>
+<text x="616" y="111" class="combo num tap">9</text>
+</g>
+</g>
+</g>
+<text x="762.0" y="713.0" class="footer">urob/zmk-config</text></svg>

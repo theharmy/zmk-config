@@ -1,0 +1,5 @@
+config SHIELD_TWONR9_SRHT_LEFT
+    def_bool $(shields_list_contains,twonr9_srht_left)
+
+config SHIELD_TWONR9_SRHT_RIGHT
+    def_bool $(shields_list_contains,twonr9_srht_right)

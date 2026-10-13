@@ -1,61 +1,59 @@
 # 2nr9 · pocket card
 
-*18 keys · DE QWERTZ · Niri · one very smart thumb*
+*18 keys · DE QWERTZ · Niri · bugwind (the default keymap)*
 
-## Base `a1` — letters, mods in corners
+> srht backup differs in the grids, bigrams & ß chord and adds adaptive keys — see [`CHEATSHEET.md`](CHEATSHEET.md) §9.
+
+## Base `a1` — top row = layer-taps, home row = mods
 
 ```text
               ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
-              │  L ⌥   │  N ⌘   │  D ⇧   │      │  Y ⇧   │  O ⌘   │  U ⌥   │
+              │ L  fn  │ M  nav │ D  sym │      │ Y  sym │ O  nav │ U  fn  │
        ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼──────╮
-       │  S ⌃ │  R fn  │  H nav │  T sym │      │  C sym │  E nav  │  I fn  │  A ⌃  │
+       │ N  ⌃ │ R  ⌥   │ T  ⌘   │ H  ⇧   │      │ S  ⇧   │ A  ⌘   │ I  ⌥   │ E  ⌃  │
        ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴──────╯
-                       │  a2 ⇄  │ space  │      │ magic  │  num   │
+                       │  num   │  a2 ⇄  │      │  spc   │  sym   │
                        ╰────────┴────────╯      ╰────────┴────────╯
 ```
-*hold pinky ⌃ · ring fn · middle nav · index sym — mirrored both hands*
+*home row reads `⌃ ⌥ ⌘ ⇧` outwards on the left, `⇧ ⌘ ⌥ ⌃` outwards on the right*
 
-## `a2` — the other 12 letters (tap or hold thumb 14)
+## `a2` — the other 12 letters (tap or hold thumb 15)
 
 ```text
-              │  X ⌥   │  B ⌘   │  M ⇧   │      │  W ⇧   │  Q ⌘   │   , ⌥   │
-       │  F ⌃ │  V fn  │  P nav │  K sym │      │  G sym │  J nav  │   . fn  │  Z ⌃  │
+              │ X  fn  │ V  nav │ B  sym │      │ G  sym │ Q  nav │  ,  fn │
+       │ P  ⌃ │ W  ⌥   │ K  ⌘   │ F  ⇧   │      │ C  ⇧   │ Z  ⌘   │  .  ⌥  │ J  ⌃  │
 ```
-*BMW · Quiz · Pflanze · Kaffee — hold 14 and type like normal*
+*BMW · Quiz · Pflanze · Kaffee — hold 15 and type like normal*
 
 ## Thumbs
 
 | | tap | hold | special |
 |---|---|---|---|
-| **14** | 1 letter of `a2` | stay in `a2` | — |
-| **15** | space | `nav` | shift+tap → `. ` + auto-shift |
-| **16** | **magic shift** (see below) | ⇧ | shift+tap → `⇪` Caps Word |
-| **17** | `num_word` (auto-exits!) | `num` layer | double-tap = sticky num |
+| **14** | `num_word` (auto-exits!) | `num` layer | — |
+| **15** | 1 letter of `a2` | stay in `a2` | — |
+| **16** | space | `nav` | shift+tap → `. ` + auto-shift |
+| **17** | 1 symbol of `sym` | stay in `sym` | — |
 
-**Magic Shift tap:** just typed something → **repeat it** (`ee`, `ll`, `::`, `==`, `11`); paused a moment → **sticky shift** for the next letter (*Das Haus*).
+**Magic shift** is *not* a thumb — it is the `8+9` (left) or `10+11` (right) combo, on every layer:
+just typed something → **repeat it** (`ee`, `ll`, `::`, `==`, `11`); paused a moment → **sticky shift** for the next letter (*Das Haus*); hold → ⇧; shift+tap → `⇪` Caps Word.
 
-## ★ Adaptive keys — the party trick
+## Bigrams — one vertical pinch = one digraph
 
-Type the **trigger letter**, then within **300 ms** press its partner: the partner **flips to its pair**. Otherwise everything is a normal letter.
+Chords run down a **column pair**, so they land under the finger that would otherwise make the awkward roll.
 
-| after… | press → get | so you can roll | for words like |
-|---|---|---|---|
-| **R** | `H`→**L** · `L`→**H** | `rl` as R+H, `rh` as R+L | *erle, Karla, Rhythmus* |
-| **R** | `M`→**V** · `V`→**M** | `rv` as R+M, `rm` as R+V | *Vor-…, rm/rv rolls* |
-| **U** | `O`→**I** · `I`→**O** | `ui` as U+O, `uo` as U+I | *ui rolls* |
-| **Q** | `I`→**U** · `U`→**I** | `qu` as Q+I | *Quelle, Quiz* |
-| **N** | `B`→**X** · `X`→**B** | `nx` as N+B | *nx rolls* |
-
-Live on: `L H O I U` (a1) and `X B M V` (a2) — same-finger bigrams become comfy rolls, and the board quietly fixes the spelling.
+```text
+ a1:  0+7 RL   1+8 KT   2+9 MB   3+10 YS   4+11 EO   5+12 UI
+ a2:  0+7 RW   1+8 MT   2+9 SCH  3+10 GS   4+11 OE   5+12 IU
+```
 
 ## Combos worth memorizing
 
 ```text
  0+1 ⇥        1+2 ⏎        3+4 ⌫/⌦ (⇧=del)   4+5 ⌃⌫ word-del   3+4+5 ⎋
- 6+7 ß        7+8 _        8+9 -             10+11 :           11+12 ;
-14+15 ⇪ caps-word        vertical pinch = whole bigram: 0+7 "rl" · 1+8 "hn" · 2+9 "dt" · 5+12 "ui"
+ 6+7 ß        7+9 _        7+8 -             11+12 :           10+12 ;
+14+15 ⇪ caps-word    8+9 / 10+11 magic-shift    7+8+9 🔓 studio unlock (on sym)
 ```
 
 ## `nav` in one breath
 
-`←↓↑→` clustered (long-press = Home/End/top/bottom) · `⌘Q` close · `⌘⇥` overview · `⇹` window swapper · hold `⇞⇟` = next/prev workspace · `⌘R` cycles column width.
+`←↓↑→` clustered (long-press = jump to first/last column, top/bottom of document) · `⌘Q` close · `⌘⇥` overview · `⌘R` cycles column width · `⇹` window swapper · hold `⇞⇟` = next/prev workspace · `⌥ ⌘ ⇧ ⌃` one-shot mods.

@@ -37,12 +37,16 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * Right Outer (17): `SYM_DUAL` (Tap: single `sym`, Hold: continuous `sym`).
   * *Note*: `MAGIC_SHIFT` is not on the thumbs — it is reached via the `shiftl` (8+9) and `shiftr` (10+11) combos on every layer.
 * **Complete 14-Pair Mod-Morph Symbol System**: All brackets, quotes, slashes, and punctuation mapped without combo clutter.
-* **Nine Adaptive Keys**: Context-aware bigram-swap keys (eliminate same-finger rolls like `rhl`, `uo`, `qi`) wired through their own hold-taps. See [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat) and [`config/twonr9_adaptive_keys.h`](twonr9_adaptive_keys.h).
-* **Automated Visualizations**:
+* **Two Keymap Variants, One Shield Definition**: The hardware lives in `config/boards/shields/twonr9/`; ZMK resolves the keymap by shield name, so no cmake-args or manual steps are needed. See [§6](#6-hardware-shields--build-targets).
+  * **`bugwind`** (default): `twonr9_left` / `twonr9_right` → `config/twonr9.keymap`. No adaptive keys — every letter is bound directly, so the grids are self-describing.
+  * **`srht`** (backup): `twonr9_srht_left` / `twonr9_srht_right` → `config/twonr9_srht.keymap`. Keeps the nine adaptive keys.
+  * Bluetooth names differ (`TwoNr9` vs `TwoNr9 SRHT`) so both can be paired side by side without re-bonding.
+* **Automated Visualizations** (bugwind names shown; the srht equivalents are `draw/twonr9_srht_*.svg`):
   * All 6 Layers detailed view: `draw/twonr9.svg`
   * Single-board unified overview with 4-corner layer sub-legends: `draw/twonr9_overview.svg`
   * Combined dual-alpha overview: `draw/twonr9_combined_overview.svg`
   * All-in-one visual infographic: `draw/twonr9_cheatsheet.svg`
+  * Small picture-in-picture reference card: `draw/twonr9_pip.svg` / `.png`
 
 ---
 
@@ -60,6 +64,7 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * `config/twonr9_adaptive_keys.h`: Adaptive swap rules (`AK`/`AK2`/`AK_PAIR`), their hold-taps (`MAKE_AK_HM`/`MAKE_AK_LT`), and the nine grid aliases (`FN_L`, `GL_H`, …).
   * `config/twonr9_macros.dtsi`: German bigram digraph macros.
   * `config/twonr9_combos.dtsi`: Categorized combo definitions.
+  * *(Since renamed for the two-variant split — see [§2.11](#11-two-keymap-variants-as-two-shields-2026-10-12-config--buildyaml--draw). Today the adaptive module is `twonr9_adaptive_keys_srht.h`, and the macros/combos come in `*_bugwind` and `*_srht` variants plus the shared `twonr9_combos.dtsi`.)*
 
 ### 2. Editor & LSP Integration for Helix (`.helix/languages.toml` & `flake.nix`)
 * **Change**: Configured `.helix/languages.toml` with native `dts-lsp-server` for `.keymap`, `.dtsi`, and `.overlay` files, and `clangd` for C headers.
@@ -114,6 +119,27 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * *Right-hand modifiers*: `hold_abbr_map` had no entries for `RIGHT ALT`/`RIGHT GUI`, leaving raw text on the adaptive keys. Added `RALT`/`RGUI`/`RSHFT`/`RCTRL` and their long forms.
   * *Reason*: Two of these (the `&lt` gap and Shift mislabel) were **pre-existing** — the old diagrams had already been wrong; the row-swap simply moved far more keys onto `&lt`/mod holds and made it obvious.
   * *Verified*: All 36 hold labels across `a1`/`a2` now match `config/twonr9.keymap` binding-for-binding (`a1`: L→fn N→nav D→sym Y→sym O→nav U→fn / S→⌃ R→⌥ H→⌘ T→⇧ C→⇧ E→⌘ I→⌥ A→⌃). All four alpha-layer modifier glyphs render with the `hold-mod` color class, and no raw `RIGHT …` text remains in the SVGs.
+
+### 11. Two Keymap Variants as Two Shields (2026-10-12, `config/` + `build.yaml` + `draw/`)
+* **Change**: Split the single keymap into **two real shields** so `just build <variant>` and CI both resolve the right keymap **by shield name** — no `cmake-args`, no manual steps, identical behaviour locally and in GitHub Actions.
+  * **`bugwind` (default)**: `twonr9_left` / `twonr9_right` → `config/twonr9.keymap` + `config/twonr9.conf`. No adaptive keys — every alpha is bound directly, so the grids are self-describing.
+  * **`srht` (optional backup)**: `twonr9_srht_left` / `twonr9_srht_right` → `config/twonr9_srht.keymap` + `config/twonr9_srht.conf`. Keeps the nine adaptive keys.
+  * `config/boards/shields/twonr9/` is now the **only** place the physical grid is defined (dtsi, both half overlays, and its `Kconfig.*`). `twonr9_srht/` holds nothing but thin overlays that `#include "../twonr9/twonr9_left.overlay"`, plus its own `Kconfig.shield`/`Kconfig.defconfig` — so there is no duplicated hardware definition to drift.
+  * **Why shields rather than `-DKEYMAP_FILE=`**: a keymap path passed to `west build` must be absolute (so it breaks on any other machine), and `KEYMAP_FILE` is a **CMake cache variable** — reusing a build directory with a different keymap silently keeps the old one unless the define is repeated or the build is pristine. Shield-name resolution has neither problem, and it is what ZMK already does natively.
+  * **Bluetooth names differ on purpose**: bugwind keeps `"TwoNr9"` so existing bonds survive; srht is `"TwoNr9 SRHT"`, so both halves can sit paired to the same host side by side without re-bonding.
+* **`.conf` split**: `twonr9.conf` + `twonr9_srht.conf`. ZMK resolves `.conf` by *shield directory name* and its search loop **appends every match rather than breaking on the first**, and there is no include mechanism for `.conf` files — so the two files necessarily duplicate the hardware/power settings. They must be edited in sync; this is called out in both file headers and in §6.
+* **Build matrices split**: `build.yaml` keeps only the default targets (bugwind left / left-with-studio / right / settings_reset) — i.e. what CI builds, so the matrix stays lean and `firmware/` is not cluttered with a backup. The srht targets moved to **`build-srht.yaml`** with a new **`just build-srht`** recipe that overrides the Justfile's existing `build_matrix` variable (`just build_matrix=build-srht.yaml build all` is the underlying form). srht is therefore fully buildable but never built by accident.
+* **Two keymap bugs fixed** (both unambiguous defects, not taste):
+  * `a2` top row, position 4: bound `DE_P`, which **duplicated `P`** (already at `a1` pos 6) and left **`Q` missing entirely** → now `DE_Q`.
+  * `a1` home row, position 12: `&hmr RGUI DE_I` **duplicated `RGUI`** (already at pos 11) → now `&hmr RALT DE_I`, restoring the symmetric `⌃ ⌥ ⌘ ⇧ / ⇧ ⌘ ⌥ ⌃` mod fan.
+  * The srht keymap was also **missing `#include "twonr9_combos.dtsi"`**, silently dropping 18 shared utility combos (tab, enter, bspc, cbspc, esc, ß, under, minus, colon, semi, caps, stdio, shiftl, shiftr, numpad 7/8/9) — restored.
+* **Dead files removed**: `config/twonr9_adaptive_keys_bugwind.h` (bugwind has no adaptive keys) and `config/twonr9_keys.h.bak`. The surviving adaptive module was renamed to `config/twonr9_adaptive_keys_srht.h` to make its ownership explicit.
+* **Draw system made variant-aware** (`draw/draw_twonr9.py`): a `VARIANTS` table drives everything — per-variant keymap path, title, a1/a2 bigram lists, adaptive rules (or `None`), and the ß chord text. `main()` takes optional variant names (`just draw-twonr9 [bugwind|srht|all]`, default **bugwind only**, so every existing doc link keeps resolving).
+  * Derived, not duplicated: `combined_bigram_map()` builds the a1/a2 chord pairs from the bigram lists, and `combo_symbol()` resolves `&macro_<bigram>` bindings from the same lists — so the grids in the diagrams **cannot** drift from the keymap. (The previous hardcoded `combo_symbol_map` only knew the srht macro names, which is why the bugwind diagrams silently lost the `MB`/`YS`/`RW`/`MT`/`SCH`/`GS` chords.)
+  * The adaptive legend card, the PIP reference card, and the cheatsheet prose now read from the variant table; bugwind renders an explicit *"none — every letter is bound directly"* in place of the swap rules.
+  * Output names: bugwind keeps the canonical `twonr9*.svg` names; srht writes `twonr9_srht_*.svg`.
+* *Verified*: `just build all` produces all four default artifacts; `just build-srht` produces both srht halves. The compiled `zephyr.dts` was decoded for both variants and confirmed all 26 letters appear **exactly once** across `a1`+`a2`, `I` is `RALT`, `A` is `GUI`, and `Q` is present with `P` appearing once. All 12 bigrams render on both variants' diagrams, and the adaptive legend/dashes appear on srht only.
+* *Note*: `config/twonr9_adaptive_keys_bugwind.h` was deleted but `config/twonr9_adaptive_keys_srht.h` is now the sole adaptive module, included only by the srht keymap.
 
 ---
 
@@ -175,13 +201,13 @@ Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
 * `!` / `?` · `#` / `~` · `$` / `€` · `` ` `` / `^` · `&` / `@` · `|` / `=`
 
 ### E. Adaptive Key Swaps & Symbol Auto-Repeat
-* **Adaptive Key Swaps (SFB Elimination)**:
+* **Adaptive Key Swaps (SFB Elimination)** — *`srht` variant only*. The default `bugwind` keymap has no adaptive keys: every alpha is bound directly, so what you see on the grid is what you type.
   * **`r hl`** (After `R`): Pressing `H` outputs `L` (fast `rl` roll), pressing `L` outputs `H`.
   * **`u oi`** (After `U`): Pressing `O` outputs `I` (fast `ui` roll), pressing `I` outputs `O`.
   * **`q iu`** (After `Q`): Pressing `I` outputs `U` (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs `I`.
   * **`r mv`** (After `R`): Pressing `M` outputs `V` (fast `rv` roll), pressing `V` outputs `M`.
   * **`n bx`** (After `N`): Pressing `B` outputs `X` (fast `nx` roll), pressing `X` outputs `B`.
-  * *Where these live*: The swap rules, hold wiring, and grid aliases for all nine adaptive keys are defined in [`config/twonr9_adaptive_keys.h`](twonr9_adaptive_keys.h). Each key's rule, hold-tap, and `#define` sit together in one group, so reworking a single adaptive key touches one contiguous block.
+  * *Where these live*: The swap rules, hold wiring, and grid aliases for all nine adaptive keys are defined in [`config/twonr9_adaptive_keys_srht.h`](twonr9_adaptive_keys_srht.h), included only by [`config/twonr9_srht.keymap`](twonr9_srht.keymap). Each key's rule, hold-tap, and `#define` sit together in one group, so reworking a single adaptive key touches one contiguous block.
 * **Expanded Symbol & Number Auto-Repeat**: Tapping Magic Shift immediately after typing any symbol or number (`==`, `++`, `::`, `//`, `!=`, `->`, `**`, `11`, `00`) instantly repeats that character.
 
 ---
@@ -205,9 +231,37 @@ Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
 
 ### Layer Overview
 
-#### Layer 0: `a1` (Base QWERTZ Alphas)
+#### Layer 0: `a1` (Base QWERTZ Alphas) — bugwind
 
 Top row = layer-taps · Home row = modifiers (mirrored on the right half).
+
+Every alpha is bound directly, so the grid is self-describing.
+
+```c
+ZMK_LAYER(a1,
+//                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
+                            &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    &lt L_NAV DE_O    &lt L_FN DE_U
+//       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
+          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_A     &hmr RALT DE_I    &hmr RCTRL DE_E
+//       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
+                                              SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
+//                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
+)
+```
+
+| Pos | Key | Hold | Pos | Key | Hold |
+|-----|-----|------|-----|-----|------|
+| 0 | L | `&lt L_FN` (fn) | 3 | Y | `&lt L_SYM` |
+| 1 | M | `&lt L_NAV` (nav) | 4 | O | `&lt L_NAV` (nav) |
+| 2 | D | `&lt L_SYM` (sym) | 5 | U | `&lt L_FN` (fn) |
+| 6 | N | `&hml LCTRL` | 10 | S | `&hmr RSHFT` |
+| 7 | R | `&hml LALT` | 11 | A | `&hmr RGUI` |
+| 8 | T | `&hml LGUI` | 12 | I | `&hmr RALT` |
+| 9 | H | `&hml LSHFT` | 13 | E | `&hmr RCTRL` |
+
+#### Layer 0: `a1` (Base QWERTZ Alphas) — srht
+
+Same row-split and identical *structure*, but nine of the alphas are adaptive: they rewrite their own output based on the preceding bigram (see [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat)), so their binding aliases (`FN_L`, `GL_H`, `AR_I`, …) live in [`config/twonr9_adaptive_keys_srht.h`](twonr9_adaptive_keys_srht.h).
 
 ```c
 ZMK_LAYER(a1,
@@ -231,9 +285,33 @@ ZMK_LAYER(a1,
 | 8 | H *(adaptive)* | `GL_H` (GUI) | 12 | I *(adaptive)* | `AR_I` (RALT) |
 | 9 | T | `&hml LSHFT` | 13 | A | `&hmr RCTRL` |
 
-#### Layer 1: `a2` (Secondary Alphas)
+#### Layer 1: `a2` (Secondary Alphas) — bugwind
 
-Same row-split: top row = layer-taps, home row = modifiers.
+Same row-split: top row = layer-taps, home row = modifiers. Note the thumb at pos 15 toggles back to `a1`.
+
+```c
+ZMK_LAYER(a2,
+//                            ╭────────────────────┬────────────────────┬────────────────────╮      ╭────────────────────┬────────────────────┬────────────────────╮
+                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_Q       &lt L_FN DE_COMMA
+//       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+          &hml LCTRL DE_P       &hml LALT DE_W         &hml LGUI DE_K       &hml LSHFT DE_F            &hmr RSHFT DE_C      &hmr RGUI DE_Z        &hmr RALT DE_DOT      &hmr RCTRL DE_J
+//       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
+                                                    SMART_NUM            &to L_A1                    SPC_NAV              SYM_DUAL
+//                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯
+)
+```
+
+| Pos | Key | Hold | Pos | Key | Hold |
+|-----|-----|------|-----|-----|------|
+| 0 | X | `&lt L_FN` (fn) | 3 | G | `&lt L_SYM` |
+| 1 | V | `&lt L_NAV` (nav) | 4 | Q | `&lt L_NAV` (nav) |
+| 2 | B | `&lt L_SYM` (sym) | 5 | `,` | `&lt L_FN` (fn) |
+| 6 | P | `&hml LCTRL` | 10 | C | `&hmr RSHFT` |
+| 7 | W | `&hml LALT` | 11 | Z | `&hmr RGUI` |
+| 8 | K | `&hml LGUI` | 12 | `.` | `&hmr RALT` |
+| 9 | F | `&hml LSHFT` | 13 | J | `&hmr RCTRL` |
+
+#### Layer 1: `a2` (Secondary Alphas) — srht
 
 ```c
 ZMK_LAYER(a2,
@@ -257,7 +335,9 @@ ZMK_LAYER(a2,
 | 8 | P | `&hml LGUI` | 12 | `.` | `&hmr RALT` |
 | 9 | K | `&hml LSHFT` | 13 | Z | `&hmr RCTRL` |
 
-> **Adaptive keys** (marked *adaptive*) additionally rewrite their own output based on the preceding bigram — see [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat). Their hold wiring lives in [`config/twonr9_adaptive_keys.h`](twonr9_adaptive_keys.h).
+> **Adaptive keys** (marked *adaptive*, `srht` only) additionally rewrite their own output based on the preceding bigram — see [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat). Their hold wiring lives in [`config/twonr9_adaptive_keys_srht.h`](twonr9_adaptive_keys_srht.h).
+
+Layers 2–5 (`nav`, `sym`, `fn`, `num`) and the thumb cluster are **identical in both variants**.
 
 #### Layer 2: `nav` (Navigation & Niri Suite)
 ```c
@@ -315,7 +395,41 @@ ZMK_LAYER(num,
 
 ## 6. Hardware, Shields & Build Targets
 
-### Build Target Matrix (`build.yaml`)
+### Shield Layout
+
+The physical board is defined **once**; the two keymap variants are thin shields that include it and differ only by which keymap/conf ZMK resolves for them:
+
+```text
+config/boards/shields/
+├── twonr9/                 # shared hardware: the only place the physical grid is defined
+│   ├── twonr9.dtsi
+│   ├── twonr9-layouts.dtsi
+│   ├── twonr9_left.overlay
+│   ├── twonr9_right.overlay
+│   ├── Kconfig.shield      # SHIELD_TWONR9_LEFT / SHIELD_TWONR9_RIGHT
+│   └── Kconfig.defconfig
+└── twonr9_srht/            # optional backup variant -- no hardware of its own
+    ├── twonr9_srht_left.overlay   # #include "../twonr9/twonr9_left.overlay"
+    ├── twonr9_srht_right.overlay  # #include "../twonr9/twonr9_right.overlay"
+    ├── Kconfig.shield      # SHIELD_TWONR9_SRHT_LEFT / SHIELD_TWONR9_SRHT_RIGHT
+    └── Kconfig.defconfig
+```
+
+### Keymap & Config Resolution
+
+ZMK derives candidate names from the shield, so each variant picks up its own files automatically — no `cmake-args`, no manual steps, identical behaviour locally and in CI:
+
+| Shield | Candidate names | Keymap | Config |
+| --- | --- | --- | --- |
+| `twonr9_left` | `twonr9`, `twonr9_left` | `config/twonr9.keymap` | `config/twonr9.conf` |
+| `twonr9_srht_left` | `twonr9_srht`, `twonr9_srht_left` | `config/twonr9_srht.keymap` | `config/twonr9_srht.conf` |
+
+> **`.conf` files have no include mechanism in ZMK**, so `twonr9.conf` and `twonr9_srht.conf` duplicate the same hardware/power settings. Keep them in sync when editing either.
+
+Bluetooth names intentionally differ — **`TwoNr9`** (bugwind, preserves existing bonds) vs **`TwoNr9 SRHT`** — so both halves can be paired to the same host side by side without re-bonding.
+
+### Build Target Matrix (`build.yaml` — default, built by CI)
+
 ```yaml
 include:
   - board: nice_nano@2.0.0//zmk
@@ -334,17 +448,43 @@ include:
     shield: settings_reset
 ```
 
+### Optional Build Target Matrix (`build-srht.yaml` — on demand)
+
+The srht variant is kept as a backup rather than a daily driver, so it is deliberately **not** in `build.yaml` and is **not built by CI**. Build it explicitly:
+
+```bash
+just build-srht                       # both halves
+just build-srht twonr9_srht_left      # one half only
+```
+
+```yaml
+include:
+  - board: nice_nano@2.0.0//zmk
+    shield: twonr9_srht_left
+
+  - board: nice_nano@2.0.0//zmk
+    shield: twonr9_srht_right
+```
+
 ### Generated Firmware Artifacts (`firmware/`)
+
+From `just build all` (the default matrix):
+
 1. **`twonr9_left_with_studio.uf2`**: Central (Left) half with ZMK Studio RPC and KeyPeek Raw HID streaming.
 2. **`twonr9_left-nice_nano@2.0.0__zmk.uf2`**: Central (Left) half (standard lightweight build).
 3. **`twonr9_right-nice_nano@2.0.0__zmk.uf2`**: Peripheral (Right) half.
 4. **`settings_reset-nice_nano@2.0.0__zmk.uf2`**: Diagnostic firmware to clear corrupted BLE bond storage.
 
+From `just build-srht`:
+
+5. **`twonr9_srht_left-nice_nano@2.0.0__zmk.uf2`** / 6. **`twonr9_srht_right-nice_nano@2.0.0__zmk.uf2`**: the backup variant.
+
 ---
 
 ## 7. Step-by-Step User Workflow
 
-### A. Flashing the Keyboard
+### A. Flashing the Keyboard (bugwind — the default)
+
 1. **Left Half (Central)**:
    * Double-press the physical reset button on the left nice!nano.
    * Drag & drop `firmware/twonr9_left_with_studio.uf2` onto the `NICENANO` USB drive.
@@ -352,19 +492,27 @@ include:
    * Double-press the physical reset button on the right nice!nano.
    * Drag & drop `firmware/twonr9_right-nice_nano@2.0.0__zmk.uf2` onto the `NICENANO` drive.
 
+For the srht backup, build with `just build-srht` and flash the `twonr9_srht_*` artifacts instead.
+
 ### B. Daily Development Commands
 
 ```bash
-# 1. Generate all visual keymap diagrams & cheatsheet infographic
+# 1. Generate the bugwind diagrams & cheatsheet infographic
 just draw-twonr9
 
-# 2. Build all TwoNr9 firmware targets
+# 1b. Same, but for the srht backup (or `all` for both variants)
+just draw-twonr9 srht
+
+# 2. Build every default firmware target (bugwind + settings_reset; what CI builds)
 just build all
 
 # 3. Build only the central half with Studio + KeyPeek
 just build twonr9_left_with_studio
 
-# 4. Check west dependencies integrity
+# 4. Build the optional srht backup variant
+just build-srht
+
+# 5. Check west dependencies integrity
 pin-west check
 ```
 

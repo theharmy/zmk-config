@@ -27,7 +27,7 @@ layers:
   - t: A
     h: "\u2318"
   - t: I
-    h: "\u2318"
+    h: "\u2325"
   - t: E
     h: "\u2303"
   - h: num
@@ -47,7 +47,7 @@ layers:
     h: sym
   - t: G
     h: sym
-  - t: P
+  - t: Q
     h: nav
   - t: ','
     h: fn
@@ -391,19 +391,19 @@ combos:
 - p:
   - 2
   - 9
-  k: '&macro_mb'
+  k: MB
   l:
   - a1
-  type: a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 3
   - 10
-  k: '&macro_ys'
+  k: YS
   l:
   - a1
-  type: a1
+  type: bigram
   align: mid
   offset: 0.0
 - p:
@@ -427,37 +427,37 @@ combos:
 - p:
   - 0
   - 7
-  k: '&macro_rw'
+  k: RW
   l:
   - a2
-  type: a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 1
   - 8
-  k: '&macro_mt'
+  k: MT
   l:
   - a2
-  type: a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 2
   - 9
-  k: '&macro_sch'
+  k: SCH
   l:
   - a2
-  type: a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:
   - 3
   - 10
-  k: '&macro_gs'
+  k: GS
   l:
   - a2
-  type: a2
+  type: bigram
   align: mid
   offset: 0.0
 - p:

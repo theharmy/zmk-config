@@ -1,12 +1,18 @@
 /*
- * TwoNr9 (18-Key Split Keyboard) Unified Keymap
+ * TwoNr9 (18-Key Split Keyboard) Unified Keymap -- "bugwind" (the default)
+ *
+ * Built by the twonr9_left / twonr9_right shields. The optional "srht" variant
+ * lives in twonr9_srht.keymap, built by the twonr9_srht_* shields.
  *
  * Modular architecture:
- * - config/keys_de.h           -> German keycodes (DE_*)
- * - config/twonr9_keys.h       -> Mod-morph pairs, adaptive magic shift, dual a2, smart space, smart num
- * - config/twonr9_adaptive_keys.h -> Adaptive key swap rules, their hold-taps & grid names
- * - config/twonr9_macros.dtsi  -> German bigram digraph macros
- * - config/twonr9_combos.dtsi  -> Coding & utility combos
+ * - config/keys_de.h                -> German keycodes (DE_*)
+ * - config/twonr9_keys.h            -> Mod-morph pairs, magic shift, dual a2, smart space, smart num
+ * - config/twonr9_macros_bugwind.dtsi -> German bigram digraph macros
+ * - config/twonr9_combos_bugwind.dtsi -> Bigram chords for this grid
+ * - config/twonr9_combos.dtsi       -> Coding & utility combos (shared)
+ *
+ * No adaptive keys: every alpha is bound directly, so the a1/a2 grids are
+ * self-describing and no letter swaps underneath you.
  */
 
 #include <behaviors.dtsi>
@@ -115,7 +121,6 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 
 /* Include modular behaviors, macros, combos, and parameter macros */
 #include "twonr9_keys.h"
-// #include "twonr9_adaptive_keys_bugwind.h"
 #include "twonr9_macros_bugwind.dtsi"
 #include "twonr9_combos.dtsi"
 #include "twonr9_combos_bugwind.dtsi"
@@ -128,7 +133,7 @@ ZMK_LAYER(a1,
 //                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
                               &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    &lt L_NAV DE_O    &lt L_FN DE_U
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
-          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_A     &hmr RGUI DE_I    &hmr RCTRL DE_E
+          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_A     &hmr RALT DE_I    &hmr RCTRL DE_E
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
                                               SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
@@ -136,7 +141,7 @@ ZMK_LAYER(a1,
 
 ZMK_LAYER(a2,
 //                            ╭────────────────────┬────────────────────┬────────────────────╮      ╭────────────────────┬────────────────────┬────────────────────╮
-                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_P       &lt L_FN DE_COMMA
+                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_Q       &lt L_FN DE_COMMA
 //       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
           &hml LCTRL DE_P       &hml LALT DE_W         &hml LGUI DE_K       &hml LSHFT DE_F            &hmr RSHFT DE_C      &hmr RGUI DE_Z        &hmr RALT DE_DOT      &hmr RCTRL DE_J
 //       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
@@ -183,4 +188,3 @@ ZMK_LAYER(num,
                          SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
 //                           ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )
-// 0

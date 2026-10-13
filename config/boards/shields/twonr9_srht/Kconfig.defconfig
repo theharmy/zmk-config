@@ -1,0 +1,27 @@
+if SHIELD_TWONR9_SRHT_LEFT
+
+# Name must be less than 16 characters long!
+# Distinct from the bugwind variant so both can be paired side by side.
+config ZMK_KEYBOARD_NAME
+    default "TwoNr9 SRHT"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+  default 1
+
+config BT_MAX_CONN
+  default 6
+
+config BT_MAX_PAIRED
+  default 6
+
+endif
+
+if SHIELD_TWONR9_SRHT_LEFT || SHIELD_TWONR9_SRHT_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+endif

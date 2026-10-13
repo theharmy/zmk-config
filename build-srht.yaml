@@ -1,0 +1,23 @@
+# ==============================================================================
+# TwoNr9 Build Matrix -- OPTIONAL ALTERNATIVE ("srht")
+#
+# The srht variant keeps the earlier grid: nine adaptive keys are enabled and
+# the a1/a2 bigram chords differ. It is kept as a backup, not as a daily
+# driver, so it is deliberately NOT part of build.yaml and is not built by CI.
+#
+# Build it on demand:
+#   just build-srht                        # both halves
+#   just build-srht twonr9_srht_left       # one half only
+#
+# Hardware, power and sleep settings live in config/twonr9_srht.conf.
+# ZMK picks the keymap up by shield name -> config/twonr9_srht.keymap.
+# ==============================================================================
+---
+include:
+  # 1. Central Half (Left) - Standard build
+  - board: nice_nano@2.0.0//zmk
+    shield: twonr9_srht_left
+
+  # 2. Peripheral Half (Right) - Wireless BLE peripheral
+  - board: nice_nano@2.0.0//zmk
+    shield: twonr9_srht_right

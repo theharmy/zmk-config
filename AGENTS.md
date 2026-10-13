@@ -93,11 +93,61 @@ non-split, wired board; `config/glove80.keymap` shows a much larger board.
 7. **Build and check**: `just build <name>` (any substring of the board/shield matches), then
    confirm the artifact appears in `firmware/`.
 
+## TwoNr9 (this fork's actual keyboard)
+
+Everything above is urob's generic guide for the 34-key multi-board layout (`config/base.keymap`).
+The TwoNr9 keymaps are **separate files** and do not go through it — the table below applies to
+them.
+
+The TwoNr9 is an 18-key split. Its hardware is defined **once**, in
+`config/boards/shields/twonr9/`; two thin shields wrap it and differ only in which keymap ZMK
+resolves for them **by shield name** (so `just build` and CI need no `cmake-args`):
+
+| Variant | Shield | Keymap | Config | Built by |
+| --- | --- | --- | --- | --- |
+| **bugwind** (default) | `twonr9_left` / `twonr9_right` | `config/twonr9.keymap` | `config/twonr9.conf` | `build.yaml` (CI) |
+| **srht** (backup) | `twonr9_srht_left` / `twonr9_srht_right` | `config/twonr9_srht.keymap` | `config/twonr9_srht.conf` | `build-srht.yaml` |
+
+```bash
+just build all        # bugwind + settings_reset -- what CI builds
+just build-srht       # the optional srht backup (overrides build_matrix)
+just draw-twonr9      # diagrams for bugwind; pass `srht` or `all` for the other
+```
+
+**When editing a TwoNr9 keymap**, the rule is: keep the shared layers shared, and change only the
+variant-specific files. `nav`, `sym`, `fn`, `num`, the thumb cluster and `config/twonr9_keys.h` are
+common to both variants. What differs is the alpha grid, its bigram chords, and the adaptive-key
+engine (srht only).
+
+| Change | File(s) |
+| --- | --- |
+| Alpha grids, HRM holds, thumbs (bugwind) | `config/twonr9.keymap` |
+| Alpha grids, HRM holds, thumbs (srht) | `config/twonr9_srht.keymap` |
+| Behaviors shared by both (magic shift, morphs, thumbs) | `config/twonr9_keys.h` |
+| Bigram chords (bugwind / srht) | `config/twonr9_combos_bugwind.dtsi` / `..._srht.dtsi` |
+| Bigram macro bodies (e.g. `SCH`) | `config/twonr9_macros_bugwind.dtsi` / `..._srht.dtsi` |
+| Coding & utility combos (shared) | `config/twonr9_combos.dtsi` |
+| Adaptive swap rules (srht only) | `config/twonr9_adaptive_keys_srht.h` |
+| Symbols, German keycodes | `config/keys_de.h` |
+| Physical grid, split/BT settings, keyboard name | `config/boards/shields/twonr9/` (`*.dtsi`, `*.overlay`, `Kconfig.defconfig`) |
+| Build targets | `build.yaml` (default) · `build-srht.yaml` (backup) |
+
+Three traps worth knowing:
+
+- **`.conf` files have no include mechanism in ZMK**, so `twonr9.conf` and `twonr9_srht.conf`
+  duplicate the same hardware/power settings. Edit both, or the srht backup drifts silently.
+- **Do not add adaptive keys to `bugwind`.** Its whole point is that every alpha is bound directly,
+  so the grid is self-describing. Adaptive rules live in `twonr9_adaptive_keys_srht.h`, included
+  only by the srht keymap.
+- **After changing a keymap, regenerate the diagrams** with `just draw-twonr9 all`. The draw
+  script's `VARIANTS` table (`draw/draw_twonr9.py`) mirrors the keymap's bigram lists and adaptive
+  rules by hand — it does not read them out of the keymap, so it must be updated together with it.
+
 ## Where to change what
 
 | Change                            | File                                                              |
 | --------------------------------- | ----------------------------------------------------------------- |
-| Layers, HRMs, thumb keys          | `config/base.keymap`                                              |
+| Layers, HRMs, thumb keys          | `config/base.keymap` *(urob's 34-key layout — **not** the TwoNr9)* |
 | HRM timing                        | `config/base.keymap` (`tapping-term-ms`, `require-prior-idle-ms`; see README troubleshooting) |
 | Combos                            | `config/combos.dtsi` (position diagram at the top)                |
 | Leader sequences                  | `config/leader.dtsi`                                              |

@@ -334,7 +334,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </g>
 <g transform="translate(524, 46)" class="key keypos-4">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap"><tspan class="a1-tap">O</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">P</tspan></text>
+<text x="0" y="1" class="key tap"><tspan class="a1-tap">O</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">Q</tspan></text>
 <text x="0" y="33" class="key hold"><tspan class="hold-nav">nav</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">[ ]</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">↓</text>
@@ -407,7 +407,7 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <g transform="translate(616, 157)" class="key keypos-12">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap"><tspan class="a1-tap">I</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-tap">.</tspan></text>
-<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌘</tspan></text>
+<text x="0" y="33" class="key hold"><tspan class="hold-mod">⌥</tspan></text>
 <text x="-35" y="-33" class="key tl" style="fill: #458588 !important; font-weight: 700;">: &quot;</text>
 <text x="35" y="-33" class="key tr" style="fill: #d79921 !important; font-weight: 700;">⇞</text>
 <text x="-35" y="33" class="key bl" style="fill: #d65d0e !important; font-weight: 700;">3</text>
@@ -444,19 +444,19 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 </g>
 <g class="combo bigram combopos-0">
 <rect rx="6" ry="6" x="111" y="100" width="54" height="22" class="combo bigram"/>
-<text x="138" y="111" class="combo bigram tap"><tspan class="a1-bigram">RL</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">RM</tspan></text>
+<text x="138" y="111" class="combo bigram tap"><tspan class="a1-bigram">RL</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">RW</tspan></text>
 </g>
 <g class="combo bigram combopos-1">
 <rect rx="6" ry="6" x="203" y="81" width="54" height="22" class="combo bigram"/>
-<text x="230" y="92" class="combo bigram tap"><tspan class="a1-bigram">HN</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">NB</tspan></text>
+<text x="230" y="92" class="combo bigram tap"><tspan class="a1-bigram">KT</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">MT</tspan></text>
 </g>
 <g class="combo bigram combopos-2">
 <rect rx="6" ry="6" x="295" y="110" width="54" height="22" class="combo bigram"/>
-<text x="322" y="121" class="combo bigram tap"><tspan class="a1-bigram">DT</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">KT</tspan></text>
+<text x="322" y="121" class="combo bigram tap"><tspan class="a1-bigram">MB</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">SCH</tspan></text>
 </g>
 <g class="combo bigram combopos-3">
 <rect rx="6" ry="6" x="405" y="110" width="54" height="22" class="combo bigram"/>
-<text x="432" y="121" class="combo bigram tap"><tspan class="a1-bigram">CY</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">GY</tspan></text>
+<text x="432" y="121" class="combo bigram tap"><tspan class="a1-bigram">YS</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">GS</tspan></text>
 </g>
 <g class="combo bigram combopos-4">
 <rect rx="6" ry="6" x="497" y="81" width="54" height="22" class="combo bigram"/>
@@ -607,30 +607,6 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <g class="combo num combopos-16">
 <rect rx="6" ry="6" x="599" y="100" width="34" height="22" class="combo num"/>
 <text x="616" y="111" class="combo num tap">9</text>
-</g>
-<g class="combo a1 combopos-17">
-<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo a1"/>
-<text x="322" y="121" class="combo a1 tap">&amp;macro_mb</text>
-</g>
-<g class="combo a1 combopos-18">
-<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo a1"/>
-<text x="432" y="121" class="combo a1 tap">&amp;macro_ys</text>
-</g>
-<g class="combo a2 combopos-19">
-<rect rx="6" ry="6" x="121" y="100" width="34" height="22" class="combo a2"/>
-<text x="138" y="111" class="combo a2 tap">&amp;macro_rw</text>
-</g>
-<g class="combo a2 combopos-20">
-<rect rx="6" ry="6" x="213" y="81" width="34" height="22" class="combo a2"/>
-<text x="230" y="92" class="combo a2 tap">&amp;macro_mt</text>
-</g>
-<g class="combo a2 combopos-21">
-<rect rx="6" ry="6" x="305" y="110" width="34" height="22" class="combo a2"/>
-<text x="322" y="121" class="combo a2 tap">&amp;macro_sch</text>
-</g>
-<g class="combo a2 combopos-22">
-<rect rx="6" ry="6" x="415" y="110" width="34" height="22" class="combo a2"/>
-<text x="432" y="121" class="combo a2 tap">&amp;macro_gs</text>
 </g>
 </g>
 </g>

@@ -1,0 +1,2 @@
+/* TwoNr9 "srht" variant — shared hardware definition lives in ../twonr9. */
+#include "../twonr9/twonr9_right.overlay"

@@ -26,7 +26,7 @@ layers:
     tl: ( )
     bl: '4'
     br: F8
-  - t: O / P
+  - t: O / Q
     h: nav
     tr: "\u2193"
     tl: '[ ]'
@@ -75,7 +75,7 @@ layers:
     bl: '2'
     br: F12
   - t: I / .
-    h: "\u2318"
+    h: "\u2325"
     tr: "\u21DE"
     tl: ': "'
     bl: '3'
@@ -117,7 +117,7 @@ combos:
 - p:
   - 0
   - 7
-  k: RL / RM
+  k: RL / RW
   l:
   - Combined (a1 / a2)
   align: mid
@@ -127,7 +127,7 @@ combos:
 - p:
   - 1
   - 8
-  k: HN / NB
+  k: KT / MT
   l:
   - Combined (a1 / a2)
   align: mid
@@ -137,7 +137,7 @@ combos:
 - p:
   - 2
   - 9
-  k: DT / KT
+  k: MB / SCH
   l:
   - Combined (a1 / a2)
   align: mid
@@ -147,7 +147,7 @@ combos:
 - p:
   - 3
   - 10
-  k: CY / GY
+  k: YS / GS
   l:
   - Combined (a1 / a2)
   align: mid
@@ -335,59 +335,5 @@ combos:
   l:
   - Symbols & Utilities
   type: num
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: '&macro_mb'
-  l:
-  - Symbols & Utilities
-  type: a1
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: '&macro_ys'
-  l:
-  - Symbols & Utilities
-  type: a1
-  align: mid
-  offset: 0.0
-- p:
-  - 0
-  - 7
-  k: '&macro_rw'
-  l:
-  - Symbols & Utilities
-  type: a2
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: '&macro_mt'
-  l:
-  - Symbols & Utilities
-  type: a2
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: '&macro_sch'
-  l:
-  - Symbols & Utilities
-  type: a2
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: '&macro_gs'
-  l:
-  - Symbols & Utilities
-  type: a2
   align: mid
   offset: 0.0

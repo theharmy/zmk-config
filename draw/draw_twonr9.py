@@ -37,6 +37,92 @@ raw_code_map = {
 
 sorted_raw_codes = sorted(raw_code_map.items(), key=lambda x: len(x[0]), reverse=True)
 
+# ==============================================================================
+# Keymap variants
+#
+# The TwoNr9 ships as two shields sharing one hardware definition:
+#   config/twonr9.keymap       (shield twonr9_*)        -- default, no adaptive keys
+#   config/twonr9_srht.keymap  (shield twonr9_srht_*)   -- optional backup, 9 adaptive keys
+#
+# Only the alpha grids, their bigram chords, and the adaptive-key engine differ;
+# every other layer is shared. Each entry below mirrors its keymap file, so edit
+# the two together.
+# ==============================================================================
+VARIANTS = {
+    "bugwind": {
+        "keymap": "twonr9.keymap",
+        "title": "BUGWIND",
+        # Bigram chords, positionally paired across the six column pairs.
+        "a1_bigrams": ["RL", "KT", "MB", "YS", "EO", "UI"],
+        "a2_bigrams": ["RW", "MT", "SCH", "GS", "OE", "IU"],
+        # Adaptive-key engine: bugwind binds every letter directly, so there are
+        # no swap rules, no dashed keycaps and no legend card.
+        "adaptive": None,
+        # Positional (6,7) chord for German Eszett: a1 home row letters.
+        "sz_chord": "N + R",
+    },
+    "srht": {
+        "keymap": "twonr9_srht.keymap",
+        "title": "SRHT",
+        "a1_bigrams": ["RL", "HN", "DT", "CY", "EO", "UI"],
+        "a2_bigrams": ["RM", "NB", "KT", "GY", "OE", "IU"],
+        # zmk-adaptive-key letters by board and keypos, colored by trigger set:
+        #   R-set (pink):  L H (a1, long-dash 5 3) + M V (a2, dotted 2 3)
+        #   U-set (blue):  O    Q-set (red): U    N-set (aqua): B X
+        #   key I serves both U and Q -> U-colored letter, interleaved U/Q dashes
+        "adaptive": {
+            "a1_keys": {
+                0: ("ak-r", "ak-r"),   # L after R
+                4: ("ak-u", "ak-u"),   # O after U
+                5: ("ak-q", "ak-q"),   # U after Q
+                8: ("ak-r", "ak-r"),   # H after R
+                12: ("ak-i", "ak-u"),  # I after U and Q
+            },
+            "a2_keys": {
+                0: ("ak-n", "ak-n"),   # X after N
+                1: ("ak-n", "ak-n"),   # B after N
+                2: ("ak-mv", "ak-r"),  # V after R
+                7: ("ak-mv", "ak-r"),  # M after R
+            },
+            "rows": [
+                ("after R", "#d3869b", "H &#8644; L  &#183;  M &#8644; V"),
+                ("after U", "#83a598", "O &#8644; I"),
+                ("after Q", "#fb4934", "I &#8644; U"),
+                ("after N", "#8ec07c", "B &#8644; X"),
+            ],
+            "letters_line": "adaptive letters &#8212; a1: L H O I U  &#183;  a2: X B M V",
+            # Cheatsheet prose describing the swaps.
+            "swaps_line": "r hl, u oi, q iu, r mv, n bx swap letters on roll to eliminate SFBs",
+        },
+        "sz_chord": "S + R",
+    },
+}
+
+# Which variant this run renders. `main()` sets it from argv[1] (default: all).
+ACTIVE = None
+
+
+def variant():
+    """The variant table for the current render pass."""
+    return VARIANTS[ACTIVE]
+
+
+def all_bigrams(v):
+    """Every bigram label of a variant, in a1-then-a2 order."""
+    return v["a1_bigrams"] + v["a2_bigrams"]
+
+
+def combined_bigram_map(v):
+    """{column-pair positions: "a1 / a2"} -- derived so the grids can't drift."""
+    return {
+        pos: f"{a1} / {a2}"
+        for pos, a1, a2 in zip(
+            [(0, 7), (1, 8), (2, 9), (3, 10), (4, 11), (5, 12)],
+            v["a1_bigrams"],
+            v["a2_bigrams"],
+        )
+    }
+
 def decode_hid_code(s):
     if not isinstance(s, str):
         return s
@@ -286,19 +372,24 @@ def decode_binding(s):
 
     return s
 
+def combo_symbol(s):
+    """Resolve ``&macro_<bigram>`` bindings to their two/three-letter label.
+
+    Derived from the active variant's bigram lists, so a chord whose macro
+    name follows the ``&macro_XX`` convention always matches -- whether it is
+    one of the plain two-letter ones or something like ``&macro_sch``.
+    """
+    if ACTIVE is None or not isinstance(s, str) or not s.startswith("&macro_"):
+        return None
+    suffix = s[len("&macro_"):]
+    for b in all_bigrams(variant()):
+        if suffix == b.lower():
+            return b
+    return None
+
+
+# Variant-independent symbol substitutions (macros are handled by combo_symbol).
 combo_symbol_map = {
-    "&macro_rl": "RL",
-    "&macro_hn": "HN",
-    "&macro_dt": "DT",
-    "&macro_cy": "CY",
-    "&macro_eo": "EO",
-    "&macro_ui": "UI",
-    "&macro_rm": "RM",
-    "&macro_nb": "NB",
-    "&macro_kt": "KT",
-    "&macro_gy": "GY",
-    "&macro_oe": "OE",
-    "&macro_iu": "IU",
     "&studio_unlock": "🔓",
     "&caps_word": "⇪",
     "&swapper": "⇹",
@@ -334,6 +425,9 @@ def decode_combo_key(s):
         return s
     if s in combo_symbol_map:
         return combo_symbol_map[s]
+    macro = combo_symbol(s)
+    if macro is not None:
+        return macro
     decoded = decode_hid_code(s)
     if decoded in combo_symbol_map:
         return combo_symbol_map[decoded]
@@ -342,9 +436,10 @@ def decode_combo_key(s):
 def classify_combo_type(c):
     k = c.get("k")
     layers = c.get("l", [])
+    bigrams = all_bigrams(variant())
     
-    # 1. Bigrams
-    if isinstance(k, str) and (k in ["RL", "HN", "DT", "CY", "EO", "UI", "RM", "NB", "KT", "GY", "OE", "IU"] or "RL / RM" in k or "/" in k):
+    # 1. Bigrams (combined labels look like "RL / RM")
+    if isinstance(k, str) and (k in bigrams or "/" in k):
         return "bigram"
     if isinstance(k, dict) and "t" in k and "/" in str(k.get("t")):
         return "bigram"
@@ -580,7 +675,8 @@ def post_process_svg_colors(svg_path):
     )
 
     # 4. Style bigram dual text on the same horizontal baseline: RL / RM
-    for (b1, b2) in [("RL", "RM"), ("HN", "NB"), ("DT", "KT"), ("CY", "GY"), ("EO", "OE"), ("UI", "IU")]:
+    v = variant()
+    for (b1, b2) in zip(v["a1_bigrams"], v["a2_bigrams"]):
         svg = re.sub(
             rf'<text([^>]*)>\s*<tspan[^>]*>{b1}</tspan><tspan[^>]*>[^<]*</tspan>\s*</text>',
             rf'<text\1><tspan class="a1-bigram">{b1}</tspan><tspan class="slash-tap"> / </tspan><tspan class="a2-bigram">{b2}</tspan></text>',
@@ -603,23 +699,14 @@ def post_process_svg_colors(svg_path):
         f.write(svg)
 
 def add_adaptive_overview(svg_path):
-    # zmk-adaptive-key letters by board and keypos, colored by trigger set:
-    #   R-set (pink):  L H (a1, long-dash 5 3) + M V (a2, dotted 2 3)
-    #   U-set (blue):  O    Q-set (red): U    N-set (aqua): B X
-    #   key I serves both U and Q -> U-colored letter, interleaved U/Q dashes
-    a1_keys = {
-        0: ("ak-r", "ak-r"),   # L after R
-        4: ("ak-u", "ak-u"),   # O after U
-        5: ("ak-q", "ak-q"),   # U after Q
-        8: ("ak-r", "ak-r"),   # H after R
-        12: ("ak-i", "ak-u"),  # I after U and Q
-    }
-    a2_keys = {
-        0: ("ak-n", "ak-n"),   # X after N
-        1: ("ak-n", "ak-n"),   # B after N
-        2: ("ak-mv", "ak-r"),  # V after R
-        7: ("ak-mv", "ak-r"),  # M after R
-    }
+    # Decorates the overview with the adaptive-key engine: dashed keycaps on the
+    # letters that swap, plus a legend card. Variants without adaptive keys
+    # (bugwind) pass through untouched -- there is nothing to mark.
+    ak = variant().get("adaptive")
+    if not ak:
+        return
+    a1_keys = ak["a1_keys"]
+    a2_keys = ak["a2_keys"]
 
     with open(svg_path) as f:
         svg = f.read()
@@ -720,22 +807,35 @@ def add_adaptive_overview(svg_path):
     )
 
     ak_body = 'text-anchor: start; font-size: 13px;'
-    legend = '''
+    # Layout: first row spans the card alone, the rest sit side by side.
+    # Trigger/letter colors come from the stylesheet's ak-tr-*/ak-lt-* classes;
+    # the suffix is the trigger letter (e.g. "after R" -> r).
+    def legend_row(x, y, trigger, letters):
+        sfx = trigger.split()[-1].lower()
+        return (
+            f'    <text x="{x}" y="{y}" class="ak-body" style="{ak_body}">'
+            f'<tspan class="ak-tr-{sfx}">{trigger}</tspan>'
+            f'<tspan>&#160;&#8594;&#160;</tspan>'
+            f'<tspan class="ak-lt-{sfx}">{letters}</tspan></text>'
+        )
+
+    rows = ak["rows"]  # (trigger, color, letters); color lives in the CSS class
+    legend_rows = [legend_row(24, 62, rows[0][0], rows[0][2])]
+    legend_rows += [
+        legend_row(24 + i * 240, 92, row[0], row[2]) for i, row in enumerate(rows[1:])
+    ]
+    legend = f'''
   <!-- ADAPTIVE KEYS LEGEND -->
   <g transform="translate(10, 352)">
     <rect x="0" y="0" width="754" height="130" rx="8" class="ak-card"/>
     <text x="24" y="30" class="ak-title" style="text-anchor: start; font-size: 14px; font-weight: bold; letter-spacing: 0.5px;">ADAPTIVE KEYS &#8635;</text>
     <text x="230" y="30" class="ak-body" style="text-anchor: start; font-size: 11.5px; opacity: 0.85;">dashed keys swap partners within 300 ms of the trigger letter</text>
 
-    <text x="24" y="62" class="ak-body" style="{ak_body}"><tspan class="ak-tr-r">after R</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-r">H &#8644; L  &#183;  M &#8644; V</tspan></text>
+{chr(10).join(legend_rows)}
 
-    <text x="24" y="92" class="ak-body" style="{ak_body}"><tspan class="ak-tr-u">after U</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-u">O &#8644; I</tspan></text>
-    <text x="264" y="92" class="ak-body" style="{ak_body}"><tspan class="ak-tr-q">after Q</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-q">I &#8644; U</tspan></text>
-    <text x="504" y="92" class="ak-body" style="{ak_body}"><tspan class="ak-tr-n">after N</tspan><tspan>&#160;&#8594;&#160;</tspan><tspan class="ak-lt-n">B &#8644; X</tspan></text>
-
-    <text x="24" y="118" class="ak-body" style="text-anchor: start; font-size: 12px; opacity: 0.85;">adaptive letters &#8212; a1: L H O I U  &#183;  a2: X B M V</text>
+    <text x="24" y="118" class="ak-body" style="text-anchor: start; font-size: 12px; opacity: 0.85;">{ak["letters_line"]}</text>
   </g>
-'''.replace("{ak_body}", ak_body)
+'''
 
     # Place the legend immediately before the (shifted) second keymap
     i = svg.index('class="layer-a2 (Alphas 2)"')
@@ -748,50 +848,71 @@ def build_pip_svg(out_path):
     # Small 16:9 reference card meant to be floated as a picture-in-picture
     # window (e.g. swayimg + a niri window-rule). Uses literal hex colors only
     # -- plain SVG viewers cannot resolve CSS custom properties.
-    # Bigrams and adaptive rules mirror config/twonr9.keymap / the overview.
-    a1_bigrams = ["RL", "HN", "DT", "CY", "EO", "UI"]   # base layer, amber
-    a2_bigrams = ["RM", "NB", "KT", "GY", "OE", "IU"]   # alphas 2, violet
-    adaptive_rows = [
-        ("after R", "#d3869b", "H &#8644; L  &#183;  M &#8644; V"),
-        ("after U", "#83a598", "O &#8644; I"),
-        ("after Q", "#fb4934", "I &#8644; U"),
-        ("after N", "#8ec07c", "B &#8644; X"),
-    ]
+    # Bigrams and adaptive rules mirror the active variant's keymap / overview.
+    v = variant()
+    a1_bigrams = v["a1_bigrams"]   # base layer, amber
+    a2_bigrams = v["a2_bigrams"]   # alphas 2, violet
+    adaptive_rows = (v.get("adaptive") or {}).get("rows", [])
 
     def chip(x, y, label, fill):
+        # "SCH" is three glyphs wide, so size the chip to its label; the row of
+        # six has to fit within the 46..464 drawing area.
+        w = 28 + 15 * len(label)
         return (
-            f'    <rect x="{x}" y="{y}" width="56" height="24" rx="6" fill="{fill}"/>\n'
-            f'    <text x="{x + 28}" y="{y + 12}" font-size="13" font-weight="bold"'
+            f'    <rect x="{x}" y="{y}" width="{w}" height="24" rx="6" fill="{fill}"/>\n'
+            f'    <text x="{x + w / 2:g}" y="{y + 12}" font-size="13" font-weight="bold"'
             f' fill="#282828" text-anchor="middle" dominant-baseline="middle">{label}</text>\n'
         )
 
     def chip_row(cy, labels, fill):
-        return "".join(chip(46 + i * 64, cy - 12, lab, fill) for i, lab in enumerate(labels))
+        out, x = "", 46
+        for lab in labels:
+            out += chip(x, cy - 12, lab, fill)
+            x += 28 + 15 * len(lab) + 7
+        return out
 
     parts = [
         '<svg width="480" height="270" viewBox="0 0 480 270"'
         ' xmlns="http://www.w3.org/2000/svg" font-family="Calibri, system-ui, sans-serif">',
         '  <rect x="1" y="1" width="478" height="268" rx="14" fill="#282828" stroke="#504945" stroke-width="2"/>',
-        '  <text x="16" y="30" font-size="15" font-weight="bold" fill="#ebdbb2" letter-spacing="1.5">TWONR9 &#8212; QUICK REF</text>',
+        f'  <text x="16" y="30" font-size="15" font-weight="bold" fill="#ebdbb2" letter-spacing="1.5">TWONR9 {v["title"]} &#8212; QUICK REF</text>',
         '  <line x1="16" y1="42" x2="464" y2="42" stroke="#3c3836" stroke-width="1"/>',
         '  <text x="16" y="60" font-size="10" font-weight="bold" fill="#a89984" letter-spacing="2">BIGRAM CHORDS</text>',
         '  <text x="16" y="86" font-size="12" font-weight="bold" fill="#d79921" dominant-baseline="middle">a1</text>',
         chip_row(86, a1_bigrams, "#d79921"),
         '  <text x="16" y="118" font-size="12" font-weight="bold" fill="#a06cd5" dominant-baseline="middle">a2</text>',
         chip_row(118, a2_bigrams, "#a06cd5"),
-        '  <text x="16" y="148" font-size="10" font-weight="bold" fill="#a89984" letter-spacing="2">ADAPTIVE KEYS</text>',
     ]
-    for i, (trigger, color, letters) in enumerate(adaptive_rows):
+    if adaptive_rows:
         parts.append(
-            f'    <text x="16" y="{170 + i * 22}" font-size="14" dominant-baseline="middle">'
-            f'<tspan font-weight="bold" fill="{color}">{trigger}</tspan>'
-            f'<tspan fill="#a89984" dx="5">&#8594;</tspan>'
-            f'<tspan fill="{color}" dx="5">{letters}</tspan></text>'
+            '  <text x="16" y="148" font-size="10" font-weight="bold"'
+            ' fill="#a89984" letter-spacing="2">ADAPTIVE KEYS</text>'
         )
-    parts.append(
-        '    <text x="16" y="257" font-size="10" fill="#a89984">'
-        'swap partners within 300 ms of the trigger letter</text>'
-    )
+        for i, (trigger, color, letters) in enumerate(adaptive_rows):
+            parts.append(
+                f'    <text x="16" y="{170 + i * 22}" font-size="14" dominant-baseline="middle">'
+                f'<tspan font-weight="bold" fill="{color}">{trigger}</tspan>'
+                f'<tspan fill="#a89984" dx="5">&#8594;</tspan>'
+                f'<tspan fill="{color}" dx="5">{letters}</tspan></text>'
+            )
+        parts.append(
+            '    <text x="16" y="257" font-size="10" fill="#a89984">'
+            'swap partners within 300 ms of the trigger letter</text>'
+        )
+    else:
+        # No adaptive engine: every alpha is bound directly on the grid.
+        parts.append(
+            '  <text x="16" y="160" font-size="10" font-weight="bold"'
+            ' fill="#a89984" letter-spacing="2">ADAPTIVE KEYS</text>'
+        )
+        parts.append(
+            '  <text x="16" y="184" font-size="13" fill="#ebdbb2">'
+            'none &#8212; every letter is bound directly</text>'
+        )
+        parts.append(
+            '  <text x="16" y="206" font-size="11" fill="#a89984">'
+            'what you see on the grid is what you type</text>'
+        )
     parts.append("</svg>")
 
     with open(out_path, "w") as f:
@@ -892,10 +1013,10 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     <text x="195" y="356" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Thumb 16 after char repeats letters, numbers &amp; symbols (==, ++, ::)</text>
     
     <text x="44" y="380" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #458588;">• German Eszett (ß):</text>
-    <text x="175" y="380" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Pinch S + R (6 + 7) on base (Straße, groß, weiß)</text>
+    <text x="175" y="380" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Pinch {sz_chord} (6 + 7) on base (Straße, groß, weiß)</text>
 
-    <text x="44" y="404" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Adaptive Key Swaps:</text>
-    <text x="180" y="404" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">r hl, u oi, q iu, r mv, n bx swap letters on roll to eliminate SFBs</text>
+    <text x="44" y="404" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Adaptive Keys:</text>
+    <text x="180" y="404" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">{adaptive_line}</text>
 
     <text x="44" y="428" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Secondary Alphas:</text>
     <text x="175" y="428" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Tap 14 for 1 letter | Hold 14 for words (BMW, Quiz)</text>
@@ -949,7 +1070,7 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     <rect x="24" y="222" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="236" style="font-size: 12px; font-weight: bold; fill: #282828;">ß</text>
     <text x="62" y="236" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Eszett (6+7):</text>
-    <text x="142" y="236" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">S + R chord on base (Straße, groß, weiß)</text>
+    <text x="142" y="236" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">{sz_chord} chord on base (Straße, groß, weiß)</text>
 
     <rect x="24" y="248" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="262" style="font-size: 12px; font-weight: bold; fill: #282828;">_</text>
@@ -990,20 +1111,35 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     <text x="275" y="448" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Vertical chords on num for calculator top row</text>
   </g>
 '''
+    v = variant()
+    ak = v.get("adaptive")
+    cheatsheet_cards = cheatsheet_cards.replace("{sz_chord}", v["sz_chord"]).replace(
+        "{adaptive_line}",
+        ak["swaps_line"] if ak else "None — every letter is bound directly on the grid",
+    )
 
     svg = svg.replace("</svg>", cheatsheet_cards + "\n</svg>")
     with open(cheatsheet_svg_path, "w") as f:
         f.write(svg)
     post_process_svg_colors(cheatsheet_svg_path)
 
-def main():
-    root = Path(__file__).resolve().parent.parent
-    config_dir = root / "config"
-    draw_dir = root / "draw"
+def render_variant(name, config_dir, draw_dir):
+    """Render every diagram for one variant.
+
+    Output files are named ``twonr9_<part>.*`` for the default (bugwind)
+    variant, so links in README/CHEATSHEET/DOCUMENTATION stay stable, and
+    ``twonr9_srht_<part>.*`` for the optional srht backup.
+    """
+    global ACTIVE
+    ACTIVE = name
+    v = variant()
+    stem = "twonr9" if name == "bugwind" else f"twonr9_{name}"
+    a1_bigrams, a2_bigrams = v["a1_bigrams"], v["a2_bigrams"]
 
     # Step 1: Parse keymap
     res = subprocess.run(
-        ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "parse", "-z", str(config_dir / "twonr9.keymap")],
+        ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "parse", "-z",
+         str(config_dir / v["keymap"])],
         capture_output=True, text=True, check=True
     )
     d = yaml.safe_load(res.stdout)
@@ -1023,7 +1159,7 @@ def main():
     # Apply vertical / horizontal combo offsets
     apply_combo_alignment(d.get("combos", []))
 
-    yaml_out = draw_dir / "twonr9.yaml"
+    yaml_out = draw_dir / f"{stem}.yaml"
     with open(yaml_out, "w") as f:
         yaml.dump(d, f, sort_keys=False)
 
@@ -1058,7 +1194,7 @@ def main():
         yaml.dump(cfg_combined, f, sort_keys=False)
 
     # Step 3: Draw All-Layers SVG (2-column layout)
-    svg_out = draw_dir / "twonr9.svg"
+    svg_out = draw_dir / f"{stem}.svg"
     with open(svg_out, "w") as f:
         subprocess.run(
             ["keymap", "-c", str(cfg_2col_path), "draw", str(yaml_out), "-j", str(config_dir / "twonr9.json")],
@@ -1072,13 +1208,13 @@ def main():
         c_copy = dict(c)
         layers = c.get("l", [])
         k = c.get("k")
-        if "a1" in layers and k in ["RL", "HN", "DT", "CY", "EO", "UI"]:
+        if "a1" in layers and k in a1_bigrams:
             c_copy["l"] = ["a1 (Base)"]
             overview_combos.append(c_copy)
-        elif "a2" in layers and k in ["RM", "NB", "KT", "GY", "OE", "IU"]:
+        elif "a2" in layers and k in a2_bigrams:
             c_copy["l"] = ["a2 (Alphas 2)"]
             overview_combos.append(c_copy)
-        elif not (k in ["RL", "HN", "DT", "CY", "EO", "UI", "RM", "NB", "KT", "GY", "OE", "IU"]):
+        elif k not in a1_bigrams and k not in a2_bigrams:
             c_copy["l"] = ["Symbols & Utilities"]
             overview_combos.append(c_copy)
 
@@ -1091,11 +1227,11 @@ def main():
         },
         "combos": overview_combos
     }
-    overview_yaml = draw_dir / "twonr9_overview.yaml"
+    overview_yaml = draw_dir / f"{stem}_overview.yaml"
     with open(overview_yaml, "w") as f:
         yaml.dump(overview_data, f, sort_keys=False)
 
-    overview_svg = draw_dir / "twonr9_overview.svg"
+    overview_svg = draw_dir / f"{stem}_overview.svg"
     with open(overview_svg, "w") as f:
         subprocess.run(
             ["keymap", "-c", str(cfg_overview_path), "draw", str(overview_yaml), "-j", str(config_dir / "twonr9.json")],
@@ -1105,17 +1241,9 @@ def main():
     add_adaptive_overview(overview_svg)
 
     # Step 5: Build Combined Alpha Overview YAML (a1 / a2 merged with dual bigrams & 4-corner legends)
-    combined_bigram_map = {
-        (0, 7): "RL / RM",
-        (1, 8): "HN / NB",
-        (2, 9): "DT / KT",
-        (3, 10): "CY / GY",
-        (4, 11): "EO / OE",
-        (5, 12): "UI / IU",
-    }
-    
+    bigram_labels = combined_bigram_map(v)
     combined_combos = []
-    for pos, label in combined_bigram_map.items():
+    for pos, label in bigram_labels.items():
         combined_combos.append({
             "p": list(pos),
             "k": label,
@@ -1128,7 +1256,7 @@ def main():
 
     for c in d.get("combos", []):
         k = c.get("k")
-        if k not in ["RL", "HN", "DT", "CY", "EO", "UI", "RM", "NB", "KT", "GY", "OE", "IU"]:
+        if k not in all_bigrams(v):
             c_copy = dict(c)
             c_copy["l"] = ["Symbols & Utilities"]
             combined_combos.append(c_copy)
@@ -1141,11 +1269,11 @@ def main():
         },
         "combos": combined_combos
     }
-    combined_yaml = draw_dir / "twonr9_combined_overview.yaml"
+    combined_yaml = draw_dir / f"{stem}_combined_overview.yaml"
     with open(combined_yaml, "w") as f:
         yaml.dump(combined_data, f, sort_keys=False)
 
-    combined_svg = draw_dir / "twonr9_combined_overview.svg"
+    combined_svg = draw_dir / f"{stem}_combined_overview.svg"
     with open(combined_svg, "w") as f:
         subprocess.run(
             ["keymap", "-c", str(cfg_combined_path), "draw", str(combined_yaml), "-j", str(config_dir / "twonr9.json")],
@@ -1154,13 +1282,13 @@ def main():
     post_process_svg_colors(combined_svg)
 
     # Step 6: Build Full 2-Column Wide Infographic Cheatsheet SVG (width=1533)
-    cheatsheet_svg = draw_dir / "twonr9_cheatsheet.svg"
+    cheatsheet_svg = draw_dir / f"{stem}_cheatsheet.svg"
     build_cheatsheet_svg(cfg_2col_path, combined_yaml, cheatsheet_svg, config_dir)
 
     # Step 7: Small floating reference card (bigrams + adaptive keys)
-    pip_svg = draw_dir / "twonr9_pip.svg"
+    pip_svg = draw_dir / f"{stem}_pip.svg"
     build_pip_svg(pip_svg)
-    pip_png = draw_dir / "twonr9_pip.png"
+    pip_png = draw_dir / f"{stem}_pip.png"
     if shutil.which("rsvg-convert"):
         subprocess.run(
             ["rsvg-convert", "-w", "960", "-h", "540", "-o", str(pip_png), str(pip_svg)],
@@ -1169,7 +1297,7 @@ def main():
     elif shutil.which("resvg"):
         subprocess.run(["resvg", "-z", "2", str(pip_svg), str(pip_png)], check=True)
     else:
-        print("note: neither rsvg-convert nor resvg found; skipped twonr9_pip.png")
+        print(f"note: neither rsvg-convert nor resvg found; skipped {pip_png.name}")
 
     # Clean up temp configs
     if cfg_2col_path.exists(): cfg_2col_path.unlink()
@@ -1177,7 +1305,33 @@ def main():
     if cfg_combined_path.exists(): cfg_combined_path.unlink()
 
     pip_note = f", {pip_svg}" + (f" + {pip_png.name}" if pip_png.exists() else "")
-    print(f"Generated {svg_out}, {overview_svg}, {combined_svg}, and {cheatsheet_svg}{pip_note}")
+    print(f"[{v['title']}] Generated {svg_out}, {overview_svg}, {combined_svg}, "
+          f"and {cheatsheet_svg}{pip_note}")
+    return [svg_out, overview_svg, combined_svg, cheatsheet_svg, pip_svg]
+
+
+def main(argv=None):
+    """Render diagrams.
+
+    With no arguments only the default (bugwind) variant is drawn, so
+    ``just draw-twonr9`` keeps producing the filenames the docs link to.
+    Pass variant names (``bugwind``, ``srht``, ``all``) to render others.
+    """
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if not argv or argv == ["all"]:
+        names = [n for n in VARIANTS if n == "bugwind"] if not argv else list(VARIANTS)
+    else:
+        unknown = [a for a in argv if a not in VARIANTS]
+        if unknown:
+            sys.exit(f"unknown variant(s): {', '.join(unknown)} "
+                     f"(choose from: {', '.join(VARIANTS)}, all)")
+        names = list(dict.fromkeys(argv))
+
+    root = Path(__file__).resolve().parent.parent
+    config_dir = root / "config"
+    draw_dir = root / "draw"
+    for name in names:
+        render_variant(name, config_dir, draw_dir)
 
 if __name__ == "__main__":
     main()

@@ -84,6 +84,12 @@ flash expr: (build expr)
         just _flash_single "$board" "$shield" "$artifact"
     done
 
+# build the optional "srht" variant (kept as a backup, not built by CI)
+[group('build & draw')]
+[doc('build the optional srht variant')]
+build-srht expr="all" *west_args:
+    just build_matrix="build-srht.yaml" build {{ expr }} {{ west_args }}
+
 # parse & plot keymap
 [group('build & draw')]
 draw: _check_yq_version
@@ -119,11 +125,12 @@ draw: _check_yq_version
     sed -i '/<text.*class="label"/d' "{{ draw }}/overview.svg"
 
 # parse & plot twonr9 keymap
+# no args: the default (bugwind) variant only; pass "srht" or "all" for others
 [group('build & draw')]
-draw-twonr9:
+draw-twonr9 *variants:
     #!/usr/bin/env bash
     set -euo pipefail
-    python3 "{{ draw }}/draw_twonr9.py"
+    python3 "{{ draw }}/draw_twonr9.py" {{ variants }}
 
 # initialize the west workspace
 [group('workspace')]

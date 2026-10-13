@@ -1,12 +1,17 @@
 /*
- * TwoNr9 (18-Key Split Keyboard) Unified Keymap
+ * TwoNr9 (18-Key Split Keyboard) Unified Keymap -- "srht" variant
+ *
+ * Built by the twonr9_srht_left / twonr9_srht_right shields, which pick this
+ * file up by name. The default (bugwind) variant lives in twonr9.keymap and is
+ * built by the plain twonr9_left / twonr9_right shields.
  *
  * Modular architecture:
- * - config/keys_de.h           -> German keycodes (DE_*)
- * - config/twonr9_keys.h       -> Mod-morph pairs, adaptive magic shift, dual a2, smart space, smart num
- * - config/twonr9_adaptive_keys.h -> Adaptive key swap rules, their hold-taps & grid names
- * - config/twonr9_macros.dtsi  -> German bigram digraph macros
- * - config/twonr9_combos.dtsi  -> Coding & utility combos
+ * - config/keys_de.h                  -> German keycodes (DE_*)
+ * - config/twonr9_keys.h              -> Mod-morph pairs, magic shift, dual a2, smart space, smart num
+ * - config/twonr9_adaptive_keys_srht.h -> Adaptive swap rules, their hold-taps & grid aliases
+ * - config/twonr9_macros_srht.dtsi    -> German bigram digraph macros
+ * - config/twonr9_combos_srht.dtsi    -> Bigram chords for this grid
+ * - config/twonr9_combos.dtsi         -> Coding & utility combos (shared)
  */
 
 #include <behaviors.dtsi>
@@ -117,7 +122,8 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 #include "twonr9_keys.h"
 #include "twonr9_adaptive_keys_srht.h"
 #include "twonr9_macros_srht.dtsi"
-#include "twonr9_combos_srht.dtsi"
+#include "twonr9_combos.dtsi"       // shared utility/symbol/numpad combos
+#include "twonr9_combos_srht.dtsi"   // srht bigram chords
 
 /* ==============================================================================
  * Layers

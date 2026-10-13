@@ -1,0 +1,4 @@
+/* TwoNr9 "srht" variant — shared hardware definition lives in ../twonr9.
+ * Only the keymap differs between variants, and ZMK resolves that by shield
+ * name (twonr9_srht_left -> config/twonr9_srht.keymap). */
+#include "../twonr9/twonr9_left.overlay"

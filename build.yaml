@@ -1,8 +1,13 @@
 # ==============================================================================
-# TwoNr9 Build Matrix Configuration
+# TwoNr9 Build Matrix -- DEFAULT ("bugwind")
 #
 # Defines firmware targets compiled locally via `just build` and in GitHub Actions.
 # Target format uses ZMK v2 Hardware Model syntax (<board>@<revision>//zmk).
+#
+# This is the main variant: config/twonr9.keymap, built by the twonr9_* shields.
+# ZMK picks the keymap up by shield name, so no cmake-args are needed.
+#
+# The optional "srht" variant lives in build-srht.yaml (`just build-srht`).
 # ==============================================================================
 ---
 include:
