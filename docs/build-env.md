@@ -100,9 +100,9 @@ To build the firmware, simply type `just build all` from anywhere in the workspa
 firmware ends up in the `firmware` directory.
 
 To only build the firmware for a specific target, use `just build <target>`. This will build the
-firmware for all matching board and shield combinations. For instance, to build the firmware for my
-Corneish Zen, I can type `just build zen`, which builds both `corneish_zen_v2_left` and
-`corneish_zen_v2_right`. (`just list` shows all valid build targets.)
+firmware for all matching board and shield combinations. For instance, `just build twonr9` builds
+both `twonr9_left` and `twonr9_right`. (`just list` shows all valid build targets.) The optional
+srht backup variant is built with `just build-srht`.
 
 Additional arguments to `just build` are passed on to `west`. For instance, a pristine build can be
 triggered with `just build all -p`. (Alternatively, `just clean` clears the build cache.)
@@ -116,8 +116,8 @@ board's USB mass-storage device. For boards that don't support UF2 (like the Pla
 ### Drawing the keymap
 
 The build environment packages [keymap-drawer](https://github.com/caksoylar/keymap-drawer).
-`just draw` parses `base.keymap` and renders it to `draw/base.svg` (per-layer breakdown) and
-`draw/overview.svg` (the condensed overview shown in the README).
+`just draw-twonr9` renders the TwoNr9 overviews (mod-morph list and symbol-layer card) into
+`draw/`; pass `srht` or `all` to also cover the backup variant.
 
 ### Devicetree formatter (experimental)
 

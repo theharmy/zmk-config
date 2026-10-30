@@ -12,10 +12,6 @@
 # --- Build outputs (generated locally) ---
 compile_commands.json
 
-# --- Generated diagram sources (rebuild with `just draw`) ---
-draw/base.yaml
-draw/overview.yaml
-
 # --- Local-only scratch ---
 config/backups/
 /trainer

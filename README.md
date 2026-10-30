@@ -26,6 +26,7 @@ Optional **srht** backup variant ([full diagrams](#two-keymap-variants-on-one-sh
 
 <img src="./draw/twonr9_srht_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (srht)" width="100%" /><br /> _(srht — via `just draw-twonr9 srht`; this is the retained SRHT drawing)_
 
+
 ---
 
 ## TwoNr9 Highlights & Benefits
@@ -97,15 +98,9 @@ Both alpha layers share the same four-thumb cluster (outer → inner):
 
 ---
 
-# Original urob/zmk-config Documentation
+# The workspace
 
-This is my personal [ZMK firmware](https://github.com/zmkfirmware/zmk/) configuration. At its core is a 34-key base keymap that adapts to boards of various sizes and layouts (currently a Corneish Zen, a Glove80 and a Planck).
-
-The repository doubles as the root of my ZMK workspace: a single manifest file declares the entire firmware — ZMK, Zephyr and every module — and pins it to exact revisions, so the config can track upstream `main` without the risk of silent breakage. Builds run in the cloud as usual, or locally in a nix environment that sets itself up automagically whenever I enter the workspace.
-
-## Highlights
-
-### Toolchain
+This repository is the root of a [ZMK](https://github.com/zmkfirmware/zmk/) workspace: a single manifest file declares the entire firmware — ZMK, Zephyr and every module — and pins it to exact revisions, so the config can track upstream `main` without the risk of silent breakage. Builds run in the cloud as usual, or locally in a nix environment that sets itself up automagically whenever you enter the workspace.
 
 - [Top-down workspace](#top-down-workspace) bootstrapped from a single declarative manifest
 - [Fully locked firmware](#pinning-the-firmware) via [pin-west](https://github.com/urob/pin-west), with automated weekly update PRs
@@ -113,26 +108,11 @@ The repository doubles as the root of my ZMK workspace: a single manifest file d
 - [`just` recipes](docs/build-env.md#usage) for building, flashing, and drawing the keymap
 - Various developer tools for formatting Devicetree files, testing ZMK modules, etc
 
-### Keymap
-
-- ["Timeless" homerow mods](#timeless-homerow-mods) — homerow mods without timing headaches
-- [Combos instead of a symbol layer](#using-combos-instead-of-a-symbol-layer)
-- [Numword and smart-mouse](#smart-layers): layers that toggle off automatically
-- [Magic thumb](#magic-repeatshiftcapsword) quadrupling as Repeat/Sticky-shift/Shift/Capsword
-- [Leader key](#leader-key) sequences for Unicode input and system commands
-- [Arrow cluster](#navigation-cluster) doubling as <kbd>home</kbd>, <kbd>end</kbd>, <kbd>begin/end of document</kbd> on long-press
-- Shifted actions that make sense: <kbd>, ↦ ;</kbd>, <kbd>. ↦ :</kbd> and <kbd>? ↦ !</kbd>
-- Simplified Devicetree syntax using helper macros from [zmk-helpers](https://github.com/urob/zmk-helpers)
-
-If you are looking to adapt this config for your own keyboard, [Part III](#part-iii-adapting-this-config) gives some pointers.
-
-## Part I: The workspace
-
 ### Top-down workspace
 
 ZMK's cloud-workflow has always been "top-down": `config/west.yml` declares what goes into the firmware, and `build-user-config` takes it from there. However, the [recommended local setup](https://zmk.dev/docs/development/local-toolchain/setup) inverts this: ZMK itself becomes the root of the workspace, and one adds the config and any other modules on top by hand.
 
-This repo keeps [`config/west.yml`](https://github.com/urob/zmk-config/blob/main/config/west.yml) as the single source of truth for both. The west manifest declares ZMK, Zephyr and every module — each [pinned to an exact revision](#pinning-the-firmware) — and everything else is derived from it: `just init` bootstraps the workspace from the manifest, a self-installing nix environment supplies the entire toolchain, and local and cloud builds stay in sync by construction.
+This repo keeps [`config/west.yml`](config/west.yml) as the single source of truth for both. The west manifest declares ZMK, Zephyr and every module — each [pinned to an exact revision](#pinning-the-firmware) — and everything else is derived from it: `just init` bootstraps the workspace from the manifest, a self-installing nix environment supplies the entire toolchain, and local and cloud builds stay in sync by construction.
 
 What that buys, concretely:
 
@@ -162,15 +142,15 @@ Pinning ZMK to a release shields a working config from upstream changes, but the
 
 This repo aims for the best of both worlds using [pin-west](https://github.com/urob/pin-west): every dependency is pinned to an exact commit, making builds reproducible, while the config keeps tracking `main`.
 
-- [`config/west.yml`](https://github.com/urob/zmk-config/blob/main/config/west.yml) records each pin together with the branch it tracks and the date it was taken — including Zephyr, which ZMK's own manifest would otherwise pull by branch.
+- [`config/west.yml`](config/west.yml) records each pin together with the branch it tracks and the date it was taken — including Zephyr, which ZMK's own manifest would otherwise pull by branch.
 - `just bump-west` refreshes every pin to the latest revision of its tracked branch, in one command.
-- A [scheduled workflow](https://github.com/urob/zmk-config/blob/main/.github/workflows/bump-west.yml) does the same weekly and opens a PR, so updates only land once they build green.
+- A [scheduled workflow](.github/workflows/bump-west.yml) does the same weekly and opens a PR, so updates only land once they build green.
 
 As a bonus, the manifest restricts Zephyr's imports to what ZMK actually needs, avoiding the download of several GBs of unused Zephyr modules. (If you build for less common hardware, you may need to extend the allowlist.)
 
 ### Building the firmware
 
-**In the cloud.** Push your changes and download the firmware from the repository's `Actions` tab as usual — no local setup required. (GitHub disables Actions on newly created forks; enable them once from the fork's `Actions` tab before the first push.) The build runs on the same nix environment as the local setup, which keeps both in lockstep and avoids maintaining a second toolchain definition. The stock ZMK workflow is kept around for reference and remains available via manual dispatch.
+**In the cloud.** Push your changes and download the firmware from the repository's `Actions` tab as usual — no local setup required. (GitHub disables Actions on newly created forks; enable them once from the fork's `Actions` tab before the first push.) The build runs on the same nix environment as the local setup, which keeps both in lockstep and avoids maintaining a second toolchain definition.
 
 **Locally.** For faster iteration, the repo ships a nix-powered build environment that sets itself up automagically when you enter the workspace and stays _completely isolated_ from the rest of your system. Once a few prerequisites are in place, the entire setup is:
 
@@ -180,9 +160,9 @@ direnv allow   # sets up the build environment
 just init      # bootstraps the workspace from config/west.yml
 ```
 
-After this initial setup, entering the workspace automatically activates the build environment. From there, `just build all` compiles every target in `build.yaml`, `just flash <target>` flashes non-UF2 boards, and `just draw` re-renders the keymap images. Running `just` without arguments prints the complete list of available recipes.
+After this initial setup, entering the workspace automatically activates the build environment. From there, `just build all` compiles every target in `build.yaml` (add `just build-srht` for the srht backup variant), `just flash <target>` flashes non-UF2 boards, and `just draw-twonr9` re-renders the keymap images. Running `just` without arguments prints the complete list of available recipes.
 
-See [`docs/build-env.md`](docs/build-env.md) for a setup guide and a detailed recipe reference. The environment itself is [continuously tested](https://github.com/urob/zmk-config/actions/workflows/test-build-env.yml) on Linux and macOS.
+See [`docs/build-env.md`](docs/build-env.md) for a setup guide and a detailed recipe reference. The environment itself is [continuously tested](.github/workflows/test-build-env.yml) on Linux and macOS.
 
 ### Timeless homerow mods
 
@@ -204,35 +184,25 @@ This is great but there are still a few rough edges:
     2. Sometimes, I want to press a modifier without another key (e.g., on Windows, tapping `Win` opens the search menu). Because the `balanced` flavor only kicks in when another key is pressed, this also requires waiting past `tapping-term-ms`.
 - Finally, it is worth noting that this setup works best in combination with a dedicated shift for capitalization during normal typing (I like sticky-shift on a home-thumb). This is because shifting alphas is the one scenario where pressing a mod may conflict with `require-prior-idle-ms`, which may result in false negatives for fast typers.
 
-Here's my configuration — aside from the [zmk-helpers](https://github.com/urob/zmk-helpers) syntax sugar, it works with plain upstream ZMK.
+The TwoNr9 keymap implements exactly this — see `MAKE_HRM` in `config/twonr9.keymap`:
 
-```C++
-#include "zmk-helpers/key-labels/36.h"                                      // Source key-labels.
-#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // Left-hand keys.
-#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4  // Right-hand keys.
-#define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // Thumb keys.
+```C
+#define KEYS_L   0 1 2 6 7 8 9    // Left-hand keys.
+#define KEYS_R   3 4 5 10 11 12 13 // Right-hand keys.
+#define THUMBS_L 14 15            // Left thumb keys.
+#define THUMBS_R 16 17            // Right thumb keys.
+#define THUMBS   THUMBS_L THUMBS_R
+#define TRIG_L   KEYS_R THUMBS    // A left-hand key holds when the right hand (or a thumb) chords.
+#define TRIG_R   KEYS_L THUMBS    // A right-hand key holds when the left hand (or a thumb) chords.
 
-/* Left-hand HRMs. */
-ZMK_HOLD_TAP(hml,
-    flavor = "balanced";
-    tapping-term-ms = <280>;
-    quick-tap-ms = <175>;
-    require-prior-idle-ms = <150>;
-    bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <KEYS_R THUMBS>;
-    hold-trigger-on-release;
-)
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                 \
+    ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";          \
+                  tapping-term-ms = <280>;                                     \
+                  require-prior-idle-ms = <300>; hold-trigger-on-release;      \
+                  hold-trigger-key-positions = <TRIGGER_POS>;)
 
-/* Right-hand HRMs. */
-ZMK_HOLD_TAP(hmr,
-    flavor = "balanced";
-    tapping-term-ms = <280>;
-    quick-tap-ms = <175>;
-    require-prior-idle-ms = <150>;
-    bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <KEYS_L THUMBS>;
-    hold-trigger-on-release;
-)
+MAKE_HRM(hml, &kp, &kp, TRIG_L) // Left-hand Homerow Mods.
+MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods.
 ```
 
 #### Troubleshooting

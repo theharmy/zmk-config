@@ -149,6 +149,15 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * **Combo window → 35ms**: both keymaps now `#define COMBO_TERM 35` before the `zmk-helpers/helper.h` include, so every `ZMK_COMBO` without an explicit timeout uses 35ms instead of the helper default of 30. `combo_stdio` keeps its deliberate 50ms (the slow "Studio Unlock" idle). Verified in the generated devicetree: 48 combos at `timeout-ms = <35>`, 1 at `<50>`.
 * *Verified*: `keymap … parse` lists all 21 new chord positions and nothing stale; `just draw-twonr9 all` regenerates both bugwind overviews (checked-in `*_overview.yaml`/cheatsheet artifacts untouched by design); `just build twonr9` and `just build-srht` both succeed (FLASH 23.42% / 31.14%).
 
+### 13. Repo Trimmed to the TwoNr9 (2026-10-30, repo-wide)
+* **Change**: Removed everything that belonged to the upstream 34-key layout and is not needed by any TwoNr9 build target:
+  * `config/base.keymap` and its private includes `config/combos.dtsi`, `config/leader.dtsi`, `config/mouse.dtsi` (the TwoNr9's combos/symbols live in `twonr9_combos*.dtsi` / `symbol_work.dtsi`).
+  * The root `boards/` directory — a byte-identical copy of `config/boards/shields/twonr9/`; `config/boards/` is the live shield root (the only place `twonr9_srht/` exists, and the one the build log resolves).
+  * `draw/base.svg`, `draw/overview.svg`, `draw/config.yaml` and the `draw` Justfile recipe that rendered the 34-key layout (`just draw-twonr9` is unaffected).
+  * `.github/workflows/build.yml` (redundant with `build-nix.yml`).
+* **Docs**: `AGENTS.md` dropped the multi-board/`base.keymap` sections; `README.md` and `docs/build-env.md` replaced their 34-key examples with the TwoNr9's actual HRM setup and targets.
+* *Verified*: `just list`, `just build all` (4 targets) and `just build-srht` all succeed after the trim.
+
 ---
 
 ## 3. The Power of Urob's ZMK Architecture
