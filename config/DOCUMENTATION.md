@@ -41,7 +41,7 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * **`bugwind`** (default): `twonr9_left` / `twonr9_right` → `config/twonr9.keymap`. No adaptive keys — every letter is bound directly, so the grids are self-describing.
   * **`srht`** (backup): `twonr9_srht_left` / `twonr9_srht_right` → `config/twonr9_srht.keymap`. Keeps the nine adaptive keys.
   * Bluetooth names differ (`TwoNr9` vs `TwoNr9 SRHT`) so both can be paired side by side without re-bonding.
-* **Automated Visualizations**: all-layer, overview, combined overview, cheatsheet and PiP drawings are retained in their original form; the bugwind diagonal symbol mod-morph list is additionally available at `draw/twonr9_mod_morph_overview.svg`.
+* **Automated Visualizations**: all-layer, overview, combined overview and cheatsheet drawings are retained in their original form; the bugwind diagonal symbol mod-morph list is additionally available at `draw/twonr9_mod_morph_overview.svg`.
 
 ---
 
@@ -157,6 +157,10 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * `.github/workflows/build.yml` (redundant with `build-nix.yml`).
 * **Docs**: `AGENTS.md` dropped the multi-board/`base.keymap` sections; `README.md` and `docs/build-env.md` replaced their 34-key examples with the TwoNr9's actual HRM setup and targets.
 * *Verified*: `just list`, `just build all` (4 targets) and `just build-srht` all succeed after the trim.
+
+### 14. Dropped the PiP Cards & Stray Prettier Config (2026-10-30, `draw/` + repo root)
+* **Change**: Removed the picture-in-picture quick-ref cards — `draw/twonr9_pip.{svg,png}` and `draw/twonr9_srht_pip.{svg,png}` — which were referenced by nothing, and the now-dead `build_pip_svg()` generator in `draw/draw_twonr9.py`. Also removed the unreferenced `.prettierrc` (a fork leftover; no tool, recipe or workflow in this repo runs Prettier).
+* *Verified*: `draw/draw_twonr9.py` still parses and `just draw-twonr9 all` still runs clean.
 
 ---
 
