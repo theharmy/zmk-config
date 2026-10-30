@@ -15,4 +15,5 @@ compile_commands.json
 # --- Local-only scratch ---
 config/backups/
 /trainer
+/.helix
 __pycache__

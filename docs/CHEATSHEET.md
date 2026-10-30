@@ -1,7 +1,6 @@
 # TwoNr9 (18-Key Split) Keyboard Cheatsheet & Usability Guide
 
-> **Visual Infographic:** View [`draw/twonr9_cheatsheet.svg`](draw/twonr9_cheatsheet.svg) for the all-in-one visual card reference (bugwind). For the srht backup: [`draw/twonr9_srht_cheatsheet.svg`](draw/twonr9_srht_cheatsheet.svg).
-> **Pocket Card:** Quick reference with adaptive keys: [`CHEATSHEET_POCKET.md`](CHEATSHEET_POCKET.md).
+> **Visual Infographic:** View [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for the all-in-one visual card reference (bugwind). For the srht backup: [`draw/twonr9_srht_cheatsheet.svg`](../draw/twonr9_srht_cheatsheet.svg).
 
 > **Which variant am I looking at?** This cheatsheet documents **bugwind**, the default keymap (`config/twonr9.keymap`) — every letter bound directly. The optional **srht** backup (`config/twonr9_srht.keymap`) differs in the alpha grids, the bigram chords and the ß chord, and adds nine adaptive keys; see [§9](#9-adaptive-key-swaps--symbol-repeat-srht-only). Everything else — sub-layers, thumb engine, combos, symbols — is identical.
 
@@ -60,7 +59,7 @@ Hold    │  fn  │ nav  │ sym  │                       │ sym  │ nav  �
 
 * **Index (`H` on 9, `S` on 10)**: Hold $\rightarrow$ **`⇧` (Shift)** on the home row, **`sym` layer** on the top row.
 * **Symmetric fan**: mods read `⌃ ⌥ ⌘ ⇧` outwards on the left and `⇧ ⌘ ⌥ ⌃` outwards on the right.
-* **Homerow mods are "timeless"** (`balanced` flavor + `require-prior-idle-ms = 300`) — see [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) §3.1.
+* **Homerow mods are "timeless"** (`balanced` flavor + `require-prior-idle-ms = 300`) — see [`config/DOCUMENTATION.md`](../config/DOCUMENTATION.md) §3.1.
 
 ### Secondary Alphas (`a2`)
 
@@ -200,7 +199,7 @@ Access `sym` by holding **Top-Left** on the top row (**`D`** on 2 or **`Y`** on 
 
 ## 9. Adaptive Key Swaps & Symbol Repeat (`srht` only)
 
-> **Not part of bugwind.** The default keymap binds every alpha directly, so it has no adaptive keys — what you see on the grid is what you type. This section applies only to the optional **srht** backup (`config/twonr9_srht.keymap`), whose swap rules live in [`config/twonr9_adaptive_keys_srht.h`](config/twonr9_adaptive_keys_srht.h). See [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) §4.E.
+> **Not part of bugwind.** The default keymap binds every alpha directly, so it has no adaptive keys — what you see on the grid is what you type. This section applies only to the optional **srht** backup (`config/twonr9_srht.keymap`), whose swap rules live in [`config/twonr9_adaptive_keys_srht.h`](../config/twonr9_adaptive_keys_srht.h). See [`config/DOCUMENTATION.md`](../config/DOCUMENTATION.md) §4.E.
 
 1. **Adaptive Key Swaps (SFB Elimination)**:
    * **`r hl`** (After `R`): Pressing `H` outputs **`L`** (fast `rl` roll), pressing `L` outputs **`H`**.

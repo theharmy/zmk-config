@@ -2,7 +2,7 @@
 
 Comprehensive technical documentation for the **TwoNr9 (18-Key Split)** keyboard integrated into the **Urob ZMK Workspace**.
 
-> ⚡ **Quick Reference & Visual Infographic:** View [`CHEATSHEET.md`](../CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
+> ⚡ **Quick Reference & Visual Infographic:** View [`docs/CHEATSHEET.md`](../docs/CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
 
 ---
 

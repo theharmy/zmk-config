@@ -8,7 +8,7 @@ This repo is significantly improved from the Gemini slop, now MiMo Slop plus goo
 
 > 📖 **Comprehensive Technical Guide:** See [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) for full architectural breakdowns, changelogs, hardware targets, and typing guides.
 >
-> ⚡ **Quick Reference & Visual Infographic:** View [`CHEATSHEET.md`](CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
+> ⚡ **Quick Reference & Visual Infographic:** View [`docs/CHEATSHEET.md`](docs/CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
 >
 
 ---
