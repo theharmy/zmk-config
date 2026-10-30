@@ -9,6 +9,7 @@ This repo is significantly improved from the Gemini slop, now MiMo Slop plus goo
 > 📖 **Comprehensive Technical Guide:** See [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) for full architectural breakdowns, changelogs, hardware targets, and typing guides.
 >
 > ⚡ **Quick Reference & Visual Infographic:** View [`CHEATSHEET.md`](CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
+>
 
 ---
 
@@ -16,9 +17,14 @@ This repo is significantly improved from the Gemini slop, now MiMo Slop plus goo
 
 <img src="./draw/twonr9_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (bugwind)" width="100%" /><br /> _(bugwind — generated with [keymap-drawer](https://github.com/caksoylar/keymap-drawer) via `just draw-twonr9`)_
 
+The bugwind diagonal symbol mod-morphs are shown in one overview: normal/Shift outputs
+share a panel, followed by separate Ctrl and Ctrl+Shift panels. The symbol chords are
+identical on a1 and a2, so each chord appears only once:
+<img src="./draw/twonr9_mod_morph_overview.svg" alt="TwoNr9 bugwind modifier-state overview" width="100%" />
+
 Optional **srht** backup variant ([full diagrams](#two-keymap-variants-on-one-shield-definition)):
 
-<img src="./draw/twonr9_srht_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (srht)" width="100%" /><br /> _(srht — via `just draw-twonr9 srht`)_
+<img src="./draw/twonr9_srht_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (srht)" width="100%" /><br /> _(srht — via `just draw-twonr9 srht`; this is the retained SRHT drawing)_
 
 ---
 
@@ -37,7 +43,7 @@ The hardware is defined once; the keymap is selected by shield name, so `just bu
 | Adaptive keys | none — every letter bound directly | 9 adaptive keys |
 | Bigrams (a1) | `RL` `KT` `MB` `YS` `EO` `UI` | `RL` `HN` `DT` `CY` `EO` `UI` |
 | Bigrams (a2) | `RW` `MT` `SCH` `GS` `OE` `IU` | `RM` `NB` `KT` `GY` `OE` `IU` |
-| ß chord (6+7) | `N + R` | `S + R` |
+| ß chord | `S + Space` (+ `ä ö ü` vowels + Space) | `S + R` (6+7) |
 | Built by | `build.yaml` (CI) | `build-srht.yaml`, on demand |
 
 ```bash
@@ -50,7 +56,7 @@ just draw-twonr9        # diagrams for bugwind; add `srht` or `all` for both
 
 - **Base Alphas (`a1`) & Secondary Alphas (`a2`)**: Seamlessly multiplexed across 18 keys.
 - **12 Vertical Bigram Macros**: Single-chord typing for the most frequent German digraphs — bugwind `RL` `KT` `MB` `YS` `EO` `UI` / `RW` `MT` `SCH` `GS` `OE` `IU`, srht `RL` `HN` `DT` `CY` `EO` `UI` / `RM` `NB` `KT` `GY` `OE` `IU`.
-- **Home-Row German Eszett (`ß`)**: Dedicated chord on `6 7` for native German orthography — `N + R` on bugwind, `S + R` on srht.
+- **German Eszett & Umlauts**: `ß` is a dedicated chord — `S + Space` on bugwind (the four German letters `ß ä ö ü` are letter + Space on `a1`/`a2`), `S + R` on `6 7` on srht. The `N + R` position on bugwind now yields `´` (shift: backtick via nodeadkeys).
 
 ### 3. Complete 14-Pair Mod-Morph Symbol System
 

@@ -1,0 +1,101 @@
+layout:
+  zmk_keyboard: twonr9
+layers:
+  Combined (a1 / a2):
+  - t: L / X
+    h: fn
+  - t: M / V
+    h: nav
+  - t: D / B
+    h: sym
+  - t: Y / G
+    h: sym
+  - t: O / J
+    h: nav
+  - t: U / ,
+    h: fn
+  - t: N / P
+    h: ⌃
+  - t: R / W
+    h: ⌥
+  - t: T / K
+    h: ⌘
+  - t: H / F
+    h: ⇧
+  - t: S / C
+    h: ⇧
+  - t: E / Q
+    h: ⌘
+  - t: I / .
+    h: ⌥
+  - t: A / U
+    h: ⌃
+  - h: num
+    t: Num
+  - t: a2
+    h: a2
+  - t: Spc
+    h: nav
+  - t: sym
+    h: sym
+combos:
+- p:
+  - 0
+  - 7
+  k: RL / RW
+  l:
+  - Combined (a1 / a2)
+  type: bigram
+  align: mid
+  offset: 0.0
+  width: 54.0
+- p:
+  - 1
+  - 8
+  k: KT / MT
+  l:
+  - Combined (a1 / a2)
+  type: bigram
+  align: mid
+  offset: 0.0
+  width: 54.0
+- p:
+  - 2
+  - 9
+  k: MB / SCH
+  l:
+  - Combined (a1 / a2)
+  type: bigram
+  align: mid
+  offset: 0.0
+  width: 54.0
+- p:
+  - 3
+  - 10
+  k: YS / GS
+  l:
+  - Combined (a1 / a2)
+  type: bigram
+  align: mid
+  offset: 0.0
+  width: 54.0
+- p:
+  - 4
+  - 11
+  k: EO / OE
+  l:
+  - Combined (a1 / a2)
+  type: bigram
+  align: mid
+  offset: 0.0
+  width: 54.0
+- p:
+  - 5
+  - 12
+  k: UI / IU
+  l:
+  - Combined (a1 / a2)
+  type: bigram
+  align: mid
+  offset: 0.0
+  width: 54.0

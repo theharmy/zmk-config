@@ -1,0 +1,137 @@
+families:
+- name: Inner-1 (Brackets)
+  chords:
+  - label: L + N
+    positions:
+    - 0
+    - 6
+    plain: (
+    shift: )
+    ctrl: ==
+    ctrl_shift: '!='
+  - label: M + R
+    positions:
+    - 1
+    - 7
+    plain: '['
+    shift: ']'
+    ctrl: +=
+    ctrl_shift: -=
+  - label: D + T
+    positions:
+    - 2
+    - 8
+    plain: '{'
+    shift: '}'
+    ctrl: <<=
+    ctrl_shift: '>>='
+  - label: Y + E
+    positions:
+    - 3
+    - 11
+    plain: )
+    shift: (
+    ctrl: <=
+    ctrl_shift: '>='
+  - label: O + I
+    positions:
+    - 4
+    - 12
+    plain: '}'
+    shift: '{'
+    ctrl: ^=
+    ctrl_shift: '*='
+  - label: U + A
+    positions:
+    - 5
+    - 13
+    plain: ']'
+    shift: '['
+    ctrl: '&='
+    ctrl_shift: '|='
+- name: Inner-2 (Bitwise)
+  chords:
+  - label: M + N
+    positions:
+    - 1
+    - 6
+    plain: '&'
+    shift: '*'
+    ctrl: '&&'
+    ctrl_shift: '||'
+  - label: D + R
+    positions:
+    - 2
+    - 7
+    plain: '~'
+    shift: ^
+    ctrl: ->
+    ctrl_shift: =>
+  - label: Y + I
+    positions:
+    - 3
+    - 12
+    plain: <
+    shift: '>'
+    ctrl: '<<'
+    ctrl_shift: '>>'
+  - label: O + A
+    positions:
+    - 4
+    - 13
+    plain: $
+    shift: €
+    ctrl: ??
+    ctrl_shift: ?.
+- name: Outer-1 (Sentence)
+  chords:
+  - label: L + T
+    positions:
+    - 0
+    - 8
+    plain: '!'
+    shift: '?'
+    ctrl: //
+    ctrl_shift: '...'
+  - label: M + H
+    positions:
+    - 1
+    - 9
+    plain: _
+    shift: '-'
+    ctrl: ++
+    ctrl_shift: --
+  - label: O + S
+    positions:
+    - 4
+    - 10
+    plain: '#'
+    shift: '%'
+    ctrl: '='
+    ctrl_shift: '|'
+  - label: U + E
+    positions:
+    - 5
+    - 11
+    plain: ;
+    shift: ''''
+    ctrl: /*
+    ctrl_shift: '*/'
+- name: Outer-2
+  chords:
+  - label: L + H
+    positions:
+    - 0
+    - 9
+    plain: ':'
+    shift: '"'
+    ctrl: '::'
+    ctrl_shift: :=
+  - label: U + S
+    positions:
+    - 5
+    - 10
+    plain: /
+    shift: \
+    ctrl: +
+    ctrl_shift: '@'

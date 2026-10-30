@@ -41,12 +41,7 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * **`bugwind`** (default): `twonr9_left` / `twonr9_right` → `config/twonr9.keymap`. No adaptive keys — every letter is bound directly, so the grids are self-describing.
   * **`srht`** (backup): `twonr9_srht_left` / `twonr9_srht_right` → `config/twonr9_srht.keymap`. Keeps the nine adaptive keys.
   * Bluetooth names differ (`TwoNr9` vs `TwoNr9 SRHT`) so both can be paired side by side without re-bonding.
-* **Automated Visualizations** (bugwind names shown; the srht equivalents are `draw/twonr9_srht_*.svg`):
-  * All 6 Layers detailed view: `draw/twonr9.svg`
-  * Single-board unified overview with 4-corner layer sub-legends: `draw/twonr9_overview.svg`
-  * Combined dual-alpha overview: `draw/twonr9_combined_overview.svg`
-  * All-in-one visual infographic: `draw/twonr9_cheatsheet.svg`
-  * Small picture-in-picture reference card: `draw/twonr9_pip.svg` / `.png`
+* **Automated Visualizations**: all-layer, overview, combined overview, cheatsheet and PiP drawings are retained in their original form; the bugwind diagonal symbol mod-morph list is additionally available at `draw/twonr9_mod_morph_overview.svg`.
 
 ---
 
@@ -140,6 +135,19 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
   * Output names: bugwind keeps the canonical `twonr9*.svg` names; srht writes `twonr9_srht_*.svg`.
 * *Verified*: `just build all` produces all four default artifacts; `just build-srht` produces both srht halves. The compiled `zephyr.dts` was decoded for both variants and confirmed all 26 letters appear **exactly once** across `a1`+`a2`, `I` is `RALT`, `A` is `GUI`, and `Q` is present with `P` appearing once. All 12 bigrams render on both variants' diagrams, and the adaptive legend/dashes appear on srht only.
 * *Note*: `config/twonr9_adaptive_keys_bugwind.h` was deleted but `config/twonr9_adaptive_keys_srht.h` is now the sole adaptive module, included only by the srht keymap.
+
+### 12. Diagonal Chord Regrouping & German Space Chords (2026-10-27, `config/` + `draw/` + `practice/`)
+* **Change**: The bugwind diagonal symbol chords were regrouped from 15 ad-hoc assignments into **16 chords in four geometry families** (mirrored across the split), all in `config/symbol_work.dtsi`:
+  * **Inner-1 (brackets)**: `L+N ( )` · `Y+E ) (` · `M+R [ ]` · `U+A ] [` · `D+T { }` · `O+I } {` — openers plain on the left hand, closers plain on the right, so every bracket type is available with both hands.
+  * **Inner-2 (bitwise/logic/arrows)**: `M+N & *` · `O+A $ €` · `D+R ~ ^` · `Y+I < >`.
+  * **Outer-1 (sentence/comments)**: `L+T ! ?` · `M+H _ -` · `U+E ; '` · `O+S # %`.
+  * **Outer-2**: `L+H : "` · `U+S / \`.
+  * The dedicated `##`/`###` states were dropped (repeat `#` instead) in exchange for the bilateral `U+A ] [` chord; every Ctrl/ctrl+Shift operator output is unchanged, only re-homed.
+* **German letter chords**: `ß` moved off `N+R` to **`S + Space`** (`10 16`), and the umlauts became **letter + Space** chords — `A+Space ä`, `O+Space ö`, `U+Space ü` (all `a1`/`a2`; uppercase via the shifted state on the German host layout). The shared `combo_sz` in `twonr9_combos.dtsi` was removed; srht got its own `S+R` (6+7) `ß` combo in `twonr9_combos_srht.dtsi` (its 6+7 position is S+R). The freed bugwind `N+R` (6+7) is now `´` with shift → `DE_GRAVE` (backtick on a nodeadkeys host).
+* **Draw system**: `DIAGONAL_CHORDS` in `draw/draw_twonr9.py` mirrors the new 16-chord table, now with a `family` field + `FAMILY_ORDER` (the single source for both references). Both the **mod-morph overview** (`twonr9_mod_morph_overview.svg`, replacing the old physical-position grid) and the **symbol-layer reference card** (`twonr9_symbol_layer.svg`) now group the chords into the four family tables (Inner-1 Brackets / Inner-2 Bitwise / Outer-1 Sentence / Outer-2), each chord one row with a `SYMBOL-PAIR` header over Plain/Shift and a `PROGRAMMING-OPERATOR PAIR` header over Ctrl/Ctrl+Shift; rows are ordered by top-row key, then home-row key, both left-to-right. The symbol-layer card renders the families in two columns (inner left, outer right) with a dashed left-hand (L/M/D) vs right-hand (Y/O/U) divider per family, so it stays compact below the board. `extra_combos` and the new `diag_macro_{equal,pipe,plus,at}` labels keep the layer drawings in step. The ß-chord cheatsheet text is now variant-driven (`S + Space` / `S + R` + position). The companion `twonr9_mod_morph_overview.yaml` mirrors the same structure as `families:`.
+* **Practice**: `practice/twonr9_chords_monkeytype.md` is a **7-stage progressive curriculum** (quality over quantity) over the full token set (16 chords × 4 states = 64 outputs + 5 German letters + 12 bigrams = 81 tokens; `( ) [ ] { }` are the only duplicates, once per hand): Plain → Plain+Ctrl+erste Wörter → +a1-bigrams+Layer-1-Wörter → all symbols (Shift states) → +a2-bigrams+alle Wörter → Wörter → Vollpass (all 174 tokens once). From stage 2 on the German word pool trains the alpha grid in parallel with the chords: first 20 untagged plain words + the umlaut words (no bigram pairs), then the a1-bigram words, then the a2-bigram words (tiers are derived from the word tags and asserted to partition the pool); `sch`/`gs`/`oe`/`iu` words deliberately force the a2 layer switch mid-word. Every block is self-contained, ~3–4k chars, and round-robined so each random Monkeytype slice is uniform (each token exactly once per round). Generated by `practice/gen_monkeytype.py` (re-run with `python3 practice/gen_monkeytype.py`), which asserts per-block pool purity and exact per-token counts.
+* **Combo window → 35ms**: both keymaps now `#define COMBO_TERM 35` before the `zmk-helpers/helper.h` include, so every `ZMK_COMBO` without an explicit timeout uses 35ms instead of the helper default of 30. `combo_stdio` keeps its deliberate 50ms (the slow "Studio Unlock" idle). Verified in the generated devicetree: 48 combos at `timeout-ms = <35>`, 1 at `<50>`.
+* *Verified*: `keymap … parse` lists all 21 new chord positions and nothing stale; `just draw-twonr9 all` regenerates both bugwind overviews (checked-in `*_overview.yaml`/cheatsheet artifacts untouched by design); `just build twonr9` and `just build-srht` both succeed (FLASH 23.42% / 31.14%).
 
 ---
 

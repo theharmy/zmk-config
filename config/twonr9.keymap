@@ -43,6 +43,11 @@
 #define LT_IDLE   300 // Layer-taps: require prior idle
 #define AK_MS     300 // Adaptive keys: max prior idle for triggers
 
+/* Combo window: every ZMK_COMBO that does not pass an explicit timeout uses
+ * this (zmk-helpers' COMBO_TERM defaults to 30). Must be defined before the
+ * helper include below. */
+#define COMBO_TERM 35
+
 #include "zmk-helpers/helper.h"
 
 
@@ -124,6 +129,7 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 #include "twonr9_macros_bugwind.dtsi"
 #include "twonr9_combos.dtsi"
 #include "twonr9_combos_bugwind.dtsi"
+#include "symbol_work.dtsi"
 
 /* ==============================================================================
  * Layers
@@ -133,7 +139,7 @@ ZMK_LAYER(a1,
 //                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
                               &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    &lt L_NAV DE_O    &lt L_FN DE_U
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
-          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_A     &hmr RALT DE_I    &hmr RCTRL DE_E
+          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_E     &hmr RALT DE_I    &hmr RCTRL DE_A
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
                                               SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
@@ -141,9 +147,9 @@ ZMK_LAYER(a1,
 
 ZMK_LAYER(a2,
 //                            ╭────────────────────┬────────────────────┬────────────────────╮      ╭────────────────────┬────────────────────┬────────────────────╮
-                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_Q       &lt L_FN DE_COMMA
+                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_J       &lt L_FN DE_COMMA
 //       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
-          &hml LCTRL DE_P       &hml LALT DE_W         &hml LGUI DE_K       &hml LSHFT DE_F            &hmr RSHFT DE_C      &hmr RGUI DE_Z        &hmr RALT DE_DOT      &hmr RCTRL DE_J
+          &hml LCTRL DE_P       &hml LALT DE_W         &hml LGUI DE_K       &hml LSHFT DE_F            &hmr RSHFT DE_C      &hmr RGUI DE_Q        &hmr RALT DE_DOT      &hmr RCTRL DE_U
 //       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
                                                     SMART_NUM            &to L_A1                    SPC_NAV              SYM_DUAL
 //                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯

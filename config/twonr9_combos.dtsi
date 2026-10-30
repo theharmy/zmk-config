@@ -20,8 +20,10 @@ ZMK_COMBO(combo_bspc,     &bs_del,       3 4,   ALL)                     // Righ
 ZMK_COMBO(combo_cbspc,    &kp LC(BSPC),  4 5,   ALL)                     // Right Top (4+5): Word Delete Backwards
 ZMK_COMBO(combo_esc,      &kp ESC,       3 4 5, ALL)                     // Right Top (3+4+5): Instant Esc
 
+/* German Eszett: variant-specific -- bugwind on S+Space (symbol_work.dtsi),
+ * srht on S+R (twonr9_combos_srht.dtsi). Was shared at Left Home (6+7). */
+
 // --- Home Row Programming Symbols ---
-ZMK_COMBO(combo_sz,       &kp DE_SZ,     6 7,   L_A1 L_A2)               // Left Home (6+7): German ß (Eszett)
 ZMK_COMBO(combo_under,    &kp DE_UNDER,  7 9,   ALL)                     // Left Home (7+9): snake_case Underscore
 ZMK_COMBO(combo_minus,    &kp DE_MINUS,  7 8,   ALL)                     // Left Home (7+8): Hyphen / Minus
 ZMK_COMBO(combo_colon,    &kp DE_COLON,  11 12, ALL)                     // Right Home (11+12): Colon :
@@ -29,7 +31,7 @@ ZMK_COMBO(combo_semi,     &kp DE_SEMI,   10 12, ALL)                     // Righ
 
 // --- Universal Utilities ---
 ZMK_COMBO(combo_caps,     &caps_word,    14 15, ALL)                     // Left Thumbs (14+15): Caps Word for CONSTANTS
-ZMK_COMBO(combo_stdio,    &studio_unlock, 7 8 9, L_SYM, 50, 200)         // Left Home 3-key (7+8+9): Studio Unlock
+ZMK_COMBO(combo_stdio,    &studio_unlock, 6 7 8 9, L_SYM, 50, 200)         // Left Home 3-key (7+8+9): Studio Unlock
 ZMK_COMBO(combo_shiftl,  MAGIC_SHIFT, 8 9, ALL)
 ZMK_COMBO(combo_shiftr,  MAGIC_SHIFT, 10 11, ALL)
 
@@ -38,3 +40,21 @@ ZMK_COMBO(combo_shiftr,  MAGIC_SHIFT, 10 11, ALL)
 ZMK_COMBO(combo_7,        &kp DE_N7,     3 10,  L_NUM)                   // Right Col 1 (3+10): 7
 ZMK_COMBO(combo_8,        &kp DE_N8,     4 11,  L_NUM)                   // Right Col 2 (4+11): 8
 ZMK_COMBO(combo_9,        &kp DE_N9,     5 12,  L_NUM)                   // Right Col 3 (5+12): 9
+
+/* --- Layer FN: Bluetooth connections
+ZMK_COMBO(combo_btprev,      &bt BT_PRV,  0 1,   L_FN)                    //bt 1 FN top left two keys
+ZMK_COMBO(combo_btnext,      &bt BT_NXT,  1 2,   L_FN)                    //bt 2 FN left top right two keys
+ZMK_COMBO(combo_btclr,      &bt BT_CLR,  0 2,   L_FN)                    //bt 3 FN left key 1 & 3
+*/
+
+
+/* Sym layer is now only entered via the R-Out thumb (SYM_DUAL): every
+ * sym-layer symbol has an alpha-layer diagonal chord (see symbol_work.dtsi),
+ * so the home-row triads were removed to free their keys from combo
+ * conflicts. (The shifted-sym triads referenced macro_shift_sym, which
+ * exists only in the bugwind macros -- removing them also fixes the srht
+ * build, which shares this file. */
+
+
+
+

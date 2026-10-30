@@ -28,3 +28,6 @@ ZMK_COMBO(combo_kt, &macro_kt, 2 9, L_A2)
 ZMK_COMBO(combo_gy, &macro_gy, 3 10, L_A2)
 ZMK_COMBO(combo_oe, &macro_oe, 4 11, L_A2)
 ZMK_COMBO(combo_iu, &macro_iu, 5 12, L_A2)
+
+// --- German Eszett: Left Home (6+7) = S+R on srht's grid ---
+ZMK_COMBO(combo_sz, &kp DE_SZ, 6 7, L_A1 L_A2)

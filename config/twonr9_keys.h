@@ -54,6 +54,9 @@ ZMK_HOLD_TAP(mt_end,  bindings = <&masked_end>,  <&kp>; MT_CORE)
 #define NAV_BSPC  &mt LC(BSPC) BSPC   // Tap: Backspace   | Long-press: Word delete backwards
 #define NAV_DEL   &mt LC(DEL)  DEL    // Tap: Delete      | Long-press: Word delete forward
 
+
+
+
 /* --- Niri Smart Layout Morph --- */
 // Tap: Super+R (Cycle Column Width 33%/50%/66%) | Shift+Tap: Super+Ctrl+C (Center & Balance Columns)
 ZMK_MOD_MORPH(niri_adjust,
@@ -61,10 +64,18 @@ ZMK_MOD_MORPH(niri_adjust,
     mods = <(MOD_LSFT|MOD_RSFT)>;
 )
 
+#define ALT_BIGRAM(NAME, NORMAL, NEW)                                         \
+  ZMK_MOD_MORPH(NAME, bindings = <BINDING>, <BINDING>; mods = <(MOD_LALT|MOD_RALT)>;)
+
+
+
+    
+
 /* --- Shift-Morph Pairs: Tap = PLAIN, Shift+Tap = SHIFTED --- */
 #define SHIFT_PAIR(NAME, PLAIN, SHIFTED) \
     ZMK_MOD_MORPH(NAME, bindings = <&kp PLAIN>, <&kp SHIFTED>; mods = <(MOD_LSFT|MOD_RSFT)>;)
 
+// === SYMBOL MOD MORPH === // 
 /* --- Numpad Decimal Morph --- */
 // Tap: Dot (Code/International) | Shift+Tap: Comma (German Accounting)
 SHIFT_PAIR(dot_comma,   DE_DOT,    DE_COMMA)

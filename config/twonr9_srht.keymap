@@ -42,6 +42,11 @@
 #define LT_IDLE   300 // Layer-taps: require prior idle
 #define AK_MS     300 // Adaptive keys: max prior idle for triggers
 
+/* Combo window: every ZMK_COMBO that does not pass an explicit timeout uses
+ * this (zmk-helpers' COMBO_TERM defaults to 30). Must be defined before the
+ * helper include below. */
+#define COMBO_TERM 35
+
 #include "zmk-helpers/helper.h"
 
 

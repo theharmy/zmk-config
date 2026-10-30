@@ -4,6 +4,8 @@ import subprocess
 import shutil
 import yaml
 import re
+import html
+import json
 from pathlib import Path
 
 raw_code_map = {
@@ -58,8 +60,62 @@ VARIANTS = {
         # Adaptive-key engine: bugwind binds every letter directly, so there are
         # no swap rules, no dashed keycaps and no legend card.
         "adaptive": None,
-        # Positional (6,7) chord for German Eszett: a1 home row letters.
-        "sz_chord": "N + R",
+        # German Eszett chord (S + Space, see symbol_work.dtsi) plus the
+        # vowel + Space umlaut chords.
+        "sz_chord": "S + Space",
+        "sz_pos": "10 + 16",
+        "combo_labels": {
+            "diag_macro_slashslash": "//",
+            "diag_macro_ellipsis": "...",
+            "diag_macro_comment_open": "/*",
+            "diag_macro_comment_close": "*/",
+            "diag_macro_nullish": "??",
+            "diag_macro_optional_chain": "?.",
+            "diag_macro_le": "<=",
+            "diag_macro_ge": ">=",
+            "diag_macro_increment": "++",
+            "diag_macro_decrement": "--",
+            "diag_macro_arrow": "->",
+            "diag_macro_fat_arrow": "=>",
+            "diag_macro_add_assign": "+=",
+            "diag_macro_sub_assign": "-=",
+            "diag_macro_equal_equal": "==",
+            "diag_macro_not_equal": "!=",
+            "diag_macro_and_and": "&&",
+            "diag_macro_or_or": "||",
+            "diag_macro_scope": "::",
+            "diag_macro_colon_equal": ":=",
+            "diag_macro_equal": "=",
+            "diag_macro_pipe": "|",
+            "diag_macro_plus": "+",
+            "diag_macro_at": "@",
+        },
+        # Position-bound chords whose nested mod-morphs/macros are not
+        # meaningfully decoded by keymap-drawer. The main drawings use concise
+        # normal/Shift labels; the dedicated overview shows all modifier states.
+        "extra_combos": [
+            {"p": [0, 6], "k": "( / )", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [3, 11], "k": ") / (", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [1, 7], "k": "[ / ]", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [5, 13], "k": "] / [", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [2, 8], "k": "{ / }", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [4, 12], "k": "} / {", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [1, 6], "k": "& / *", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [4, 13], "k": "$ / €", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [2, 7], "k": "~ / ^", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [3, 12], "k": "< / >", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [0, 8], "k": "! / ?", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [1, 9], "k": "_ / -", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [5, 11], "k": "; / '", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [4, 10], "k": "# / %", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [0, 9], "k": ": / \\\"", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [5, 10], "k": "/ / \\\\", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [6, 7], "k": "´ / `", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [10, 16], "k": "ß / ẞ", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [13, 16], "k": "ä / Ä", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [4, 16], "k": "ö / Ö", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [5, 16], "k": "ü / Ü", "l": ["a1", "a2"], "type": "symbol"},
+        ],
     },
     "srht": {
         "keymap": "twonr9_srht.keymap",
@@ -95,11 +151,57 @@ VARIANTS = {
             "swaps_line": "r hl, u oi, q iu, r mv, n bx swap letters on roll to eliminate SFBs",
         },
         "sz_chord": "S + R",
+        "sz_pos": "6 + 7",
+        "extra_combos": [],
+        "combo_labels": {},
     },
 }
 
 # Which variant this run renders. `main()` sets it from argv[1] (default: all).
 ACTIVE = None
+_DIAGONAL_COMBOS = []
+
+# The diagonal symbol chords (bugwind): positions on the 18-key grid plus
+# their four modifier states -- plain, shift, ctrl, ctrl+shift. Mirrors the
+# DIAG_SYMBOL assignments in config/symbol_work.dtsi. Shared by the dedicated
+# mod-morph grid (build_mod_morph_overview) and the compact table on the
+# symbol-layer reference (build_symbol_layer_overview).
+DIAGONAL_CHORDS = [
+    # 16 chords in four geometry families (mirrored across the split), ordered
+    # like the layout: top-row letters left to right (L M D | Y O U), and
+    # within each letter its home-row partners in home-row order
+    # (N R T H | S E I A).
+    # Inner-1: brackets (openers plain on the left, closers plain on the right).
+    {"positions": [0, 6], "family": "inner1", "normal_shift": ("(", ")"), "ctrl": "==", "ctrl_shift": "!="},
+    {"positions": [3, 11], "family": "inner1", "normal_shift": (")", "("), "ctrl": "<=", "ctrl_shift": ">="},
+    {"positions": [1, 7], "family": "inner1", "normal_shift": ("[", "]"), "ctrl": "+=", "ctrl_shift": "-="},
+    {"positions": [5, 13], "family": "inner1", "normal_shift": ("]", "["), "ctrl": "&=", "ctrl_shift": "|="},
+    {"positions": [2, 8], "family": "inner1", "normal_shift": ("{", "}"), "ctrl": "<<=", "ctrl_shift": ">>="},
+    {"positions": [4, 12], "family": "inner1", "normal_shift": ("}", "{"), "ctrl": "^=", "ctrl_shift": "*="},
+    # Inner-2: bitwise / logic / arrows.
+    {"positions": [1, 6], "family": "inner2", "normal_shift": ("&", "*"), "ctrl": "&&", "ctrl_shift": "||"},
+    {"positions": [4, 13], "family": "inner2", "normal_shift": ("$", "€"), "ctrl": "??", "ctrl_shift": "?."},
+    {"positions": [2, 7], "family": "inner2", "normal_shift": ("~", "^"), "ctrl": "->", "ctrl_shift": "=>"},
+    {"positions": [3, 12], "family": "inner2", "normal_shift": ("<", ">"), "ctrl": "<<", "ctrl_shift": ">>"},
+    # Outer-1: sentence, markdown, comments.
+    {"positions": [0, 8], "family": "outer1", "normal_shift": ("!", "?"), "ctrl": "//", "ctrl_shift": "..."},
+    {"positions": [1, 9], "family": "outer1", "normal_shift": ("_", "-"), "ctrl": "++", "ctrl_shift": "--"},
+    {"positions": [5, 11], "family": "outer1", "normal_shift": (";", "'"), "ctrl": "/*", "ctrl_shift": "*/"},
+    {"positions": [4, 10], "family": "outer1", "normal_shift": ("#", "%"), "ctrl": "=", "ctrl_shift": "|"},
+    # Outer-2: the two remaining diagonals.
+    {"positions": [0, 9], "family": "outer2", "normal_shift": (":", '"'), "ctrl": "::", "ctrl_shift": ":="},
+    {"positions": [5, 10], "family": "outer2", "normal_shift": ("/", "\\"), "ctrl": "+", "ctrl_shift": "@"},
+]
+
+# Display order of the four geometry families in the mod-morph overview.
+FAMILY_ORDER = [
+    ("inner1", "Inner-1 (Brackets)"),
+    ("inner2", "Inner-2 (Bitwise)"),
+    ("outer1", "Outer-1 (Sentence)"),
+    ("outer2", "Outer-2"),
+]
+
+
 
 
 def variant():
@@ -385,7 +487,7 @@ def combo_symbol(s):
     for b in all_bigrams(variant()):
         if suffix == b.lower():
             return b
-    return None
+    return variant().get("combo_labels", {}).get(suffix)
 
 
 # Variant-independent symbol substitutions (macros are handled by combo_symbol).
@@ -411,6 +513,8 @@ combo_symbol_map = {
     "Shift": "⇧",
     "Sft": "⇧",
     "LEFT_SHIFT": "⇧",
+    "&sl L_SYM": "sym",
+    "&macro_shift_sym": "sym+⇧",
 }
 
 def decode_combo_key(s):
@@ -437,9 +541,12 @@ def classify_combo_type(c):
     k = c.get("k")
     layers = c.get("l", [])
     bigrams = all_bigrams(variant())
+
+    if c.get("type"):
+        return c["type"]
     
     # 1. Bigrams (combined labels look like "RL / RM")
-    if isinstance(k, str) and (k in bigrams or "/" in k):
+    if isinstance(k, str) and (k in bigrams or ("/" in k and " · Ctrl:" not in k)):
         return "bigram"
     if isinstance(k, dict) and "t" in k and "/" in str(k.get("t")):
         return "bigram"
@@ -472,31 +579,27 @@ def classify_combo_type(c):
     return "util"
 
 def apply_combo_alignment(combos):
+    # Keep bigrams on their established alignment. Spread every other chord,
+    # including two-key combos, away from the key centers for readability.
     for c in combos:
         p = set(c.get("p", []))
         c_type = classify_combo_type(c)
         c["type"] = c_type
+
+        if c_type == "bigram":
+            c.setdefault("align", "mid")
+            c.setdefault("offset", 0.0)
+            continue
         
         if c.get("k") == "⌫ / ⌦":
             c["width"] = 46.0
 
-        # Only offset combos if they share keys (e.g. 3-key chords sharing keys with 2-key combos)
         if len(p) > 2:
-            is_top = p.issubset({0, 1, 2, 3, 4, 5})
-            is_bottom = p.issubset({6, 7, 8, 9, 10, 11, 12, 13})
-            if is_top:
-                c["align"] = "top"
-                c["offset"] = 0.12
-            elif is_bottom:
-                c["align"] = "bottom"
-                c["offset"] = 0.07
-            else:
-                c["align"] = "mid"
-                c["offset"] = 0.0
+            c["align"] = "top" if max(p) <= 5 else "bottom" if min(p) >= 6 else "mid"
+            c["offset"] = 0.18
         else:
-            # All 2-key combos stay in their natural spot between keys without offset
             c["align"] = "mid"
-            c["offset"] = 0.0
+            c["offset"] = 0.16
 
 def extract_label(key):
     if isinstance(key, dict):
@@ -572,7 +675,18 @@ def build_overview_layer(layers, base_layer_name="a1"):
         overview.append(base_item)
     return overview
 
-def build_combined_alpha_layer(layers):
+def build_symbol_overview_layer(layers):
+    """Render the actual symbol-layer outputs, including shift morphs and thumbs."""
+    return [dict(key) if isinstance(key, dict) else {"t": key} for key in layers.get("sym", [])]
+
+def build_combined_alpha_layer(layers, corners=True):
+    """Combine the a1/a2 grids into one board ("t1 / t2" per finger key).
+
+    With corners=True the 4-corner sub-layer legends (nav/sym/num/fn) are
+    added like in the combined overview; without them the board shows only
+    the dual alpha, its hold label and the thumbs -- used by the symbol
+    layer reference, where the corners would be noise.
+    """
     a1_l = layers.get("a1", [])
     a2_l = layers.get("a2", [])
     nav_l  = layers.get("nav", [])
@@ -584,7 +698,7 @@ def build_combined_alpha_layer(layers):
     for i in range(len(a1_l)):
         b1 = a1_l[i]
         b2 = a2_l[i] if i < len(a2_l) else {}
-        
+
         t1 = b1.get("t") if isinstance(b1, dict) else b1
         t2 = b2.get("t") if isinstance(b2, dict) else b2
 
@@ -600,7 +714,7 @@ def build_combined_alpha_layer(layers):
             item["h"] = hold_abbr_map.get(h_lbl, h_lbl)
 
         # Only add 4-corner legends for finger keys (0..13)
-        if i < 14:
+        if corners and i < 14:
             # Corner 1: Top-Right (Nav -> Yellow)
             nav_lbl = extract_label(nav_l[i]) if i < len(nav_l) else None
             if nav_lbl and nav_lbl != t1:
@@ -919,6 +1033,354 @@ def build_pip_svg(out_path):
         f.write("\n".join(parts) + "\n")
 
 
+def _chord_row_order(chord, key_labels, a1_order):
+    """(top-row key, home-row key) as grid indices: top first, then bottom,
+    both most-to-the-left (within a row, grid index == left-to-right order)."""
+    ordered = sorted(
+        chord["positions"],
+        key=lambda position: a1_order.get(key_labels[position], position),
+    )
+    return ordered[0], ordered[1]
+
+
+def build_mod_morph_overview(draw_dir, config_dir, cfg_overview_path, source_data):
+    """Render the diagonal symbol chords as four family tables.
+
+    One table per geometry family (FAMILY_ORDER), each chord a row showing
+    all four modifier states: a Symbol-Pair band over Plain/Shift and a
+    Programming-Operator-Pair band over Ctrl/Ctrl+Shift. Within a family the
+    rows are ordered by top-row key, then home-row key, both left to right.
+    """
+    if ACTIVE != "bugwind":
+        return None
+
+    overview_svg = draw_dir / "twonr9_mod_morph_overview.svg"
+    overview_yaml = draw_dir / "twonr9_mod_morph_overview.yaml"
+    key_labels = [extract_label(key) for key in source_data.get("layers", {}).get("a1", [])]
+    key_labels.extend(str(index) for index in range(len(key_labels), 18))
+    a1_order = {label: index for index, label in enumerate(key_labels)}
+
+    def state_text(value):
+        return " / ".join(value) if isinstance(value, tuple) else value
+
+    families = []
+    for fam_key, fam_title in FAMILY_ORDER:
+        chords = sorted(
+            (c for c in DIAGONAL_CHORDS if c["family"] == fam_key),
+            key=lambda c: _chord_row_order(c, key_labels, a1_order),
+        )
+        rows = [
+            (
+                f"{key_labels[top]} + {key_labels[home]}",
+                state_text(chord["normal_shift"][0]),
+                state_text(chord["normal_shift"][1]),
+                state_text(chord["ctrl"]),
+                state_text(chord["ctrl_shift"]),
+            )
+            for chord in chords
+            for top, home in [_chord_row_order(chord, key_labels, a1_order)]
+        ]
+        families.append((fam_title, chords, rows))
+
+    # Table geometry
+    margin = 42
+    chord_col_x = 24
+    col_cx = [chord_col_x + 80, 260, 400, 540, 680]  # chord, plain, shift, ctrl, ctrl+shift
+    mid = (col_cx[2] + col_cx[3]) // 2                    # between shift and ctrl
+    symbol_band = (col_cx[1] - 80, mid)                   # spans plain + shift
+    operator_band = (mid, col_cx[4] + 80)                 # spans ctrl + ctrl+shift
+    table_w = 764
+    row_h = 34
+    title_h = 34
+    section_gap = 28
+    # Table body: band (24) + header gap (40) + rows + bottom padding.
+    body_h = lambda nrows: 40 + nrows * row_h + 8
+    width = margin * 2 + table_w
+    height = margin * 2 + sum(title_h + body_h(len(rows)) for _, _, rows in families) \
+        + (len(families) - 1) * section_gap
+
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+        '<style>svg { font-family:Calibri,system-ui,sans-serif; }',
+        '.title { fill:#fbf1c7; font-size:22px; font-weight:700; }',
+        '.fam { fill:#ebdbb2; font-size:16px; font-weight:700; letter-spacing:0.5px; }',
+        '.band { fill:#fbf1c7; font-size:12px; font-weight:700; letter-spacing:1px; }',
+        '.hdr { fill:#a89984; font-size:11px; font-weight:700; }',
+        '.card { fill:#ebdbb2; stroke:#d5c4a1; stroke-width:1; }',
+        '.out { fill:#282828; font-size:18px; font-weight:700; text-anchor:middle; dominant-baseline:middle; }',
+        '.pos { fill:#282828; font-size:14px; font-weight:700; text-anchor:start; dominant-baseline:middle; }',
+        '.sepline { stroke:#a89984; stroke-width:1; }</style>',
+        '<rect width="100%" height="100%" fill="#7c6f64"/>',
+    ]
+    y = margin
+    for fam_title, chords, rows in families:
+        parts.append(f'<text x="{margin}" y="{y + 24}" class="fam">{html.escape(fam_title)}</text>')
+        band_y = y + title_h + 2
+        parts.append(f'<rect x="{margin + symbol_band[0]}" y="{band_y}" width="{symbol_band[1] - symbol_band[0]}" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>')
+        parts.append(f'<text x="{(margin + symbol_band[0] + margin + symbol_band[1]) / 2}" y="{band_y + 12}" class="band" style="text-anchor:middle; dominant-baseline:middle;">SYMBOL-PAIR</text>')
+        parts.append(f'<rect x="{margin + operator_band[0]}" y="{band_y}" width="{operator_band[1] - operator_band[0]}" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>')
+        parts.append(f'<text x="{(margin + operator_band[0] + margin + operator_band[1]) / 2}" y="{band_y + 12}" class="band" style="text-anchor:middle; dominant-baseline:middle;">PROGRAMMING-OPERATOR PAIR</text>')
+        hdr_y = band_y + 40
+        for x, t in zip(col_cx, ["CHORD", "PLAIN", "SHIFT", "CTRL", "CTRL+SHIFT"]):
+            anchor = 'start' if t == "CHORD" else 'middle'
+            parts.append(f'<text x="{margin + x}" y="{hdr_y}" class="hdr" style="text-anchor:{anchor};">{t}</text>')
+        parts.append(f'<line x1="{margin + 130}" y1="{band_y - 6}" x2="{margin + 130}" y2="{hdr_y + 4}" class="sepline"/>')
+        row_y0 = hdr_y + 14
+        for i, row in enumerate(rows):
+            ry = row_y0 + i * row_h
+            parts.append(f'<rect x="{margin + 8}" y="{ry}" width="{table_w - 16}" height="{row_h - 6}" rx="5" class="card"/>')
+            cy = ry + (row_h - 6) / 2
+            parts.append(f'<text x="{margin + col_cx[0]}" y="{cy}" class="pos">{html.escape(row[0])}</text>')
+            for j, value in enumerate(row[1:]):
+                parts.append(f'<text x="{margin + col_cx[j + 1]}" y="{cy}" class="out">{html.escape(value)}</text>')
+        y += title_h + body_h(len(rows)) + section_gap
+    parts.append('</svg>')
+    overview_svg.write_text("\n".join(parts) + "\n")
+    with overview_yaml.open("w") as f:
+        yaml.dump({
+            "families": [
+                {"name": fam_title, "chords": [
+                    {
+                        "label": f"{key_labels[top]} + {key_labels[home]}",
+                        "positions": chord["positions"],
+                        "plain": chord["normal_shift"][0],
+                        "shift": chord["normal_shift"][1],
+                        "ctrl": chord["ctrl"],
+                        "ctrl_shift": chord["ctrl_shift"],
+                    }
+                    for chord in chords
+                    for top, home in [_chord_row_order(chord, key_labels, a1_order)]
+                ]}
+                for fam_title, chords, _rows in families
+            ],
+        }, f, sort_keys=False, allow_unicode=True)
+    return [overview_svg]
+
+
+def build_symbol_layer_overview(draw_dir, config_dir, source_data):
+    """Render the combined a1/a2 board plus a compact mod-morph reference.
+
+    Intended as a second-screen learning aid: the combined alpha board
+    (dual alpha "t1 / t2" without sub-layer legends, thumbs, bigram chords)
+    on top, below it a compact table of the ten diagonal chords in all four
+    modifier states and the non-diagonal morphs, and the thumb/symbol-chord
+    reference. Bugwind only -- the diagonal chords live in the bugwind
+    combo set.
+    """
+    if ACTIVE != "bugwind":
+        return None
+
+    v = variant()
+    out_svg = draw_dir / "twonr9_symbol_layer.svg"
+    out_yaml = draw_dir / "twonr9_symbol_layer.yaml"
+
+    # --- Step A: render the combined a1/a2 board (same style as the others) ---
+    # Dual alpha without the 4-corner sub-layer legends ("subscripts"), plus
+    # the six bigram chords. The diagonal symbol chords live on a1/a2 too,
+    # but their chips would cover the alpha keys -- they are listed in the
+    # table below instead.
+    sym_yaml = {
+        "layout": {"zmk_keyboard": "twonr9"},
+        "layers": {"Combined (a1 / a2)": build_combined_alpha_layer(source_data["layers"], corners=False)},
+        "combos": [
+            {
+                "p": list(pos),
+                "k": label,
+                "l": ["Combined (a1 / a2)"],
+                "type": "bigram",
+                "align": "mid",
+                "offset": 0.0,
+                "width": 54.0,
+            }
+            for pos, label in combined_bigram_map(v).items()
+        ],
+    }
+    with out_yaml.open("w") as f:
+        yaml.dump(sym_yaml, f, sort_keys=False, allow_unicode=True)
+
+    res = subprocess.run(
+        ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "draw",
+         str(out_yaml), "-j", str(config_dir / "twonr9.json")],
+        capture_output=True, text=True, check=True
+    )
+    svg = res.stdout
+
+    # --- Step B: derive chord rows per family from the parsed a1 layer ---
+    key_labels = [extract_label(key) for key in source_data.get("layers", {}).get("a1", [])]
+    key_labels.extend(str(index) for index in range(len(key_labels), 18))
+    a1_order = {label: index for index, label in enumerate(key_labels)}
+
+    def state_text(value):
+        return " / ".join(value) if isinstance(value, tuple) else value
+
+    # One row per chord, split by hand: the top key decides (0-2 = left, 3-5 =
+    # right; each diagonal's home key is always on the same side).
+    family_blocks = []
+    for fam_key, fam_title in FAMILY_ORDER:
+        chords = sorted(
+            (c for c in DIAGONAL_CHORDS if c["family"] == fam_key),
+            key=lambda c: _chord_row_order(c, key_labels, a1_order),
+        )
+        left_rows, right_rows = [], []
+        for chord in chords:
+            top, home = _chord_row_order(chord, key_labels, a1_order)
+            row = (
+                f"{key_labels[top]} + {key_labels[home]}",
+                state_text(chord["normal_shift"][0]),
+                state_text(chord["normal_shift"][1]),
+                state_text(chord["ctrl"]),
+                state_text(chord["ctrl_shift"]),
+            )
+            (left_rows if top < 3 else right_rows).append(row)
+        family_blocks.append((fam_title, left_rows, right_rows))
+
+    # Two columns so the table sits compactly below the board: inner families
+    # left, outer families right.
+    col_groups = [family_blocks[:2], family_blocks[2:]]
+
+    # --- Step C: append the reference cards (below the footer at y=345) ---
+    # Cards follow the cheatsheet card conventions: CSS-variable driven so the
+    # dark-mode media query in twonr9_config.yaml keeps applying.
+    card_w = 736
+    x0 = 20
+    y0 = 370
+
+    def esc(s):
+        return html.escape(s, quote=False)
+
+    def card_frame(title, y, height, body):
+        return (
+            f'  <g transform="translate({x0}, {y})" class="symov-card">\n'
+            f'    <rect x="0" y="0" width="{card_w}" height="{height}" rx="8" '
+            f'style="fill: var(--color-held); fill-opacity: 0.25; stroke: var(--color-dendron); stroke-width: 1.5;"/>\n'
+            f'    <text x="24" y="28" style="text-anchor: start; font-size: 14px; font-weight: bold; '
+            f'fill: var(--color-text); letter-spacing: 0.5px;">{title}</text>\n'
+            f'{body}\n  </g>\n'
+        )
+
+    # Card A: the diagonal chords grouped by family, in two columns (inner
+    # families left, outer families right) so the card stays short enough to
+    # sit below the board. Within each family, a dashed divider separates the
+    # left-hand chords (top key L/M/D) from the right-hand chords (Y/O/U).
+    fam_gap = 26
+    row_h = 24
+    fam_title_h = 22
+    sub_hdr_h = 16
+    col_gap = 16
+    hand_gap = 4
+    f_width = 344
+    f_col0 = 18                                # chord label (start-anchored)
+    f_col_cx = [128, 190, 250, 318]            # plain, shift, ctrl, ctrl+shift centers
+
+    def fam_block(title, left_rows, right_rows, x, y):
+        b = f'    <text x="{x}" y="{y}" style="text-anchor: start; font-size: 12.5px; font-weight: bold; ' \
+            f'fill: #a89984;">{esc(title)}</text>\n'
+        y += fam_title_h
+        hdr = ''.join(
+            f'<text x="{x + (f_col0 if i == 0 else f_col_cx[i - 1])}" y="{y}" '
+            f'style="text-anchor: {"start" if i == 0 else "middle"}; font-size: 10px; '
+            f'font-weight: bold; fill: #a89984;">{t}</text>'
+            for i, t in enumerate(["CHORD", "PLAIN", "SHIFT", "CTRL", "CTRL+SHIFT"])
+        )
+        b += f'    {hdr}\n'
+        y += sub_hdr_h
+
+        def rows_at(rows, top_y, hand, color):
+            if not rows:
+                return ""
+            s = (f'    <text x="{x + 6}" y="{top_y + 4}" style="text-anchor: middle; '
+                 f'font-size: 10px; font-weight: bold; fill: {color};">{hand}</text>\n')
+            for i, row in enumerate(rows):
+                ry = top_y + i * row_h
+                s += ''.join(
+                    f'<text x="{x + (f_col0 if j == 0 else f_col_cx[j - 1])}" y="{ry}" '
+                    f'style="text-anchor: {"start" if j == 0 else "middle"}; font-size: 12px; '
+                    f'font-weight: {700 if j == 0 else 600}; fill: var(--color-text);">{esc(val)}</text>'
+                    for j, val in enumerate(row)
+                ) + '\n'
+            return s
+
+        top_y = y
+        b += rows_at(left_rows, top_y, "L", "var(--color-sym)")
+        div_y = top_y + len(left_rows) * row_h - row_h // 2
+        if left_rows and right_rows:
+            b += (f'    <line x1="{x + 2}" y1="{div_y + 2}" x2="{x + f_width - 2}" y2="{div_y + 2}" '
+                  f'style="stroke: #a89984; stroke-width: 1; stroke-dasharray: 3,3; opacity: 0.7;"/>\n')
+        # First right-hand baseline = end of left block + small gap.
+        right_top = top_y + len(left_rows) * row_h + 2 + hand_gap
+        b += rows_at(right_rows, right_top, "R", "#d79921")
+        body_h = (sub_hdr_h + len(left_rows) * row_h + hand_gap
+                  + (len(right_rows) if right_rows else 0) * row_h)
+        return b, fam_title_h + body_h
+
+    body = ""
+    col_heights = []
+    for x_off, groups in enumerate(col_groups):
+        gx = x_off * (f_width + col_gap)
+        gy = 44
+        for title, left_rows, right_rows in groups:
+            blk, bh = fam_block(title, left_rows, right_rows, x0 + 16 + gx, gy)
+            body += blk
+            gy += bh + fam_gap
+        col_heights.append(gy - 44 + 4)
+    card_a_h = 44 + max(col_heights) + 10
+    card_a = card_frame("MOD MORPHS &#8212; DIAGONAL CHORDS (A1 / A2) &#8212; grouped by family",
+                        y0, card_a_h, body)
+
+    # Card B: non-diagonal morphs + thumbs + symbol entries
+    b_y = y0 + card_a_h + 20
+    b = ""
+    b += '    <text x="30" y="52" style="text-anchor: start; font-size: 11px; font-weight: bold; fill: #a89984;">OTHER SHIFT MORPHS</text>\n'
+    other_morphs = [
+        (". \u2192 ,", "num layer: . / , decimal morph (dot_comma)", "#d65d0e"),
+        ("\u232B \u2192 \u2326", "top row 3+4: backspace / delete (bs_del)", "#b16286"),
+        ("\u2318R \u2192 \u2318\u2303C", "nav layer T: niri column width / center (niri_adjust)", "#d79921"),
+    ]
+    for i, (label, desc, color) in enumerate(other_morphs):
+        y = 74 + i * 22
+        b += f'    <text x="30" y="{y}" style="text-anchor: start; font-size: 12px; font-weight: 700; fill: {color};">{esc(label)}</text>\n'
+        b += f'    <text x="190" y="{y}" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">{esc(desc)}</text>\n'
+
+    b += '    <text x="30" y="142" style="text-anchor: start; font-size: 11px; font-weight: bold; fill: #a89984;">THUMB CLUSTER</text>\n'
+    thumbs = [
+        ("14 (L-Out)", "#b16286", "a2 dual: tap momentary a2 \u00b7 hold sticky a2"),
+        ("15 (L-In)", "#d79921", "space \u00b7 shift-tap \u201c. \u201d \u00b7 hold nav"),
+        ("16 (R-In)", "#b57614", "magic shift: tap \u21e7/repeat \u00b7 on pause sticky \u21e7 \u00b7 hold \u21e7"),
+        ("17 (R-Out)", "#d65d0e", "smart num: tap num_word (drops on space) \u00b7 hold num"),
+    ]
+    for i, (label, color, desc) in enumerate(thumbs):
+        y = 164 + i * 22
+        b += f'    <text x="30" y="{y}" style="text-anchor: start; font-size: 12px; font-weight: 700; fill: {color};">{esc(label)}</text>\n'
+        b += f'    <text x="190" y="{y}" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">{esc(desc)}</text>\n'
+
+    b += '    <text x="30" y="258" style="text-anchor: start; font-size: 11px; font-weight: bold; fill: #a89984;">SYMBOL LAYER ENTRIES</text>\n'
+    entries = [
+        ("17 (R-Out)", "tap sym \u00b7 hold sticky sym (only sym entry \u2014 all sym symbols now have diagonal chords)"),
+        (v["sz_chord"], "Eszett \u00df chord on a1/a2 (not on sym)"),
+    ]
+    for i, (label, desc) in enumerate(entries):
+        y = 280 + i * 22
+        b += f'    <text x="30" y="{y}" style="text-anchor: start; font-size: 12px; font-weight: 700; fill: var(--color-text);">{esc(label)}</text>\n'
+        b += f'    <text x="190" y="{y}" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">{esc(desc)}</text>\n'
+    # Card B bottom content sits at 280 + 4*22 - ~5 = 363; leave 20px padding.
+    card_b_h = 280 + len(entries) * 22 + 20
+    card_b = card_frame("MORPHS, THUMBS &amp; SYMBOL ENTRIES", b_y, card_b_h, b)
+
+    total_h = b_y + card_b_h + 20
+    svg = re.sub(
+        r'width="(\d+)" height="(\d+)" viewBox="0 0 (\d+) (\d+)"',
+        lambda m: 'width="{}" height="{}" viewBox="0 0 {} {}"'.format(
+            m.group(1), total_h, m.group(3), total_h),
+        svg,
+        count=1,
+    )
+
+    svg = svg.replace("</svg>", card_a + card_b + "\n</svg>")
+    out_svg.write_text(svg)
+    post_process_svg_colors(out_svg)
+    return [out_svg]
+
+
 def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path, config_dir):
     # Step A: Render the 2-column wide combined layout
     res = subprocess.run(
@@ -967,8 +1429,8 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
       <text x="160" y="11" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">fn — Function F1-F12 &amp; Volume Controls V- V+</text>
     </g>
 
-    <!-- Symmetrical Adaptive Thumb Engine -->
-    <text x="24" y="152" style="text-anchor: start; font-size: 14px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">ADAPTIVE THUMB ENGINE</text>
+    <!-- Thumb cluster reference -->
+    <text x="24" y="152" style="text-anchor: start; font-size: 14px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">THUMB CLUSTER</text>
 
     <!-- Thumb 14 -->
     <rect x="24" y="168" width="162" height="110" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
@@ -1004,22 +1466,22 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
 
     <!-- German Typing Rhythm Box -->
     <rect x="24" y="285" width="684" height="275" rx="6" style="fill: var(--color-key); stroke: var(--color-dendron); stroke-width: 1;"/>
-    <text x="44" y="308" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">SPEED, FLOW &amp; ADAPTIVE KEYS</text>
+    <text x="44" y="308" style="text-anchor: start; font-size: 13px; font-weight: bold; fill: var(--color-text); letter-spacing: 0.5px;">SPEED, FLOW &amp; SYMBOL CHORDS</text>
     
     <text x="44" y="332" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #d79921;">• Noun Capitalization:</text>
-    <text x="180" y="332" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Space (15) → Sticky Shift (16) → Letter (Auto-disarms)</text>
+    <text x="180" y="332" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Space (16) → Sticky Shift (17) → Letter</text>
     
     <text x="44" y="356" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b57614;">• Symbol &amp; Double Repeat:</text>
     <text x="195" y="356" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Thumb 16 after char repeats letters, numbers &amp; symbols (==, ++, ::)</text>
     
     <text x="44" y="380" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #458588;">• German Eszett (ß):</text>
-    <text x="175" y="380" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Pinch {sz_chord} (6 + 7) on base (Straße, groß, weiß)</text>
+    <text x="175" y="380" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Pinch {sz_chord} ({sz_pos}) on base (Straße, groß, weiß)</text>
 
-    <text x="44" y="404" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Adaptive Keys:</text>
-    <text x="180" y="404" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">{adaptive_line}</text>
+    <text x="44" y="404" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Diagonal Symbols:</text>
+    <text x="180" y="404" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">See the modifier-state overview for normal, Shift, Ctrl and Ctrl+Shift</text>
 
-    <text x="44" y="428" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Secondary Alphas:</text>
-    <text x="175" y="428" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Tap 14 for 1 letter | Hold 14 for words (BMW, Quiz)</text>
+    <text x="44" y="428" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #b16286;">• Symbol Layer:</text>
+    <text x="175" y="428" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Thumb 17 (R-Out) \u2014 all sym symbols are also reachable as diagonal chords</text>
 
     <text x="44" y="452" style="text-anchor: start; font-size: 11.5px; font-weight: bold; fill: #d79921;">• Niri Window Suite:</text>
     <text x="175" y="452" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Hold 15 / H / E → ⌘Q (Close), ⌘⇥ (Overview), ⌘R (Width), ⇹ (Swapper)</text>
@@ -1069,31 +1531,31 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
 
     <rect x="24" y="222" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="236" style="font-size: 12px; font-weight: bold; fill: #282828;">ß</text>
-    <text x="62" y="236" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Eszett (6+7):</text>
+    <text x="62" y="236" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Eszett ({sz_pos}):</text>
     <text x="142" y="236" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">{sz_chord} chord on base (Straße, groß, weiß)</text>
 
     <rect x="24" y="248" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="262" style="font-size: 12px; font-weight: bold; fill: #282828;">_</text>
-    <text x="62" y="262" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Underscore (7+8):</text>
+    <text x="62" y="262" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Underscore (7+9):</text>
     <text x="175" y="262" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Instant snake_case identifier naming</text>
 
     <rect x="24" y="274" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="288" style="font-size: 12px; font-weight: bold; fill: #282828;">-</text>
-    <text x="62" y="288" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Minus (8+9):</text>
+    <text x="62" y="288" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Minus (7+8):</text>
     <text x="142" y="288" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Hyphens, subtraction, CLI flags (--opt)</text>
 
     <rect x="24" y="300" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="314" style="font-size: 12px; font-weight: bold; fill: #282828;">:</text>
-    <text x="62" y="314" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Colon (10+11):</text>
+    <text x="62" y="314" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Colon (11+12):</text>
     <text x="150" y="314" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Rust :: namespace paths, Python defs &amp; JSON pairs</text>
 
     <rect x="24" y="326" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="340" style="font-size: 12px; font-weight: bold; fill: #282828;">;</text>
-    <text x="62" y="340" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Semicolon (11+12):</text>
+    <text x="62" y="340" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Semicolon (10+12):</text>
     <text x="180" y="340" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Statement terminators for C, Rust, TS, Java</text>
 
-    <!-- System & Numbers -->
-    <text x="24" y="372" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d3869b;">SYSTEM &amp; NUMPAD SHORTCUTS</text>
+    <!-- System, symbols, and numbers -->
+    <text x="24" y="372" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: #d3869b;">SYSTEM, SYMBOLS &amp; NUMPAD</text>
 
     <rect x="24" y="382" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="396" style="font-size: 12px; font-weight: bold; fill: #282828;">⇪</text>
@@ -1102,8 +1564,8 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
 
     <rect x="24" y="408" width="30" height="20" rx="4" style="fill: #ebdbb2; stroke: #d5c4a1; stroke-width: 1;"/>
     <text x="39" y="422" style="font-size: 12px; font-weight: bold; fill: #282828;">🔓</text>
-    <text x="62" y="422" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Studio Unlock (7+8+9):</text>
-    <text x="210" y="422" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Live ZMK Studio key remapping (on sym, Offset Bottom)</text>
+    <text x="62" y="422" style="text-anchor: start; font-size: 12px; font-weight: bold; fill: var(--color-text);">Studio Unlock (6+7+8+9):</text>
+    <text x="230" y="422" style="text-anchor: start; font-size: 11.5px; fill: var(--color-text);">Live ZMK Studio key remapping (on sym)</text>
 
     <rect x="24" y="434" width="30" height="20" rx="4" style="fill: #d65d0e; stroke: #af3a03; stroke-width: 1.5;"/>
     <text x="39" y="448" style="font-size: 10.5px; font-weight: bold; fill: #fbf1c7;">7 8 9</text>
@@ -1113,7 +1575,7 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
 '''
     v = variant()
     ak = v.get("adaptive")
-    cheatsheet_cards = cheatsheet_cards.replace("{sz_chord}", v["sz_chord"]).replace(
+    cheatsheet_cards = cheatsheet_cards.replace("{sz_chord}", v["sz_chord"]).replace("{sz_pos}", v["sz_pos"]).replace(
         "{adaptive_line}",
         ak["swaps_line"] if ak else "None — every letter is bound directly on the grid",
     )
@@ -1124,190 +1586,38 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     post_process_svg_colors(cheatsheet_svg_path)
 
 def render_variant(name, config_dir, draw_dir):
-    """Render every diagram for one variant.
-
-    Output files are named ``twonr9_<part>.*`` for the default (bugwind)
-    variant, so links in README/CHEATSHEET/DOCUMENTATION stay stable, and
-    ``twonr9_srht_<part>.*`` for the optional srht backup.
-    """
+    """Render the additional mod-morph list without touching saved drawings."""
     global ACTIVE
+    global _DIAGONAL_COMBOS
     ACTIVE = name
     v = variant()
-    stem = "twonr9" if name == "bugwind" else f"twonr9_{name}"
-    a1_bigrams, a2_bigrams = v["a1_bigrams"], v["a2_bigrams"]
+    # This repository keeps the established drawings as checked-in artifacts.
+    # Generate only the additional bugwind modifier-state list here.
+    if name != "bugwind":
+        print(f"[{v['title']}] No additional drawing for this variant")
+        return []
 
-    # Step 1: Parse keymap
     res = subprocess.run(
         ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "parse", "-z",
          str(config_dir / v["keymap"])],
         capture_output=True, text=True, check=True
     )
     d = yaml.safe_load(res.stdout)
+    for keys in d.get("layers", {}).values():
+        for index, key in enumerate(keys):
+            keys[index] = decode_binding(key)
 
-    # Step 2: Clean up keys and combos
-    for layer, keys in d.get("layers", {}).items():
-        for i, k in enumerate(keys):
-            keys[i] = decode_binding(k)
+    parsed_positions = set()
+    for combo in d.get("combos", []):
+        combo["k"] = decode_combo_key(combo["k"])
+        parsed_positions.add(tuple(combo.get("p", [])))
+    for extra in v.get("extra_combos", []):
+        if tuple(extra["p"]) not in parsed_positions:
+            d.setdefault("combos", []).append(dict(extra))
 
-    for c in d.get("combos", []):
-        c["k"] = decode_combo_key(c["k"])
-        layers = c.get("l", [])
-        # In the All-Layers diagram (twonr9.svg), only show universal combos on a1 and a2
-        if len(layers) >= 5 or any("all" in str(x).lower() for x in layers) or set(layers) >= {"a1", "a2", "nav", "sym", "fn", "num"}:
-            c["l"] = ["a1", "a2"]
-
-    # Apply vertical / horizontal combo offsets
-    apply_combo_alignment(d.get("combos", []))
-
-    yaml_out = draw_dir / f"{stem}.yaml"
-    with open(yaml_out, "w") as f:
-        yaml.dump(d, f, sort_keys=False)
-
-    # Load base config for column split
-    with open(draw_dir / "twonr9_config.yaml") as f:
-        cfg = yaml.safe_load(f)
-
-    # 2-column config for All-Layers (twonr9.svg)
-    cfg_2col = dict(cfg)
-    cfg_2col["draw_config"] = dict(cfg.get("draw_config", {}))
-    cfg_2col["draw_config"]["n_columns"] = 2
-    cfg_2col_path = draw_dir / "twonr9_config_2col.yaml"
-    with open(cfg_2col_path, "w") as f:
-        yaml.dump(cfg_2col, f, sort_keys=False)
-
-    # 1-column config for General Overview (twonr9_overview.svg) - 10px outer pad, 19px tl
-    cfg_overview = dict(cfg)
-    cfg_overview["draw_config"] = dict(cfg.get("draw_config", {}))
-    cfg_overview["draw_config"]["n_columns"] = 1
-    cfg_overview["draw_config"]["outer_pad_w"] = 10
-    cfg_overview["draw_config"]["outer_pad_h"] = 10
-    cfg_overview_path = draw_dir / "twonr9_config_overview.yaml"
-    with open(cfg_overview_path, "w") as f:
-        yaml.dump(cfg_overview, f, sort_keys=False)
-
-    # 1-column config for Combined Overview (twonr9_combined_overview.svg)
-    cfg_combined = dict(cfg)
-    cfg_combined["draw_config"] = dict(cfg.get("draw_config", {}))
-    cfg_combined["draw_config"]["n_columns"] = 1
-    cfg_combined_path = draw_dir / "twonr9_config_combined.yaml"
-    with open(cfg_combined_path, "w") as f:
-        yaml.dump(cfg_combined, f, sort_keys=False)
-
-    # Step 3: Draw All-Layers SVG (2-column layout)
-    svg_out = draw_dir / f"{stem}.svg"
-    with open(svg_out, "w") as f:
-        subprocess.run(
-            ["keymap", "-c", str(cfg_2col_path), "draw", str(yaml_out), "-j", str(config_dir / "twonr9.json")],
-            stdout=f, check=True
-        )
-    post_process_svg_colors(svg_out)
-
-    # Step 4: Build Overview YAML (a1 + a2 with their respective bigrams, and Symbols & Util ghost layer)
-    overview_combos = []
-    for c in d.get("combos", []):
-        c_copy = dict(c)
-        layers = c.get("l", [])
-        k = c.get("k")
-        if "a1" in layers and k in a1_bigrams:
-            c_copy["l"] = ["a1 (Base)"]
-            overview_combos.append(c_copy)
-        elif "a2" in layers and k in a2_bigrams:
-            c_copy["l"] = ["a2 (Alphas 2)"]
-            overview_combos.append(c_copy)
-        elif k not in a1_bigrams and k not in a2_bigrams:
-            c_copy["l"] = ["Symbols & Utilities"]
-            overview_combos.append(c_copy)
-
-    overview_data = {
-        "layout": {"zmk_keyboard": "twonr9"},
-        "layers": {
-            "a1 (Base)": build_overview_layer(d.get("layers", {}), "a1"),
-            "a2 (Alphas 2)": build_overview_layer(d.get("layers", {}), "a2"),
-            "Symbols & Utilities": [""] * 18,
-        },
-        "combos": overview_combos
-    }
-    overview_yaml = draw_dir / f"{stem}_overview.yaml"
-    with open(overview_yaml, "w") as f:
-        yaml.dump(overview_data, f, sort_keys=False)
-
-    overview_svg = draw_dir / f"{stem}_overview.svg"
-    with open(overview_svg, "w") as f:
-        subprocess.run(
-            ["keymap", "-c", str(cfg_overview_path), "draw", str(overview_yaml), "-j", str(config_dir / "twonr9.json")],
-            stdout=f, check=True
-        )
-    post_process_svg_colors(overview_svg)
-    add_adaptive_overview(overview_svg)
-
-    # Step 5: Build Combined Alpha Overview YAML (a1 / a2 merged with dual bigrams & 4-corner legends)
-    bigram_labels = combined_bigram_map(v)
-    combined_combos = []
-    for pos, label in bigram_labels.items():
-        combined_combos.append({
-            "p": list(pos),
-            "k": label,
-            "l": ["Combined (a1 / a2)"],
-            "align": "mid",
-            "offset": 0.0,
-            "type": "bigram",
-            "width": 54.0
-        })
-
-    for c in d.get("combos", []):
-        k = c.get("k")
-        if k not in all_bigrams(v):
-            c_copy = dict(c)
-            c_copy["l"] = ["Symbols & Utilities"]
-            combined_combos.append(c_copy)
-
-    combined_data = {
-        "layout": {"zmk_keyboard": "twonr9"},
-        "layers": {
-            "Combined (a1 / a2)": build_combined_alpha_layer(d.get("layers", {})),
-            "Symbols & Utilities": [""] * 18,
-        },
-        "combos": combined_combos
-    }
-    combined_yaml = draw_dir / f"{stem}_combined_overview.yaml"
-    with open(combined_yaml, "w") as f:
-        yaml.dump(combined_data, f, sort_keys=False)
-
-    combined_svg = draw_dir / f"{stem}_combined_overview.svg"
-    with open(combined_svg, "w") as f:
-        subprocess.run(
-            ["keymap", "-c", str(cfg_combined_path), "draw", str(combined_yaml), "-j", str(config_dir / "twonr9.json")],
-            stdout=f, check=True
-        )
-    post_process_svg_colors(combined_svg)
-
-    # Step 6: Build Full 2-Column Wide Infographic Cheatsheet SVG (width=1533)
-    cheatsheet_svg = draw_dir / f"{stem}_cheatsheet.svg"
-    build_cheatsheet_svg(cfg_2col_path, combined_yaml, cheatsheet_svg, config_dir)
-
-    # Step 7: Small floating reference card (bigrams + adaptive keys)
-    pip_svg = draw_dir / f"{stem}_pip.svg"
-    build_pip_svg(pip_svg)
-    pip_png = draw_dir / f"{stem}_pip.png"
-    if shutil.which("rsvg-convert"):
-        subprocess.run(
-            ["rsvg-convert", "-w", "960", "-h", "540", "-o", str(pip_png), str(pip_svg)],
-            check=True,
-        )
-    elif shutil.which("resvg"):
-        subprocess.run(["resvg", "-z", "2", str(pip_svg), str(pip_png)], check=True)
-    else:
-        print(f"note: neither rsvg-convert nor resvg found; skipped {pip_png.name}")
-
-    # Clean up temp configs
-    if cfg_2col_path.exists(): cfg_2col_path.unlink()
-    if cfg_overview_path.exists(): cfg_overview_path.unlink()
-    if cfg_combined_path.exists(): cfg_combined_path.unlink()
-
-    pip_note = f", {pip_svg}" + (f" + {pip_png.name}" if pip_png.exists() else "")
-    print(f"[{v['title']}] Generated {svg_out}, {overview_svg}, {combined_svg}, "
-          f"and {cheatsheet_svg}{pip_note}")
-    return [svg_out, overview_svg, combined_svg, cheatsheet_svg, pip_svg]
+    built = build_mod_morph_overview(draw_dir, config_dir, draw_dir / "twonr9_config.yaml", d)
+    built += build_symbol_layer_overview(draw_dir, config_dir, d)
+    return built
 
 
 def main(argv=None):

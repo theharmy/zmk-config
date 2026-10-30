@@ -1,0 +1,235 @@
+/* --- Diagonal symbol combo macros --- */
+
+/* Single-key "macro": DIAG_SYMBOL's Ctrl states always reference a node, so
+ * plain single-keycode outputs are wrapped like this. */
+#define DIAG_MACRO1(NAME, KEY) \
+    ZMK_MACRO(NAME, \
+        bindings = <&kp KEY>; \
+        wait-ms = <0>; \
+        tap-ms = <5>; \
+    )
+
+#define DIAG_MACRO2(NAME, KEY1, KEY2) \
+    ZMK_MACRO(NAME, \
+        bindings = <&kp KEY1 &kp KEY2>; \
+        wait-ms = <0>; \
+        tap-ms = <5>; \
+    )
+
+#define DIAG_MACRO3(NAME, KEY1, KEY2, KEY3) \
+    ZMK_MACRO(NAME, \
+        bindings = <&kp KEY1 &kp KEY2 &kp KEY3>; \
+        wait-ms = <0>; \
+        tap-ms = <5>; \
+    )
+
+DIAG_MACRO2(diag_macro_slashslash,     DE_FSLH,  DE_FSLH)
+DIAG_MACRO3(diag_macro_ellipsis,       DE_DOT,   DE_DOT,   DE_DOT)
+DIAG_MACRO2(diag_macro_comment_open,   DE_FSLH,  DE_ASTRK)
+DIAG_MACRO2(diag_macro_comment_close,  DE_ASTRK, DE_FSLH)
+
+DIAG_MACRO2(diag_macro_nullish,        DE_QMARK, DE_QMARK)
+DIAG_MACRO2(diag_macro_optional_chain, DE_QMARK, DE_DOT)
+DIAG_MACRO2(diag_macro_le,             DE_LT,    DE_EQUAL)
+DIAG_MACRO2(diag_macro_ge,             DE_GT,    DE_EQUAL)
+
+DIAG_MACRO2(diag_macro_increment,      DE_PLUS,  DE_PLUS)
+DIAG_MACRO2(diag_macro_decrement,      DE_MINUS, DE_MINUS)
+DIAG_MACRO2(diag_macro_arrow,          DE_MINUS, DE_GT)
+DIAG_MACRO2(diag_macro_fat_arrow,      DE_EQUAL, DE_GT)
+
+DIAG_MACRO2(diag_macro_add_assign,     DE_PLUS,  DE_EQUAL)
+DIAG_MACRO2(diag_macro_sub_assign,     DE_MINUS, DE_EQUAL)
+DIAG_MACRO2(diag_macro_equal_equal,    DE_EQUAL, DE_EQUAL)
+DIAG_MACRO2(diag_macro_not_equal,      DE_EXCL,  DE_EQUAL)
+
+DIAG_MACRO2(diag_macro_and_and,        DE_AMPS,  DE_AMPS)
+DIAG_MACRO2(diag_macro_or_or,          DE_PIPE,  DE_PIPE)
+DIAG_MACRO2(diag_macro_scope,          DE_COLON, DE_COLON)
+DIAG_MACRO2(diag_macro_colon_equal,    DE_COLON, DE_EQUAL)
+
+DIAG_MACRO2(diag_macro_lshift,         DE_LT,    DE_LT)
+DIAG_MACRO2(diag_macro_rshift,         DE_GT,    DE_GT)
+
+DIAG_MACRO3(diag_macro_lshift_assign,  DE_LT,    DE_LT,    DE_EQUAL)
+DIAG_MACRO3(diag_macro_rshift_assign,  DE_GT,    DE_GT,    DE_EQUAL)
+DIAG_MACRO2(diag_macro_and_assign,     DE_AMPS,  DE_EQUAL)
+DIAG_MACRO2(diag_macro_or_assign,      DE_PIPE,  DE_EQUAL)
+
+DIAG_MACRO2(diag_macro_caret_assign,   DE_CARET, DE_EQUAL)
+DIAG_MACRO2(diag_macro_star_assign,    DE_ASTRK, DE_EQUAL)
+
+/* Single-key outputs for the two Outer-2 chords' Ctrl states. */
+DIAG_MACRO1(diag_macro_equal,          DE_EQUAL)
+DIAG_MACRO1(diag_macro_pipe,           DE_PIPE)
+DIAG_MACRO1(diag_macro_plus,           DE_PLUS)
+DIAG_MACRO1(diag_macro_at,             DE_AT)
+
+/*
+ * Each diagonal has two modifier choices:
+ *
+ *   Plain / Shift: symbol pair
+ *   Ctrl / Ctrl+Shift: programming-operator pair
+ *
+ * The outer morph selects Ctrl versus no Ctrl. The selected inner morph
+ * then selects Shift versus no Shift.
+ *
+ * Family grouping by diagonal geometry (mirrored across the split):
+ *   Inner-1  (brackets):  L+N ( ) · Y+E ) ( · M+R [ ] · U+A ] [ · D+T { } · O+I } {
+ *                         -- openers plain on the left hand, closers plain on the right
+ *   Inner-2 (bitwise):    M+N & * · O+A $ € · D+R ~ ^ · Y+I < >
+ *   Outer-1 (sentence):   L+T ! ? · M+H _ - · U+E ; ' · O+S # %
+ *   Outer-2:              L+H : " · U+S / \
+ */
+#define DIAG_SYMBOL(NAME, PLAIN, SHIFTED, CTRL_PLAIN, CTRL_SHIFTED) \
+    ZMK_MOD_MORPH(NAME##_plain, \
+        bindings = <&kp PLAIN>, <&kp SHIFTED>; \
+        mods = <(MOD_LSFT|MOD_RSFT)>; \
+    ) \
+    ZMK_MOD_MORPH(NAME##_ctrl, \
+        bindings = <&CTRL_PLAIN>, <&CTRL_SHIFTED>; \
+        mods = <(MOD_LSFT|MOD_RSFT)>; \
+    ) \
+    ZMK_MOD_MORPH(NAME, \
+        bindings = <&NAME##_plain>, <&NAME##_ctrl>; \
+        mods = <(MOD_LCTL|MOD_RCTL)>; \
+    )
+
+
+
+
+/* --- Mirrored diagonal symbol assignments --- */
+
+/* Inner-1: brackets + comparison/arithmetic operators. */
+DIAG_SYMBOL(diag_06,
+    DE_LPAR, DE_RPAR,
+    diag_macro_equal_equal, diag_macro_not_equal)
+
+DIAG_SYMBOL(diag_3b,
+    DE_RPAR, DE_LPAR,
+    diag_macro_le, diag_macro_ge)
+
+DIAG_SYMBOL(diag_17,
+    DE_LBKT, DE_RBKT,
+    diag_macro_add_assign, diag_macro_sub_assign)
+
+DIAG_SYMBOL(diag_5d,
+    DE_RBKT, DE_LBKT,
+    diag_macro_and_assign, diag_macro_or_assign)
+
+DIAG_SYMBOL(diag_28,
+    DE_LBRC, DE_RBRC,
+    diag_macro_lshift_assign, diag_macro_rshift_assign)
+
+DIAG_SYMBOL(diag_4c,
+    DE_RBRC, DE_LBRC,
+    diag_macro_caret_assign, diag_macro_star_assign)
+
+/* Inner-2: bitwise / logic / arrow operators. */
+DIAG_SYMBOL(diag_16,
+    DE_AMPS, DE_ASTRK,
+    diag_macro_and_and, diag_macro_or_or)
+
+DIAG_SYMBOL(diag_4d,
+    DE_DOLLAR, DE_EURO,
+    diag_macro_nullish, diag_macro_optional_chain)
+
+DIAG_SYMBOL(diag_27,
+    DE_TILDE, DE_CARET,
+    diag_macro_arrow, diag_macro_fat_arrow)
+
+DIAG_SYMBOL(diag_3c,
+    DE_LT, DE_GT,
+    diag_macro_lshift, diag_macro_rshift)
+
+/* Outer-1: sentence, markdown and comment operators. */
+DIAG_SYMBOL(diag_08,
+    DE_EXCL, DE_QMARK,
+    diag_macro_slashslash, diag_macro_ellipsis)
+
+DIAG_SYMBOL(diag_19,
+    DE_UNDER, DE_MINUS,
+    diag_macro_increment, diag_macro_decrement)
+
+DIAG_SYMBOL(diag_57,
+    DE_SEMI, DE_SQT,
+    diag_macro_comment_open, diag_macro_comment_close)
+
+DIAG_SYMBOL(diag_4a,
+    DE_HASH, DE_PRCNT,
+    diag_macro_equal, diag_macro_pipe)
+
+/* Outer-2: the two remaining diagonals. */
+DIAG_SYMBOL(diag_09,
+    DE_COLON, DE_DQT,
+    diag_macro_scope, diag_macro_colon_equal)
+
+DIAG_SYMBOL(diag_5a,
+    DE_FSLH, DE_BSLH,
+    diag_macro_plus, diag_macro_at)
+
+/*
+ * Freed by the Eszett moving to S+Space: N+R becomes the acute accent
+ * (´, e.g. é). The shift state sends DE_GRAVE (the shifted ´° keycode),
+ * which on the nodeadkeys host layout is a plain backtick -- no dead key.
+ */
+ZMK_MOD_MORPH(diag_67,
+    bindings = <&kp DE_ACUTE>, <&kp DE_GRAVE>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
+
+
+/* --- German letters: letter + Space (right thumb) ---
+ *
+ * The rule: a vowel pinched with Space produces the German version of that
+ * vowel; S + Space produces the Eszett. Uppercase via the shifted state:
+ * the host German layout composes Shift+ß=ẞ and Shift+{ä,ö,ü}={Ä,Ö,Ü}. */
+#define DE_CHORD(NAME, KEY) \
+    ZMK_MOD_MORPH(NAME, \
+        bindings = <&kp KEY>, <&kp KEY>; \
+        mods = <(MOD_LSFT|MOD_RSFT)>; \
+    )
+
+DE_CHORD(de_sz, DE_SZ)
+DE_CHORD(de_ae, DE_A_UMLAUT)
+DE_CHORD(de_oe, DE_O_UMLAUT)
+DE_CHORD(de_ue, DE_U_UMLAUT)
+
+// Combos
+
+// --- Alpha-layer diagonal symbol combos ---
+// No Ctrl: symbol | Shift: paired symbol
+// Ctrl: programming operator | Ctrl+Shift: paired operator
+
+// Inner-1 (brackets), ordered by top-row letter:
+ZMK_COMBO(combo_diag_06, &diag_06, 0 6,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_3b, &diag_3b, 3 11, L_A1 L_A2)
+ZMK_COMBO(combo_diag_17, &diag_17, 1 7,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_5d, &diag_5d, 5 13, L_A1 L_A2)
+ZMK_COMBO(combo_diag_28, &diag_28, 2 8,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_4c, &diag_4c, 4 12, L_A1 L_A2)
+
+// Inner-2 (bitwise / logic / arrows):
+ZMK_COMBO(combo_diag_16, &diag_16, 1 6,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_4d, &diag_4d, 4 13, L_A1 L_A2)
+ZMK_COMBO(combo_diag_27, &diag_27, 2 7,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_3c, &diag_3c, 3 12, L_A1 L_A2)
+
+// Outer-1 (sentence / markdown / comments):
+ZMK_COMBO(combo_diag_08, &diag_08, 0 8,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_19, &diag_19, 1 9,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_57, &diag_57, 5 11, L_A1 L_A2)
+ZMK_COMBO(combo_diag_4a, &diag_4a, 4 10, L_A1 L_A2)
+
+// Outer-2:
+ZMK_COMBO(combo_diag_09, &diag_09, 0 9,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_5a, &diag_5a, 5 10, L_A1 L_A2)
+
+// Acute / degree (freed N+R):
+ZMK_COMBO(combo_diag_67, &diag_67, 6 7,  L_A1 L_A2)
+
+// German vowels + Eszett with the Space thumb (16):
+ZMK_COMBO(combo_de_sz,  &de_sz,          10 16, L_A1 L_A2)
+ZMK_COMBO(combo_de_ae,  &de_ae,         13 16, L_A1 L_A2)
+ZMK_COMBO(combo_de_oe,  &de_oe,          4 16, L_A1 L_A2)
+ZMK_COMBO(combo_de_ue,  &de_ue,          5 16, L_A1 L_A2)

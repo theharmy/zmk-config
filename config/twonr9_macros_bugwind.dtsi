@@ -19,3 +19,5 @@ ZMK_MACRO(macro_sch, bindings = <&kp DE_S &kp DE_C &kp DE_H>;)
 ZMK_MACRO(macro_gs, bindings = <&kp DE_G &kp DE_S>;)
 ZMK_MACRO(macro_oe, bindings = <&kp DE_O &kp DE_E>;)
 ZMK_MACRO(macro_iu, bindings = <&kp DE_I &kp DE_U>;)
+
+ZMK_MACRO(macro_shift_sym, bindings = <&sl L_SYM &sk LEFT_SHIFT>;)

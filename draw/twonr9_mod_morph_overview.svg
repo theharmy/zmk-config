@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="848" height="1040" viewBox="0 0 848 1040">
+<style>svg { font-family:Calibri,system-ui,sans-serif; }
+.title { fill:#fbf1c7; font-size:22px; font-weight:700; }
+.fam { fill:#ebdbb2; font-size:16px; font-weight:700; letter-spacing:0.5px; }
+.band { fill:#fbf1c7; font-size:12px; font-weight:700; letter-spacing:1px; }
+.hdr { fill:#a89984; font-size:11px; font-weight:700; }
+.card { fill:#ebdbb2; stroke:#d5c4a1; stroke-width:1; }
+.out { fill:#282828; font-size:18px; font-weight:700; text-anchor:middle; dominant-baseline:middle; }
+.pos { fill:#282828; font-size:14px; font-weight:700; text-anchor:start; dominant-baseline:middle; }
+.sepline { stroke:#a89984; stroke-width:1; }</style>
+<rect width="100%" height="100%" fill="#7c6f64"/>
+<text x="42" y="66" class="fam">Inner-1 (Brackets)</text>
+<rect x="222" y="78" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="367.0" y="90" class="band" style="text-anchor:middle; dominant-baseline:middle;">SYMBOL-PAIR</text>
+<rect x="512" y="78" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="657.0" y="90" class="band" style="text-anchor:middle; dominant-baseline:middle;">PROGRAMMING-OPERATOR PAIR</text>
+<text x="146" y="118" class="hdr" style="text-anchor:start;">CHORD</text>
+<text x="302" y="118" class="hdr" style="text-anchor:middle;">PLAIN</text>
+<text x="442" y="118" class="hdr" style="text-anchor:middle;">SHIFT</text>
+<text x="582" y="118" class="hdr" style="text-anchor:middle;">CTRL</text>
+<text x="722" y="118" class="hdr" style="text-anchor:middle;">CTRL+SHIFT</text>
+<line x1="172" y1="72" x2="172" y2="122" class="sepline"/>
+<rect x="50" y="132" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="146.0" class="pos">L + N</text>
+<text x="302" y="146.0" class="out">(</text>
+<text x="442" y="146.0" class="out">)</text>
+<text x="582" y="146.0" class="out">==</text>
+<text x="722" y="146.0" class="out">!=</text>
+<rect x="50" y="166" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="180.0" class="pos">M + R</text>
+<text x="302" y="180.0" class="out">[</text>
+<text x="442" y="180.0" class="out">]</text>
+<text x="582" y="180.0" class="out">+=</text>
+<text x="722" y="180.0" class="out">-=</text>
+<rect x="50" y="200" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="214.0" class="pos">D + T</text>
+<text x="302" y="214.0" class="out">{</text>
+<text x="442" y="214.0" class="out">}</text>
+<text x="582" y="214.0" class="out">&lt;&lt;=</text>
+<text x="722" y="214.0" class="out">&gt;&gt;=</text>
+<rect x="50" y="234" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="248.0" class="pos">Y + E</text>
+<text x="302" y="248.0" class="out">)</text>
+<text x="442" y="248.0" class="out">(</text>
+<text x="582" y="248.0" class="out">&lt;=</text>
+<text x="722" y="248.0" class="out">&gt;=</text>
+<rect x="50" y="268" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="282.0" class="pos">O + I</text>
+<text x="302" y="282.0" class="out">}</text>
+<text x="442" y="282.0" class="out">{</text>
+<text x="582" y="282.0" class="out">^=</text>
+<text x="722" y="282.0" class="out">*=</text>
+<rect x="50" y="302" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="316.0" class="pos">U + A</text>
+<text x="302" y="316.0" class="out">]</text>
+<text x="442" y="316.0" class="out">[</text>
+<text x="582" y="316.0" class="out">&amp;=</text>
+<text x="722" y="316.0" class="out">|=</text>
+<text x="42" y="380" class="fam">Inner-2 (Bitwise)</text>
+<rect x="222" y="392" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="367.0" y="404" class="band" style="text-anchor:middle; dominant-baseline:middle;">SYMBOL-PAIR</text>
+<rect x="512" y="392" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="657.0" y="404" class="band" style="text-anchor:middle; dominant-baseline:middle;">PROGRAMMING-OPERATOR PAIR</text>
+<text x="146" y="432" class="hdr" style="text-anchor:start;">CHORD</text>
+<text x="302" y="432" class="hdr" style="text-anchor:middle;">PLAIN</text>
+<text x="442" y="432" class="hdr" style="text-anchor:middle;">SHIFT</text>
+<text x="582" y="432" class="hdr" style="text-anchor:middle;">CTRL</text>
+<text x="722" y="432" class="hdr" style="text-anchor:middle;">CTRL+SHIFT</text>
+<line x1="172" y1="386" x2="172" y2="436" class="sepline"/>
+<rect x="50" y="446" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="460.0" class="pos">M + N</text>
+<text x="302" y="460.0" class="out">&amp;</text>
+<text x="442" y="460.0" class="out">*</text>
+<text x="582" y="460.0" class="out">&amp;&amp;</text>
+<text x="722" y="460.0" class="out">||</text>
+<rect x="50" y="480" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="494.0" class="pos">D + R</text>
+<text x="302" y="494.0" class="out">~</text>
+<text x="442" y="494.0" class="out">^</text>
+<text x="582" y="494.0" class="out">-&gt;</text>
+<text x="722" y="494.0" class="out">=&gt;</text>
+<rect x="50" y="514" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="528.0" class="pos">Y + I</text>
+<text x="302" y="528.0" class="out">&lt;</text>
+<text x="442" y="528.0" class="out">&gt;</text>
+<text x="582" y="528.0" class="out">&lt;&lt;</text>
+<text x="722" y="528.0" class="out">&gt;&gt;</text>
+<rect x="50" y="548" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="562.0" class="pos">O + A</text>
+<text x="302" y="562.0" class="out">$</text>
+<text x="442" y="562.0" class="out">€</text>
+<text x="582" y="562.0" class="out">??</text>
+<text x="722" y="562.0" class="out">?.</text>
+<text x="42" y="626" class="fam">Outer-1 (Sentence)</text>
+<rect x="222" y="638" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="367.0" y="650" class="band" style="text-anchor:middle; dominant-baseline:middle;">SYMBOL-PAIR</text>
+<rect x="512" y="638" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="657.0" y="650" class="band" style="text-anchor:middle; dominant-baseline:middle;">PROGRAMMING-OPERATOR PAIR</text>
+<text x="146" y="678" class="hdr" style="text-anchor:start;">CHORD</text>
+<text x="302" y="678" class="hdr" style="text-anchor:middle;">PLAIN</text>
+<text x="442" y="678" class="hdr" style="text-anchor:middle;">SHIFT</text>
+<text x="582" y="678" class="hdr" style="text-anchor:middle;">CTRL</text>
+<text x="722" y="678" class="hdr" style="text-anchor:middle;">CTRL+SHIFT</text>
+<line x1="172" y1="632" x2="172" y2="682" class="sepline"/>
+<rect x="50" y="692" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="706.0" class="pos">L + T</text>
+<text x="302" y="706.0" class="out">!</text>
+<text x="442" y="706.0" class="out">?</text>
+<text x="582" y="706.0" class="out">//</text>
+<text x="722" y="706.0" class="out">...</text>
+<rect x="50" y="726" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="740.0" class="pos">M + H</text>
+<text x="302" y="740.0" class="out">_</text>
+<text x="442" y="740.0" class="out">-</text>
+<text x="582" y="740.0" class="out">++</text>
+<text x="722" y="740.0" class="out">--</text>
+<rect x="50" y="760" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="774.0" class="pos">O + S</text>
+<text x="302" y="774.0" class="out">#</text>
+<text x="442" y="774.0" class="out">%</text>
+<text x="582" y="774.0" class="out">=</text>
+<text x="722" y="774.0" class="out">|</text>
+<rect x="50" y="794" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="808.0" class="pos">U + E</text>
+<text x="302" y="808.0" class="out">;</text>
+<text x="442" y="808.0" class="out">&#x27;</text>
+<text x="582" y="808.0" class="out">/*</text>
+<text x="722" y="808.0" class="out">*/</text>
+<text x="42" y="872" class="fam">Outer-2</text>
+<rect x="222" y="884" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="367.0" y="896" class="band" style="text-anchor:middle; dominant-baseline:middle;">SYMBOL-PAIR</text>
+<rect x="512" y="884" width="290" height="24" rx="4" fill="#665c54" stroke="#a89984" stroke-width="1"/>
+<text x="657.0" y="896" class="band" style="text-anchor:middle; dominant-baseline:middle;">PROGRAMMING-OPERATOR PAIR</text>
+<text x="146" y="924" class="hdr" style="text-anchor:start;">CHORD</text>
+<text x="302" y="924" class="hdr" style="text-anchor:middle;">PLAIN</text>
+<text x="442" y="924" class="hdr" style="text-anchor:middle;">SHIFT</text>
+<text x="582" y="924" class="hdr" style="text-anchor:middle;">CTRL</text>
+<text x="722" y="924" class="hdr" style="text-anchor:middle;">CTRL+SHIFT</text>
+<line x1="172" y1="878" x2="172" y2="928" class="sepline"/>
+<rect x="50" y="938" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="952.0" class="pos">L + H</text>
+<text x="302" y="952.0" class="out">:</text>
+<text x="442" y="952.0" class="out">&quot;</text>
+<text x="582" y="952.0" class="out">::</text>
+<text x="722" y="952.0" class="out">:=</text>
+<rect x="50" y="972" width="748" height="28" rx="5" class="card"/>
+<text x="146" y="986.0" class="pos">U + S</text>
+<text x="302" y="986.0" class="out">/</text>
+<text x="442" y="986.0" class="out">\</text>
+<text x="582" y="986.0" class="out">+</text>
+<text x="722" y="986.0" class="out">@</text>
+</svg>
