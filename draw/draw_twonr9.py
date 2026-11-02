@@ -43,7 +43,7 @@ sorted_raw_codes = sorted(raw_code_map.items(), key=lambda x: len(x[0]), reverse
 # Keymap variants
 #
 # The TwoNr9 ships as two shields sharing one hardware definition:
-#   config/twonr9.keymap       (shield twonr9_*)        -- default, no adaptive keys
+#   config/twonr9.keymap       (shield twonr9_*)        -- default, 4 adaptive keys (u oi, y us)
 #   config/twonr9_srht.keymap  (shield twonr9_srht_*)   -- optional backup, 9 adaptive keys
 #
 # Only the alpha grids, their bigram chords, and the adaptive-key engine differ;
@@ -57,9 +57,26 @@ VARIANTS = {
         # Bigram chords, positionally paired across the six column pairs.
         "a1_bigrams": ["RL", "KT", "MB", "YS", "EO", "UI"],
         "a2_bigrams": ["RW", "MT", "SCH", "GS", "OE", "IU"],
-        # Adaptive-key engine: bugwind binds every letter directly, so there are
-        # no swap rules, no dashed keycaps and no legend card.
-        "adaptive": None,
+        # Adaptive-key engine: two same-finger swap rules let a roll reach a
+        # repeated finger without a same-finger double-tap.
+        #   U-set (blue): O I  (after U)   -- "uo" is usually "ui"
+        #   Y-set (indigo): U S (after Y)  -- "yu" is usually "ys"
+        "adaptive": {
+            "a1_keys": {
+                4: ("ak-u", "ak-u"),   # O after U
+                5: ("ak-y", "ak-y"),   # U after Y
+                10: ("ak-y", "ak-y"),  # S after Y
+                12: ("ak-u", "ak-u"),  # I after U
+            },
+            "a2_keys": {},
+            "rows": [
+                ("after U", "#83a598", "O &#8644; I"),
+                ("after Y", "#5e81ac", "U &#8644; S"),
+            ],
+            "letters_line": "adaptive letters &#8212; a1: O U S I",
+            # Cheatsheet prose describing the swaps.
+            "swaps_line": "u oi, y us swap letters on roll to eliminate same-finger doubles",
+        },
         # German Eszett chord (S + Space, see symbol_work.dtsi) plus the
         # vowel + Space umlaut chords.
         "sz_chord": "S + Space",

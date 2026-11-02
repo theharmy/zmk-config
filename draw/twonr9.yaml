@@ -84,6 +84,7 @@ layers:
     h: "\u2196"
   - t: "\u2193"
     h: "Ctl+\u2198"
+    type: held
   - t: "\u2191"
     h: "Ctl+\u2196"
   - t: "\u2303"
@@ -104,7 +105,6 @@ layers:
     h: toggle
   - t: Spc
     h: nav
-    type: held
   - t: sym
     h: sym
   sym:
@@ -151,7 +151,8 @@ layers:
   - F3
   - F8
   - F9
-  - F10
+  - t: F10
+    type: held
   - F4
   - F5
   - F6

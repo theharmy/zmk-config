@@ -28,7 +28,6 @@ layers:
     br: F8
   - t: O
     h: nav
-    tr: "\u2193"
     tl: '[ ]'
     bl: '5'
     br: F9
@@ -37,7 +36,6 @@ layers:
     tr: "\u2191"
     tl: ; '
     bl: '6'
-    br: F10
   - t: N
     h: "\u2303"
     tr: "\u2303"
@@ -121,7 +119,6 @@ layers:
     br: F8
   - t: J
     h: nav
-    tr: "\u2193"
     tl: '[ ]'
     bl: '5'
     br: F9
@@ -130,7 +127,6 @@ layers:
     tr: "\u2191"
     tl: ; '
     bl: '6'
-    br: F10
   - t: P
     h: "\u2303"
     tr: "\u2303"

@@ -69,47 +69,9 @@
 
 #pragma once
 
-/* --- Generators: adaptive-key nodes ---------------------------------------- */
-
-// One adaptive-key behavior with one trigger rule: after TRIG (within AK_MS),
-// NAME outputs OUT instead of its default key. (Devicetree subnodes need the
-// trailing ';', and are ';'-separated, never ','-separated.)
-#define AK_TRIG(NAME, TRIG, OUT)                                               \
-    NAME { trigger-keys = <TRIG>; max-prior-idle-ms = <AK_MS>;                 \
-           bindings = <&kp OUT>; };
-
-#define AK(NAME, DEFAULT, TRIG)                                                \
-    ZMK_ADAPTIVE_KEY(ak_##NAME, bindings = <&kp DEFAULT>; TRIG)
-
-// Like AK, but with two trigger rules.
-#define AK2(NAME, DEFAULT, TRIG1, TRIG2)                                       \
-    ZMK_ADAPTIVE_KEY(ak_##NAME, bindings = <&kp DEFAULT>; TRIG1 TRIG2)
-
-// Symmetric swap: "after T, A->B and B->A".
-#define AK_PAIR(NA, A, NB, B, T)                                               \
-    AK(NA, A, AK_TRIG(t, T, B))                                                \
-    AK(NB, B, AK_TRIG(t, T, A))
-
-/* --- Generators: hold-taps wiring the adaptive keys into the grid ----------- */
-
-// HM: hold = modifier (param), tap = adaptive key, same feel as hml/hmr.
-// TRIG_L / TRIG_R are the trigger set for a key on that hand.
-// quick-tap-ms omitted to match MAKE_HRM / urob: inert below HRM_IDLE, see
-// the reasoning in twonr9.keymap.
-#define MAKE_AK_HM(NAME, TAP, TRIGGER_POS)                                     \
-    ZMK_HOLD_TAP(hm_##NAME, flavor = "balanced";                               \
-                 tapping-term-ms = <HRM_TERM>;                                 \
-                 require-prior-idle-ms = <HRM_IDLE>; hold-trigger-on-release;  \
-                 hold-trigger-key-positions = <TRIGGER_POS>;                   \
-                 bindings = <&kp>, <TAP>;)
-
-// LT: hold = momentary layer (param), tap = adaptive key, same feel as &lt.
-// quick-tap-ms omitted likewise (inert below LT_IDLE).
-#define MAKE_AK_LT(NAME, TAP)                                                  \
-    ZMK_HOLD_TAP(lt_##NAME, flavor = "balanced";                               \
-                 tapping-term-ms = <LT_TERM>;                                  \
-                 require-prior-idle-ms = <LT_IDLE>;                            \
-                 bindings = <&mo>, <TAP>;)
+/* Node generators (AK / AK2 / AK_PAIR / AK_TRIG / MAKE_AK_HM / MAKE_AK_LT)
+ * are shared with the other variant's adaptive-key file. */
+#include "twonr9_adaptive.h"
 
 /* ==============================================================================
  * Adaptive keys -- one group per key: swap rule, hold wiring, grid name

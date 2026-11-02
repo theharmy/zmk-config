@@ -127,6 +127,7 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 /* Include modular behaviors, macros, combos, and parameter macros */
 #include "twonr9_keys.h"
 #include "twonr9_macros_bugwind.dtsi"
+#include "twonr9_adaptive_keys_bugwind.h"
 #include "twonr9_combos.dtsi"
 #include "twonr9_combos_bugwind.dtsi"
 #include "symbol_work.dtsi"
@@ -137,9 +138,9 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 
 ZMK_LAYER(a1,
 //                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
-                              &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    &lt L_NAV DE_O    &lt L_FN DE_U
+                              &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    NV_O              FN_U
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
-          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_E     &hmr RALT DE_I    &hmr RCTRL DE_A
+          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          SH_S              &hmr RGUI DE_E     AR_I              &hmr RCTRL DE_A
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
                                               SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
