@@ -2,12 +2,12 @@
 
 Comprehensive technical documentation for the **TwoNr9 (18-Key Split)** keyboard integrated into the **Urob ZMK Workspace**.
 
-> ⚡ **Quick Reference & Visual Infographic:** View [`docs/CHEATSHEET.md`](../docs/CHEATSHEET.md) or [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for an all-in-one visual layout and combo usability reference.
+> Current key and combo behavior is documented in the [user cheatsheet](../docs/CHEATSHEET.md).
 
 ---
 
 ## Table of Contents
-1. [Executive Summary & Setup Overview](#1-executive-summary--setup-overview)
+1. [Project summary](#1-project-summary)
 2. [Retroactive Log of All Changes & Technical Reasoning](#2-retroactive-log-of-all-changes--technical-reasoning)
 3. [The Power of Urob's ZMK Architecture](#3-the-power-of-urobs-zmk-architecture)
 4. [Advanced Behaviors & Smart Engine](#4-advanced-behaviors--smart-engine)
@@ -18,30 +18,9 @@ Comprehensive technical documentation for the **TwoNr9 (18-Key Split)** keyboard
 
 ---
 
-## 1. Executive Summary & Setup Overview
+## 1. Project summary
 
-Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK devicetree workspace.
-
-### Key Capabilities Enabled:
-* **Hardware Model v2**: Targets `nice_nano@2.0.0//zmk` on Zephyr 4.1.
-* **German Layout Integration**: Native `keys_de.h` keycodes with correct German modifier handling.
-* **Ergonomic Homerow Mods (HRM)**: Positional triggers isolating left hand from right hand to eliminate typing roll misfires.
-* **Row-Split Hold Model**: On both alpha layers, the **top row is layer-taps** (`fn` / `nav` / `sym`) and the **home row is modifiers** (`CTRL` / `ALT` / `GUI` / `SHIFT`), mirrored across the two halves. See [§5](#5-twonr9-keymap--layer-reference).
-* **Dual GUI & Notification Support**:
-  * **ZMK Studio**: Real-time on-keyboard layer/keymap remapping via USB RPC.
-  * **KeyPeek**: Real-time active layer visualizer via `zmk-raw-hid` and `zmk-keypeek-layer-notifier`.
-* **Adaptive Thumb Engine** (both alpha layers share the same thumb cluster):
-  * Left Outer (14): `SMART_NUM` (Tap: `num_word`, Hold: momentary `num`).
-  * Left Inner (15): `A2_DUAL` (Tap: single `a2`, Hold: continuous `a2` words like *BMW*, *Quiz*, *Pflanze*).
-  * Right Inner (16): `SPC_NAV` (Tap: `Space` with sentence `. ` morph, Hold: `nav` layer).
-  * Right Outer (17): `SYM_DUAL` (Tap: single `sym`, Hold: continuous `sym`).
-  * *Note*: `MAGIC_SHIFT` is not on the thumbs — it is reached via the `shiftl` (8+9) and `shiftr` (10+11) combos on every layer.
-* **Complete 14-Pair Mod-Morph Symbol System**: All brackets, quotes, slashes, and punctuation mapped without combo clutter.
-* **Two Keymap Variants, One Shield Definition**: The hardware lives in `config/boards/shields/twonr9/`; ZMK resolves the keymap by shield name, so no cmake-args or manual steps are needed. See [§6](#6-hardware-shields--build-targets).
-  * **`bugwind`** (default): `twonr9_left` / `twonr9_right` → `config/twonr9.keymap`. No adaptive keys — every letter is bound directly, so the grids are self-describing.
-  * **`srht`** (backup): `twonr9_srht_left` / `twonr9_srht_right` → `config/twonr9_srht.keymap`. Keeps the nine adaptive keys.
-  * Bluetooth names differ (`TwoNr9` vs `TwoNr9 SRHT`) so both can be paired side by side without re-bonding.
-* **Automated Visualizations**: all-layer, overview, combined overview and cheatsheet drawings are retained in their original form; the bugwind diagonal symbol mod-morph list is additionally available at `draw/twonr9_mod_morph_overview.svg`.
+This guide records architecture and design history for maintainers. For current layer and combo behavior, use the [user cheatsheet](../docs/CHEATSHEET.md); for file ownership and safe editing workflow, use [`AGENTS.md`](../AGENTS.md). The project has two keymap variants over shared TwoNr9 hardware: bugwind is the default, while srht is an optional backup.
 
 ---
 
@@ -137,23 +116,27 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * *Note*: `config/twonr9_adaptive_keys_bugwind.h` was deleted but `config/twonr9_adaptive_keys_srht.h` is now the sole adaptive module, included only by the srht keymap.
 
 ### 12. Diagonal Chord Regrouping & German Space Chords (2026-10-27, `config/` + `draw/` + `practice/`)
-* **Change**: The bugwind diagonal symbol chords were regrouped from 15 ad-hoc assignments into **16 chords in four geometry families** (mirrored across the split), all in `config/symbol_work.dtsi`:
-  * **Inner-1 (brackets)**: `L+N ( )` · `Y+E ) (` · `M+R [ ]` · `U+A ] [` · `D+T { }` · `O+I } {` — openers plain on the left hand, closers plain on the right, so every bracket type is available with both hands.
-  * **Inner-2 (bitwise/logic/arrows)**: `M+N & *` · `O+A $ €` · `D+R ~ ^` · `Y+I < >`.
-  * **Outer-1 (sentence/comments)**: `L+T ! ?` · `M+H _ -` · `U+E ; '` · `O+S # %`.
+* **Change**: The bugwind diagonal symbol chords were regrouped from ad-hoc assignments into geometry families in `config/symbol_work.dtsi`:
+  * **Inner-1 (brackets)**: `L+N ( )` · `Y+E ) (` · `M+R [ ]` · `O+I ] [` · `D+T { }` · `U+A ) (`. This represents the current bracket arrangement after the later mirror update below.
+  * **Inner-2 (bitwise/logic/arrows)**: `M+N & *` · `O+A $ €` · `D+R ~ ^` · `Y+I = +` · `D+N < >` · `Y+A > <`.
+  * **Outer-1 (sentence/comments)**: `L+T ! ?` · `M+H - _` · `U+E ; :` · `O+S ' "`.
   * **Outer-2**: `L+H : "` · `U+S / \`.
-  * The dedicated `##`/`###` states were dropped (repeat `#` instead) in exchange for the bilateral `U+A ] [` chord; every Ctrl/ctrl+Shift operator output is unchanged, only re-homed.
+  * The dedicated `##`/`###` states were dropped (repeat `#` instead) in exchange for bilateral mirrored bracket chords; every Ctrl/ctrl+Shift operator output is unchanged, only re-homed.
 * **German letter chords**: `ß` moved off `N+R` to **`S + Space`** (`10 16`), and the umlauts became **letter + Space** chords — `A+Space ä`, `O+Space ö`, `U+Space ü` (all `a1`/`a2`; uppercase via the shifted state on the German host layout). The shared `combo_sz` in `twonr9_combos.dtsi` was removed; srht got its own `S+R` (6+7) `ß` combo in `twonr9_combos_srht.dtsi` (its 6+7 position is S+R). The freed bugwind `N+R` (6+7) is now `´` with shift → `DE_GRAVE` (backtick on a nodeadkeys host).
-* **Draw system**: `DIAGONAL_CHORDS` in `draw/draw_twonr9.py` mirrors the new 16-chord table, now with a `family` field + `FAMILY_ORDER` (the single source for both references). Both the **mod-morph overview** (`twonr9_mod_morph_overview.svg`, replacing the old physical-position grid) and the **symbol-layer reference card** (`twonr9_symbol_layer.svg`) now group the chords into the four family tables (Inner-1 Brackets / Inner-2 Bitwise / Outer-1 Sentence / Outer-2), each chord one row with a `SYMBOL-PAIR` header over Plain/Shift and a `PROGRAMMING-OPERATOR PAIR` header over Ctrl/Ctrl+Shift; rows are ordered by top-row key, then home-row key, both left-to-right. The symbol-layer card renders the families in two columns (inner left, outer right) with a dashed left-hand (L/M/D) vs right-hand (Y/O/U) divider per family, so it stays compact below the board. `extra_combos` and the new `diag_macro_{equal,pipe,plus,at}` labels keep the layer drawings in step. The ß-chord cheatsheet text is now variant-driven (`S + Space` / `S + R` + position). The companion `twonr9_mod_morph_overview.yaml` mirrors the same structure as `families:`.
-* **Practice**: `practice/twonr9_chords_monkeytype.md` is a **7-stage progressive curriculum** (quality over quantity) over the full token set (16 chords × 4 states = 64 outputs + 5 German letters + 12 bigrams = 81 tokens; `( ) [ ] { }` are the only duplicates, once per hand): Plain → Plain+Ctrl+erste Wörter → +a1-bigrams+Layer-1-Wörter → all symbols (Shift states) → +a2-bigrams+alle Wörter → Wörter → Vollpass (all 174 tokens once). From stage 2 on the German word pool trains the alpha grid in parallel with the chords: first 20 untagged plain words + the umlaut words (no bigram pairs), then the a1-bigram words, then the a2-bigram words (tiers are derived from the word tags and asserted to partition the pool); `sch`/`gs`/`oe`/`iu` words deliberately force the a2 layer switch mid-word. Every block is self-contained, ~3–4k chars, and round-robined so each random Monkeytype slice is uniform (each token exactly once per round). Generated by `practice/gen_monkeytype.py` (re-run with `python3 practice/gen_monkeytype.py`), which asserts per-block pool purity and exact per-token counts.
+* **Draw system**: `DIAGONAL_CHORDS` in `draw/draw_twonr9.py` mirrors the configured chord table and supplies both the mod-morph overview and symbol-layer reference card. The diagrams group chords by family and show plain, Shift, Ctrl, and Ctrl+Shift outputs. Variant-specific ß-chord labels come from the draw script's variant table.
+* **Practice**: `practice/twonr9_chords_monkeytype.md` is the generated 7-stage curriculum for the diagonal chord outputs, German letter chords, bigrams, and words. `practice/gen_monkeytype.py` owns the practice list; regenerate it after changing chord outputs.
 * **Combo window → 35ms**: both keymaps now `#define COMBO_TERM 35` before the `zmk-helpers/helper.h` include, so every `ZMK_COMBO` without an explicit timeout uses 35ms instead of the helper default of 30. `combo_stdio` keeps its deliberate 50ms (the slow "Studio Unlock" idle). Verified in the generated devicetree: 48 combos at `timeout-ms = <35>`, 1 at `<50>`.
 * *Verified*: `keymap … parse` lists all 21 new chord positions and nothing stale; `just draw-twonr9 all` regenerates both bugwind overviews (checked-in `*_overview.yaml`/cheatsheet artifacts untouched by design); `just build twonr9` and `just build-srht` both succeed (FLASH 23.42% / 31.14%).
 
-### 15. Physical Bracket Mirroring & Bugwind a2 Z (2026-11-01, `config/` + `draw/` + `practice/`)
+### 13. Alpha symbol chord updates and variant documentation (2026-11-02)
+* **Change**: `Y+I` now emits `=` / `+` (Ctrl `<<`, Ctrl+Shift `>>`); the `<` / `>` comparison chords moved to `D+N` and `Y+A`. Other current symbol assignments are summarized in the [cheatsheet](../docs/CHEATSHEET.md#7-symbol-chords-and-legacy-sym-layer).
+* **Practice reference**: `practice/gen_monkeytype.py` is the source for the generated chord practice page; regenerate it after changing the chord table.
+
+### 14. Physical Bracket Mirroring & Bugwind a2 Z (2026-11-01, `config/` + `draw/` + `practice/`)
 * **Change**: Inner-1 plain/Shift bracket outputs now follow the physical mirror pairs: `L+N ( )` ↔ `U+A ) (`, `M+R [ ]` ↔ `O+I ] [`, and `D+T { }` ↔ `Y+E } {`. Each chord retains its distinct Ctrl/Ctrl+Shift operator pair, preserving all six pairs. Updated the diagram data and practice curriculum to match.
 * **Bugwind a2**: Position 13 changed from `U` to `Z`; the srht alpha grid is unchanged.
 
-### 13. Repo Trimmed to the TwoNr9 (2026-10-30, repo-wide)
+### 15. Repo Trimmed to the TwoNr9 (2026-10-30, repo-wide)
 * **Change**: Removed everything that belonged to the upstream 34-key layout and is not needed by any TwoNr9 build target:
   * `config/base.keymap` and its private includes `config/combos.dtsi`, `config/leader.dtsi`, `config/mouse.dtsi` (the TwoNr9's combos/symbols live in `twonr9_combos*.dtsi` / `symbol_work.dtsi`).
   * The root `boards/` directory — a byte-identical copy of `config/boards/shields/twonr9/`; `config/boards/` is the live shield root (the only place `twonr9_srht/` exists, and the one the build log resolves).
@@ -162,7 +145,7 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * **Docs**: `AGENTS.md` dropped the multi-board/`base.keymap` sections; `README.md` and `docs/build-env.md` replaced their 34-key examples with the TwoNr9's actual HRM setup and targets.
 * *Verified*: `just list`, `just build all` (4 targets) and `just build-srht` all succeed after the trim.
 
-### 14. Dropped the PiP Cards & Stray Prettier Config (2026-10-30, `draw/` + repo root)
+### 16. Dropped the PiP Cards & Stray Prettier Config (2026-10-30, `draw/` + repo root)
 * **Change**: Removed the picture-in-picture quick-ref cards — `draw/twonr9_pip.{svg,png}` and `draw/twonr9_srht_pip.{svg,png}` — which were referenced by nothing, and the now-dead `build_pip_svg()` generator in `draw/draw_twonr9.py`. Also removed the unreferenced `.prettierrc` (a fork leftover; no tool, recipe or workflow in this repo runs Prettier).
 * *Verified*: `draw/draw_twonr9.py` still parses and `just draw-twonr9 all` still runs clean.
 
@@ -220,10 +203,9 @@ Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
 * **Shift + Tap**: Outputs `. ` (period + space) and arms Sticky Shift for the next sentence.
 * **Hold**: Activates momentary **`nav`** layer.
 
-### D. Complete Mod-Morph Symbol System (14 Pairs on `sym`)
-* `(` / `<` · `)` / `>` · `[` / `{` · `]` / `}`
-* `;` / `'` · `:` / `"` · `/` / `\` · `_` / `-`
-* `!` / `?` · `#` / `~` · `$` / `€` · `` ` `` / `^` · `&` / `@` · `|` / `=`
+### D. Symbol entry
+* Programming symbols are currently available on diagonal alpha-layer combos; see the [user cheatsheet](../docs/CHEATSHEET.md#7-symbol-chords-and-legacy-sym-layer) and `config/symbol_work.dtsi`.
+* The dedicated `sym` layer remains in the keymap during the ongoing migration; its mod-morph pairs are retained as a legacy/alternate entry path.
 
 ### E. Adaptive Key Swaps & Symbol Auto-Repeat
 * **Adaptive Key Swaps (SFB Elimination)** — *`srht` variant only*. The default `bugwind` keymap has no adaptive keys: every alpha is bound directly, so what you see on the grid is what you type.

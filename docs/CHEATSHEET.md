@@ -2,7 +2,7 @@
 
 > **Visual Infographic:** View [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for the all-in-one visual card reference (bugwind). For the srht backup: [`draw/twonr9_srht_cheatsheet.svg`](../draw/twonr9_srht_cheatsheet.svg).
 
-> **Which variant am I looking at?** This cheatsheet documents **bugwind**, the default keymap (`config/twonr9.keymap`) — every letter bound directly. The optional **srht** backup (`config/twonr9_srht.keymap`) differs in the alpha grids, the bigram chords and the ß chord, and adds nine adaptive keys; see [§9](#9-adaptive-key-swaps--symbol-repeat-srht-only). Everything else — sub-layers, thumb engine, combos, symbols — is identical.
+> **Which variant am I looking at?** This cheatsheet documents **bugwind**, the default keymap (`config/twonr9.keymap`) — every letter bound directly. The optional **srht** backup (`config/twonr9_srht.keymap`) differs in the alpha grids, bigram chords and ß chord, and adds nine adaptive keys; see [§9](#9-adaptive-key-swaps--symbol-repeat-srht-only). Other layers and shared combos are common.
 
 ---
 
@@ -28,7 +28,7 @@ Bottom-Left(Orange│  bl: num       br: fn    │Bottom-Right (Green)
 
 | Corner | Color | Layer | Core Functionality |
 | :--- | :--- | :--- | :--- |
-| **Top-Left (`tl`)** | **Cyan (`#458588`)** | **`sym`** | 14 Dual Mod-Morph Symbol Pairs (`! ?`, `# ~`, `$ €`, `( )`, `[ ]`, `; '`, `` ` ^ ``, `_ -`, `& @`, `= \|`, `{ }`, `< >`, `: "`, `/ \`) |
+| **Top-Left (`tl`)** | **Cyan (`#458588`)** | **`sym`** | Legacy mod-morph symbol pairs; the current symbol chords are listed in §7 |
 | **Top-Right (`tr`)** | **Yellow (`#d79921`)** | **`nav`** | One-shot mods `⌥ ⌘ ⇧ ⌃`, Niri ops `⌘Q ⌘⇥ ⌘R`, clustered arrows `← ↓ ↑ →`, workspaces `⌘⇟ ⌘⇞` |
 | **Bottom-Left (`bl`)** | **Orange (`#d65d0e`)** | **`num`** | 3x3 Calculator Numpad (`4 5 6` top, `1 2 3 0` home, `.` / `,` decimal morph, `7 8 9` chords) |
 | **Bottom-Right (`br`)** | **Green (`#689d6a`)** | **`fn`** | Function Keys `F1`–`F12` & Volume Controls `V-`, `V+` |
@@ -151,26 +151,18 @@ Access via **Right Inner Thumb (16)**, or by holding **`H` (9)** / **`S` (10)** 
 
 ---
 
-## 7. Complete 14-Pair Mod-Morph Symbol System (`sym` Layer)
+## 7. Symbol chords and legacy `sym` layer
 
-Access `sym` by holding **Top-Left** on the top row (**`D`** on 2 or **`Y`** on 3). Each key owns one morph pair — *Tap* for the primary symbol, *Shift+Tap* for its partner:
+Most programming symbols are now on diagonal alpha-layer combos in `config/symbol_work.dtsi`. Each chord uses plain/Shift for symbols and Ctrl/Ctrl+Shift for its operator pair. These combos work on `a1` and `a2`.
 
-| Key Position | Primary (Tap) | Shift + Tap (Morph) | Category & Coding Relevance |
-| :--- | :---: | :---: | :--- |
-| **Key 0** (Left Col 1 Top) | **`!`** | **`?`** | Logical NOT `!`, ternary `? :`, nullable types `T?` |
-| **Key 1** (Left Col 2 Top) | **`#`** | **`~`** | Preprocessor `#define`, home directory `~/` |
-| **Key 2** (Left Col 3 Top) | **`$`** | **`€`** | Shell variables `$VAR`, Euro currency `€` |
-| **Key 3** (Right Col 1 Top) | **`(`** | **`)`** | Function calls `foo()`, grouping |
-| **Key 4** (Right Col 2 Top) | **`[`** | **`]`** | Array indices `arr[0]`, JSON |
-| **Key 5** (Right Col 3 Top) | **`;`** | **`'`** | Statement terminators `;`, character literals `'c'` (matches `,` on `a2`) |
-| **Key 6** (Left Pinky) | **`` ` ``** | **`^`** | Code fences ``` `...` ```, regex line-start `^`, XOR |
-| **Key 7** (Left Col 1 Home) | **`_`** | **`-`** | `snake_case` identifiers, subtraction `-`, CLI flags |
-| **Key 8** (Left Col 2 Home) | **`&`** | **`@`** | References `&var`, logical AND `&&`, Python `@decorators` |
-| **Key 9** (Left Col 3 Home) | **`=`** | **`\|`** | Assignment `=`, shell pipes `a \| b`, logical OR `\|\|` |
-| **Key 10** (Right Col 1 Home) | **`{`** | **`}`** | Code blocks `{ }`, Rust/C blocks |
-| **Key 11** (Right Col 2 Home) | **`<`** | **`>`** | Generics `<T>`, HTML tags, redirects |
-| **Key 12** (Right Col 3 Home) | **`:`** | **`"`** | Dict keys, Python defs, string literals `"..."` (matches `.` on `a2`) |
-| **Key 13** (Right Pinky) | **`/`** | **`\`** | File paths `a/b`, comments `//`, escape codes `\n`, regex |
+| Family | Chords (Plain / Shift; Ctrl / Ctrl+Shift) |
+| :--- | :--- |
+| Brackets | `L+N ( / )`; `Y+E ) / (`; `M+R [ / ]`; `O+I ] / [`; `D+T { / }`; `U+A } / {` |
+| Bitwise, logic, arrows | `M+N & / *; && / ||`; `O+A $ / €; ?? / ?.`; `D+R ~ / ^; -> / =>`; `Y+I = / +; << / >>`; `D+N < / >; <= / <=`; `Y+A > / <; >= / >=` |
+| Sentence, comments | `L+T ! / ?; // / ...`; `M+H - / _; ++ / --`; `U+E ; / :; /* / */`; `O+S ' / "; = / |` |
+| Other | `L+H : / "; :: / :=`; `U+S / / \\; + / @` |
+
+The dedicated `sym` layer remains available during the transition and still has its original mod-morph pairs. Access it by holding **Top-Left** on the top row (`D` on position 2 or `Y` on position 3); the layer grid is visible in the diagrams. The alpha chords above are the current reference for the migrated symbol assignments.
 
 ---
 

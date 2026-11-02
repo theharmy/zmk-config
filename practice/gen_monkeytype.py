@@ -29,8 +29,8 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-# Single update point: mirrors the DIAG_SYMBOL table in config/symbol_work.dtsi
-# and the DIAGONAL_CHORDS table in draw/draw_twonr9.py.
+# Practice curriculum table. Keep it aligned with `config/symbol_work.dtsi` and
+# `draw/draw_twonr9.py`; drawing metadata consistency is checked separately.
 CHORDS = [
     ("L + N", ["(", ")", "==", "!="]),
     ("Y + E", ["}", "{", "<=", ">="]),
@@ -41,11 +41,13 @@ CHORDS = [
     ("M + N", ["&", "*", "&&", "||"]),
     ("O + A", ["$", "\u20ac", "??", "?."]),
     ("D + R", ["~", "^", "->", "=>"]),
-    ("Y + I", ["<", ">", "<<", ">>"]),
+    ("Y + I", ["=", "+", "<<", ">>"]),
+    ("D + N", ["<", ">", "<=", "<="]),
+    ("Y + A", [">", "<", ">=", ">="]),
     ("L + T", ["!", "?", "//", "..."]),
-    ("M + H", ["_", "-", "++", "--"]),
-    ("U + E", [";", "'", "/*", "*/"]),
-    ("O + S", ["#", "%", "=", "|"]),
+    ("M + H", ["-", "_", "++", "--"]),
+    ("U + E", [";", ":", "/*", "*/"]),
+    ("O + S", ["'", '\"', "=", "|"]),
     ("L + H", [":", '"', "::", ":="]),
     ("U + S", ["/", "\\", "+", "@"]),
 ]
@@ -68,13 +70,18 @@ for _, tok in GERMAN:
     TOKENS.append(tok)
 TOKENS.extend(BIGRAMS)
 N_TOKENS = len(TOKENS)
-assert N_TOKENS == 81, f"expected 81 chord states, got {N_TOKENS}"
-# Bracket characters are produced by both hands (e.g. "(" is L+N plain and
-# Y+E shift), so ( ) [ ] { } each legitimately appear twice. Everything else
-# must be unique.
+assert N_TOKENS == 89, f"expected 89 chord states, got {N_TOKENS}"
+# Some outputs intentionally occur on multiple chords (mirrored brackets,
+# comparison operators and characters assigned to both symbol and punctuation
+# chords). Assert the expected duplicate surface to catch accidental changes.
 _dupes = {t: c for t, c in Counter(TOKENS).items() if c > 1}
-assert set(_dupes) == set("()[]{}"), f"unexpected duplicate tokens: {_dupes}"
-assert all(c == 2 for c in _dupes.values()), f"bracket dupes must be exactly x2: {_dupes}"
+_allowed_duplicates = set("()[]{}") | {"<", ">", "<=", ">=", "=", "+", ":", '"'}
+assert set(_dupes) <= _allowed_duplicates, f"unexpected duplicate tokens: {_dupes}"
+assert all(c == 2 for t, c in _dupes.items() if t not in {"<=", ">="}), \
+    f"unexpected duplicate counts: {_dupes}"
+assert _dupes.get("<=") == 3 and _dupes.get(">=") == 3, \
+    f"comparison operators should each occur on three states: {_dupes}"
+assert set(_dupes) == _allowed_duplicates, f"duplicate surface changed: {_dupes}"
 
 # --- Words containing the bigram letter pairs (mostly German, some English) ---
 # Each word is tagged with the bigram(s) / German letters it drills. Every tag
