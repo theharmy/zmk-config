@@ -24,11 +24,11 @@ layers:
     h: "\u21E7"
   - t: S
     h: "\u21E7"
-  - t: A
+  - t: E
     h: "\u2318"
   - t: I
     h: "\u2325"
-  - t: E
+  - t: A
     h: "\u2303"
   - h: num
     t: Num
@@ -47,7 +47,7 @@ layers:
     h: sym
   - t: G
     h: sym
-  - t: Q
+  - t: J
     h: nav
   - t: ','
     h: fn
@@ -61,11 +61,11 @@ layers:
     h: "\u21E7"
   - t: C
     h: "\u21E7"
-  - t: Z
+  - t: Q
     h: "\u2318"
   - t: .
     h: "\u2325"
-  - t: J
+  - t: Z
     h: "\u2303"
   - h: num
     t: Num
@@ -203,7 +203,7 @@ combos:
   - a2
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 1
   - 2
@@ -213,7 +213,7 @@ combos:
   - a2
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 3
   - 4
@@ -225,7 +225,7 @@ combos:
   - a2
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 4
   - 5
@@ -235,7 +235,7 @@ combos:
   - a2
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 3
   - 4
@@ -246,17 +246,7 @@ combos:
   - a2
   type: util
   align: top
-  offset: 0.12
-- p:
-  - 6
-  - 7
-  k: "\xDF"
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.0
+  offset: 0.18
 - p:
   - 7
   - 9
@@ -266,7 +256,7 @@ combos:
   - a2
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 7
   - 8
@@ -276,7 +266,7 @@ combos:
   - a2
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 11
   - 12
@@ -286,7 +276,7 @@ combos:
   - a2
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 10
   - 12
@@ -296,7 +286,7 @@ combos:
   - a2
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 14
   - 15
@@ -306,8 +296,9 @@ combos:
   - a2
   type: system
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
+  - 6
   - 7
   - 8
   - 9
@@ -316,7 +307,7 @@ combos:
   - sym
   type: sym
   align: bottom
-  offset: 0.07
+  offset: 0.18
 - p:
   - 8
   - 9
@@ -329,7 +320,7 @@ combos:
   - a2
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 10
   - 11
@@ -342,7 +333,7 @@ combos:
   - a2
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 3
   - 10
@@ -351,7 +342,7 @@ combos:
   - num
   type: num
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 4
   - 11
@@ -360,7 +351,7 @@ combos:
   - num
   type: num
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 5
   - 12
@@ -369,7 +360,7 @@ combos:
   - num
   type: num
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 0
   - 7
@@ -478,3 +469,255 @@ combos:
   type: bigram
   align: mid
   offset: 0.0
+- p:
+  - 0
+  - 6
+  k:
+    t: (
+    s: '&diag_macro_equal_equal'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 3
+  - 11
+  k:
+    t: '}'
+    s: '&diag_macro_le'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 1
+  - 7
+  k:
+    t: '['
+    s: '&diag_macro_add_assign'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 13
+  k:
+    t: )
+    s: '&diag_macro_and_assign'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 2
+  - 8
+  k:
+    t: '{'
+    s: '&diag_macro_lshift_assign'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 12
+  k:
+    t: ']'
+    s: '&diag_macro_caret_assign'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 1
+  - 6
+  k:
+    t: '&'
+    s: '&diag_macro_and_and'
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 13
+  k:
+    t: $
+    s: '&diag_macro_nullish'
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 2
+  - 7
+  k:
+    t: '~'
+    s: '&diag_macro_arrow'
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 3
+  - 12
+  k:
+    t: <
+    s: '&diag_macro_lshift'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 0
+  - 8
+  k:
+    t: '!'
+    s: '&diag_macro_slashslash'
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 1
+  - 9
+  k:
+    t: _
+    s: '&diag_macro_increment'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 11
+  k:
+    t: ;
+    s: '&diag_macro_comment_open'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 10
+  k:
+    t: '#'
+    s: '&diag_macro_equal'
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 0
+  - 9
+  k:
+    t: ':'
+    s: '&diag_macro_scope'
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 10
+  k:
+    t: /
+    s: '&diag_macro_plus'
+  l:
+  - a1
+  - a2
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 6
+  - 7
+  k:
+    t: "\xB4"
+    s: '`'
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 10
+  - 16
+  k:
+    t: "\xDF"
+    s: "\xDF"
+  l:
+  - a1
+  - a2
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 13
+  - 16
+  k:
+    t: "\xE4"
+    s: "\xE4"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 16
+  k:
+    t: "\xF6"
+    s: "\xF6"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 16
+  k:
+    t: "\xFC"
+    s: "\xFC"
+  l:
+  - a1
+  - a2
+  type: util
+  align: mid
+  offset: 0.16

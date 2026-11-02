@@ -47,6 +47,8 @@ The hardware is defined once; the keymap is selected by shield name, so `just bu
 | ß chord | `S + Space` (+ `ä ö ü` vowels + Space) | `S + R` (6+7) |
 | Built by | `build.yaml` (CI) | `build-srht.yaml`, on demand |
 
+Bugwind's diagonal bracket chords follow the physical mirror pairs: `L + N` ↔ `U + A` for parentheses, `M + R` ↔ `O + I` for square brackets, and `D + T` ↔ `Y + E` for braces. The mirrored chord reverses opener/closer on plain and Shift; each chord retains its own Ctrl operator pair.
+
 ```bash
 just build all          # bugwind + settings_reset (what CI builds)
 just build-srht         # the optional srht backup

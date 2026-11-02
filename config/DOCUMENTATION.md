@@ -149,6 +149,10 @@ Your TwoNr9 keyboard configuration is fully integrated into a nix-managed ZMK de
 * **Combo window → 35ms**: both keymaps now `#define COMBO_TERM 35` before the `zmk-helpers/helper.h` include, so every `ZMK_COMBO` without an explicit timeout uses 35ms instead of the helper default of 30. `combo_stdio` keeps its deliberate 50ms (the slow "Studio Unlock" idle). Verified in the generated devicetree: 48 combos at `timeout-ms = <35>`, 1 at `<50>`.
 * *Verified*: `keymap … parse` lists all 21 new chord positions and nothing stale; `just draw-twonr9 all` regenerates both bugwind overviews (checked-in `*_overview.yaml`/cheatsheet artifacts untouched by design); `just build twonr9` and `just build-srht` both succeed (FLASH 23.42% / 31.14%).
 
+### 15. Physical Bracket Mirroring & Bugwind a2 Z (2026-11-01, `config/` + `draw/` + `practice/`)
+* **Change**: Inner-1 plain/Shift bracket outputs now follow the physical mirror pairs: `L+N ( )` ↔ `U+A ) (`, `M+R [ ]` ↔ `O+I ] [`, and `D+T { }` ↔ `Y+E } {`. Each chord retains its distinct Ctrl/Ctrl+Shift operator pair, preserving all six pairs. Updated the diagram data and practice curriculum to match.
+* **Bugwind a2**: Position 13 changed from `U` to `Z`; the srht alpha grid is unchanged.
+
 ### 13. Repo Trimmed to the TwoNr9 (2026-10-30, repo-wide)
 * **Change**: Removed everything that belonged to the upstream 34-key layout and is not needed by any TwoNr9 build target:
   * `config/base.keymap` and its private includes `config/combos.dtsi`, `config/leader.dtsi`, `config/mouse.dtsi` (the TwoNr9's combos/symbols live in `twonr9_combos*.dtsi` / `symbol_work.dtsi`).
@@ -263,7 +267,7 @@ ZMK_LAYER(a1,
 //                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
                             &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    &lt L_NAV DE_O    &lt L_FN DE_U
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
-          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_A     &hmr RALT DE_I    &hmr RCTRL DE_E
+          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_E     &hmr RALT DE_I    &hmr RCTRL DE_A
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
                                               SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
@@ -276,9 +280,9 @@ ZMK_LAYER(a1,
 | 1 | M | `&lt L_NAV` (nav) | 4 | O | `&lt L_NAV` (nav) |
 | 2 | D | `&lt L_SYM` (sym) | 5 | U | `&lt L_FN` (fn) |
 | 6 | N | `&hml LCTRL` | 10 | S | `&hmr RSHFT` |
-| 7 | R | `&hml LALT` | 11 | A | `&hmr RGUI` |
+| 7 | R | `&hml LALT` | 11 | E | `&hmr RGUI` |
 | 8 | T | `&hml LGUI` | 12 | I | `&hmr RALT` |
-| 9 | H | `&hml LSHFT` | 13 | E | `&hmr RCTRL` |
+| 9 | H | `&hml LSHFT` | 13 | A | `&hmr RCTRL` |
 
 #### Layer 0: `a1` (Base QWERTZ Alphas) — srht
 
@@ -313,9 +317,9 @@ Same row-split: top row = layer-taps, home row = modifiers. Note the thumb at po
 ```c
 ZMK_LAYER(a2,
 //                            ╭────────────────────┬────────────────────┬────────────────────╮      ╭────────────────────┬────────────────────┬────────────────────╮
-                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_Q       &lt L_FN DE_COMMA
+                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_J       &lt L_FN DE_COMMA
 //       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
-          &hml LCTRL DE_P       &hml LALT DE_W         &hml LGUI DE_K       &hml LSHFT DE_F            &hmr RSHFT DE_C      &hmr RGUI DE_Z        &hmr RALT DE_DOT      &hmr RCTRL DE_J
+          &hml LCTRL DE_P       &hml LALT DE_W         &hml LGUI DE_K       &hml LSHFT DE_F            &hmr RSHFT DE_C      &hmr RGUI DE_Q        &hmr RALT DE_DOT      &hmr RCTRL DE_Z
 //       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
                                                     SMART_NUM            &to L_A1                    SPC_NAV              SYM_DUAL
 //                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯
@@ -325,12 +329,12 @@ ZMK_LAYER(a2,
 | Pos | Key | Hold | Pos | Key | Hold |
 |-----|-----|------|-----|-----|------|
 | 0 | X | `&lt L_FN` (fn) | 3 | G | `&lt L_SYM` |
-| 1 | V | `&lt L_NAV` (nav) | 4 | Q | `&lt L_NAV` (nav) |
+| 1 | V | `&lt L_NAV` (nav) | 4 | J | `&lt L_NAV` (nav) |
 | 2 | B | `&lt L_SYM` (sym) | 5 | `,` | `&lt L_FN` (fn) |
 | 6 | P | `&hml LCTRL` | 10 | C | `&hmr RSHFT` |
-| 7 | W | `&hml LALT` | 11 | Z | `&hmr RGUI` |
+| 7 | W | `&hml LALT` | 11 | Q | `&hmr RGUI` |
 | 8 | K | `&hml LGUI` | 12 | `.` | `&hmr RALT` |
-| 9 | F | `&hml LSHFT` | 13 | J | `&hmr RCTRL` |
+| 9 | F | `&hml LSHFT` | 13 | Z | `&hmr RCTRL` |
 
 #### Layer 1: `a2` (Secondary Alphas) — srht
 

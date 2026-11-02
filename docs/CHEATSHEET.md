@@ -43,7 +43,7 @@ The **top row is layer-taps** and the **home row is modifiers**, mirrored across
                   LEFT HAND                                     RIGHT HAND
         ╭──────┬──────┬──────┬──────╮                 ╭──────┬──────┬──────┬──────╮
 Key     │  6   │  7   │  8   │  9   │                 │  10  │  11  │  12  │  13  │
-Letter  │  N   │  R   │  T   │  H   │                 │  S   │  A   │  I   │  E   │
+Letter  │  N   │  R   │  T   │  H   │                 │  S   │  E   │  I   │  A   │
         ├──────┼──────┼──────┼──────┤                 ├──────┼──────┼──────┼──────┤
 Hold    │  ⌃   │  ⌥   │  ⌘   │  ⇧   │                 │  ⇧   │  ⌘   │  ⌥   │  ⌃   │
         ╰──────┴──────┴──────┴──────╯                 ╰──────┴──────┴──────┴──────╯
@@ -63,11 +63,11 @@ Hold    │  fn  │ nav  │ sym  │                       │ sym  │ nav  �
 
 ### Secondary Alphas (`a2`)
 
-Same row-split. Tap the **Left Outer Thumb (14)** for one letter, hold it to stay in `a2` for whole words (*BMW*, *Quiz*, *Pflanze*):
+Same row-split. Tap the **Left Outer Thumb (14)** for one letter, hold it to stay in `a2` for whole words (*BMW*, *Quiz*, *Pflanze*). On bugwind, the right pinky key (position 13) is `Z`:
 
 | Pos | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Key** | X | V | B | G | Q | `,` | P | W | K | F | C | Z | `.` | J |
+| **Key** | X | V | B | G | J | `,` | P | W | K | F | C | Q | `.` | Z |
 | **Hold** | fn | nav | sym | sym | nav | fn | ⌃ | ⌥ | ⌘ | ⇧ | ⇧ | ⌘ | ⌥ | ⌃ |
 
 ---

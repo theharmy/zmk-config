@@ -95,11 +95,11 @@ VARIANTS = {
         # normal/Shift labels; the dedicated overview shows all modifier states.
         "extra_combos": [
             {"p": [0, 6], "k": "( / )", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [3, 11], "k": ") / (", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [3, 11], "k": "} / {", "l": ["a1", "a2"], "type": "symbol"},
             {"p": [1, 7], "k": "[ / ]", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [5, 13], "k": "] / [", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [5, 13], "k": ") / (", "l": ["a1", "a2"], "type": "symbol"},
             {"p": [2, 8], "k": "{ / }", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [4, 12], "k": "} / {", "l": ["a1", "a2"], "type": "symbol"},
+            {"p": [4, 12], "k": "] / [", "l": ["a1", "a2"], "type": "symbol"},
             {"p": [1, 6], "k": "& / *", "l": ["a1", "a2"], "type": "symbol"},
             {"p": [4, 13], "k": "$ / €", "l": ["a1", "a2"], "type": "symbol"},
             {"p": [2, 7], "k": "~ / ^", "l": ["a1", "a2"], "type": "symbol"},
@@ -171,13 +171,13 @@ DIAGONAL_CHORDS = [
     # like the layout: top-row letters left to right (L M D | Y O U), and
     # within each letter its home-row partners in home-row order
     # (N R T H | S E I A).
-    # Inner-1: brackets (openers plain on the left, closers plain on the right).
+    # Inner-1: bracket outputs mirror across the physical split; Ctrl pairs stay distinct.
     {"positions": [0, 6], "family": "inner1", "normal_shift": ("(", ")"), "ctrl": "==", "ctrl_shift": "!="},
-    {"positions": [3, 11], "family": "inner1", "normal_shift": (")", "("), "ctrl": "<=", "ctrl_shift": ">="},
+    {"positions": [3, 11], "family": "inner1", "normal_shift": ("}", "{"), "ctrl": "<=", "ctrl_shift": ">="},
     {"positions": [1, 7], "family": "inner1", "normal_shift": ("[", "]"), "ctrl": "+=", "ctrl_shift": "-="},
-    {"positions": [5, 13], "family": "inner1", "normal_shift": ("]", "["), "ctrl": "&=", "ctrl_shift": "|="},
+    {"positions": [5, 13], "family": "inner1", "normal_shift": (")", "("), "ctrl": "&=", "ctrl_shift": "|="},
     {"positions": [2, 8], "family": "inner1", "normal_shift": ("{", "}"), "ctrl": "<<=", "ctrl_shift": ">>="},
-    {"positions": [4, 12], "family": "inner1", "normal_shift": ("}", "{"), "ctrl": "^=", "ctrl_shift": "*="},
+    {"positions": [4, 12], "family": "inner1", "normal_shift": ("]", "["), "ctrl": "^=", "ctrl_shift": "*="},
     # Inner-2: bitwise / logic / arrows.
     {"positions": [1, 6], "family": "inner2", "normal_shift": ("&", "*"), "ctrl": "&&", "ctrl_shift": "||"},
     {"positions": [4, 13], "family": "inner2", "normal_shift": ("$", "€"), "ctrl": "??", "ctrl_shift": "?."},
@@ -1512,37 +1512,182 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
     post_process_svg_colors(cheatsheet_svg_path)
 
 def render_variant(name, config_dir, draw_dir):
-    """Render the additional mod-morph list without touching saved drawings."""
+    """Render every diagram for one variant.
+
+    Output files are named ``twonr9_<part>.*`` for the default (bugwind)
+    variant, so links in README/CHEATSHEET/DOCUMENTATION stay stable, and
+    ``twonr9_srht_<part>.*`` for the optional srht backup. The bugwind variant
+    additionally gets the two hand-built modifier-state cards (mod-morph and
+    symbol-layer reference), which are bugwind-only.
+    """
     global ACTIVE
-    global _DIAGONAL_COMBOS
     ACTIVE = name
     v = variant()
-    # This repository keeps the established drawings as checked-in artifacts.
-    # Generate only the additional bugwind modifier-state list here.
-    if name != "bugwind":
-        print(f"[{v['title']}] No additional drawing for this variant")
-        return []
+    stem = "twonr9" if name == "bugwind" else f"twonr9_{name}"
+    a1_bigrams, a2_bigrams = v["a1_bigrams"], v["a2_bigrams"]
 
+    # Step 1: Parse keymap
     res = subprocess.run(
         ["keymap", "-c", str(draw_dir / "twonr9_config.yaml"), "parse", "-z",
          str(config_dir / v["keymap"])],
         capture_output=True, text=True, check=True
     )
     d = yaml.safe_load(res.stdout)
-    for keys in d.get("layers", {}).values():
-        for index, key in enumerate(keys):
-            keys[index] = decode_binding(key)
 
-    parsed_positions = set()
-    for combo in d.get("combos", []):
-        combo["k"] = decode_combo_key(combo["k"])
-        parsed_positions.add(tuple(combo.get("p", [])))
-    for extra in v.get("extra_combos", []):
-        if tuple(extra["p"]) not in parsed_positions:
-            d.setdefault("combos", []).append(dict(extra))
+    # Step 2: Clean up keys and combos
+    for layer, keys in d.get("layers", {}).items():
+        for i, k in enumerate(keys):
+            keys[i] = decode_binding(k)
 
-    built = build_mod_morph_overview(draw_dir, config_dir, draw_dir / "twonr9_config.yaml", d)
-    built += build_symbol_layer_overview(draw_dir, config_dir, d)
+    for c in d.get("combos", []):
+        c["k"] = decode_combo_key(c["k"])
+        layers = c.get("l", [])
+        # In the All-Layers diagram (twonr9.svg), only show universal combos on a1 and a2
+        if len(layers) >= 5 or any("all" in str(x).lower() for x in layers) or set(layers) >= {"a1", "a2", "nav", "sym", "fn", "num"}:
+            c["l"] = ["a1", "a2"]
+
+    # Apply vertical / horizontal combo offsets
+    apply_combo_alignment(d.get("combos", []))
+
+    yaml_out = draw_dir / f"{stem}.yaml"
+    with open(yaml_out, "w") as f:
+        yaml.dump(d, f, sort_keys=False)
+
+    # Load base config for column split
+    with open(draw_dir / "twonr9_config.yaml") as f:
+        cfg = yaml.safe_load(f)
+
+    # 2-column config for All-Layers (twonr9.svg)
+    cfg_2col = dict(cfg)
+    cfg_2col["draw_config"] = dict(cfg.get("draw_config", {}))
+    cfg_2col["draw_config"]["n_columns"] = 2
+    cfg_2col_path = draw_dir / "twonr9_config_2col.yaml"
+    with open(cfg_2col_path, "w") as f:
+        yaml.dump(cfg_2col, f, sort_keys=False)
+
+    # 1-column config for General Overview (twonr9_overview.svg) - 10px outer pad, 19px tl
+    cfg_overview = dict(cfg)
+    cfg_overview["draw_config"] = dict(cfg.get("draw_config", {}))
+    cfg_overview["draw_config"]["n_columns"] = 1
+    cfg_overview["draw_config"]["outer_pad_w"] = 10
+    cfg_overview["draw_config"]["outer_pad_h"] = 10
+    cfg_overview_path = draw_dir / "twonr9_config_overview.yaml"
+    with open(cfg_overview_path, "w") as f:
+        yaml.dump(cfg_overview, f, sort_keys=False)
+
+    # 1-column config for Combined Overview (twonr9_combined_overview.svg)
+    cfg_combined = dict(cfg)
+    cfg_combined["draw_config"] = dict(cfg.get("draw_config", {}))
+    cfg_combined["draw_config"]["n_columns"] = 1
+    cfg_combined_path = draw_dir / "twonr9_config_combined.yaml"
+    with open(cfg_combined_path, "w") as f:
+        yaml.dump(cfg_combined, f, sort_keys=False)
+
+    # Step 3: Draw All-Layers SVG (2-column layout)
+    svg_out = draw_dir / f"{stem}.svg"
+    with open(svg_out, "w") as f:
+        subprocess.run(
+            ["keymap", "-c", str(cfg_2col_path), "draw", str(yaml_out), "-j", str(config_dir / "twonr9.json")],
+            stdout=f, check=True
+        )
+    post_process_svg_colors(svg_out)
+
+    # Step 4: Build Overview YAML (a1 + a2 with their respective bigrams, and Symbols & Util ghost layer)
+    overview_combos = []
+    for c in d.get("combos", []):
+        c_copy = dict(c)
+        layers = c.get("l", [])
+        k = c.get("k")
+        if "a1" in layers and k in a1_bigrams:
+            c_copy["l"] = ["a1 (Base)"]
+            overview_combos.append(c_copy)
+        elif "a2" in layers and k in a2_bigrams:
+            c_copy["l"] = ["a2 (Alphas 2)"]
+            overview_combos.append(c_copy)
+        elif k not in a1_bigrams and k not in a2_bigrams:
+            c_copy["l"] = ["Symbols & Utilities"]
+            overview_combos.append(c_copy)
+
+    overview_data = {
+        "layout": {"zmk_keyboard": "twonr9"},
+        "layers": {
+            "a1 (Base)": build_overview_layer(d.get("layers", {}), "a1"),
+            "a2 (Alphas 2)": build_overview_layer(d.get("layers", {}), "a2"),
+            "Symbols & Utilities": [""] * 18,
+        },
+        "combos": overview_combos
+    }
+    overview_yaml = draw_dir / f"{stem}_overview.yaml"
+    with open(overview_yaml, "w") as f:
+        yaml.dump(overview_data, f, sort_keys=False)
+
+    overview_svg = draw_dir / f"{stem}_overview.svg"
+    with open(overview_svg, "w") as f:
+        subprocess.run(
+            ["keymap", "-c", str(cfg_overview_path), "draw", str(overview_yaml), "-j", str(config_dir / "twonr9.json")],
+            stdout=f, check=True
+        )
+    post_process_svg_colors(overview_svg)
+    add_adaptive_overview(overview_svg)
+
+    # Step 5: Build Combined Alpha Overview YAML (a1 / a2 merged with dual bigrams & 4-corner legends)
+    bigram_labels = combined_bigram_map(v)
+    combined_combos = []
+    for pos, label in bigram_labels.items():
+        combined_combos.append({
+            "p": list(pos),
+            "k": label,
+            "l": ["Combined (a1 / a2)"],
+            "align": "mid",
+            "offset": 0.0,
+            "type": "bigram",
+            "width": 54.0
+        })
+
+    for c in d.get("combos", []):
+        k = c.get("k")
+        if k not in all_bigrams(v):
+            c_copy = dict(c)
+            c_copy["l"] = ["Symbols & Utilities"]
+            combined_combos.append(c_copy)
+
+    combined_data = {
+        "layout": {"zmk_keyboard": "twonr9"},
+        "layers": {
+            "Combined (a1 / a2)": build_combined_alpha_layer(d.get("layers", {})),
+            "Symbols & Utilities": [""] * 18,
+        },
+        "combos": combined_combos
+    }
+    combined_yaml = draw_dir / f"{stem}_combined_overview.yaml"
+    with open(combined_yaml, "w") as f:
+        yaml.dump(combined_data, f, sort_keys=False)
+
+    combined_svg = draw_dir / f"{stem}_combined_overview.svg"
+    with open(combined_svg, "w") as f:
+        subprocess.run(
+            ["keymap", "-c", str(cfg_combined_path), "draw", str(combined_yaml), "-j", str(config_dir / "twonr9.json")],
+            stdout=f, check=True
+        )
+    post_process_svg_colors(combined_svg)
+
+    # Step 6: Build Full 2-Column Wide Infographic Cheatsheet SVG (width=1533)
+    cheatsheet_svg = draw_dir / f"{stem}_cheatsheet.svg"
+    build_cheatsheet_svg(cfg_2col_path, combined_yaml, cheatsheet_svg, config_dir)
+
+    # Clean up temp configs
+    if cfg_2col_path.exists(): cfg_2col_path.unlink()
+    if cfg_overview_path.exists(): cfg_overview_path.unlink()
+    if cfg_combined_path.exists(): cfg_combined_path.unlink()
+
+    print(f"[{v['title']}] Generated {svg_out}, {overview_svg}, {combined_svg}, "
+          f"and {cheatsheet_svg}")
+    built = [svg_out, overview_svg, combined_svg, cheatsheet_svg]
+
+    # Bugwind-only: the two hand-built modifier-state cards (mod-morph table
+    # and combined symbol-layer reference). Both early-return None otherwise.
+    built += build_mod_morph_overview(draw_dir, config_dir, draw_dir / "twonr9_config.yaml", d) or []
+    built += build_symbol_layer_overview(draw_dir, config_dir, d) or []
     return built
 
 

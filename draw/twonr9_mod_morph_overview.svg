@@ -40,20 +40,20 @@
 <text x="722" y="214.0" class="out">&gt;&gt;=</text>
 <rect x="50" y="234" width="748" height="28" rx="5" class="card"/>
 <text x="146" y="248.0" class="pos">Y + E</text>
-<text x="302" y="248.0" class="out">)</text>
-<text x="442" y="248.0" class="out">(</text>
+<text x="302" y="248.0" class="out">}</text>
+<text x="442" y="248.0" class="out">{</text>
 <text x="582" y="248.0" class="out">&lt;=</text>
 <text x="722" y="248.0" class="out">&gt;=</text>
 <rect x="50" y="268" width="748" height="28" rx="5" class="card"/>
 <text x="146" y="282.0" class="pos">O + I</text>
-<text x="302" y="282.0" class="out">}</text>
-<text x="442" y="282.0" class="out">{</text>
+<text x="302" y="282.0" class="out">]</text>
+<text x="442" y="282.0" class="out">[</text>
 <text x="582" y="282.0" class="out">^=</text>
 <text x="722" y="282.0" class="out">*=</text>
 <rect x="50" y="302" width="748" height="28" rx="5" class="card"/>
 <text x="146" y="316.0" class="pos">U + A</text>
-<text x="302" y="316.0" class="out">]</text>
-<text x="442" y="316.0" class="out">[</text>
+<text x="302" y="316.0" class="out">)</text>
+<text x="442" y="316.0" class="out">(</text>
 <text x="582" y="316.0" class="out">&amp;=</text>
 <text x="722" y="316.0" class="out">|=</text>
 <text x="42" y="380" class="fam">Inner-2 (Bitwise)</text>

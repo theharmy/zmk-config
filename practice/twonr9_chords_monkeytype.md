@@ -30,11 +30,11 @@ Beim Üben auf der TwoNr9 zeigt die Legende unten, welcher Token welchen Chord +
 | Chord | Plain | Shift | Ctrl | Ctrl + Shift |
 | --- | --- | --- | --- | --- |
 | L + N | `(` | `)` | `==` | `!=` |
-| Y + E | `)` | `(` | `<=` | `>=` |
+| Y + E | `}` | `{` | `<=` | `>=` |
 | M + R | `[` | `]` | `+=` | `-=` |
-| U + A | `]` | `[` | `&=` | `|=` |
+| U + A | `)` | `(` | `&=` | `|=` |
 | D + T | `{` | `}` | `<<=` | `>>=` |
-| O + I | `}` | `{` | `^=` | `*=` |
+| O + I | `]` | `[` | `^=` | `*=` |
 | M + N | `&` | `*` | `&&` | `||` |
 | O + A | `$` | `€` | `??` | `?.` |
 | D + R | `~` | `^` | `->` | `=>` |
@@ -108,371 +108,371 @@ Beim Üben auf der TwoNr9 zeigt die Legende unten, welcher Token welchen Chord +
 ## Stufe 1 — Plain (131 Runden · 2096 Tokens · 4191 Zeichen)
 
 ```
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
-/ # ~ : & _ } ] ( !
-[ ) $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
+/ # ~ : & _ ] ) ( !
+[ } $ { ; <
 ```
 
 ## Stufe 2 — Plain + Ctrl + erste Wörter (14 Runden · 952 Tokens · 4115 Zeichen)
 
 ```
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 grüßen Hand && heiß ( Tanne <= Hände Höfe !
-Bett Nacht Haus ; < += == Hund Vögel }
-Glas Hütte ++ Müde Morgen Küsse -> ] << $
+Bett Nacht Haus ; < += == Hund Vögel ]
+Glas Hütte ++ Müde Morgen Küsse -> ) << $
 Vogel _ { Licht während Fenster Straße ^= größer :
 Wolke /* Küche Apfel :: & Mädchen # ?? //
 Wasser ~ Kind [ Buch Käse <<= / &= Hüpfen
-Wiese Wind Höhlen Maus = Baum + )
+Wiese Wind Höhlen Maus = Baum + }
 ```
 
 ## Stufe 3 — + a1-Bigrams + Layer-1-Wörter (7 Runden · 735 Tokens · 3877 Zeichen)
@@ -485,10 +485,10 @@ Kontakt Vögel Analyse build eosin MB erlöst Geometer <<= Hand
 Hund ~ Hüpfen grüßen ^= Baum < /* UI Haus
 << Morgen Fenster ( ! Nacht && Mädchen Diktat Systeme
 <= während Wolke Vogel += # : Glas Straße ??
-) Apfel } erlaubt Hände suitable Tanne EO Kombination RL
+} Apfel ] erlaubt Hände suitable Tanne EO Kombination RL
 -> eons Beobachtung Wasser { Maus Küche $ KT System
 // Erlösung Wind :: Ruine = Müde erlitten erleben heiß
-Kind Buch [ Bett ]
+Kind Buch [ Bett )
 Geometrie juice suit == beobachten Küsse Diktatur _ aktuell Hütte
 &= Kaktus + Kombi / & Käse guide Ruinen ;
 Amboss Symbol Wiese YS ++ größer Höfe Höhlen Licht umbringt
@@ -496,10 +496,10 @@ Kontakt Vögel Analyse build eosin MB erlöst Geometer <<= Hand
 Hund ~ Hüpfen grüßen ^= Baum < /* UI Haus
 << Morgen Fenster ( ! Nacht && Mädchen Diktat Systeme
 <= während Wolke Vogel += # : Glas Straße ??
-) Apfel } erlaubt Hände suitable Tanne EO Kombination RL
+} Apfel ] erlaubt Hände suitable Tanne EO Kombination RL
 -> eons Beobachtung Wasser { Maus Küche $ KT System
 // Erlösung Wind :: Ruine = Müde erlitten erleben heiß
-Kind Buch [ Bett ]
+Kind Buch [ Bett )
 Geometrie juice suit == beobachten Küsse Diktatur _ aktuell Hütte
 &= Kaktus + Kombi / & Käse guide Ruinen ;
 Amboss Symbol Wiese YS ++ größer Höfe Höhlen Licht umbringt
@@ -507,10 +507,10 @@ Kontakt Vögel Analyse build eosin MB erlöst Geometer <<= Hand
 Hund ~ Hüpfen grüßen ^= Baum < /* UI Haus
 << Morgen Fenster ( ! Nacht && Mädchen Diktat Systeme
 <= während Wolke Vogel += # : Glas Straße ??
-) Apfel } erlaubt Hände suitable Tanne EO Kombination RL
+} Apfel ] erlaubt Hände suitable Tanne EO Kombination RL
 -> eons Beobachtung Wasser { Maus Küche $ KT System
 // Erlösung Wind :: Ruine = Müde erlitten erleben heiß
-Kind Buch [ Bett ]
+Kind Buch [ Bett )
 Geometrie juice suit == beobachten Küsse Diktatur _ aktuell Hütte
 &= Kaktus + Kombi / & Käse guide Ruinen ;
 Amboss Symbol Wiese YS ++ größer Höfe Höhlen Licht umbringt
@@ -518,10 +518,10 @@ Kontakt Vögel Analyse build eosin MB erlöst Geometer <<= Hand
 Hund ~ Hüpfen grüßen ^= Baum < /* UI Haus
 << Morgen Fenster ( ! Nacht && Mädchen Diktat Systeme
 <= während Wolke Vogel += # : Glas Straße ??
-) Apfel } erlaubt Hände suitable Tanne EO Kombination RL
+} Apfel ] erlaubt Hände suitable Tanne EO Kombination RL
 -> eons Beobachtung Wasser { Maus Küche $ KT System
 // Erlösung Wind :: Ruine = Müde erlitten erleben heiß
-Kind Buch [ Bett ]
+Kind Buch [ Bett )
 Geometrie juice suit == beobachten Küsse Diktatur _ aktuell Hütte
 &= Kaktus + Kombi / & Käse guide Ruinen ;
 Amboss Symbol Wiese YS ++ größer Höfe Höhlen Licht umbringt
@@ -529,10 +529,10 @@ Kontakt Vögel Analyse build eosin MB erlöst Geometer <<= Hand
 Hund ~ Hüpfen grüßen ^= Baum < /* UI Haus
 << Morgen Fenster ( ! Nacht && Mädchen Diktat Systeme
 <= während Wolke Vogel += # : Glas Straße ??
-) Apfel } erlaubt Hände suitable Tanne EO Kombination RL
+} Apfel ] erlaubt Hände suitable Tanne EO Kombination RL
 -> eons Beobachtung Wasser { Maus Küche $ KT System
 // Erlösung Wind :: Ruine = Müde erlitten erleben heiß
-Kind Buch [ Bett ]
+Kind Buch [ Bett )
 Geometrie juice suit == beobachten Küsse Diktatur _ aktuell Hütte
 &= Kaktus + Kombi / & Käse guide Ruinen ;
 Amboss Symbol Wiese YS ++ größer Höfe Höhlen Licht umbringt
@@ -540,10 +540,10 @@ Kontakt Vögel Analyse build eosin MB erlöst Geometer <<= Hand
 Hund ~ Hüpfen grüßen ^= Baum < /* UI Haus
 << Morgen Fenster ( ! Nacht && Mädchen Diktat Systeme
 <= während Wolke Vogel += # : Glas Straße ??
-) Apfel } erlaubt Hände suitable Tanne EO Kombination RL
+} Apfel ] erlaubt Hände suitable Tanne EO Kombination RL
 -> eons Beobachtung Wasser { Maus Küche $ KT System
 // Erlösung Wind :: Ruine = Müde erlitten erleben heiß
-Kind Buch [ Bett ]
+Kind Buch [ Bett )
 Geometrie juice suit == beobachten Küsse Diktatur _ aktuell Hütte
 &= Kaktus + Kombi / & Käse guide Ruinen ;
 Amboss Symbol Wiese YS ++ größer Höfe Höhlen Licht umbringt
@@ -551,21 +551,21 @@ Kontakt Vögel Analyse build eosin MB erlöst Geometer <<= Hand
 Hund ~ Hüpfen grüßen ^= Baum < /* UI Haus
 << Morgen Fenster ( ! Nacht && Mädchen Diktat Systeme
 <= während Wolke Vogel += # : Glas Straße ??
-) Apfel } erlaubt Hände suitable Tanne EO Kombination RL
+} Apfel ] erlaubt Hände suitable Tanne EO Kombination RL
 -> eons Beobachtung Wasser { Maus Küche $ KT System
 // Erlösung Wind :: Ruine = Müde erlitten erleben heiß
-Kind Buch [ Bett ]
+Kind Buch [ Bett )
 ```
 
 ## Stufe 4 — Alle Symbole (6 Runden · 792 Tokens · 3707 Zeichen)
 
 ```
-=> Hütte <<= ] % { Kombination Hund umbringt Morgen
+=> Hütte <<= ) % [ Kombination Hund umbringt Morgen
 Kontakt Wind Kind ?. Maus Vogel >>= Vögel Küche Diktatur
-*= Käse Haus Hände } >= Symbol Diktat /* Beobachtung
+*= Käse Haus Hände ] >= Symbol Diktat /* Beobachtung
 ... Hand @ System Erlösung Baum ) Tanne } Müde
-&& ^ Buch suitable += ~ ( suit Apfel &=
-Systeme erlöst : größer $ == _ */ [ )
+&& ^ Buch suitable += ~ { suit Apfel &=
+Systeme erlöst : größer $ == _ */ ( }
 " eosin juice ! Ruinen >> ; |= Glas --
 eons + | Straße Hüpfen * - -= Geometer Wasser
 { ( Höfe build ' beobachten Mädchen = ?? ?
@@ -574,12 +574,12 @@ eons + | Straße Hüpfen * - -= Geometer Wasser
 Amboss Ruine / << > ] < \ ++ guide
 Fenster -> <= Nacht := Kombi Küsse Analyse Höhlen erlitten
 aktuell Bett
-=> Hütte <<= ] % { Kombination Hund umbringt Morgen
+=> Hütte <<= ) % [ Kombination Hund umbringt Morgen
 Kontakt Wind Kind ?. Maus Vogel >>= Vögel Küche Diktatur
-*= Käse Haus Hände } >= Symbol Diktat /* Beobachtung
+*= Käse Haus Hände ] >= Symbol Diktat /* Beobachtung
 ... Hand @ System Erlösung Baum ) Tanne } Müde
-&& ^ Buch suitable += ~ ( suit Apfel &=
-Systeme erlöst : größer $ == _ */ [ )
+&& ^ Buch suitable += ~ { suit Apfel &=
+Systeme erlöst : größer $ == _ */ ( }
 " eosin juice ! Ruinen >> ; |= Glas --
 eons + | Straße Hüpfen * - -= Geometer Wasser
 { ( Höfe build ' beobachten Mädchen = ?? ?
@@ -588,12 +588,12 @@ eons + | Straße Hüpfen * - -= Geometer Wasser
 Amboss Ruine / << > ] < \ ++ guide
 Fenster -> <= Nacht := Kombi Küsse Analyse Höhlen erlitten
 aktuell Bett
-=> Hütte <<= ] % { Kombination Hund umbringt Morgen
+=> Hütte <<= ) % [ Kombination Hund umbringt Morgen
 Kontakt Wind Kind ?. Maus Vogel >>= Vögel Küche Diktatur
-*= Käse Haus Hände } >= Symbol Diktat /* Beobachtung
+*= Käse Haus Hände ] >= Symbol Diktat /* Beobachtung
 ... Hand @ System Erlösung Baum ) Tanne } Müde
-&& ^ Buch suitable += ~ ( suit Apfel &=
-Systeme erlöst : größer $ == _ */ [ )
+&& ^ Buch suitable += ~ { suit Apfel &=
+Systeme erlöst : größer $ == _ */ ( }
 " eosin juice ! Ruinen >> ; |= Glas --
 eons + | Straße Hüpfen * - -= Geometer Wasser
 { ( Höfe build ' beobachten Mädchen = ?? ?
@@ -602,12 +602,12 @@ eons + | Straße Hüpfen * - -= Geometer Wasser
 Amboss Ruine / << > ] < \ ++ guide
 Fenster -> <= Nacht := Kombi Küsse Analyse Höhlen erlitten
 aktuell Bett
-=> Hütte <<= ] % { Kombination Hund umbringt Morgen
+=> Hütte <<= ) % [ Kombination Hund umbringt Morgen
 Kontakt Wind Kind ?. Maus Vogel >>= Vögel Küche Diktatur
-*= Käse Haus Hände } >= Symbol Diktat /* Beobachtung
+*= Käse Haus Hände ] >= Symbol Diktat /* Beobachtung
 ... Hand @ System Erlösung Baum ) Tanne } Müde
-&& ^ Buch suitable += ~ ( suit Apfel &=
-Systeme erlöst : größer $ == _ */ [ )
+&& ^ Buch suitable += ~ { suit Apfel &=
+Systeme erlöst : größer $ == _ */ ( }
 " eosin juice ! Ruinen >> ; |= Glas --
 eons + | Straße Hüpfen * - -= Geometer Wasser
 { ( Höfe build ' beobachten Mädchen = ?? ?
@@ -616,12 +616,12 @@ eons + | Straße Hüpfen * - -= Geometer Wasser
 Amboss Ruine / << > ] < \ ++ guide
 Fenster -> <= Nacht := Kombi Küsse Analyse Höhlen erlitten
 aktuell Bett
-=> Hütte <<= ] % { Kombination Hund umbringt Morgen
+=> Hütte <<= ) % [ Kombination Hund umbringt Morgen
 Kontakt Wind Kind ?. Maus Vogel >>= Vögel Küche Diktatur
-*= Käse Haus Hände } >= Symbol Diktat /* Beobachtung
+*= Käse Haus Hände ] >= Symbol Diktat /* Beobachtung
 ... Hand @ System Erlösung Baum ) Tanne } Müde
-&& ^ Buch suitable += ~ ( suit Apfel &=
-Systeme erlöst : größer $ == _ */ [ )
+&& ^ Buch suitable += ~ { suit Apfel &=
+Systeme erlöst : größer $ == _ */ ( }
 " eosin juice ! Ruinen >> ; |= Glas --
 eons + | Straße Hüpfen * - -= Geometer Wasser
 { ( Höfe build ' beobachten Mädchen = ?? ?
@@ -630,12 +630,12 @@ eons + | Straße Hüpfen * - -= Geometer Wasser
 Amboss Ruine / << > ] < \ ++ guide
 Fenster -> <= Nacht := Kombi Küsse Analyse Höhlen erlitten
 aktuell Bett
-=> Hütte <<= ] % { Kombination Hund umbringt Morgen
+=> Hütte <<= ) % [ Kombination Hund umbringt Morgen
 Kontakt Wind Kind ?. Maus Vogel >>= Vögel Küche Diktatur
-*= Käse Haus Hände } >= Symbol Diktat /* Beobachtung
+*= Käse Haus Hände ] >= Symbol Diktat /* Beobachtung
 ... Hand @ System Erlösung Baum ) Tanne } Müde
-&& ^ Buch suitable += ~ ( suit Apfel &=
-Systeme erlöst : größer $ == _ */ [ )
+&& ^ Buch suitable += ~ { suit Apfel &=
+Systeme erlöst : größer $ == _ */ ( }
 " eosin juice ! Ruinen >> ; |= Glas --
 eons + | Straße Hüpfen * - -= Geometer Wasser
 { ( Höfe build ' beobachten Mädchen = ?? ?
@@ -657,12 +657,12 @@ erleben Diktat Buch < Koexistenz Wasser ü Kaktus erwache >
 ... IU Amtsblatt &= dogs ( -> -- Apfel -=
 := Tanne tags Amtsstube >>= ~ Ruinen Geometer <<= |
 Baum UI Erlösung Kombi Wind OE amtieren || Iunius +=
-( ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
-++ build [ Maschine Vögel Mädchen KT " mugs //
-€ eons erwachsene # Käse == && Nacht ] !
-Haus ] erlöst @ - Höhlen { equinoctium ' >>
-) Morgen Hund Ruine Analyse GS != bugs eosin Glas
-erwartung Vogel [ :: ?? Hand während Schritt erlaubt }
+{ ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
+++ build ( Maschine Vögel Mädchen KT " mugs //
+€ eons erwachsene # Käse == && Nacht ) !
+Haus ] erlöst @ - Höhlen [ equinoctium ' >>
+} Morgen Hund Ruine Analyse GS != bugs eosin Glas
+erwartung Vogel [ :: ?? Hand während Schritt erlaubt ]
 RW ´ größer Koeffizient Kind => RL <= flags ?
 Diktatur Straße ) Amboss schön MT Iulius grüßen beobachten Wiese
 suitable & Wolke Hütte Beobachtung Kombination EO Schrift ^= Systeme
@@ -675,12 +675,12 @@ erleben Diktat Buch < Koexistenz Wasser ü Kaktus erwache >
 ... IU Amtsblatt &= dogs ( -> -- Apfel -=
 := Tanne tags Amtsstube >>= ~ Ruinen Geometer <<= |
 Baum UI Erlösung Kombi Wind OE amtieren || Iunius +=
-( ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
-++ build [ Maschine Vögel Mädchen KT " mugs //
-€ eons erwachsene # Käse == && Nacht ] !
-Haus ] erlöst @ - Höhlen { equinoctium ' >>
-) Morgen Hund Ruine Analyse GS != bugs eosin Glas
-erwartung Vogel [ :: ?? Hand während Schritt erlaubt }
+{ ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
+++ build ( Maschine Vögel Mädchen KT " mugs //
+€ eons erwachsene # Käse == && Nacht ) !
+Haus ] erlöst @ - Höhlen [ equinoctium ' >>
+} Morgen Hund Ruine Analyse GS != bugs eosin Glas
+erwartung Vogel [ :: ?? Hand während Schritt erlaubt ]
 RW ´ größer Koeffizient Kind => RL <= flags ?
 Diktatur Straße ) Amboss schön MT Iulius grüßen beobachten Wiese
 suitable & Wolke Hütte Beobachtung Kombination EO Schrift ^= Systeme
@@ -693,12 +693,12 @@ erleben Diktat Buch < Koexistenz Wasser ü Kaktus erwache >
 ... IU Amtsblatt &= dogs ( -> -- Apfel -=
 := Tanne tags Amtsstube >>= ~ Ruinen Geometer <<= |
 Baum UI Erlösung Kombi Wind OE amtieren || Iunius +=
-( ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
-++ build [ Maschine Vögel Mädchen KT " mugs //
-€ eons erwachsene # Käse == && Nacht ] !
-Haus ] erlöst @ - Höhlen { equinoctium ' >>
-) Morgen Hund Ruine Analyse GS != bugs eosin Glas
-erwartung Vogel [ :: ?? Hand während Schritt erlaubt }
+{ ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
+++ build ( Maschine Vögel Mädchen KT " mugs //
+€ eons erwachsene # Käse == && Nacht ) !
+Haus ] erlöst @ - Höhlen [ equinoctium ' >>
+} Morgen Hund Ruine Analyse GS != bugs eosin Glas
+erwartung Vogel [ :: ?? Hand während Schritt erlaubt ]
 RW ´ größer Koeffizient Kind => RL <= flags ?
 Diktatur Straße ) Amboss schön MT Iulius grüßen beobachten Wiese
 suitable & Wolke Hütte Beobachtung Kombination EO Schrift ^= Systeme
@@ -711,12 +711,12 @@ erleben Diktat Buch < Koexistenz Wasser ü Kaktus erwache >
 ... IU Amtsblatt &= dogs ( -> -- Apfel -=
 := Tanne tags Amtsstube >>= ~ Ruinen Geometer <<= |
 Baum UI Erlösung Kombi Wind OE amtieren || Iunius +=
-( ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
-++ build [ Maschine Vögel Mädchen KT " mugs //
-€ eons erwachsene # Käse == && Nacht ] !
-Haus ] erlöst @ - Höhlen { equinoctium ' >>
-) Morgen Hund Ruine Analyse GS != bugs eosin Glas
-erwartung Vogel [ :: ?? Hand während Schritt erlaubt }
+{ ö Koeln Hüpfen { erwartet Schule Geometrie juice ß
+++ build ( Maschine Vögel Mädchen KT " mugs //
+€ eons erwachsene # Käse == && Nacht ) !
+Haus ] erlöst @ - Höhlen [ equinoctium ' >>
+} Morgen Hund Ruine Analyse GS != bugs eosin Glas
+erwartung Vogel [ :: ?? Hand während Schritt erlaubt ]
 RW ´ größer Koeffizient Kind => RL <= flags ?
 Diktatur Straße ) Amboss schön MT Iulius grüßen beobachten Wiese
 suitable & Wolke Hütte Beobachtung Kombination EO Schrift ^= Systeme
@@ -794,16 +794,16 @@ Kombi Kombination umbringt
 KT : ; &= */ MT Kontakt == ! ::
 suitable # beobachten erlitten Höfe Beobachtung erwartet - UI Straße
 Wolke heiß -- * MB Baum Haus Vögel erlaubt guide
-) |= ) ?. > && Tanne ´ eons Kaktus
+} |= ) ?. > && Tanne ´ eons Kaktus
 Hände & Kombination /* += equinoctium amtieren OE Wiese Koeffizient
 \ @ GS schreiben Erlösung || Nacht Schule Müde erwache
-eosin ä System Systeme erwartung Ruinen / <= } größer
-?? Küsse Diktatur Koexistenz < Fenster [ ö grüßen ...
-erleben -> ] != Diktat Bett Wasser >> | Maus
-// ( ( erwachsene := build RL Küche _ €
+eosin ä System Systeme erwartung Ruinen / <= ] größer
+?? Küsse Diktatur Koexistenz < Fenster ( ö grüßen ...
+erleben -> ) != Diktat Bett Wasser >> | Maus
+// { ( erwachsene := build RL Küche _ €
 Vogel Schritt Amtsblatt ^= Mädchen Geometrie *= ß >= flags
 aktuell % Hand Maschine ü ^ bugs ~ " Höhlen
-{ Geometer IU Iunius Kombi = Symbol + dogs Wind
+[ Geometer IU Iunius Kombi = Symbol + dogs Wind
 Hüpfen Morgen -= Schrift juice Analyse >>= Buch Hund ?
 => Ruine suit tags bags << $ Koeln erlöst Hütte
 SCH YS ] [ Iulius während Glas Licht RW EO

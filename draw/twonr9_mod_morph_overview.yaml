@@ -29,24 +29,24 @@ families:
     positions:
     - 3
     - 11
-    plain: )
-    shift: (
+    plain: '}'
+    shift: '{'
     ctrl: <=
     ctrl_shift: '>='
   - label: O + I
     positions:
     - 4
     - 12
-    plain: '}'
-    shift: '{'
+    plain: ']'
+    shift: '['
     ctrl: ^=
     ctrl_shift: '*='
   - label: U + A
     positions:
     - 5
     - 13
-    plain: ']'
-    shift: '['
+    plain: )
+    shift: (
     ctrl: '&='
     ctrl_shift: '|='
 - name: Inner-2 (Bitwise)

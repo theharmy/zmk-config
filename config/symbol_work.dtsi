@@ -75,8 +75,8 @@ DIAG_MACRO1(diag_macro_at,             DE_AT)
  * then selects Shift versus no Shift.
  *
  * Family grouping by diagonal geometry (mirrored across the split):
- *   Inner-1  (brackets):  L+N ( ) · Y+E ) ( · M+R [ ] · U+A ] [ · D+T { } · O+I } {
- *                         -- openers plain on the left hand, closers plain on the right
+ *   Inner-1  (brackets):  L+N ( ) ↔ U+A ) ( · M+R [ ] ↔ O+I ] [ · D+T { } ↔ Y+E } {
+ *                         -- physical mirror pairs share bracket types, with open/close reversed
  *   Inner-2 (bitwise):    M+N & * · O+A $ € · D+R ~ ^ · Y+I < >
  *   Outer-1 (sentence):   L+T ! ? · M+H _ - · U+E ; ' · O+S # %
  *   Outer-2:              L+H : " · U+S / \
@@ -100,13 +100,13 @@ DIAG_MACRO1(diag_macro_at,             DE_AT)
 
 /* --- Mirrored diagonal symbol assignments --- */
 
-/* Inner-1: brackets + comparison/arithmetic operators. */
+/* Inner-1: mirrored brackets + distinct comparison/arithmetic operators. */
 DIAG_SYMBOL(diag_06,
     DE_LPAR, DE_RPAR,
     diag_macro_equal_equal, diag_macro_not_equal)
 
 DIAG_SYMBOL(diag_3b,
-    DE_RPAR, DE_LPAR,
+    DE_RBRC, DE_LBRC,
     diag_macro_le, diag_macro_ge)
 
 DIAG_SYMBOL(diag_17,
@@ -114,7 +114,7 @@ DIAG_SYMBOL(diag_17,
     diag_macro_add_assign, diag_macro_sub_assign)
 
 DIAG_SYMBOL(diag_5d,
-    DE_RBKT, DE_LBKT,
+    DE_RPAR, DE_LPAR,
     diag_macro_and_assign, diag_macro_or_assign)
 
 DIAG_SYMBOL(diag_28,
@@ -122,7 +122,7 @@ DIAG_SYMBOL(diag_28,
     diag_macro_lshift_assign, diag_macro_rshift_assign)
 
 DIAG_SYMBOL(diag_4c,
-    DE_RBRC, DE_LBRC,
+    DE_RBKT, DE_LBKT,
     diag_macro_caret_assign, diag_macro_star_assign)
 
 /* Inner-2: bitwise / logic / arrow operators. */

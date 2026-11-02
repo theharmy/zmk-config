@@ -212,7 +212,7 @@ combos:
   - Symbols & Utilities
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 1
   - 2
@@ -221,7 +221,7 @@ combos:
   - Symbols & Utilities
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 3
   - 4
@@ -232,7 +232,7 @@ combos:
   - Symbols & Utilities
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 4
   - 5
@@ -241,7 +241,7 @@ combos:
   - Symbols & Utilities
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 3
   - 4
@@ -251,16 +251,7 @@ combos:
   - Symbols & Utilities
   type: util
   align: top
-  offset: 0.12
-- p:
-  - 6
-  - 7
-  k: "\xDF"
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.0
+  offset: 0.18
 - p:
   - 7
   - 9
@@ -269,7 +260,7 @@ combos:
   - Symbols & Utilities
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 7
   - 8
@@ -278,7 +269,7 @@ combos:
   - Symbols & Utilities
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 11
   - 12
@@ -287,7 +278,7 @@ combos:
   - Symbols & Utilities
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 10
   - 12
@@ -296,7 +287,7 @@ combos:
   - Symbols & Utilities
   type: symbol
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 14
   - 15
@@ -305,8 +296,9 @@ combos:
   - Symbols & Utilities
   type: system
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
+  - 6
   - 7
   - 8
   - 9
@@ -315,7 +307,7 @@ combos:
   - Symbols & Utilities
   type: sym
   align: bottom
-  offset: 0.07
+  offset: 0.18
 - p:
   - 8
   - 9
@@ -327,7 +319,7 @@ combos:
   - Symbols & Utilities
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 10
   - 11
@@ -339,7 +331,7 @@ combos:
   - Symbols & Utilities
   type: util
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 3
   - 10
@@ -348,7 +340,7 @@ combos:
   - Symbols & Utilities
   type: num
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 4
   - 11
@@ -357,7 +349,7 @@ combos:
   - Symbols & Utilities
   type: num
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 5
   - 12
@@ -366,7 +358,7 @@ combos:
   - Symbols & Utilities
   type: num
   align: mid
-  offset: 0.0
+  offset: 0.16
 - p:
   - 0
   - 7
@@ -475,3 +467,12 @@ combos:
   type: bigram
   align: mid
   offset: 0.0
+- p:
+  - 6
+  - 7
+  k: "\xDF"
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
