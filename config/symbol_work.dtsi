@@ -139,7 +139,7 @@ DIAG_SYMBOL(diag_27,
     diag_macro_arrow, diag_macro_fat_arrow)
 
 DIAG_SYMBOL(diag_3c,
-    DE_LT, DE_GT,
+    DE_EQUAL, DE_PLUS,
     diag_macro_lshift, diag_macro_rshift)
 
 /* Outer-1: sentence, markdown and comment operators. */
