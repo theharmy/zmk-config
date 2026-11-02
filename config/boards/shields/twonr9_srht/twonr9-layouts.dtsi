@@ -1,0 +1,28 @@
+#include <physical_layouts.dtsi>
+
+/ {
+    physical_layout_twonr9: physical_layout_twonr9 {
+        compatible = "zmk,physical-layout";
+        display-name = "TwoNr9";
+        keys  //                     w   h    x    y     rot    rx    ry
+            = <&key_physical_attrs 100 100  100   21       0   100    21>
+            , <&key_physical_attrs 100 100  200    0       0   200     0>
+            , <&key_physical_attrs 100 100  300   32       0   300    32>
+            , <&key_physical_attrs 100 100  893   32       0   893    32>
+            , <&key_physical_attrs 100 100  993    0       0   993     0>
+            , <&key_physical_attrs 100 100 1093   21       0  1093    21>
+            , <&key_physical_attrs 100 100    0  148       0     0   148>
+            , <&key_physical_attrs 100 100  100  121       0   100   121>
+            , <&key_physical_attrs 100 100  200  100       0   200   100>
+            , <&key_physical_attrs 100 100  300  132       0   300   132>
+            , <&key_physical_attrs 100 100  893  132       0   893   132>
+            , <&key_physical_attrs 100 100  993  100       0   993   100>
+            , <&key_physical_attrs 100 100 1093  121       0  1093   121>
+            , <&key_physical_attrs 100 100 1193  148       0  1193   148>
+            , <&key_physical_attrs 100 100  387  264     600   437   314>
+            , <&key_physical_attrs 100 100  493  285    1600   543   335>
+            , <&key_physical_attrs 100 100  700  285 (-1600)   750   335>
+            , <&key_physical_attrs 100 100  806  264  (-600)   856   314>
+            ;
+    };
+};
