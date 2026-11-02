@@ -17,3 +17,4 @@ config/backups/
 /trainer
 /.helix
 __pycache__
+/tests/

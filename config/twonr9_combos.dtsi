@@ -30,7 +30,7 @@ ZMK_COMBO(combo_colon,    &kp DE_COLON,  11 12, ALL)                     // Righ
 ZMK_COMBO(combo_semi,     &kp DE_SEMI,   10 12, ALL)                     // Right Home (10+12): Statement Semicolon ;
 
 // --- Universal Utilities ---
-ZMK_COMBO(combo_caps,     &caps_word,    14 15, ALL)                     // Left Thumbs (14+15): Caps Word for CONSTANTS
+ZMK_COMBO(combo_a2_shift, &macro_a2_shift, 14 15, ALL)                   // Left Thumbs (14+15): Sticky Layer A2 + Sticky Left Shift
 ZMK_COMBO(combo_stdio,    &studio_unlock, 6 7 8 9, L_SYM, 50, 200)         // Left Home 3-key (7+8+9): Studio Unlock
 ZMK_COMBO(combo_shiftl,  MAGIC_SHIFT, 8 9, ALL)
 ZMK_COMBO(combo_shiftr,  MAGIC_SHIFT, 10 11, ALL)
@@ -51,10 +51,5 @@ ZMK_COMBO(combo_btclr,      &bt BT_CLR,  0 2,   L_FN)                    //bt 3 
 /* Sym layer is now only entered via the R-Out thumb (SYM_DUAL): every
  * sym-layer symbol has an alpha-layer diagonal chord (see symbol_work.dtsi),
  * so the home-row triads were removed to free their keys from combo
- * conflicts. (The shifted-sym triads referenced macro_shift_sym, which
- * exists only in the bugwind macros -- removing them also fixes the srht
- * build, which shares this file. */
-
-
-
+ * conflicts. */
 

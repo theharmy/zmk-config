@@ -261,10 +261,10 @@ combos:
 - p:
   - 14
   - 15
-  k: "\u21EA"
+  k: '&macro_a2_shift'
   l:
   - Symbols & Utilities
-  type: system
+  type: util
   align: mid
   offset: 0.16
 - p:
@@ -432,8 +432,30 @@ combos:
   - 3
   - 12
   k:
-    t: <
+    t: '='
     s: '&diag_macro_lshift'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 2
+  - 6
+  k:
+    t: <
+    s: '&diag_macro_le'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 3
+  - 13
+  k:
+    t: '>'
+    s: '&diag_macro_ge'
   l:
   - Symbols & Utilities
   type: symbol
@@ -454,7 +476,7 @@ combos:
   - 1
   - 9
   k:
-    t: _
+    t: '-'
     s: '&diag_macro_increment'
   l:
   - Symbols & Utilities
@@ -476,7 +498,7 @@ combos:
   - 4
   - 10
   k:
-    t: '#'
+    t: ''''
     s: '&diag_macro_equal'
   l:
   - Symbols & Utilities
@@ -487,11 +509,11 @@ combos:
   - 0
   - 9
   k:
-    t: ':'
+    t: '#'
     s: '&diag_macro_scope'
   l:
   - Symbols & Utilities
-  type: symbol
+  type: util
   align: mid
   offset: 0.16
 - p:

@@ -3,9 +3,28 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - .github/workflows/test-build-env.yml
+      - draw/**
+      - tests/**
+      - Justfile
       - nix/**
       - flake.*
+      - config/*.keymap
+      - config/*.dtsi
+      - config/*.h
+      - config/boards/**
+  pull_request:
+    paths:
       - .github/workflows/test-build-env.yml
+      - draw/**
+      - tests/**
+      - Justfile
+      - nix/**
+      - flake.*
+      - config/*.keymap
+      - config/*.dtsi
+      - config/*.h
+      - config/boards/**
 
 jobs:
   test:
@@ -27,9 +46,17 @@ jobs:
         with:
           persist-credentials: false
       - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
+      - name: Test draw recipe
+        if: runner.os == 'Linux'
+        run: nix develop --command just draw-twonr9
+      - name: Check drawings are reproducible
+        if: runner.os == 'Linux'
+        run: nix develop --command just draw-check all
+      - name: Test drawing metadata
+        run: nix develop --command python3 -m unittest discover -s tests
       - name: Set up build environment
+        if: runner.os == 'Linux'
         run: nix develop --command just init
       - name: Test build recipe
+        if: runner.os == 'Linux'
         run: nix develop --command just build twonr9_left
-      - name: Test draw recipe
-        run: nix develop --command just draw-twonr9

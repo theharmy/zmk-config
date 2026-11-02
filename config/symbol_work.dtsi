@@ -95,9 +95,6 @@ DIAG_MACRO1(diag_macro_at,             DE_AT)
         mods = <(MOD_LCTL|MOD_RCTL)>; \
     )
 
-
-
-
 /* --- Mirrored diagonal symbol assignments --- */
 
 /* Inner-1: mirrored brackets + distinct comparison/arithmetic operators. */
@@ -142,26 +139,35 @@ DIAG_SYMBOL(diag_3c,
     DE_EQUAL, DE_PLUS,
     diag_macro_lshift, diag_macro_rshift)
 
+/* Shift reverses the comparison pair on the mirrored chord. */
+DIAG_SYMBOL(diag_26,
+    DE_LT, DE_GT,
+    diag_macro_le, diag_macro_le)
+
+DIAG_SYMBOL(diag_3d,
+    DE_GT, DE_LT,
+    diag_macro_ge, diag_macro_ge)
+
 /* Outer-1: sentence, markdown and comment operators. */
 DIAG_SYMBOL(diag_08,
     DE_EXCL, DE_QMARK,
     diag_macro_slashslash, diag_macro_ellipsis)
 
 DIAG_SYMBOL(diag_19,
-    DE_UNDER, DE_MINUS,
+    DE_MINUS, DE_UNDER,
     diag_macro_increment, diag_macro_decrement)
 
 DIAG_SYMBOL(diag_57,
-    DE_SEMI, DE_SQT,
+    DE_SEMI, DE_COLON,
     diag_macro_comment_open, diag_macro_comment_close)
 
 DIAG_SYMBOL(diag_4a,
-    DE_HASH, DE_PRCNT,
+    DE_SQT, DE_DQT,
     diag_macro_equal, diag_macro_pipe)
 
 /* Outer-2: the two remaining diagonals. */
 DIAG_SYMBOL(diag_09,
-    DE_COLON, DE_DQT,
+    DE_HASH, DE_PRCNT,
     diag_macro_scope, diag_macro_colon_equal)
 
 DIAG_SYMBOL(diag_5a,
@@ -214,6 +220,8 @@ ZMK_COMBO(combo_diag_16, &diag_16, 1 6,  L_A1 L_A2)
 ZMK_COMBO(combo_diag_4d, &diag_4d, 4 13, L_A1 L_A2)
 ZMK_COMBO(combo_diag_27, &diag_27, 2 7,  L_A1 L_A2)
 ZMK_COMBO(combo_diag_3c, &diag_3c, 3 12, L_A1 L_A2)
+ZMK_COMBO(combo_diag_26, &diag_26, 2 6,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_3d, &diag_3d, 3 13, L_A1 L_A2)
 
 // Outer-1 (sentence / markdown / comments):
 ZMK_COMBO(combo_diag_08, &diag_08, 0 8,  L_A1 L_A2)

@@ -744,9 +744,9 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <rect rx="6" ry="6" x="507" y="151" width="34" height="22" class="combo symbol"/>
 <text x="524" y="162" class="combo symbol tap">;</text>
 </g>
-<g class="combo system combopos-9">
-<rect rx="6" ry="6" x="268" y="258" width="34" height="22" class="combo system"/>
-<text x="285" y="269" class="combo system tap">⇪</text>
+<g class="combo util combopos-9">
+<rect rx="6" ry="6" x="268" y="258" width="34" height="22" class="combo util"/>
+<text x="285" y="269" class="combo util tap">&amp;macro_a2_shift</text>
 </g>
 <g class="combo sym combopos-10">
 <path d="M184,250 h-132 a6.0,6.0 0 0 1 -6.0,-6.0 v-31" class="combo"/>
@@ -831,72 +831,86 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <text x="230" y="116" class="combo util tap">~</text>
 <text x="230" y="107" class="combo util shifted">&amp;diag_macro_arrow</text>
 </g>
-<g class="combo symbol combopos-25">
+<g class="combo util combopos-25">
 <path d="M524,116 l-64,-29" class="combo"/>
 <path d="M524,116 l64,29" class="combo"/>
-<rect rx="6" ry="6" x="507" y="105" width="34" height="22" class="combo symbol"/>
-<text x="524" y="116" class="combo symbol tap">&lt;</text>
-<text x="524" y="107" class="combo symbol shifted">&amp;diag_macro_lshift</text>
+<rect rx="6" ry="6" x="507" y="105" width="34" height="22" class="combo util"/>
+<text x="524" y="116" class="combo util tap">=</text>
+<text x="524" y="107" class="combo util shifted">&amp;diag_macro_lshift</text>
 </g>
-<g class="combo util combopos-26">
+<g class="combo symbol combopos-26">
+<path d="M184,128 l109,-42" class="combo"/>
+<path d="M184,128 l-109,42" class="combo"/>
+<rect rx="6" ry="6" x="167" y="117" width="34" height="22" class="combo symbol"/>
+<text x="184" y="128" class="combo symbol tap">&lt;</text>
+<text x="184" y="119" class="combo symbol shifted">&amp;diag_macro_le</text>
+</g>
+<g class="combo symbol combopos-27">
+<path d="M570,128 l-109,-42" class="combo"/>
+<path d="M570,128 l109,42" class="combo"/>
+<rect rx="6" ry="6" x="553" y="117" width="34" height="22" class="combo symbol"/>
+<text x="570" y="128" class="combo symbol tap">&gt;</text>
+<text x="570" y="119" class="combo symbol shifted">&amp;diag_macro_ge</text>
+</g>
+<g class="combo util combopos-28">
 <rect rx="6" ry="6" x="167" y="91" width="34" height="22" class="combo util"/>
 <text x="184" y="102" class="combo util tap">!</text>
 <text x="184" y="93" class="combo util shifted">&amp;diag_macro_slashslash</text>
 </g>
-<g class="combo symbol combopos-27">
+<g class="combo symbol combopos-29">
 <rect rx="6" ry="6" x="259" y="96" width="34" height="22" class="combo symbol"/>
-<text x="276" y="107" class="combo symbol tap">_</text>
+<text x="276" y="107" class="combo symbol tap">-</text>
 <text x="276" y="98" class="combo symbol shifted">&amp;diag_macro_increment</text>
 </g>
-<g class="combo symbol combopos-28">
+<g class="combo symbol combopos-30">
 <rect rx="6" ry="6" x="553" y="91" width="34" height="22" class="combo symbol"/>
 <text x="570" y="102" class="combo symbol tap">;</text>
 <text x="570" y="93" class="combo symbol shifted">&amp;diag_macro_comment_open</text>
 </g>
-<g class="combo util combopos-29">
+<g class="combo util combopos-31">
 <rect rx="6" ry="6" x="461" y="96" width="34" height="22" class="combo util"/>
-<text x="478" y="107" class="combo util tap">#</text>
+<text x="478" y="107" class="combo util tap">&#x27;</text>
 <text x="478" y="98" class="combo util shifted">&amp;diag_macro_equal</text>
 </g>
-<g class="combo symbol combopos-30">
+<g class="combo util combopos-32">
 <path d="M230,116 l-65,-36" class="combo"/>
 <path d="M230,116 l65,36" class="combo"/>
-<rect rx="6" ry="6" x="213" y="105" width="34" height="22" class="combo symbol"/>
-<text x="230" y="116" class="combo symbol tap">:</text>
-<text x="230" y="107" class="combo symbol shifted">&amp;diag_macro_scope</text>
+<rect rx="6" ry="6" x="213" y="105" width="34" height="22" class="combo util"/>
+<text x="230" y="116" class="combo util tap">#</text>
+<text x="230" y="107" class="combo util shifted">&amp;diag_macro_scope</text>
 </g>
-<g class="combo bigram combopos-31">
+<g class="combo bigram combopos-33">
 <path d="M524,116 l65,-36" class="combo"/>
 <path d="M524,116 l-65,36" class="combo"/>
 <rect rx="6" ry="6" x="507" y="105" width="34" height="22" class="combo bigram"/>
 <text x="524" y="116" class="combo bigram tap">/</text>
 <text x="524" y="107" class="combo bigram shifted">&amp;diag_macro_plus</text>
 </g>
-<g class="combo util combopos-32">
+<g class="combo util combopos-34">
 <rect rx="6" ry="6" x="75" y="159" width="34" height="22" class="combo util"/>
 <text x="92" y="170" class="combo util tap">´</text>
 <text x="92" y="161" class="combo util shifted">`</text>
 </g>
-<g class="combo symbol combopos-33">
+<g class="combo symbol combopos-35">
 <rect rx="6" ry="6" x="411" y="211" width="34" height="22" class="combo symbol"/>
 <text x="428" y="222" class="combo symbol tap">ß</text>
 <text x="428" y="213" class="combo symbol shifted">ß</text>
 </g>
-<g class="combo util combopos-34">
+<g class="combo util combopos-36">
 <path d="M566,229 l113,-37" class="combo"/>
 <path d="M566,229 l-113,37" class="combo"/>
 <rect rx="6" ry="6" x="549" y="218" width="34" height="22" class="combo util"/>
 <text x="566" y="229" class="combo util tap">ä</text>
 <text x="566" y="220" class="combo util shifted">ä</text>
 </g>
-<g class="combo util combopos-35">
+<g class="combo util combopos-37">
 <path d="M474,161 l38,-87" class="combo"/>
 <path d="M474,161 l-38,87" class="combo"/>
 <rect rx="6" ry="6" x="457" y="150" width="34" height="22" class="combo util"/>
 <text x="474" y="161" class="combo util tap">ö</text>
 <text x="474" y="152" class="combo util shifted">ö</text>
 </g>
-<g class="combo util combopos-36">
+<g class="combo util combopos-38">
 <path d="M520,171 l76,-83" class="combo"/>
 <path d="M520,171 l-76,83" class="combo"/>
 <rect rx="6" ry="6" x="503" y="160" width="34" height="22" class="combo util"/>

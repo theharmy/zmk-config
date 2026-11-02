@@ -179,17 +179,19 @@ DIAGONAL_CHORDS = [
     {"positions": [2, 8], "family": "inner1", "normal_shift": ("{", "}"), "ctrl": "<<=", "ctrl_shift": ">>="},
     {"positions": [4, 12], "family": "inner1", "normal_shift": ("]", "["), "ctrl": "^=", "ctrl_shift": "*="},
     # Inner-2: bitwise / logic / arrows.
-    {"positions": [1, 6], "family": "inner2", "normal_shift": ("&", "*"), "ctrl": "&&", "ctrl_shift": "||"},
+    {"positions": [1, 6], "family": "inner2", "normal_shift": ("+", "="), "ctrl": "&&", "ctrl_shift": "||"},
     {"positions": [4, 13], "family": "inner2", "normal_shift": ("$", "€"), "ctrl": "??", "ctrl_shift": "?."},
     {"positions": [2, 7], "family": "inner2", "normal_shift": ("~", "^"), "ctrl": "->", "ctrl_shift": "=>"},
-    {"positions": [3, 12], "family": "inner2", "normal_shift": ("<", ">"), "ctrl": "<<", "ctrl_shift": ">>"},
+    {"positions": [3, 12], "family": "inner2", "normal_shift": ("=", "+"), "ctrl": "<<", "ctrl_shift": ">>"},
+    {"positions": [2, 6], "family": "inner2", "normal_shift": ("<", ">"), "ctrl": "<=", "ctrl_shift": "<="},
+    {"positions": [3, 13], "family": "inner2", "normal_shift": (">", "<"), "ctrl": ">=", "ctrl_shift": ">="},
     # Outer-1: sentence, markdown, comments.
     {"positions": [0, 8], "family": "outer1", "normal_shift": ("!", "?"), "ctrl": "//", "ctrl_shift": "..."},
-    {"positions": [1, 9], "family": "outer1", "normal_shift": ("_", "-"), "ctrl": "++", "ctrl_shift": "--"},
-    {"positions": [5, 11], "family": "outer1", "normal_shift": (";", "'"), "ctrl": "/*", "ctrl_shift": "*/"},
-    {"positions": [4, 10], "family": "outer1", "normal_shift": ("#", "%"), "ctrl": "=", "ctrl_shift": "|"},
+    {"positions": [1, 9], "family": "outer1", "normal_shift": ("-", "_"), "ctrl": "++", "ctrl_shift": "--"},
+    {"positions": [5, 11], "family": "outer1", "normal_shift": (";", ":"), "ctrl": "/*", "ctrl_shift": "*/"},
+    {"positions": [4, 10], "family": "outer1", "normal_shift": ("'", '"'), "ctrl": "=", "ctrl_shift": "|"},
     # Outer-2: the two remaining diagonals.
-    {"positions": [0, 9], "family": "outer2", "normal_shift": (":", '"'), "ctrl": "::", "ctrl_shift": ":="},
+    {"positions": [0, 9], "family": "outer2", "normal_shift": ("#", "%"), "ctrl": "::", "ctrl_shift": ":="},
     {"positions": [5, 10], "family": "outer2", "normal_shift": ("/", "\\"), "ctrl": "+", "ctrl_shift": "@"},
 ]
 
@@ -1546,6 +1548,11 @@ def render_variant(name, config_dir, draw_dir):
         if len(layers) >= 5 or any("all" in str(x).lower() for x in layers) or set(layers) >= {"a1", "a2", "nav", "sym", "fn", "num"}:
             c["l"] = ["a1", "a2"]
 
+    parsed_positions = {tuple(combo.get("p", [])) for combo in d.get("combos", [])}
+    for extra in v.get("extra_combos", []):
+        if tuple(extra["p"]) not in parsed_positions:
+            d.setdefault("combos", []).append(dict(extra))
+
     # Apply vertical / horizontal combo offsets
     apply_combo_alignment(d.get("combos", []))
 
@@ -1699,6 +1706,9 @@ def main(argv=None):
     Pass variant names (``bugwind``, ``srht``, ``all``) to render others.
     """
     argv = list(sys.argv[1:] if argv is None else argv)
+    if "--check" in argv:
+        check_argv = [arg for arg in argv if arg != "--check"]
+        raise SystemExit(check_generated_artifacts(check_argv))
     if not argv or argv == ["all"]:
         names = [n for n in VARIANTS if n == "bugwind"] if not argv else list(VARIANTS)
     else:
@@ -1713,6 +1723,60 @@ def main(argv=None):
     draw_dir = root / "draw"
     for name in names:
         render_variant(name, config_dir, draw_dir)
+
+
+def check_generated_artifacts(argv=None):
+    """Regenerate artifacts in an isolated worktree copy and compare outputs."""
+    import tempfile
+
+    argv = list(sys.argv[1:] if argv is None else argv)
+    names = [name for name in argv if name != "--check"]
+    if not names or names == ["all"]:
+        names = list(VARIANTS)
+    unknown = [name for name in names if name not in VARIANTS]
+    if unknown:
+        raise SystemExit(f"unknown variant(s): {', '.join(unknown)}")
+
+    root = Path(__file__).resolve().parent.parent
+    draw_dir = root / "draw"
+    config_dir = root / "config"
+    stale = []
+    for name in names:
+        stem = "twonr9" if name == "bugwind" else f"twonr9_{name}"
+        with tempfile.TemporaryDirectory(prefix="twonr9-draw-check-") as tmp:
+            temp_root = Path(tmp)
+            temp_draw = temp_root / "draw"
+            temp_config = temp_root / "config"
+            shutil.copytree(draw_dir, temp_draw)
+            shutil.copytree(config_dir, temp_config, ignore=shutil.ignore_patterns("backups"))
+            # Resolve keymap and JSON references to the copied config.
+            for config_file in temp_draw.glob("*.yaml"):
+                config_text = config_file.read_text().replace('"config"', str(temp_config))
+                config_file.write_text(config_text)
+            global ACTIVE
+            ACTIVE = name
+            render_variant(name, temp_config, temp_draw)
+            expected = [
+                path for path in temp_draw.iterdir()
+                if path.is_file()
+                and path.name != "twonr9_config.yaml"
+                and (
+                    path.name == f"{stem}.yaml"
+                    or path.name == f"{stem}.svg"
+                    or path.name.startswith(f"{stem}_")
+                )
+            ]
+            for generated in expected:
+                current = draw_dir / generated.name
+                if not current.exists() or current.read_bytes() != generated.read_bytes():
+                    stale.append(current.relative_to(root))
+    if stale:
+        print("Stale drawing artifacts:")
+        for path in sorted(set(stale)):
+            print(f"  {path}")
+        return 1
+    print("All drawing artifacts are up to date.")
+    return 0
 
 if __name__ == "__main__":
     main()

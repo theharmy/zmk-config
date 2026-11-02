@@ -140,6 +140,9 @@ ZMK_HOLD_TAP(lt_dual,
 /* --- Magic Shift (Adaptive Repeat / Sticky Shift / Hold Shift) --- */
 #define MAGIC_SHIFT &magic_shift LSHFT 0
 
+/* Left thumb combo: stick A2 and Left Shift simultaneously. */
+ZMK_MACRO(macro_a2_shift, bindings = <&sl L_A2 &sk LEFT_SHIFT>;)
+
 ZMK_HOLD_TAP(magic_shift,
     bindings = <&kp>, <&magic_shift_tap>;
     flavor = "balanced";

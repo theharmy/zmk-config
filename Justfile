@@ -98,6 +98,13 @@ draw-twonr9 *variants:
     set -euo pipefail
     python3 "{{ draw }}/draw_twonr9.py" {{ variants }}
 
+# Check generated drawings against the current keymaps without modifying files.
+[group('build & draw')]
+draw-check *variants:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    python3 "{{ draw }}/draw_twonr9.py" --check {{ variants }}
+
 # initialize the west workspace
 [group('workspace')]
 init:

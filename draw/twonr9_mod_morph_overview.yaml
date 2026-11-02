@@ -55,10 +55,18 @@ families:
     positions:
     - 1
     - 6
-    plain: '&'
-    shift: '*'
+    plain: +
+    shift: '='
     ctrl: '&&'
     ctrl_shift: '||'
+  - label: D + N
+    positions:
+    - 2
+    - 6
+    plain: <
+    shift: '>'
+    ctrl: <=
+    ctrl_shift: <=
   - label: D + R
     positions:
     - 2
@@ -71,10 +79,18 @@ families:
     positions:
     - 3
     - 12
-    plain: <
-    shift: '>'
+    plain: '='
+    shift: +
     ctrl: '<<'
     ctrl_shift: '>>'
+  - label: Y + A
+    positions:
+    - 3
+    - 13
+    plain: '>'
+    shift: <
+    ctrl: '>='
+    ctrl_shift: '>='
   - label: O + A
     positions:
     - 4
@@ -97,16 +113,16 @@ families:
     positions:
     - 1
     - 9
-    plain: _
-    shift: '-'
+    plain: '-'
+    shift: _
     ctrl: ++
     ctrl_shift: --
   - label: O + S
     positions:
     - 4
     - 10
-    plain: '#'
-    shift: '%'
+    plain: ''''
+    shift: '"'
     ctrl: '='
     ctrl_shift: '|'
   - label: U + E
@@ -114,7 +130,7 @@ families:
     - 5
     - 11
     plain: ;
-    shift: ''''
+    shift: ':'
     ctrl: /*
     ctrl_shift: '*/'
 - name: Outer-2
@@ -123,8 +139,8 @@ families:
     positions:
     - 0
     - 9
-    plain: ':'
-    shift: '"'
+    plain: '#'
+    shift: '%'
     ctrl: '::'
     ctrl_shift: :=
   - label: U + S

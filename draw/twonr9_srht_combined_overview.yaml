@@ -259,10 +259,10 @@ combos:
 - p:
   - 14
   - 15
-  k: "\u21EA"
+  k: '&macro_a2_shift'
   l:
   - Symbols & Utilities
-  type: system
+  type: util
   align: mid
   offset: 0.16
 - p:

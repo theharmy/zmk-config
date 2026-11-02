@@ -755,9 +755,9 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n { font-weight: bold; 
 <rect rx="6" ry="6" x="507" y="151" width="34" height="22" class="combo symbol"/>
 <text x="524" y="162" class="combo symbol tap">;</text>
 </g>
-<g class="combo system combopos-9">
-<rect rx="6" ry="6" x="268" y="258" width="34" height="22" class="combo system"/>
-<text x="285" y="269" class="combo system tap">⇪</text>
+<g class="combo util combopos-9">
+<rect rx="6" ry="6" x="268" y="258" width="34" height="22" class="combo util"/>
+<text x="285" y="269" class="combo util tap">&amp;macro_a2_shift</text>
 </g>
 <g class="combo sym combopos-10">
 <path d="M184,250 h-132 a6.0,6.0 0 0 1 -6.0,-6.0 v-31" class="combo"/>
