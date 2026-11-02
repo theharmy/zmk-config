@@ -18,7 +18,7 @@ ZMK_COMBO(combo_tab,      &kp TAB,       1 2,   ALL)                     // Left
 ZMK_COMBO(combo_rtnr,      &kp RETURN,   10 12,   ALL)                     // Left Top (1+2): Enter
 ZMK_COMBO(combo_rtnl,      &kp RETURN,   7 9,   ALL)                     // Left Top (1+2): Enter
 ZMK_COMBO(combo_bspc,     &kp BSPC,      3 4,   ALL)                     // Right Top (3+4): Morphing Backspace / Delete
-ZMK_COMBO(combo_bspc,     &kp Del,       4 5,   ALL)                     // Right Top (3+4): Morphing Backspace / Delete
+ZMK_COMBO(combo_bspc,     &kp DEL,       4 5,   ALL)                     // Right Top (3+4): Morphing Backspace / Delete
 ZMK_COMBO(combo_cbspc,    &kp LC(BSPC),  3 5,   ALL)                     // Right Top (4+5): Word Delete Backwards
 ZMK_COMBO(combo_esc,      &kp ESC,       8 9, ALL)                     // Right Top (3+4+5): Instant Esc
 
