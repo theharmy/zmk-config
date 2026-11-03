@@ -25,11 +25,7 @@ _build_single $board $shield $snippet $artifact cmake_args *west_args:
 
     echo "Building firmware for $artifact..."
     west build -s zmk/app -d "$build_dir" -b $board {{ west_args }} ${snippet:+-S "$snippet"} -- \
-        -DZMK_CONFIG="{{ config }}" ${shield:+-DSHIELD="$shield"} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON {{ cmake_args }}
-
-    if [[ -f "$build_dir/compile_commands.json" ]]; then
-        ln -sf "$build_dir/compile_commands.json" "{{ justfile_directory() }}/compile_commands.json"
-    fi
+        -DZMK_CONFIG="{{ config }}" ${shield:+-DSHIELD="$shield"} {{ cmake_args }}
 
     if [[ -f "$build_dir/zephyr/zmk.uf2" ]]; then
         mkdir -p "{{ out }}" && cp "$build_dir/zephyr/zmk.uf2" "{{ out }}/$artifact.uf2"
@@ -84,26 +80,39 @@ flash expr: (build expr)
         just _flash_single "$board" "$shield" "$artifact"
     done
 
-# build the optional "srht" variant (kept as a backup, not built by CI)
+# parse & plot keymap
 [group('build & draw')]
-[doc('build the optional srht variant')]
-build-srht expr="all" *west_args:
-    just build_matrix="build-srht.yaml" build {{ expr }} {{ west_args }}
-
-# parse & plot twonr9 keymap
-# no args: the default (bugwind) variant only; pass "srht" or "all" for others
-[group('build & draw')]
-draw-twonr9 *variants:
+draw: _check_yq_version
     #!/usr/bin/env bash
     set -euo pipefail
-    python3 "{{ draw }}/draw_twonr9.py" {{ variants }}
+    keymap -c "{{ draw }}/config.yaml" parse -z "{{ config }}/base.keymap" --virtual-layers Combos >"{{ draw }}/base.yaml"
+    yq -Yi '.combos.[].l = ["Combos"]' "{{ draw }}/base.yaml"
+    keymap -c "{{ draw }}/config.yaml" draw "{{ draw }}/base.yaml" -k "ferris/sweep" >"{{ draw }}/base.svg"
 
-# Check generated drawings against the current keymaps without modifying files.
-[group('build & draw')]
-draw-check *variants:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    python3 "{{ draw }}/draw_twonr9.py" --check {{ variants }}
+    jq_expr='
+        def extract_label: if type == "string" then . else .t end;
+        def is_transparent: type == "object" and (.type == "trans" or .type == "held");
+        .layers = {
+        Base: [
+            [.layers.Base, .layers.Nav, .layers.Fn, .layers.Num, .layers.Sys] | transpose[] |
+            (.[0] | if type == "string" then {t: .} else . end) as $base |
+            (.[1] | if is_transparent then null else extract_label end) as $nav |
+            (.[2] | if is_transparent then null else extract_label end) as $fn |
+            (.[3] | if is_transparent then null else extract_label end) as $num |
+            (.[4] | if is_transparent then null else extract_label end) as $sys |
+            $base
+            + (if $nav == null then {} else {tr: $nav} end)
+            + (if $fn == null then {} else {tl: $fn} end)
+            + (if $num == null then {} else {bl: $num} end)
+            + (if $sys == null then {} else {br: $sys} end)
+        ],
+        Combos: .layers.Combos
+        } |
+        .combos = [.combos[] | .l = ["Combos"]]
+    '
+    yq -y "$jq_expr" "{{ draw }}/base.yaml" >"{{ draw }}/overview.yaml"
+    keymap -c "{{ draw }}/config.yaml" draw "{{ draw }}/overview.yaml" -k "ferris/sweep" >"{{ draw }}/overview.svg"
+    sed -i '/<text.*class="label"/d' "{{ draw }}/overview.svg"
 
 # initialize the west workspace
 [group('workspace')]
@@ -203,10 +212,3 @@ _check_yq_version:
         echo "Please install python-yq or use the included nix shell" >&2
         exit 1
     fi
-
-# start the layout trainer web app
-[group('trainer')]
-[doc('start layout trainer web app')]
-trainer:
-    cd trainer && npm run dev
-
