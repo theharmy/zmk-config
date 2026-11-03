@@ -126,11 +126,10 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 
 /* Include modular behaviors, macros, combos, and parameter macros */
 #include "twonr9_keys.h"
-#include "twonr9_macros_bugwind.dtsi"
-#include "twonr9_adaptive_keys_bugwind.h"
+#include "twonr9_macros_srht.dtsi"
+#include "twonr9_adaptive_keys_srht.h"
 #include "twonr9_combos.dtsi"
-#include "twonr9_combos_bugwind.dtsi"
-#include "symbol_work.dtsi"
+#include "twonr9_combos_srht.dtsi"
 
 /* ==============================================================================
  * Layers
@@ -138,9 +137,9 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 
 ZMK_LAYER(a1,
 //                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
-                              &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    NV_O              FN_U
+                                    &ak_l        &kp DE_N        &kp DE_D                  &kp DE_G    &ak_o              &ak_U
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
-          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          SH_S              &hmr RGUI DE_E     AR_I              &hmr RCTRL DE_A
+          &hml LCTRL DE_S    &hml LALT DE_R     GL_H          &hml LSHFT DE_T         &hmr LSHFT DE_C      &hmr RGUI DE_E     AR_I        &hmr RCTRL DE_A
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
                                               SMART_NUM         A2_DUAL                  &lt L_SYM Space     &lt L_FN DE_SQT
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
@@ -148,13 +147,14 @@ ZMK_LAYER(a1,
 
 ZMK_LAYER(a2,
 //                            ╭────────────────────┬────────────────────┬────────────────────╮      ╭────────────────────┬────────────────────┬────────────────────╮
-                                &lt L_FN DE_X           &lt L_NAV DE_V      &lt L_SYM DE_B             &lt L_SYM DE_G         &lt L_NAV DE_J       &lt L_FN DE_COMMA
+                                &ak_x                &ak_b            &ak_v                        &kp DE_W         &kp DE_J       &kp DE_COMMA
 //       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
-          &hml LCTRL DE_P       &hml LALT DE_W         &hml LGUI DE_K       &hml LSHFT DE_F            &hmr RSHFT DE_C      &hmr RGUI DE_Q        &hmr RALT DE_DOT      &hmr RCTRL DE_Z
+          &hml LCTRL DE_F       &hml LALT DE_M         &hml LGUI DE_P       &hml LSHFT DE_K            &hmr RSHFT DE_Y      &hmr RGUI DE_Q        &hmr RALT DE_DOT      &hmr RCTRL DE_Z
 //       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
                                                     SMART_NUM            &to L_A1                      ___                   ___   
 //                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯
 )
+
 
 ZMK_LAYER(nav,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
@@ -166,23 +166,25 @@ ZMK_LAYER(nav,
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
+
+
 ZMK_LAYER(sym,
 //              ╭───────────┬───────────┬───────────╮      ╭────────┬────────┬────────────╮
-                  &excl_qmark &hash_tilde &dllr_euro         &lpar_rpar &lbkt_rbkt &semi_sqt
+                  &kp DE_GRAVE &kp DE_DQT &kp DE_UNDER         &kp DE_BLSH &kp DE_PIPE &kp DE_EQUAL
 //       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
-            &grave_caret &under_minus &amps_at &equal_pipe  &lbrc_rbrc &lt_gt &colon_dqt &fslh_bslh
+       &kp DE_CARET  &kp DE_AT &kp DE_HASH &kp DE_DLLR  &kp DE_AMPS &kp DE_STAR &kp DE_PRCNT &kp DE_CARET
 //       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
-                         SMART_NUM  &to L_A1                &kp Space  ___
+                         &kp DE_TILDE  &kp DE_DEG          &kp ___  ___
 //                        ╰───────────┴───────────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(fn,
 //              ╭──────┬──────┬──────╮      ╭──────┬──────┬──────╮
-                  &kp F1 &kp F2 &kp F3        &kp F8 &kp F9 &kp F10
+                  &kp F12 &kp F11 &kp F10        &kp F4 &kp F5 &kp F6
 //       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
-           &kp F4 &kp F5 &kp F6 &kp F7        &kp F11 &kp F12 &kp C_VOL_DN &kp C_VOL_UP
+           &bootloader &kp F9 &kp F8 &kp F7        &kp F1 &kp F2 &kp F3 ___
 //       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
+                         ___  ___            &BT_CLR  ___
 //                     ╰──────┴──────╯      ╰───────────┴─────────╯
 )
 

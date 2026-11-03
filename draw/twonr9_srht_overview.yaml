@@ -205,8 +205,8 @@ layers:
   - ''
 combos:
 - p:
-  - 0
   - 1
+  - 2
   k: "\u21E5"
   l:
   - Symbols & Utilities
@@ -214,8 +214,17 @@ combos:
   align: mid
   offset: 0.16
 - p:
-  - 1
-  - 2
+  - 10
+  - 12
+  k: "\u23CE"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 7
+  - 9
   k: "\u23CE"
   l:
   - Symbols & Utilities
@@ -225,9 +234,7 @@ combos:
 - p:
   - 3
   - 4
-  k:
-    t: "\u232B"
-    s: "\u2326"
+  k: "\u232B"
   l:
   - Symbols & Utilities
   type: util
@@ -235,6 +242,15 @@ combos:
   offset: 0.16
 - p:
   - 4
+  - 5
+  k: "\u2326"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 3
   - 5
   k: "\u2303\u232B"
   l:
@@ -243,15 +259,14 @@ combos:
   align: mid
   offset: 0.16
 - p:
-  - 3
-  - 4
-  - 5
+  - 8
+  - 9
   k: "\u238B"
   l:
   - Symbols & Utilities
   type: util
-  align: top
-  offset: 0.18
+  align: mid
+  offset: 0.16
 - p:
   - 7
   - 9
@@ -262,8 +277,8 @@ combos:
   align: mid
   offset: 0.16
 - p:
-  - 7
-  - 8
+  - 10
+  - 11
   k: '-'
   l:
   - Symbols & Utilities
@@ -291,10 +306,10 @@ combos:
 - p:
   - 14
   - 15
-  k: '&macro_a2_shift'
+  k: "\u21EA"
   l:
   - Symbols & Utilities
-  type: util
+  type: system
   align: mid
   offset: 0.16
 - p:
@@ -309,8 +324,8 @@ combos:
   align: bottom
   offset: 0.18
 - p:
+  - 7
   - 8
-  - 9
   k:
     t: '&shift_repeat'
     h: "\u21E7"
@@ -321,8 +336,8 @@ combos:
   align: mid
   offset: 0.16
 - p:
-  - 10
   - 11
+  - 12
   k:
     t: '&shift_repeat'
     h: "\u21E7"
@@ -357,6 +372,141 @@ combos:
   l:
   - Symbols & Utilities
   type: num
+  align: mid
+  offset: 0.16
+- p:
+  - 10
+  - 17
+  k: "\xDF"
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 13
+  - 17
+  k: "\xE4"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 17
+  k: "\xF6"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 17
+  k: "\xFC"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 0
+  - 7
+  k: '{'
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 12
+  k: '}'
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 1
+  - 8
+  k: '['
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 11
+  k: ']'
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 2
+  - 9
+  k: (
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 3
+  - 10
+  k: )
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 10
+  - 11
+  k: +
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 0
+  - 8
+  k: <
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 11
+  k: '>'
+  l:
+  - Symbols & Utilities
+  type: sym
+  align: mid
+  offset: 0.16
+- p:
+  - 0
+  - 8
+  k: /
+  l:
+  - Symbols & Utilities
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 5
+  - 11
+  k: \
+  l:
+  - Symbols & Utilities
+  type: symbol
   align: mid
   offset: 0.16
 - p:
@@ -467,12 +617,3 @@ combos:
   type: bigram
   align: mid
   offset: 0.0
-- p:
-  - 6
-  - 7
-  k: "\xDF"
-  l:
-  - Symbols & Utilities
-  type: symbol
-  align: mid
-  offset: 0.16

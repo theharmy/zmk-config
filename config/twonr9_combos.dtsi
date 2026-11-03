@@ -52,7 +52,7 @@ ZMK_COMBO(combo_btclr,      &bt BT_CLR,  0 2,   L_FN)                    //bt 3 
 
 
 // German vowels + Eszett with the Space thumb (16):
-ZMK_COMBO(combo_de_sz,  &kp DE_SZ,      10 17, L_A1 L_A2)
+ZMK_COMBO(combo_de_sz,  &kp DE_SZ,               10 17, L_A1 L_A2)
 ZMK_COMBO(combo_de_ae,  &kp DE_A_UMLAUT,         13 17, L_A1 L_A2)
 ZMK_COMBO(combo_de_oe,  &kp DE_O_UMLAUT,          4 17, L_A1 L_A2)
 ZMK_COMBO(combo_de_ue,  &kp DE_U_UMLAUT,          5 17, L_A1 L_A2)
@@ -62,3 +62,18 @@ ZMK_COMBO(combo_de_ue,  &kp DE_U_UMLAUT,          5 17, L_A1 L_A2)
  * so the home-row triads were removed to free their keys from combo
  * conflicts. */
 
+
+ ZMK_COMBO(combo_lbrc,   &kp DE_LBRC,            0 7, L_SYM)
+ ZMK_COMBO(combo_rbrc,   &kp DE_RBRC,            5 12, L_SYM)
+ ZMK_COMBO(combo_lbkt,   &kp DE_LBKT,            1 8, L_SYM)
+ ZMK_COMBO(combo_rbkt,   &kp DE_RBKT,            4 11, L_SYM)
+ ZMK_COMBO(combo_lpar,   &kp DE_LPAR,            2 9, L_SYM)
+ ZMK_COMBO(combo_rpar,   &kp DE_RPAR,            3 10, L_SYM)
+ 
+ ZMK_COMBO(combo_plus,   &kp DE_PLUS,            10 11, L_SYM)
+ ZMK_COMBO(combo_lt,     &kp DE_LT,              0 8, L_SYM)
+ ZMK_COMBO(combo_gt,     &kp DE_GT,              5 11, L_SYM)
+
+
+ ZMK_COMBO(combo_fslh,     &kp DE_FSLH,              0 8, L_A1 L_A2)
+ ZMK_COMBO(combo_bslh,     &kp DE_BSLH,              5 11, L_A1 L_A2)
