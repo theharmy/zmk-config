@@ -468,11 +468,255 @@ combos:
   align: mid
   offset: 0.0
 - p:
+  - 0
   - 6
-  - 7
-  k: "\xDF"
+  k:
+    t: (
+    s: '&diag_macro_equal_equal'
   l:
   - Symbols & Utilities
   type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 3
+  - 11
+  k:
+    t: '}'
+    s: '&diag_macro_le'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 1
+  - 7
+  k:
+    t: '['
+    s: '&diag_macro_add_assign'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 13
+  k:
+    t: )
+    s: '&diag_macro_and_assign'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 2
+  - 8
+  k:
+    t: '{'
+    s: '&diag_macro_lshift_assign'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 12
+  k:
+    t: ']'
+    s: '&diag_macro_caret_assign'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 1
+  - 6
+  k:
+    t: '&'
+    s: '&diag_macro_and_and'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 13
+  k:
+    t: $
+    s: '&diag_macro_nullish'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 2
+  - 7
+  k:
+    t: '~'
+    s: '&diag_macro_arrow'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 3
+  - 12
+  k:
+    t: '='
+    s: '&diag_macro_lshift'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 2
+  - 6
+  k:
+    t: <
+    s: '&diag_macro_le'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 3
+  - 13
+  k:
+    t: '>'
+    s: '&diag_macro_ge'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 0
+  - 8
+  k:
+    t: '!'
+    s: '&diag_macro_slashslash'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 1
+  - 9
+  k:
+    t: '-'
+    s: '&diag_macro_increment'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 11
+  k:
+    t: ;
+    s: '&diag_macro_comment_open'
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 10
+  k:
+    t: ''''
+    s: '&diag_macro_equal'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 0
+  - 9
+  k:
+    t: '#'
+    s: '&diag_macro_scope'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 10
+  k:
+    t: /
+    s: '&diag_macro_plus'
+  l:
+  - Symbols & Utilities
+  type: bigram
+  align: mid
+  offset: 0.0
+- p:
+  - 6
+  - 7
+  k:
+    t: "\xB4"
+    s: '`'
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 10
+  - 16
+  k:
+    t: "\xDF"
+    s: "\xDF"
+  l:
+  - Symbols & Utilities
+  type: symbol
+  align: mid
+  offset: 0.16
+- p:
+  - 13
+  - 16
+  k:
+    t: "\xE4"
+    s: "\xE4"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 4
+  - 16
+  k:
+    t: "\xF6"
+    s: "\xF6"
+  l:
+  - Symbols & Utilities
+  type: util
+  align: mid
+  offset: 0.16
+- p:
+  - 5
+  - 16
+  k:
+    t: "\xFC"
+    s: "\xFC"
+  l:
+  - Symbols & Utilities
+  type: util
   align: mid
   offset: 0.16

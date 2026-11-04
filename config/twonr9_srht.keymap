@@ -12,6 +12,7 @@
  * - config/twonr9_macros_srht.dtsi    -> German bigram digraph macros
  * - config/twonr9_combos_srht.dtsi    -> Bigram chords for this grid
  * - config/twonr9_combos.dtsi         -> Coding & utility combos (shared)
+ * - config/symbol_work.dtsi           -> Diagonal symbol & German letter chords (shared, position-based)
  */
 
 #include <behaviors.dtsi>
@@ -129,6 +130,8 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 #include "twonr9_macros_srht.dtsi"
 #include "twonr9_combos.dtsi"       // shared utility/symbol/numpad combos
 #include "twonr9_combos_srht.dtsi"   // srht bigram chords
+#include "symbol_work.dtsi"
+
 
 /* ==============================================================================
  * Layers

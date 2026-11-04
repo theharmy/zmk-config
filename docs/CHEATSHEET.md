@@ -2,7 +2,7 @@
 
 > **Visual Infographic:** View [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for the all-in-one visual card reference (bugwind). For the srht backup: [`draw/twonr9_srht_cheatsheet.svg`](../draw/twonr9_srht_cheatsheet.svg).
 
-> **Which variant am I looking at?** This cheatsheet documents **bugwind**, the default keymap (`config/twonr9.keymap`) — every letter bound directly. The optional **srht** backup (`config/twonr9_srht.keymap`) differs in the alpha grids, bigram chords and ß chord, and adds nine adaptive keys; see [§9](#9-adaptive-key-swaps--symbol-repeat-srht-only). Other layers and shared combos are common.
+> **Which variant am I looking at?** This cheatsheet documents **bugwind**, the default keymap (`config/twonr9.keymap`). The optional **srht** backup (`config/twonr9_srht.keymap`) differs in the alpha grids, bigram chords and the letters of the ß/´ chords (same positions); both variants carry adaptive key swaps (nine on srht, two on bugwind) — see [§9](#9-adaptive-key-swaps--symbol-repeat). Other layers and shared combos are common.
 
 ---
 
@@ -134,7 +134,7 @@ Access via **Right Inner Thumb (16)**, or by holding **`H` (9)** / **`S` (10)** 
 ### Home Row: Coding Symbols & German Orthography
 | Combo | Keys | Output | Why it's useful / Benefits |
 | :--- | :---: | :---: | :--- |
-| `combo_sz` | `6 + 7` | **`ß`** (Eszett) | Fast pinch on base for German words (*Straße*, *groß*, *weiß*) — **`N + R`** on bugwind, **`S + R`** on srht |
+| `combo_de_sz` | `10 + 16` | **`ß`** (Eszett) | Fast pinch on base for German words (*Straße*, *groß*, *weiß*) — `S + Space` on bugwind, `C + Space` on srht |
 | `combo_under` | `7 + 9` | **`_`** (Underscore) | Instant typing of `snake_case` variables and function names |
 | `combo_minus` | `7 + 8` | **`-`** (Minus) | Hyphenation, negative values, and CLI flags (`--flag`, `-v`) |
 | `combo_colon` | `11 + 12` | **`:`** (Colon) | Rust `::` namespace pathing, Python defs & JSON key-value pairs |
@@ -157,12 +157,20 @@ Most programming symbols are now on diagonal alpha-layer combos in `config/symbo
 
 | Family | Chords (Plain / Shift; Ctrl / Ctrl+Shift) |
 | :--- | :--- |
-| Brackets | `L+N ( / )`; `Y+E ) / (`; `M+R [ / ]`; `O+I ] / [`; `D+T { / }`; `U+A } / {` |
+| Brackets | `L+N ( / )`; `Y+E } / {`; `M+R [ / ]`; `O+I ] / [`; `D+T { / }`; `U+A ) / (` |
 | Bitwise, logic, arrows | `M+N & / *; && / ||`; `O+A $ / €; ?? / ?.`; `D+R ~ / ^; -> / =>`; `Y+I = / +; << / >>`; `D+N < / >; <= / <=`; `Y+A > / <; >= / >=` |
 | Sentence, comments | `L+T ! / ?; // / ...`; `M+H - / _; ++ / --`; `U+E ; / :; /* / */`; `O+S ' / "; = / |` |
-| Other | `L+H : / "; :: / :=`; `U+S / / \\; + / @` |
+| Other | `L+H # / %; :: / :=`; `U+S / / \\; + / @` |
 
 The dedicated `sym` layer remains available during the transition and still has its original mod-morph pairs. Access it by holding **Top-Left** on the top row (`D` on position 2 or `Y` on position 3); the layer grid is visible in the diagrams. The alpha chords above are the current reference for the migrated symbol assignments.
+
+German letter chords (both variants, `a1`/`a2` — shared via `symbol_work.dtsi`):
+
+* **ß**: `10 + 16` — **`S + Space`** on bugwind, **`C + Space`** on srht.
+* **ä / ö / ü**: vowel + Space — `A + Space`, `O + Space`, `U + Space` (uppercase via Shift on the German host layout).
+* **´** (Shift: `` ` ``): `6 + 7` — **`N + R`** on bugwind, **`S + R`** on srht.
+
+The German chords sit on the *same positions* in both variants; only the letters pressed change with the grid. The 6+7 chord is the acute on both (ß moved to 10+16).
 
 ---
 
@@ -176,7 +184,7 @@ The dedicated `sym` layer remains available during the transition and still has 
    $$\text{Letter (t)} \longrightarrow \text{Magic Shift (8+9 / 10+11)} \longrightarrow \text{Instant second 't'}$$
 
 3. **German Eszett (*"Straße", "gross"*)**:
-   $$\text{Pinch Keys 6 + 7} \longrightarrow \text{Instant 'ß'}$$
+   $$\text{Pinch Keys 10 + 16} \longrightarrow \text{Instant 'ß'} \quad (S + \text{Space})$$
 
 4. **Secondary Alphas (*"BMW", "Quiz"*)**:
    $$\text{Tap 14 (1 letter)} \quad\text{or}\quad \text{Hold 14 (continuous words)}$$
@@ -189,16 +197,19 @@ The dedicated `sym` layer remains available during the transition and still has 
 
 ---
 
-## 9. Adaptive Key Swaps & Symbol Repeat (`srht` only)
+## 9. Adaptive Key Swaps & Symbol Repeat
 
-> **Not part of bugwind.** The default keymap binds every alpha directly, so it has no adaptive keys — what you see on the grid is what you type. This section applies only to the optional **srht** backup (`config/twonr9_srht.keymap`), whose swap rules live in [`config/twonr9_adaptive_keys_srht.h`](../config/twonr9_adaptive_keys_srht.h). See [`config/DOCUMENTATION.md`](../config/DOCUMENTATION.md) §4.E.
+Both variants correct the most common fast-typing (SFB) mistypes: within **300 ms** of its trigger key, an adaptive key outputs its swap partner. The chord path (both keys pressed together) and everything outside the window are unaffected. srht carries the full set of nine keys; bugwind only the two most frequent swaps.
 
 1. **Adaptive Key Swaps (SFB Elimination)**:
-   * **`r hl`** (After `R`): Pressing `H` outputs **`L`** (fast `rl` roll), pressing `L` outputs **`H`**.
-   * **`u oi`** (After `U`): Pressing `O` outputs **`I`** (fast `ui` roll), pressing `I` outputs **`O`**.
-   * **`q iu`** (After `Q`): Pressing `I` outputs **`U`** (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs **`I`**.
-   * **`r mv`** (After `R`): Pressing `M` outputs **`V`** (fast `rv` roll), pressing `V` outputs **`M`**.
-   * **`n bx`** (After `N`): Pressing `B` outputs **`X`** (fast `nx` roll), pressing `X` outputs **`B`**.
+   * **`u oi`** (After `U`): Pressing `O` outputs **`I`** (fast `ui` roll), pressing `I` outputs **`O`**. — *both variants*
+   * **`y us`** (After `Y`): Pressing `U` outputs **`S`** (fast `ys` roll), pressing `S` outputs **`U`**. — *bugwind only*
+   * **`r hl`** (After `R`): Pressing `H` outputs **`L`** (fast `rl` roll), pressing `L` outputs **`H`**. — *srht only*
+   * **`q iu`** (After `Q`): Pressing `I` outputs **`U`** (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs **`I`**. — *srht only*
+   * **`r mv`** (After `R`): Pressing `M` outputs **`V`** (fast `rv` roll), pressing `V` outputs **`M`**. — *srht only*
+   * **`n bx`** (After `N`): Pressing `B` outputs **`X`** (fast `nx` roll), pressing `X` outputs **`B`**. — *srht only*
+
+   The swap rules and hold wiring live in [`config/twonr9_adaptive_keys_bugwind.h`](../config/twonr9_adaptive_keys_bugwind.h) and [`config/twonr9_adaptive_keys_srht.h`](../config/twonr9_adaptive_keys_srht.h) (shared generators in `config/twonr9_adaptive.h`). See [`config/DOCUMENTATION.md`](../config/DOCUMENTATION.md) §4.E.
 
 2. **Bigram Chords (srht)**:
    * `a1`: `RL` · `HN` · `DT` · `CY` · `EO` · `UI`

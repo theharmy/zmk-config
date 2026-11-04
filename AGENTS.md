@@ -49,7 +49,7 @@ just draw-twonr9      # diagrams for bugwind; pass `srht` or `all` for the other
 **When editing a TwoNr9 keymap**, the rule is: keep the shared layers shared, and change only the
 variant-specific files. `nav`, `sym`, `fn`, `num`, the thumb cluster and `config/twonr9_keys.h` are
 common to both variants. What differs is the alpha grid, its bigram chords, and the adaptive-key
-engine (srht only).
+sets (nine on srht, two on bugwind — one file per variant).
 
 | Change | File(s) |
 | --- | --- |
@@ -59,7 +59,8 @@ engine (srht only).
 | Bigram chords (bugwind / srht) | `config/twonr9_combos_bugwind.dtsi` / `..._srht.dtsi` |
 | Bigram macro bodies (e.g. `SCH`) | `config/twonr9_macros_bugwind.dtsi` / `..._srht.dtsi` |
 | Coding & utility combos (shared) | `config/twonr9_combos.dtsi` |
-| Adaptive swap rules (srht only) | `config/twonr9_adaptive_keys_srht.h` |
+| Diagonal symbol & German letter chords (shared, position-based) | `config/symbol_work.dtsi` |
+| Adaptive swap rules (bugwind / srht) | `config/twonr9_adaptive_keys_bugwind.h` / `..._srht.h` (shared generators: `config/twonr9_adaptive.h`) |
 | Symbols, German keycodes | `config/keys_de.h` |
 | Physical grid, split/BT settings, keyboard name | `config/boards/shields/twonr9/` (`*.dtsi`, `*.overlay`, `Kconfig.defconfig`) |
 | Build targets | `build.yaml` (default) · `build-srht.yaml` (backup) |
@@ -68,9 +69,10 @@ Three traps worth knowing:
 
 - **`.conf` files have no include mechanism in ZMK**, so `twonr9.conf` and `twonr9_srht.conf`
   duplicate the same hardware/power settings. Edit both, or the srht backup drifts silently.
-- **Do not add adaptive keys to `bugwind`.** Its whole point is that every alpha is bound directly,
-  so the grid is self-describing. Adaptive rules live in `twonr9_adaptive_keys_srht.h`, included
-  only by the srht keymap.
+- **Keep bugwind's adaptive set minimal.** Every alpha is still bound directly (the grid is
+  self-describing); bugwind carries only the two most frequent swaps (`u oi`, `y us`) and srht the
+  full nine — one file per variant, shared generators in `twonr9_adaptive.h`. Don't grow the bugwind
+  set without a reason.
 - **After changing a keymap, regenerate the diagrams** with `just draw-twonr9 all`. The draw
   script's `VARIANTS` table (`draw/draw_twonr9.py`) mirrors the keymap's bigram lists and adaptive
   rules by hand — it does not read them out of the keymap, so it must be updated together with it.

@@ -96,7 +96,7 @@ This guide records architecture and design history for maintainers. For current 
 
 ### 11. Two Keymap Variants as Two Shields (2026-10-12, `config/` + `build.yaml` + `draw/`)
 * **Change**: Split the single keymap into **two real shields** so `just build <variant>` and CI both resolve the right keymap **by shield name** — no `cmake-args`, no manual steps, identical behaviour locally and in GitHub Actions.
-  * **`bugwind` (default)**: `twonr9_left` / `twonr9_right` → `config/twonr9.keymap` + `config/twonr9.conf`. No adaptive keys — every alpha is bound directly, so the grids are self-describing.
+  * **`bugwind` (default)**: `twonr9_left` / `twonr9_right` → `config/twonr9.keymap` + `config/twonr9.conf`. Every alpha is bound directly (the grids are self-describing); the adaptive-key set was re-introduced later as just the two most frequent swaps (`u oi`, `y us`) — see [§2.17](#17-practice-curriculum-for-both-variants-shared-german-chords--stale-reference-fixes-2026-11-04-practice--draw--docs--config) — every alpha is bound directly, so the grids are self-describing.
   * **`srht` (optional backup)**: `twonr9_srht_left` / `twonr9_srht_right` → `config/twonr9_srht.keymap` + `config/twonr9_srht.conf`. Keeps the nine adaptive keys.
   * `config/boards/shields/twonr9/` is now the **only** place the physical grid is defined (dtsi, both half overlays, and its `Kconfig.*`). `twonr9_srht/` holds nothing but thin overlays that `#include "../twonr9/twonr9_left.overlay"`, plus its own `Kconfig.shield`/`Kconfig.defconfig` — so there is no duplicated hardware definition to drift.
   * **Why shields rather than `-DKEYMAP_FILE=`**: a keymap path passed to `west build` must be absolute (so it breaks on any other machine), and `KEYMAP_FILE` is a **CMake cache variable** — reusing a build directory with a different keymap silently keeps the old one unless the define is repeated or the build is pristine. Shield-name resolution has neither problem, and it is what ZMK already does natively.
@@ -107,13 +107,13 @@ This guide records architecture and design history for maintainers. For current 
   * `a2` top row, position 4: bound `DE_P`, which **duplicated `P`** (already at `a1` pos 6) and left **`Q` missing entirely** → now `DE_Q`.
   * `a1` home row, position 12: `&hmr RGUI DE_I` **duplicated `RGUI`** (already at pos 11) → now `&hmr RALT DE_I`, restoring the symmetric `⌃ ⌥ ⌘ ⇧ / ⇧ ⌘ ⌥ ⌃` mod fan.
   * The srht keymap was also **missing `#include "twonr9_combos.dtsi"`**, silently dropping 18 shared utility combos (tab, enter, bspc, cbspc, esc, ß, under, minus, colon, semi, caps, stdio, shiftl, shiftr, numpad 7/8/9) — restored.
-* **Dead files removed**: `config/twonr9_adaptive_keys_bugwind.h` (bugwind has no adaptive keys) and `config/twonr9_keys.h.bak`. The surviving adaptive module was renamed to `config/twonr9_adaptive_keys_srht.h` to make its ownership explicit.
+* **Dead files removed**: `config/twonr9_adaptive_keys_bugwind.h` (bugwind had no adaptive keys at the time) and `config/twonr9_keys.h.bak`. The surviving adaptive module was renamed to `config/twonr9_adaptive_keys_srht.h` to make its ownership explicit. *(Superseded: `twonr9_adaptive_keys_bugwind.h` was re-created on 2026-11-02 when bugwind gained its two adaptive swaps — see [§2.17](#17-practice-curriculum-for-both-variants-shared-german-chords--stale-reference-fixes-2026-11-04-practice--draw--docs--config).)*
 * **Draw system made variant-aware** (`draw/draw_twonr9.py`): a `VARIANTS` table drives everything — per-variant keymap path, title, a1/a2 bigram lists, adaptive rules (or `None`), and the ß chord text. `main()` takes optional variant names (`just draw-twonr9 [bugwind|srht|all]`, default **bugwind only**, so every existing doc link keeps resolving).
   * Derived, not duplicated: `combined_bigram_map()` builds the a1/a2 chord pairs from the bigram lists, and `combo_symbol()` resolves `&macro_<bigram>` bindings from the same lists — so the grids in the diagrams **cannot** drift from the keymap. (The previous hardcoded `combo_symbol_map` only knew the srht macro names, which is why the bugwind diagrams silently lost the `MB`/`YS`/`RW`/`MT`/`SCH`/`GS` chords.)
   * The adaptive legend card, the PIP reference card, and the cheatsheet prose now read from the variant table; bugwind renders an explicit *"none — every letter is bound directly"* in place of the swap rules.
   * Output names: bugwind keeps the canonical `twonr9*.svg` names; srht writes `twonr9_srht_*.svg`.
 * *Verified*: `just build all` produces all four default artifacts; `just build-srht` produces both srht halves. The compiled `zephyr.dts` was decoded for both variants and confirmed all 26 letters appear **exactly once** across `a1`+`a2`, `I` is `RALT`, `A` is `GUI`, and `Q` is present with `P` appearing once. All 12 bigrams render on both variants' diagrams, and the adaptive legend/dashes appear on srht only.
-* *Note*: `config/twonr9_adaptive_keys_bugwind.h` was deleted but `config/twonr9_adaptive_keys_srht.h` is now the sole adaptive module, included only by the srht keymap.
+* *Note*: `config/twonr9_adaptive_keys_bugwind.h` was deleted and `config/twonr9_adaptive_keys_srht.h` became the sole adaptive module, included only by the srht keymap. *(Superseded in [§2.17](#17-practice-curriculum-for-both-variants-shared-german-chords--stale-reference-fixes-2026-11-04-practice--draw--docs--config): the bugwind file exists again with two swaps.)*
 
 ### 12. Diagonal Chord Regrouping & German Space Chords (2026-10-27, `config/` + `draw/` + `practice/`)
 * **Change**: The bugwind diagonal symbol chords were regrouped from ad-hoc assignments into geometry families in `config/symbol_work.dtsi`:
@@ -122,7 +122,7 @@ This guide records architecture and design history for maintainers. For current 
   * **Outer-1 (sentence/comments)**: `L+T ! ?` · `M+H - _` · `U+E ; :` · `O+S ' "`.
   * **Outer-2**: `L+H : "` · `U+S / \`.
   * The dedicated `##`/`###` states were dropped (repeat `#` instead) in exchange for bilateral mirrored bracket chords; every Ctrl/ctrl+Shift operator output is unchanged, only re-homed.
-* **German letter chords**: `ß` moved off `N+R` to **`S + Space`** (`10 16`), and the umlauts became **letter + Space** chords — `A+Space ä`, `O+Space ö`, `U+Space ü` (all `a1`/`a2`; uppercase via the shifted state on the German host layout). The shared `combo_sz` in `twonr9_combos.dtsi` was removed; srht got its own `S+R` (6+7) `ß` combo in `twonr9_combos_srht.dtsi` (its 6+7 position is S+R). The freed bugwind `N+R` (6+7) is now `´` with shift → `DE_GRAVE` (backtick on a nodeadkeys host).
+* **German letter chords**: `ß` moved off `N+R` to **`S + Space`** (`10 16`), and the umlauts became **letter + Space** chords — `A+Space ä`, `O+Space ö`, `U+Space ü` (all `a1`/`a2`; uppercase via the shifted state on the German host layout). The shared `combo_sz` in `twonr9_combos.dtsi` was removed; srht got its own `S+R` (6+7) `ß` combo in `twonr9_combos_srht.dtsi` (its 6+7 position is S+R). The freed bugwind `N+R` (6+7) is now `´` with shift → `DE_GRAVE` (backtick on a nodeadkeys host). *(Superseded in [§2.17](#17-practice-curriculum-for-both-variants-shared-german-chords--stale-reference-fixes-2026-11-04-practice--draw--docs--config): srht's `combo_sz` at 6+7 was removed — ß now shares the `10 + 16` position with bugwind (C+Space on srht), and 6+7 is the acute alone.)*
 * **Draw system**: `DIAGONAL_CHORDS` in `draw/draw_twonr9.py` mirrors the configured chord table and supplies both the mod-morph overview and symbol-layer reference card. The diagrams group chords by family and show plain, Shift, Ctrl, and Ctrl+Shift outputs. Variant-specific ß-chord labels come from the draw script's variant table.
 * **Practice**: `practice/twonr9_chords_monkeytype.md` is the generated 7-stage curriculum for the diagonal chord outputs, German letter chords, bigrams, and words. `practice/gen_monkeytype.py` owns the practice list; regenerate it after changing chord outputs.
 * **Combo window → 35ms**: both keymaps now `#define COMBO_TERM 35` before the `zmk-helpers/helper.h` include, so every `ZMK_COMBO` without an explicit timeout uses 35ms instead of the helper default of 30. `combo_stdio` keeps its deliberate 50ms (the slow "Studio Unlock" idle). Verified in the generated devicetree: 48 combos at `timeout-ms = <35>`, 1 at `<50>`.
@@ -148,6 +148,15 @@ This guide records architecture and design history for maintainers. For current 
 ### 16. Dropped the PiP Cards & Stray Prettier Config (2026-10-30, `draw/` + repo root)
 * **Change**: Removed the picture-in-picture quick-ref cards — `draw/twonr9_pip.{svg,png}` and `draw/twonr9_srht_pip.{svg,png}` — which were referenced by nothing, and the now-dead `build_pip_svg()` generator in `draw/draw_twonr9.py`. Also removed the unreferenced `.prettierrc` (a fork leftover; no tool, recipe or workflow in this repo runs Prettier).
 * *Verified*: `draw/draw_twonr9.py` still parses and `just draw-twonr9 all` still runs clean.
+
+### 17. Practice Curriculum for Both Variants, Shared German Chords & Stale Reference Fixes (2026-11-04, `practice/` + `draw/` + `docs/` + `config/`)
+* **srht practice generator**: `practice/gen_monkeytype_srht.py` is a variant twin of `practice/gen_monkeytype.py` (which stays the bugwind source): same 7-stage curriculum and same chord *outputs*, but every chord is named with the **srht** letters that sit at its positions (top `L N D Y O U`, home `S R H T | C E I A` — ten of the eighteen diagonals are renamed), srht's bigrams (a1 `RL HN DT CY EO UI` · a2 `RM NB KT GY OE IU`), srht's home-row combos (`_` = R+T, `-` = R+H, `;` = C+I), and srht's nine adaptive keys, documented in a legend section. Output: `practice/twonr9_srht_chords_monkeytype.md`.
+  * **Word pool rebuilt for srht**: `kt` words re-tiered to a2 (the chord lives on the a2 layer — a mid-word layer-switch drill); words whose pair only exists on bugwind (`mb ys rw mt sch gs`) demoted to plain words (no corresponding srht chord); new groups for `hn dt cy rm nb gy` (English/loan words for the rare pairs, matching the existing `gs`/`iu` precedent).
+  * **German chords unified across variants**: srht's German letters now sit at the *same positions* as bugwind's — ß at `10 + 16` (S+Space on bugwind, C+Space on srht) and the umlauts at vowel + Space, all shared via `symbol_work.dtsi`. The `6 + 7` chord (N+R on bugwind, S+R on srht) carries the acute alone. This removes srht's old `combo_sz` at 6+7 — which both created the ß/´ ambiguity and duplicated the shared `combo_de_sz` node name — so the conflict is resolved in the firmware itself; the srht practice legend documents `ß = C + Space` and `´ = S + R` accordingly.
+* **Reference drift fixed** (left behind by `cabf4e1` and §14): `L + H` now emits `# / %` (Ctrl `::` / `:=`), but the practice scripts, the cheatsheet's chord table, and the draw script's `extra_combos` fallback labels still said `: / "`. Corrected in all three; the cheatsheet's bracket row also restored to the §14 mirror arrangement; plain-output count 16 → 18 and exam tokens 81 → 89 in both scripts. Both practice pages regenerated; all internal asserts (pool purity, per-round token counts, tag coverage, tier partition) pass.
+* **Stale "bugwind has no adaptive keys" corrected**: bugwind has carried two adaptive swaps since 2026-11-02 (`u oi` + `y us`, `AK_MS` 300 ms — same timing as srht, `config/twonr9_adaptive_keys_bugwind.h`). Fixed §2.11, §4.E, the cheatsheet intro + §9 (no longer "srht only"), and the AGENTS.md trap that told editors not to touch bugwind's adaptive keys (intent kept: bugwind stays minimal so the grid remains largely self-describing).
+* **srht symbol chords now in the committed keymap**: `config/twonr9_srht.keymap` gained `#include "symbol_work.dtsi"`, so srht's diagonal symbol chords and the German letter chords are part of the committed firmware, not just the local build; the srht diagrams were regenerated to show them.
+* *Verified*: `just build-srht srht` builds both halves (FLASH 23.42% / RAM 13.86%); the compiled devicetree shows ß at `10 + 16`, the acute alone at `6 + 7`, the umlauts at `13/4/5 + 16`, and no `combo_sz`. `python3 practice/gen_monkeytype.py` and `gen_monkeytype_srht.py` both run with all asserts passing; `just draw-twonr9 all` + `--check all` reproduce every diagram (CI's reproducibility check stays green).
 
 ---
 
@@ -208,13 +217,14 @@ Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
 * The dedicated `sym` layer remains in the keymap during the ongoing migration; its mod-morph pairs are retained as a legacy/alternate entry path.
 
 ### E. Adaptive Key Swaps & Symbol Auto-Repeat
-* **Adaptive Key Swaps (SFB Elimination)** — *`srht` variant only*. The default `bugwind` keymap has no adaptive keys: every alpha is bound directly, so what you see on the grid is what you type.
-  * **`r hl`** (After `R`): Pressing `H` outputs `L` (fast `rl` roll), pressing `L` outputs `H`.
-  * **`u oi`** (After `U`): Pressing `O` outputs `I` (fast `ui` roll), pressing `I` outputs `O`.
-  * **`q iu`** (After `Q`): Pressing `I` outputs `U` (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs `I`.
-  * **`r mv`** (After `R`): Pressing `M` outputs `V` (fast `rv` roll), pressing `V` outputs `M`.
-  * **`n bx`** (After `N`): Pressing `B` outputs `X` (fast `nx` roll), pressing `X` outputs `B`.
-  * *Where these live*: The swap rules, hold wiring, and grid aliases for all nine adaptive keys are defined in [`config/twonr9_adaptive_keys_srht.h`](twonr9_adaptive_keys_srht.h), included only by [`config/twonr9_srht.keymap`](twonr9_srht.keymap). Each key's rule, hold-tap, and `#define` sit together in one group, so reworking a single adaptive key touches one contiguous block.
+* **Adaptive Key Swaps (SFB Elimination)** — both variants, same timing (`AK_MS` = 300 ms). Within the window after its trigger, an adaptive key emits its swap partner; the chord path and everything outside the window are unaffected. srht carries the full nine-key set; bugwind keeps the two most frequent swaps.
+  * **`u oi`** (After `U`): Pressing `O` outputs `I` (fast `ui` roll), pressing `I` outputs `O`. — *both variants*
+  * **`y us`** (After `Y`): Pressing `U` outputs `S` (fast `ys` roll), pressing `S` outputs `U`. — *bugwind only*
+  * **`r hl`** (After `R`): Pressing `H` outputs `L` (fast `rl` roll), pressing `L` outputs `H`. — *srht only*
+  * **`q iu`** (After `Q`): Pressing `I` outputs `U` (fast `qu` roll for *Quelle*, *Quiz*), pressing `U` outputs `I`. — *srht only*
+  * **`r mv`** (After `R`): Pressing `M` outputs `V` (fast `rv` roll), pressing `V` outputs `M`. — *srht only*
+  * **`n bx`** (After `N`): Pressing `B` outputs `X` (fast `nx` roll), pressing `X` outputs `B`. — *srht only*
+  * *Where these live*: Bugwind's two swaps live in [`config/twonr9_adaptive_keys_bugwind.h`](twonr9_adaptive_keys_bugwind.h) (included by [`config/twonr9.keymap`](twonr9.keymap)); srht's nine live in [`config/twonr9_adaptive_keys_srht.h`](twonr9_adaptive_keys_srht.h) (included by [`config/twonr9_srht.keymap`](twonr9_srht.keymap)). Both files share the node generators in [`config/twonr9_adaptive.h`](twonr9_adaptive.h), and each key's rule, hold-tap, and `#define` sit together in one group, so reworking a single adaptive key touches one contiguous block.
 * **Expanded Symbol & Number Auto-Repeat**: Tapping Magic Shift immediately after typing any symbol or number (`==`, `++`, `::`, `//`, `!=`, `->`, `**`, `11`, `00`) instantly repeats that character.
 
 ---
@@ -242,14 +252,14 @@ Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
 
 Top row = layer-taps · Home row = modifiers (mirrored on the right half).
 
-Every alpha is bound directly, so the grid is self-describing.
+Every alpha is bound directly, so the grid is self-describing — except the four adaptive keys below, which additionally rewrite their output after their trigger letter (see [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat)).
 
 ```c
 ZMK_LAYER(a1,
 //                         ╭─────────────────┬─────────────────┬─────────────────╮      ╭─────────────────┬─────────────────┬─────────────────╮
-                            &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    &lt L_NAV DE_O    &lt L_FN DE_U
+                            &lt L_FN DE_L    &lt L_NAV DE_M    &lt L_SYM DE_D           &lt L_SYM DE_Y    NV_O              FN_U
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
-          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          &hmr RSHFT DE_S   &hmr RGUI DE_E     &hmr RALT DE_I    &hmr RCTRL DE_A
+          &hml LCTRL DE_N   &hml LALT DE_R     &hml LGUI DE_T   &hml LSHFT DE_H          SH_S              &hmr RGUI DE_E     AR_I              &hmr RCTRL DE_A
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
                                               SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
@@ -259,11 +269,11 @@ ZMK_LAYER(a1,
 | Pos | Key | Hold | Pos | Key | Hold |
 |-----|-----|------|-----|-----|------|
 | 0 | L | `&lt L_FN` (fn) | 3 | Y | `&lt L_SYM` |
-| 1 | M | `&lt L_NAV` (nav) | 4 | O | `&lt L_NAV` (nav) |
-| 2 | D | `&lt L_SYM` (sym) | 5 | U | `&lt L_FN` (fn) |
-| 6 | N | `&hml LCTRL` | 10 | S | `&hmr RSHFT` |
+| 1 | M | `&lt L_NAV` (nav) | 4 | O *(adaptive)* | `NV_O` (nav) |
+| 2 | D | `&lt L_SYM` (sym) | 5 | U *(adaptive)* | `FN_U` (fn) |
+| 6 | N | `&hml LCTRL` | 10 | S *(adaptive)* | `SH_S` (RSHFT) |
 | 7 | R | `&hml LALT` | 11 | E | `&hmr RGUI` |
-| 8 | T | `&hml LGUI` | 12 | I | `&hmr RALT` |
+| 8 | T | `&hml LGUI` | 12 | I *(adaptive)* | `AR_I` (RALT) |
 | 9 | H | `&hml LSHFT` | 13 | A | `&hmr RCTRL` |
 
 #### Layer 0: `a1` (Base QWERTZ Alphas) — srht
@@ -342,7 +352,7 @@ ZMK_LAYER(a2,
 | 8 | P | `&hml LGUI` | 12 | `.` | `&hmr RALT` |
 | 9 | K | `&hml LSHFT` | 13 | Z | `&hmr RCTRL` |
 
-> **Adaptive keys** (marked *adaptive*, `srht` only) additionally rewrite their own output based on the preceding bigram — see [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat). Their hold wiring lives in [`config/twonr9_adaptive_keys_srht.h`](twonr9_adaptive_keys_srht.h).
+> **Adaptive keys** (marked *adaptive*) additionally rewrite their own output after their trigger letter — see [§4.E](#e-adaptive-key-swaps--symbol-auto-repeat). The srht keys' hold wiring lives in [`config/twonr9_adaptive_keys_srht.h`](twonr9_adaptive_keys_srht.h); bugwind's four a1 keys in [`config/twonr9_adaptive_keys_bugwind.h`](twonr9_adaptive_keys_bugwind.h). Bugwind's `a2` grid has no adaptive keys (none of its letters is swapped).
 
 Layers 2–5 (`nav`, `sym`, `fn`, `num`) and the thumb cluster are **identical in both variants**.
 

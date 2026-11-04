@@ -4,14 +4,14 @@
 A short, progressive curriculum (quality over quantity): 7 self-contained
 blocks of ~3–4k chars each, increasing in difficulty:
 
-    1  Plain                16 plain outputs, no modifiers
+    1  Plain                18 plain outputs, no modifiers
     2  Plain + Ctrl + erste Wörter  operators + general German words
                                    (no bigram pairs — alpha grid joins in)
     3  + a1 Bigrams + Layer-1-Wörter  a1 layer complete (positions + bigrams)
     4  All Symbols          Shift states unlock (+ ´ from N + R)
     5  + a2 Bigrams + alle Wörter     the full keymap
     6  Wörter               the full word pool in context
-    7  Vollpass (Exam)      every token — 81 chord outputs + all words — once
+    7  Vollpass (Exam)      every token — 89 chord outputs + all words — once
 
 Words accumulate: from stage 2 on, each block carries the earlier word tiers,
 so the later blocks are realistic mixes. The word tiers are derived from the
@@ -48,7 +48,7 @@ CHORDS = [
     ("M + H", ["-", "_", "++", "--"]),
     ("U + E", [";", ":", "/*", "*/"]),
     ("O + S", ["'", '\"', "=", "|"]),
-    ("L + H", [":", '"', "::", ":="]),
+    ("L + H", ["#", "%", "::", ":="]),
     ("U + S", ["/", "\\", "+", "@"]),
 ]
 # German letters (letter + Space chord) and the freed N + R acute/backtick.
@@ -72,10 +72,10 @@ TOKENS.extend(BIGRAMS)
 N_TOKENS = len(TOKENS)
 assert N_TOKENS == 89, f"expected 89 chord states, got {N_TOKENS}"
 # Some outputs intentionally occur on multiple chords (mirrored brackets,
-# comparison operators and characters assigned to both symbol and punctuation
-# chords). Assert the expected duplicate surface to catch accidental changes.
+# comparison operators and the shared = / + chord states). Assert the expected
+# duplicate surface to catch accidental changes.
 _dupes = {t: c for t, c in Counter(TOKENS).items() if c > 1}
-_allowed_duplicates = set("()[]{}") | {"<", ">", "<=", ">=", "=", "+", ":", '"'}
+_allowed_duplicates = set("()[]{}") | {"<", ">", "<=", ">=", "=", "+"}
 assert set(_dupes) <= _allowed_duplicates, f"unexpected duplicate tokens: {_dupes}"
 assert all(c == 2 for t, c in _dupes.items() if t not in {"<=", ">="}), \
     f"unexpected duplicate counts: {_dupes}"
@@ -242,7 +242,7 @@ CTRL_SHIFT = [outs[3] for _, outs in CHORDS]
 
 STAGES = [
     ("1", "Plain",
-     "reines Chord-Gef\u00fchl: 16 Plain-Outputs, keine Modifier",
+     "reines Chord-Gef\u00fchl: 18 Plain-Outputs, keine Modifier",
      PLAIN),
     ("2", "Plain + Ctrl + erste W\u00f6rter",
      "Operatoren dazu + allgemeine deutsche W\u00f6rter ohne Bigrams "
@@ -261,7 +261,7 @@ STAGES = [
      f"alles im echten Tipp-Kontext ({N_WORDS} W\u00f6rter)",
      WORDS_ALL),
 ]
-# Final exam: every token \u2014 81 chord outputs + all words \u2014 exactly once.
+# Final exam: every token \u2014 89 chord outputs + all words \u2014 exactly once.
 EXAM = ("7", "Vollpass (Abschluss)", "alles in einem Durchgang", TOKENS + WORDS_ALL)
 
 PER_LINE = 10
@@ -360,9 +360,9 @@ def legend():
     out.append("### Home-Row-Symbol-Combos (alle Alpha-Layer)\n")
     out.append("| Chord | Output |")
     out.append("| --- | --- |")
-    out.append("| R + H | _ (auch M + H \u00b7 Plain) |")
-    out.append("| R + T | - (auch M + H \u00b7 Shift) |")
-    out.append("| E + I | : (auch L + H \u00b7 Plain) |")
+    out.append("| R + H | _ (auch M + H \u00b7 Shift) |")
+    out.append("| R + T | - (auch M + H \u00b7 Plain) |")
+    out.append("| E + I | : (auch U + E \u00b7 Shift) |")
     out.append("| S + I | ; (auch U + E \u00b7 Plain) |")
     out.append("")
     out.append("> `_ - : ;` kommen im Pool nur einmal pro Runde vor (Chord-Pfad); "

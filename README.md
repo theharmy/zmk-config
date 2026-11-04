@@ -23,10 +23,10 @@ The physical keyboard is defined once; shield names select the keymap.
 | --- | --- | --- |
 | Shield | `twonr9_left` / `twonr9_right` | `twonr9_srht_left` / `twonr9_srht_right` |
 | Keymap | [`config/twonr9.keymap`](config/twonr9.keymap) | [`config/twonr9_srht.keymap`](config/twonr9_srht.keymap) |
-| Adaptive keys | none — every letter bound directly | 9 adaptive keys |
+| Adaptive keys | 2 (`u oi`, `y us`) — every letter otherwise bound directly | 9 adaptive keys |
 | Bigrams (a1) | `RL` `KT` `MB` `YS` `EO` `UI` | `RL` `HN` `DT` `CY` `EO` `UI` |
 | Bigrams (a2) | `RW` `MT` `SCH` `GS` `OE` `IU` | `RM` `NB` `KT` `GY` `OE` `IU` |
-| ß chord | `S + Space` (+ `ä ö ü` vowels + Space) | `S + R` (6+7) |
+| ß chord | `S + Space` (10+16) (+ `ä ö ü` vowels + Space) | `C + Space` (10+16, same positions — shared via `symbol_work.dtsi`) |
 | Build | `build.yaml` (CI) | `build-srht.yaml`, on demand |
 
 ```bash
