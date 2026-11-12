@@ -1,0 +1,7 @@
+/ {
+    layer_signal {
+        compatible = "zmk,layer-signal";
+        heartbeat-ms = <2000>;   // re-send the layers every 2 s, so a HUD started late catches up
+        positions;               // also report every key press by position
+    };
+};

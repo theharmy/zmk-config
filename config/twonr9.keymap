@@ -131,6 +131,7 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 #include "twonr9_combos.dtsi"       // shared utility/symbol/numpad combos
 #include "twonr9_combos_srht.dtsi"   // srht bigram chords
 #include "symbol_work.dtsi"
+#include "twonr9_layer_signal.dtsi"
 
 
 /* ==============================================================================

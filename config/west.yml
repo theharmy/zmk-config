@@ -31,6 +31,8 @@ manifest:
       url-base: https://github.com/zzeneg
     - name: srwi
       url-base: https://github.com/srwi
+    - name: rafaelromao
+      url-base: https://github.com/rafaelromao
 
   projects:
     - name: zmk
@@ -65,7 +67,9 @@ manifest:
       path: modules/zmk/keypeek-layer-notifier
       remote: srwi
       revision: b600af3bb7d1795073a4ce23e08d6db46371551b # master (2026-09-02)
-
+    - name: zmk-layer-hud
+      remote: rafaelromao
+      revision: main
     # Avoid downloading GBs of unused Zephyr modules. Remove this section to
     # restore the default (needed for less common hardware).
     - name: zephyr
@@ -77,8 +81,8 @@ manifest:
           - cmsis
           - hal_nordic
           - hal_rpi_pico
-          - hal_stm32  # imported independently by ZMK
-          - lvgl  # imported independently by ZMK
+          - hal_stm32 # imported independently by ZMK
+          - lvgl # imported independently by ZMK
           - mbedtls
           - nanopb
           - tinycrypt
