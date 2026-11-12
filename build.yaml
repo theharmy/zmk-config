@@ -23,7 +23,7 @@ include:
   - board: nice_nano@2.0.0//zmk
     shield: twonr9_left # raw_hid_adapter
     snippet: layer-hud-usb-uart #studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    # cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: twonr9_left_with_snippets
 
   # 3. Peripheral Half (Right) - Wireless BLE peripheral
