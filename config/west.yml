@@ -69,7 +69,7 @@ manifest:
       revision: b600af3bb7d1795073a4ce23e08d6db46371551b # master (2026-09-02)
     - name: zmk-layer-hud
       remote: rafaelromao
-      revision: main
+      revision: v1.2.0 # tag; was `main`, so builds moved under our feet
     # Avoid downloading GBs of unused Zephyr modules. Remove this section to
     # restore the default (needed for less common hardware).
     - name: zephyr

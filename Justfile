@@ -84,6 +84,11 @@ flash expr: (build expr)
         just _flash_single "$board" "$shield" "$artifact"
     done
 
+# fail if the generated chords, the drawing or the practice drifted from the keymap
+check-keymap:
+    python3 draw/gen_symbols.py --check
+    python3 -m unittest tests.test_chord_consistency
+
 # the keymap as a self-contained HTML page (layers, chords by family, search)
 [group('build & draw')]
 keymap-html:

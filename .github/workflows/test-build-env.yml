@@ -46,12 +46,11 @@ jobs:
         with:
           persist-credentials: false
       - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
-      - name: Test draw recipe
+      - name: Chords, drawing and practice agree
+        run: nix develop --command just check-keymap
+      - name: The drawing still renders
         if: runner.os == 'Linux'
-        run: nix develop --command just draw-twonr9
-      - name: Check drawings are reproducible
-        if: runner.os == 'Linux'
-        run: nix develop --command just draw-check all
+        run: nix develop --command just keymap-svg
       - name: Test drawing metadata
         run: nix develop --command python3 -m unittest discover -s tests
       - name: Set up build environment

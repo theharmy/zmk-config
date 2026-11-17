@@ -17,4 +17,5 @@ config/backups/
 /trainer
 /.helix
 __pycache__
-/tests/
+/tests/*
+!/tests/test_chord_consistency.py
