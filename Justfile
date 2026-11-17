@@ -84,12 +84,6 @@ flash expr: (build expr)
         just _flash_single "$board" "$shield" "$artifact"
     done
 
-# build the optional "srht" variant (kept as a backup, not built by CI)
-[group('build & draw')]
-[doc('build the optional srht variant')]
-build-srht expr="all" *west_args:
-    just build_matrix="build-srht.yaml" build {{ expr }} {{ west_args }}
-
 # the keymap as a self-contained HTML page (layers, chords by family, search)
 [group('build & draw')]
 keymap-html:

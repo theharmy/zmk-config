@@ -5,35 +5,28 @@
 > 📖 **Technical guide:** See [`config/DOCUMENTATION.md`](config/DOCUMENTATION.md) for architecture, file ownership, hardware, and build details.
 >
 
-## Layouts
+## Layout
 
-<img src="./draw/twonr9_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (bugwind)" width="100%" /><br /> _(bugwind — generated with [keymap-drawer](https://github.com/caksoylar/keymap-drawer) via `just draw-twonr9`)_
+<img src="./draw/twonr9_srht_current.svg" alt="TwoNr9 keymap, every layer" width="100%" /><br />
+_Every layer, drawn from `draw/twonr9_srht.yaml` with keymap-drawer (`just keymap-svg`)._
 
-Optional **srht** backup variant ([full diagram](./draw/twonr9_srht_combined_overview.svg)):
+**[Interactive map](draw/twonr9_keymap.html)** — layer tabs, all eight chord states, and every
+chord with the keys it needs (`just keymap-html`).
 
-<img src="./draw/twonr9_srht_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (srht)" width="100%" />
+## The keymap
 
----
+One keymap, [`config/twonr9.keymap`](config/twonr9.keymap), built by the `twonr9_left` /
+`twonr9_right` shields. The `_srht` suffixes on `twonr9_combos_srht.dtsi`,
+`twonr9_macros_srht.dtsi` and `twonr9_adaptive_keys_srht.h` name the layout family; there is no
+second variant.
 
-## Variants and builds
-
-The physical keyboard is defined once; shield names select the keymap.
-
-| | **bugwind** (default) | **srht** (backup) |
-| --- | --- | --- |
-| Shield | `twonr9_left` / `twonr9_right` | `twonr9_srht_left` / `twonr9_srht_right` |
-| Keymap | [`config/twonr9.keymap`](config/twonr9.keymap) | [`config/twonr9_srht.keymap`](config/twonr9_srht.keymap) |
-| Adaptive keys | 2 (`u oi`, `y us`) — every letter otherwise bound directly | 9 adaptive keys |
-| Bigrams (a1) | `RL` `KT` `MB` `YS` `EO` `UI` | `RL` `HN` `DT` `CY` `EO` `UI` |
-| Bigrams (a2) | `RW` `MT` `SCH` `GS` `OE` `IU` | `RM` `NB` `KT` `GY` `OE` `IU` |
-| ß chord | `S + Space` (10+16) (+ `ä ö ü` vowels + Space) | `C + Space` (10+16, same positions — shared via `symbol_work.dtsi`) |
-| Build | `build.yaml` (CI) | `build-srht.yaml`, on demand |
+Flash **`firmware/twonr9_left_with_snippets.uf2`** on the left half: it is the build with the
+`layer-hud-usb-uart` snippet, without which the HUD gets no layer signal over USB.
 
 ```bash
-just build all          # bugwind + settings_reset (what CI builds)
-just build-srht         # the optional srht backup
-just draw-twonr9        # diagrams for bugwind; add `srht` or `all` for both
-just draw-check all     # fail if generated drawings are stale; never edits files
+just build all      # left, left with the HUD snippet, right, settings_reset
+just keymap-html    # the interactive page
+just keymap-svg     # every layer as an SVG
 ```
 
 For the current layers, combos, symbol chords, and typing workflow, use the

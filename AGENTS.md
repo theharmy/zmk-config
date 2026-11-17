@@ -32,60 +32,58 @@ humans adapting this repo. For background on the keymap and the build pipeline, 
 ## The TwoNr9 (this repo's keyboard)
 
 The TwoNr9 is an 18-key split. Its hardware is defined **once**, in
-`config/boards/shields/twonr9/`; two thin shields wrap it and differ only in which keymap ZMK
-resolves for them **by shield name** (so `just build` and CI need no `cmake-args`):
+`config/boards/shields/twonr9/`, built by the `twonr9_left` / `twonr9_right` shields (ZMK resolves
+`config/twonr9.keymap` by shield name, so `just build` and CI need no `cmake-args`):
 
-| Variant | Shield | Keymap | Config | Built by |
-| --- | --- | --- | --- | --- |
-| **bugwind** (default) | `twonr9_left` / `twonr9_right` | `config/twonr9.keymap` | `config/twonr9.conf` | `build.yaml` (CI) |
-| **srht** (backup) | `twonr9_srht_left` / `twonr9_srht_right` | `config/twonr9_srht.keymap` | `config/twonr9_srht.conf` | `build-srht.yaml` |
+| Target | Firmware |
+| --- | --- |
+| `twonr9_left` | left half, no serial signal |
+| `twonr9_left_with_snippets` | left half with `layer-hud-usb-uart` — **the one to flash** |
+| `twonr9_right` | right half |
+| `settings_reset` | reset |
 
 ```bash
-just build all        # bugwind + settings_reset -- what CI builds
-just build-srht       # the optional srht backup (overrides build_matrix)
-just draw-twonr9      # diagrams for bugwind; pass `srht` or `all` for the other
+just build all        # all four targets -- what CI builds
+just keymap-html      # the interactive keymap page
+just keymap-svg       # every layer as an SVG
 ```
 
-**When editing a TwoNr9 keymap**, the rule is: keep the shared layers shared, and change only the
-variant-specific files. `nav`, `sym`, `fn`, `num`, the thumb cluster and `config/twonr9_keys.h` are
-common to both variants. What differs is the alpha grid, its bigram chords, and the adaptive-key
-sets (nine on srht, two on bugwind — one file per variant).
+**When editing the keymap**, these are the files that matter:
 
 | Change | File(s) |
 | --- | --- |
-| Alpha grids, HRM holds, thumbs (bugwind) | `config/twonr9.keymap` |
-| Alpha grids, HRM holds, thumbs (srht) | `config/twonr9_srht.keymap` |
-| Behaviors shared by both (magic shift, morphs, thumbs) | `config/twonr9_keys.h` |
-| Bigram chords (bugwind / srht) | `config/twonr9_combos_bugwind.dtsi` / `..._srht.dtsi` |
-| Bigram macro bodies (e.g. `SCH`) | `config/twonr9_macros_bugwind.dtsi` / `..._srht.dtsi` |
-| Coding & utility combos (shared) | `config/twonr9_combos.dtsi` |
-| Diagonal symbol & German letter chords (shared, position-based) | `config/symbol_work.dtsi` |
-| Adaptive swap rules (bugwind / srht) | `config/twonr9_adaptive_keys_bugwind.h` / `..._srht.h` (shared generators: `config/twonr9_adaptive.h`) |
-| Symbols, German keycodes | `config/keys_de.h` |
-| Physical grid, split/BT settings, keyboard name | `config/boards/shields/twonr9/` (`*.dtsi`, `*.overlay`, `Kconfig.defconfig`) |
-| Build targets | `build.yaml` (default) · `build-srht.yaml` (backup) |
+| Alpha grids, HRM holds, thumbs | `config/twonr9.keymap` |
+| Shared behaviors (magic shift, thumbs, smart layers) | `config/twonr9_keys.h` |
+| Bigram chords / their macro bodies | `config/twonr9_combos_srht.dtsi` / `config/twonr9_macros_srht.dtsi` |
+| Coding & utility combos | `config/twonr9_combos.dtsi` |
+| Symbol chords (all eight states) | `draw/gen_symbols.py` → `config/twonr9_symbol_chords.dtsi` + the drawing |
+| German keycodes, umlaut chords | `config/keys_de.h`, `config/symbol_work.dtsi` |
+| Adaptive swap rules | `config/twonr9_adaptive_keys_srht.h` (generators: `config/twonr9_adaptive.h`) |
+| Physical grid, split/BT settings, keyboard name | `config/boards/shields/twonr9/` |
+| Build targets | `build.yaml` |
 
-Three traps worth knowing:
+The `_srht` suffix on a few files names the layout family, not a second variant — there is one
+keymap.
 
-- **`.conf` files have no include mechanism in ZMK**, so `twonr9.conf` and `twonr9_srht.conf`
-  duplicate the same hardware/power settings. Edit both, or the srht backup drifts silently.
-- **Keep bugwind's adaptive set minimal.** Every alpha is still bound directly (the grid is
-  self-describing); bugwind carries only the two most frequent swaps (`u oi`, `y us`) and srht the
-  full nine — one file per variant, shared generators in `twonr9_adaptive.h`. Don't grow the bugwind
-  set without a reason.
-- **After changing a keymap, regenerate the diagrams** with `just draw-twonr9 all`. The draw
-  script's `VARIANTS` table (`draw/draw_twonr9.py`) mirrors the keymap's bigram lists and adaptive
-  rules by hand — it does not read them out of the keymap, so it must be updated together with it.
+Traps worth knowing:
+
+- **Never edit the symbol chords by hand.** `draw/gen_symbols.py` owns the table and writes both the
+  dtsi and the drawing's chord entries; `python3 draw/gen_symbols.py --check` fails when they drift.
+- **Keep the adaptive set deliberate.** Nine swaps are active (`u oi`, `y us`, plus the srht seven);
+  adding one costs a chord-path risk and should come with a reason.
+- **The drawing and the page are generated.** `just keymap-svg` and `just keymap-html` read
+  `draw/twonr9_srht.yaml`; the legacy `draw_twonr9.py` still draws the retired morph model, so
+  `just draw-twonr9` is not a source of truth.
 
 ## Where to change what
 
 | Change | File |
 | --- | --- |
-| Layers, HRMs, thumb keys (per variant) | `config/twonr9.keymap` / `config/twonr9_srht.keymap` |
+| Layers, HRMs, thumb keys | `config/twonr9.keymap` |
 | Shared behaviors (magic shift, morphs, smart layers) | `config/twonr9_keys.h` |
-| Combos (per variant / shared) | `config/twonr9_combos*.dtsi` |
-| Board settings (BT, sleep, power) | `config/twonr9.conf` / `config/twonr9_srht.conf` |
-| Build targets | `build.yaml` · `build-srht.yaml` |
+| Combos (layout / shared) | `config/twonr9_combos_srht.dtsi` / `config/twonr9_combos.dtsi` |
+| Board settings (BT, sleep, power) | `config/twonr9.conf` |
+| Build targets | `build.yaml` |
 | ZMK/module versions | `config/west.yml` (via `pin-west bump` only) |
 | Dev environment | `flake.nix`, `nix/` (test with `nix develop`) |
 

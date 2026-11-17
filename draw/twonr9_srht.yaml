@@ -558,6 +558,22 @@ combos:
   align: mid
   offset: 0.16
 - p:
+  - 14
+  - 15
+  k: "a2 + \u21E7"
+  l:
+  - a1
+  - a2
+  type: layer
+- p:
+  - 16
+  - 17
+  k: "mouse"
+  l:
+  - a1
+  - a2
+  type: layer
+- p:
   - 1
   - 9
   k: "("
@@ -1500,20 +1516,3 @@ combos:
   - a1
   - a2
   type: symbol
-
-- p:
-  - 14
-  - 15
-  k: "a2 + \u21E7"
-  l:
-  - a1
-  - a2
-  type: layer
-- p:
-  - 16
-  - 17
-  k: "mouse"
-  l:
-  - a1
-  - a2
-  type: layer

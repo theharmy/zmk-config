@@ -1,9 +1,9 @@
 /*
- * TwoNr9 (18-Key Split Keyboard) Unified Keymap -- "srht" variant
+ * TwoNr9 (18-Key Split Keyboard) keymap -- the "srht" layout
  *
- * Built by the twonr9_srht_left / twonr9_srht_right shields, which pick this
- * file up by name. The default (bugwind) variant lives in twonr9.keymap and is
- * built by the plain twonr9_left / twonr9_right shields.
+ * This is the only keymap: the twonr9_left / twonr9_right shields pick it up by
+ * name. The "_srht" suffixes on the modules below name the layout family; there
+ * is no second variant to switch between.
  *
  * Modular architecture:
  * - config/keys_de.h                  -> German keycodes (DE_*)

@@ -20,7 +20,9 @@ Comprehensive technical documentation for the **TwoNr9 (18-Key Split)** keyboard
 
 ## 1. Project summary
 
-This guide records architecture and design history for maintainers. For current layer and combo behavior, use the [user cheatsheet](../docs/CHEATSHEET.md); for file ownership and safe editing workflow, use [`AGENTS.md`](../AGENTS.md). The project has two keymap variants over shared TwoNr9 hardware: bugwind is the default, while srht is an optional backup.
+This guide records architecture and design history for maintainers. For current layer and combo behavior, use the [user cheatsheet](../docs/CHEATSHEET.md); for file ownership and safe editing workflow, use [`AGENTS.md`](../AGENTS.md).
+
+**There is one keymap today**: `config/twonr9.keymap`, built by the `twonr9_left` / `twonr9_right` shields. The `_srht` suffixes on a few files name the layout family. The two-variant sections below (§11 and later references) are history: the srht shields and `build-srht.yaml` they describe were removed on 2026-11-17.
 
 ---
 

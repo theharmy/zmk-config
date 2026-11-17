@@ -1,14 +1,18 @@
 # TwoNr9 (18-Key Split) Keyboard Cheatsheet & Usability Guide
 
-> **Visual Infographic:** View [`draw/twonr9_cheatsheet.svg`](../draw/twonr9_cheatsheet.svg) for the all-in-one visual card reference (bugwind). For the srht backup: [`draw/twonr9_srht_cheatsheet.svg`](../draw/twonr9_srht_cheatsheet.svg).
+> **Visual references:** [`draw/twonr9_keymap.html`](../draw/twonr9_keymap.html) (interactive:
+> layers, all eight chord states, any chord previewed on its keys) and
+> [`draw/twonr9_srht_current.svg`](../draw/twonr9_srht_current.svg) (every layer as one SVG).
 
-> **Which variant am I looking at?** This cheatsheet documents **bugwind**, the default keymap (`config/twonr9.keymap`). The optional **srht** backup (`config/twonr9_srht.keymap`) differs in the alpha grids, bigram chords and the letters of the ß/´ chords (same positions); both variants carry adaptive key swaps (nine on srht, two on bugwind) — see [§9](#9-adaptive-key-swaps--symbol-repeat). Other layers and shared combos are common.
+> **One keymap.** This cheatsheet describes the only keymap, `config/twonr9.keymap`, built by the
+> `twonr9_left` / `twonr9_right` shields. The `_srht` suffixes on some files name the layout
+> family, not a second variant. Nine adaptive swaps are active (see [§9](#9-adaptive-key-swaps--symbol-repeat)).
 
 ---
 
 ## 1. Combined Layout & Combo Map
 
-<img src="./draw/twonr9_combined_overview.svg" alt="TwoNr9 Combined Keymap & Combos (bugwind)" width="100%" />
+<img src="./draw/twonr9_srht_current.svg" alt="TwoNr9 keymap, every layer" width="100%" />
 
 ---
 
