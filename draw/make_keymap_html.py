@@ -33,11 +33,20 @@ SCALE = 100       # layout units -> px
 
 # A chord's mod comes from the hand opposite its pair: a left-hand pair takes the
 # right-hand mods (10-13), a right-hand pair the left-hand ones (6-9).
-MOD_STATE = {10: "shift", 11: "cmd", 12: "alt", 13: "ctrl",
-             9: "shift", 8: "cmd", 7: "alt", 6: "ctrl"}
-STATES = ["plain", "shift", "ctrl", "cmd", "alt", "quad"]
-STATE_LABEL = {"plain": "Plain", "shift": "\u21e7 Shift", "ctrl": "\u2303 Ctrl",
-               "cmd": "\u2318 Cmd", "alt": "\u2325 Alt", "quad": "\u21e7\u2318 Shift+Cmd"}
+LEFT_MODS = {10: "shift", 11: "cmd", 12: "alt", 13: "ctrl"}
+RIGHT_MODS = {9: "shift", 8: "cmd", 7: "alt", 6: "ctrl"}
+MOD_STATE = {**LEFT_MODS, **RIGHT_MODS}
+TWO_MODS = {frozenset(("shift", "cmd")): "shiftcmd",
+            frozenset(("shift", "alt")): "shiftalt",
+            frozenset(("shift", "ctrl")): "shiftctrl"}
+STATES = ["plain", "shift", "cmd", "shiftcmd", "alt", "shiftalt", "ctrl", "shiftctrl"]
+STATE_COLORS = {"plain": "#7d837d", "shift": "#3b82f6", "cmd": "#14b8a6",
+                "shiftcmd": "#5fd0c0", "alt": "#f59e0b", "shiftalt": "#fbbf24",
+                "ctrl": "#a855f7", "shiftctrl": "#c084fc"}
+STATE_LABEL = {"plain": "Plain", "shift": "\u21e7 Shift", "cmd": "\u2318 Cmd",
+               "shiftcmd": "\u21e7\u2318 Shift+Cmd", "alt": "\u2325 Alt",
+               "shiftalt": "\u21e7\u2325 Shift+Alt", "ctrl": "\u2303 Ctrl",
+               "shiftctrl": "\u21e7\u2303 Shift+Ctrl"}
 UMlAUT_POSITIONS = {(4, 16), (5, 16), (10, 16), (13, 16)}
 ACUTE = (6, 7)
 LEFT_KEYS = {0, 1, 2, 6, 7, 8, 9}
@@ -108,16 +117,34 @@ def bigram_pairs():
     return out
 
 
+def pick_pair(pos, pairs):
+    """The pair inside a chord: a two-key chord whose other keys are all mods.
+
+    A chord can contain more than one two-key chord (10+11 is the magic-shift
+    stand-in), so the first subset found is not necessarily the pair."""
+    best = None
+    for q in pairs:
+        if set(q) <= set(pos):
+            extras = [x for x in pos if x not in q]
+            if len(extras) <= 2 and all(x in MOD_STATE for x in extras):
+                if best is None or min(q) < min(best[0]):
+                    best = (q, extras)
+    return best if best else (None, [])
+
+
 def build_sections(chords_list, pairs, letters):
     """Group the drawing's chords the way the layout thinks about them."""
     bigrams = bigram_pairs()
     pair_set = set(pairs)
-    symbol_rows, bigram_rows, german, utility, numpad = [], [], [], [], []
+    symbol_rows, bigram_rows, german, utility, numpad, layer_access = [], [], [], [], [], []
 
     for c in chords_list:
         p = tuple(c["p"])
         tap = c["k"]["tap"]
         label = tap or c["k"].get("shifted") or "\u2014"
+        if c["type"] == "layer":
+            layer_access.append({"label": label, "p": list(p), "state": "plain", "keys": ""})
+            continue
         if len(p) == 1:
             utility.append({"label": label, "p": list(p), "state": "plain", "keys": ""})
             continue
@@ -134,18 +161,18 @@ def build_sections(chords_list, pairs, letters):
         if c["type"] == "util":
             utility.append({"label": label, "p": list(p), "state": "plain", "keys": ""})
             continue
-        if len(p) == 2 and p in pair_set:
-            symbol_rows.append({"pair": p, "state": "plain", "label": label})
-        elif len(p) == 3:
-            pair = next((q for q in pairs if set(q) <= set(p)), None)
-            mod = next((x for x in p if pair is None or x not in pair), None)
-            if pair and mod in MOD_STATE:
-                symbol_rows.append({"pair": pair, "state": MOD_STATE[mod], "label": label})
-            else:
-                utility.append({"label": label, "p": list(p), "state": "plain", "keys": ""})
-        elif len(p) == 4 and {10, 11} <= set(p):
-            pair = tuple(x for x in p if x not in (10, 11))
-            symbol_rows.append({"pair": pair, "state": "quad", "label": label})
+        pair, extras = pick_pair(p, pairs)
+        state = None
+        if pair is not None:
+            names = sorted(MOD_STATE[x] for x in extras)
+            if not extras:
+                state = "plain"
+            elif len(extras) == 1 and names:
+                state = names[0]
+            elif len(extras) == 2 and frozenset(names) in TWO_MODS:
+                state = TWO_MODS[frozenset(names)]
+        if state is not None:
+            symbol_rows.append({"pair": pair, "state": state, "label": label})
         else:
             utility.append({"label": label, "p": list(p), "state": "plain", "keys": ""})
 
@@ -165,9 +192,12 @@ def build_sections(chords_list, pairs, letters):
         pair_states[key] = {st: {"label": lab, "p": list(pair)} for st, lab in states.items()}
         # The mod key for each state, as the letter printed on the a1 layer.
         left = all(p in LEFT_KEYS for p in pair)
-        mods = {p: MOD_STATE[p] for p in (range(10, 14) if left else range(6, 10))}
-        states_for = {MOD_STATE[p]: letters[p] for p in mods}
-        states_for["quad"] = letters[10] + "+" + letters[11] if left else ""
+        mods = LEFT_MODS if left else RIGHT_MODS
+        states_for = {state: letters[pos] for pos, state in mods.items()}
+        states_for["shiftcmd"] = letters[10 if left else 9] + "+" + letters[11 if left else 8]
+        states_for["shiftalt"] = letters[10 if left else 9] + "+" + letters[12 if left else 7]
+        states_for["shiftctrl"] = letters[10 if left else 9] + "+" + letters[13 if left else 6]
+        states_for["plain"] = ""
         pair_states[key]["_mods"] = states_for
 
     sections = []
@@ -178,11 +208,10 @@ def build_sections(chords_list, pairs, letters):
             if not plain or plain[0] not in chars:
                 continue
             mods = pair_states[",".join(map(str, pair))]["_mods"]
-            hint = " ".join(
-                f"{glyph}{mods[state]}"
-                for state, glyph in (("shift", "\u21e7"), ("ctrl", "\u2303"),
-                                     ("cmd", "\u2318"), ("alt", "\u2325"))
-                if mods.get(state))
+            hint = [{"g": glyph, "k": mods[state], "state": state}
+                    for state, glyph in (("shift", "\u21e7"), ("cmd", "\u2318"),
+                                         ("alt", "\u2325"), ("ctrl", "\u2303"))
+                    if mods.get(state)]
             cells = [{"label": rows[pair].get(st, ""), "state": st, "p": list(pair)}
                      for st in STATES]
             group_rows.append({"pair": list(pair), "cells": cells, "hint": hint})
@@ -191,6 +220,7 @@ def build_sections(chords_list, pairs, letters):
                              "rows": group_rows})
 
     sections += [
+        {"name": "Layer access", "kind": "chips", "chips": layer_access},
         {"name": "Bigrams", "kind": "chips", "chips": bigram_rows},
         {"name": "German", "kind": "chips", "chips": german},
         {"name": "Utilities & shifts", "kind": "chips", "chips": utility},
@@ -253,6 +283,14 @@ table.chords td.keys{color:var(--mut);font-size:12px;white-space:nowrap}
 .chip:hover,.chip.on{border-color:var(--hlb);background:var(--hl)}
 .chip .ks{color:var(--mut);font-size:12px}
 .mut{color:var(--mut)}
+.key.dim{opacity:.32}
+.key .pilltext{text-anchor:middle;font-weight:700;font-size:15px;fill:var(--fg)}
+.key .ix{fill:var(--mut);font-size:11px;opacity:.45}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.seg button[data-s]{display:inline-flex;align-items:center}
+.hint span{margin-right:4px}
+.cell:hover{border-color:var(--c,var(--hlb))}
+.cell.on{border-color:var(--c,var(--hlb));background:color-mix(in srgb, var(--c,#f59e0b) 18%, transparent)}
 </style>
 </head>
 <body>
@@ -266,30 +304,45 @@ table.chords td.keys{color:var(--mut);font-size:12px;white-space:nowrap}
 <div id="info"></div>
 <div id="sections"></div>
 <p class="sub">Big legend = tap; small grey = hold; small amber = shifted. Faint number = key position.
-The state buttons are the chord states: Shift, Ctrl, Cmd, Alt and Shift+Cmd. Click a chord cell (or a key)
+Each mod has a colour (Shift blue, Cmd teal, Alt amber, Ctrl purple); the Shift+mod states use a lighter shade of the same colour, and the hint beside each pair shows the key to hold. Click a chord cell (or a key)
 to pick its pair: the pair's symbol for the state on screen sits above its two keys. Hover a cell to light its keys.</p>
 </main>
 <script>
 const DATA = __DATA__;
 const LAYERS = DATA.layers, GEOM = DATA.geom, SECTIONS = DATA.sections;
 const BOX = DATA.box, GAP = DATA.gap, STATES = DATA.states, LABELS = DATA.state_labels;
-const PAIRS = DATA.pair_states, LEFT = new Set(DATA.left_keys);
-let ly = 0, st = 'plain', sel = null, pair = null, hov = null, pin = null, query = '';
+const COLORS = DATA.state_colors, PAIRS = DATA.pair_states;
+let ly = 0, st = 'plain', sel = null, pick = null, hov = null, query = '';
 const $ = id => document.getElementById(id);
 const E = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
+function contrast(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(v => {
+    v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.45 ? '#1f2421' : '#ffffff';
+}
 function keyLabel(i) { const k = LAYERS[ly].keys[i] || {}; return k.t || k.h || String(i); }
 function keyInfo(i) {
   const k = LAYERS[ly].keys[i] || {};
   return [k.t ? 'Tap ' + k.t : '', k.h ? 'Hold ' + k.h : '', k.s ? 'Shift ' + k.s : '']
     .filter(Boolean).join(' · ') || 'unbound';
 }
-function onLayer(c) { return !c.l || c.l.includes(LAYERS[ly].name); }
 function pairKey(p) { return p.join(','); }
-function pairStates(p) { return PAIRS[pairKey(p)] || null; }
+const GLYPH_STATE = {'\u21e7': 'shift', '\u2318': 'cmd', '\u2325': 'alt', '\u2303': 'ctrl'};
+const MODS_OF = {left: DATA.left_mods, right: DATA.right_mods};
+function modPositions(p, state) {
+  if (!p || state === 'plain') return [];
+  const left = p.every(k => DATA.left_keys.includes(k));
+  const mods = left ? MODS_OF.left : MODS_OF.right;
+  if (state === 'shiftcmd') return [mods.shift, mods.cmd];
+  if (state === 'shiftalt') return [mods.shift, mods.alt];
+  if (state === 'shiftctrl') return [mods.shift, mods.ctrl];
+  return mods[state] !== undefined ? [mods[state]] : [];
+}
 function pairOutput(p, state) {
-  const s = pairStates(p); if (!s || !s[state]) return null;
-  return s[state].label;
+  const s = PAIRS[pairKey(p)]; return s && s[state] ? s[state].label : null;
 }
 function output(c) {
   const k = c.k;
@@ -299,22 +352,38 @@ function output(c) {
   return k.tap;
 }
 function matches(text) { return !query || String(text).toLowerCase().includes(query.toLowerCase()); }
+function pickSame(p, state) { return pick && pairKey(pick.p) === pairKey(p) && pick.st === state; }
 
 function tabs() {
   $('tabs').innerHTML = LAYERS.map((l, i) =>
     `<button data-i="${i}" aria-pressed="${i === ly}">${l.name}</button>`).join('');
   $('sts').innerHTML = STATES.map(s =>
-    `<button data-s="${s}" aria-pressed="${s === st}">${LABELS[s]}</button>`).join('');
+    `<button data-s="${s}" aria-pressed="${s === st}">`
+    + `<span class="dot" style="background:${COLORS[s]}"></span>${LABELS[s]}</button>`).join('');
   $('ld').textContent = `${LAYERS[ly].keys.length} keys · ${LAYERS[ly].name} layer`;
 }
 
 function board() {
+  const active = pick ? new Set(pick.p) : null;
   const hk = new Set(hov ? hov.p : []);
+  const modKeys = new Set();
+  if (pick) modPositions(pick.p, pick.st).forEach(k => modKeys.add(k));
+  else if (sel !== null) {
+    for (const key of Object.keys(PAIRS)) {
+      const p = key.split(',').map(Number);
+      if (p.includes(sel) && PAIRS[key][st] && PAIRS[key][st].label)
+        modPositions(p, st).forEach(k => modKeys.add(k));
+    }
+  }
   const part = {};
-  if (sel !== null) {
-    DATA.layer_chords.filter(c => onLayer(c) && c.p.includes(sel))
-      .sort((a, b) => a.p.length - b.p.length)
-      .forEach(c => c.p.forEach(p => { if (p !== sel && !(p in part)) part[p] = output(c); }));
+  if (sel !== null && !pick) {
+    for (const key of Object.keys(PAIRS)) {
+      const p = key.split(',').map(Number);
+      if (!p.includes(sel)) continue;
+      const cell = PAIRS[key][st];
+      if (!cell || !cell.label) continue;
+      p.forEach(k => { if (k !== sel && !(k in part)) part[k] = cell.label; });
+    }
   }
   let minX = 1e9, minY = 1e9, maxX = -1e9, maxY = -1e9, s = '';
   GEOM.forEach((g, i) => {
@@ -322,17 +391,32 @@ function board() {
     const key = LAYERS[ly].keys[i] || {};
     let big = key.t || key.h || '', small = '', smallCls = 'h';
     if (key.s) { small = key.s; smallCls = 's'; } else if (key.h && key.t) { small = key.h; }
-    const pill = pair && pair.includes(i) ? pairOutput(pair, st) || part[i] : part[i];
+    const involved = active ? active.has(i) : false;
+    const pill = involved ? pick.label : (!active && part[i]) ? part[i] : null;
     const fs = big.length > 4 ? 17 : big.length > 3 ? 19 : big.length > 2 ? 24 : big.length > 1 ? 28 : 34;
     minX = Math.min(minX, x); minY = Math.min(minY, y);
     maxX = Math.max(maxX, x + w); maxY = Math.max(maxY, y + BOX);
-    s += `<g class="key${i === sel ? ' sel' : ''}${hk.has(i) ? ' hl' : ''}" data-k="${i}"`
+    s += `<g class="key${sel === i ? ' sel' : ''}${hk.has(i) ? ' hl' : ''}`
+       + `${active && !involved ? ' dim' : ''}" data-k="${i}"`
        + (rot ? ` transform="rotate(${rot} ${rx} ${ry})"` : '') + '>';
-    s += `<rect x="${x}" y="${y}" width="${w - GAP}" height="${BOX - GAP}" rx="13"/>`;
-    s += `<text class="ix" x="${x + 13}" y="${y + 20}">${i}</text>`;
-    if (pill) s += `<text class="s" x="${x + w / 2}" y="${y + 22}">${E(pill)}</text>`;
+    const isMod = modKeys.has(i);
+    s += `<rect x="${x}" y="${y}" width="${w - GAP}" height="${BOX - GAP}" rx="13"`
+       + (isMod ? ` style="stroke:${COLORS[st]};stroke-width:3.5;stroke-dasharray:8 5"` : '') + '/>';
+    if (pill) {
+      const tw = Math.min(w - 10, Math.max(22, pill.length * 9 + 12));
+      const color = involved ? pick.color : COLORS[st];
+      s += `<rect x="${x + (w - tw) / 2}" y="${y + 7}" width="${tw}" height="20" rx="10"`
+         + ` style="fill:${color};opacity:0.92"/>`;
+      s += `<text class="pilltext" x="${x + w / 2}" y="${y + 21}"`
+         + ` style="fill:${contrast(color)}">${E(pill)}</text>`;
+    }
     s += `<text class="t" x="${x + w / 2}" y="${y + (small ? 58 : 66)}" font-size="${fs}">${E(big)}</text>`;
-    if (small) s += `<text class="${smallCls}" x="${x + w / 2}" y="${y + 86}">${E(small)}</text>`;
+    if (small) {
+      const tint = GLYPH_STATE[small];
+      s += `<text class="${smallCls}" x="${x + w / 2}" y="${y + 86}"`
+        + (tint ? ` style="fill:${COLORS[tint]}"` : '') + `>${E(small)}</text>`;
+    }
+    s += `<text class="ix" x="${x + w - 13}" y="${y + BOX - 9}">${i}</text>`;
     s += '</g>';
   });
   const pad = 14;
@@ -343,10 +427,10 @@ function board() {
 function pairLabel(p) { return p.map(keyLabel).join(' + '); }
 
 function cellButton(cell) {
-  const p = JSON.stringify(cell.p);
   if (!cell.label || !matches(cell.label)) return '<td><span class="cell empty">—</span></td>';
-  const on = pair && pairKey(cell.p) === pairKey(pair) && st === cell.state ? ' on' : '';
-  return `<td><button class="cell${on}" data-p='${p}' data-l="${E(cell.label)}" data-st="${cell.state}"`
+  const on = pickSame(cell.p, cell.state) ? ' on' : '';
+  return `<td><button class="cell${on}" style="--c:${COLORS[cell.state]}"`
+       + ` data-p='${JSON.stringify(cell.p)}' data-l="${E(cell.label)}" data-st="${cell.state}"`
        + ` title="${E(pairLabel(cell.p))} · ${LABELS[cell.state]}">${E(cell.label)}</button></td>`;
 }
 
@@ -354,22 +438,29 @@ function sections() {
   let out = '';
   SECTIONS.forEach(section => {
     if (section.kind === 'table') {
-      const rows = section.rows.filter(row => row.cells.some(c => c.label && matches(c.label)));
+      const rows = section.rows.filter(row => (sel === null || row.pair.includes(sel))
+        && row.cells.some(c => c.label && matches(c.label)));
       if (!rows.length) return;
-      out += `<h2>${E(section.name)} · ${rows.length}</h2><table class="chords"><thead><tr><th>keys</th>`
-        + section.states.map(s => `<th>${E(LABELS[s])}</th>`).join('') + '</tr></thead><tbody>';
+      out += `<h2>${E(section.name)} · ${rows.length}${sel !== null ? ' for key ' + sel : ''}</h2>`
+        + '<table class="chords"><thead><tr><th>keys</th>'
+        + section.states.map(s => `<th><span class="dot" style="background:${COLORS[s]}"></span>${E(LABELS[s])}</th>`).join('')
+        + '</tr></thead><tbody>';
       rows.forEach(row => {
+        const hint = (row.hint || []).map(h =>
+          `<span style="color:${COLORS[h.state]}">${E(h.g)}${E(h.k)}</span>`).join('');
         out += `<tr><td class="keys">${E(pairLabel(row.pair))}`
-          + (row.hint ? `<div class="hint">${E(row.hint)}</div>` : '') + '</td>'
+          + (hint ? `<div class="hint">${hint}</div>` : '') + '</td>'
           + row.cells.map(cellButton).join('') + '</tr>';
       });
       out += '</tbody></table>';
     } else {
-      const chips = section.chips.filter(c => matches(c.label));
+      const chips = section.chips.filter(c => (sel === null || c.p.includes(sel)) && matches(c.label));
       if (!chips.length) return;
-      out += `<h2>${E(section.name)} · ${chips.length}</h2><div class="cs">`;
+      out += `<h2>${E(section.name)} · ${chips.length}${sel !== null ? ' for key ' + sel : ''}</h2><div class="cs">`;
       chips.forEach(c => {
-        out += `<button class="chip" data-p='${JSON.stringify(c.p)}' data-l="${E(c.label)}" data-st="plain">`
+        const on = pickSame(c.p, 'plain') ? ' on' : '';
+        out += `<button class="chip${on}" style="--c:${COLORS.plain}"`
+          + ` data-p='${JSON.stringify(c.p)}' data-l="${E(c.label)}" data-st="plain">`
           + `<span class="ks">${E(c.p.map(keyLabel).join('+'))}</span><b>${E(c.label)}</b></button>`;
       });
       out += '</div>';
@@ -379,15 +470,15 @@ function sections() {
 }
 
 function info() {
-  let h = 'Click a key for its legends; click a chord cell to show that pair in that state.';
-  if (sel !== null) h = `<b>Key ${sel}</b> · ${E(keyInfo(sel))}`;
-  if (pair) {
-    const out = pairOutput(pair, st);
-    h = `<b>${E(pairLabel(pair))}</b><span class="o">${E(LABELS[st])}</span>`
-      + (out ? `<span class="o">produces <b>${E(out)}</b></span>` : '<span class="mut"> · not defined in this state</span>');
-  } else if (hov) {
-    h = `<b>${E(hov.label)}</b><span class="o">${E(LABELS[hov.st])}</span>`
-      + `<span class="o">keys ${E(hov.p.map(keyLabel).join(' + '))}</span>`;
+  let h = 'Click a key for its chords; click a chord cell or chip to show what that chord types.';
+  if (pick) {
+    h = `<b>${E(pick.label)}</b><span class="o">${E(LABELS[pick.st])}</span>`
+      + `<span class="o">keys ${E(pairLabel(pick.p))}</span>`;
+  } else if (sel !== null) {
+    const n = Object.keys(PAIRS).filter(k => k.split(',').map(Number).includes(sel)
+      && PAIRS[k][st] && PAIRS[k][st].label).length;
+    h = `<b>Key ${sel}</b> · ${E(keyInfo(sel))}`
+      + `<span class="o">${n} chord${n === 1 ? '' : 's'} in ${E(LABELS[st])}</span>`;
   }
   $('info').innerHTML = h;
 }
@@ -398,43 +489,49 @@ function meta() {
 }
 
 function hash() {
-  location.hash = 'L' + ly + (pair ? '&p=' + pairKey(pair) + '&s=' + st : '');
+  location.hash = 'L' + ly + (sel !== null && !pick ? '&k=' + sel : '')
+    + (pick ? '&c=' + pairKey(pick.p) + '&s=' + pick.st : '');
 }
 
 function render() { tabs(); board(); sections(); info(); meta(); }
 
-$('tabs').onclick = e => { const b = e.target.closest('[data-i]'); if (b) { ly = +b.dataset.i; sel = pair = hov = pin = null; hash(); render(); } };
-$('sts').onclick = e => { const b = e.target.closest('[data-s]'); if (b) { st = b.dataset.s; hash(); render(); } };
+$('tabs').onclick = e => { const b = e.target.closest('[data-i]'); if (b) { ly = +b.dataset.i; sel = pick = hov = null; hash(); render(); } };
+$('sts').onclick = e => { const b = e.target.closest('[data-s]'); if (b) { st = b.dataset.s; if (pick) { pick.st = st; pick.color = COLORS[st]; } hash(); render(); } };
 $('q').oninput = e => { query = e.target.value; sections(); };
 $('bd').onclick = e => {
   const g = e.target.closest('[data-k]'); if (!g) return;
-  const k = +g.dataset.k; sel = sel === k ? null : k;
-  if (sel === null) { pair = null; }
-  else {
-    const found = Object.keys(PAIRS).map(s => s.split(',').map(Number)).find(p => p.includes(k));
-    pair = found || null;
-  }
+  const k = +g.dataset.k;
+  if (pick && pick.p.includes(k)) { pick = null; sel = null; }
+  else { sel = sel === k ? null : k; pick = null; }
   hash(); render();
 };
 $('sections').onmouseover = e => {
   const b = e.target.closest('[data-p]'); if (!b) return;
-  hov = {p: JSON.parse(b.dataset.p), label: b.dataset.l, st: b.dataset.st}; board(); info();
+  hov = {p: JSON.parse(b.dataset.p)}; board();
 };
-$('sections').onmouseout = e => { if (e.target.closest('[data-p]')) { hov = null; board(); info(); } };
+$('sections').onmouseout = e => { if (e.target.closest('[data-p]')) { hov = null; board(); } };
 $('sections').onclick = e => {
   const b = e.target.closest('[data-p]'); if (!b) return;
-  const p = JSON.parse(b.dataset.p);
-  if (pair && pairKey(p) === pairKey(pair) && st === b.dataset.st) { pair = null; }
-  else { pair = p; st = b.dataset.st; sel = null; }
+  const p = JSON.parse(b.dataset.p), state = b.dataset.st || 'plain';
+  if (pickSame(p, state)) pick = null;
+  else pick = {p, st: state, label: b.dataset.l, color: COLORS[state]};
+  sel = null;
   hash(); render();
 };
-// #L3&p=1,9&s=ctrl opens on a layer with a pair and state selected.
+// #L0&c=1,6&s=shiftalt picks a chord and state; #L0&k=6 picks a key.
 {
-  const m = location.hash.match(/^#L([0-9]+)(?:&p=([0-9,]+))?(?:&s=([a-z]+))?$/);
+  const m = location.hash.match(/^#L([0-9]+)(?:&k=([0-9]+))?(?:&c=([0-9,]+))?(?:&s=([a-z]+))?$/);
   if (m) {
     ly = Math.min(+m[1], LAYERS.length - 1);
-    if (m[2]) pair = m[2].split(',').map(Number);
-    if (m[3] && STATES.includes(m[3])) st = m[3];
+    if (m[2]) sel = +m[2];
+    if (m[4] && STATES.includes(m[4])) st = m[4];
+    if (m[3]) {
+      const p = m[3].split(',').map(Number), state = st;
+      const label = state === 'plain'
+        ? (LAYERS[ly].keys[p[0]] || {}).t && pairOutput(p, state)
+        : pairOutput(p, state);
+      pick = {p, st: state, label: pairOutput(p, state) || (DATA.layer_chords.find(c => pairKey(c.p) === pairKey(p)) || {}).k?.tap || '', color: COLORS[state]};
+    }
   }
 }
 render();
@@ -467,8 +564,11 @@ def main():
         "sections": sections,
         "pair_states": pair_states,
         "left_keys": sorted(LEFT_KEYS),
+        "left_mods": {state: pos for pos, state in LEFT_MODS.items()},
+        "right_mods": {state: pos for pos, state in RIGHT_MODS.items()},
         "states": STATES,
         "state_labels": STATE_LABEL,
+        "state_colors": STATE_COLORS,
         "box": BOX,
         "gap": GAP,
     }
