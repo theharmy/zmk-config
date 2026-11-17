@@ -379,8 +379,8 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Shift</text>
-<text x="0" y="33" class="key hold">sticky shift</text>
+<text x="0" y="1" class="key tap">⇧</text>
+<text x="0" y="33" class="key hold">magic shift</text>
 </g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -481,8 +481,8 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Shift</text>
-<text x="0" y="33" class="key hold">sticky shift</text>
+<text x="0" y="1" class="key tap">⇧</text>
+<text x="0" y="33" class="key hold">magic shift</text>
 </g>
 <g transform="translate(331, 276) rotate(16.0)" class="key held keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key held"/>
@@ -570,8 +570,8 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Shift</text>
-<text x="0" y="33" class="key hold">sticky shift</text>
+<text x="0" y="1" class="key tap">⇧</text>
+<text x="0" y="33" class="key hold">magic shift</text>
 </g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -666,8 +666,8 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Shift</text>
-<text x="0" y="33" class="key hold">sticky shift</text>
+<text x="0" y="1" class="key tap">⇧</text>
+<text x="0" y="33" class="key hold">magic shift</text>
 </g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -752,8 +752,8 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Shift</text>
-<text x="0" y="33" class="key hold">sticky shift</text>
+<text x="0" y="1" class="key tap">⇧</text>
+<text x="0" y="33" class="key hold">magic shift</text>
 </g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -835,8 +835,8 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
-<text x="0" y="1" class="key tap">Shift</text>
-<text x="0" y="33" class="key hold">sticky shift</text>
+<text x="0" y="1" class="key tap">⇧</text>
+<text x="0" y="33" class="key hold">magic shift</text>
 </g>
 <g transform="translate(331, 276) rotate(16.0)" class="key keypos-15">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>

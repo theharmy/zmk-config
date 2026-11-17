@@ -23,13 +23,17 @@ clickable in [`draw/twonr9_keymap.html`](../draw/twonr9_keymap.html):
 
 | Layer | Reached by | Holds |
 | --- | --- | --- |
-| `a1` | base | alphas, thumbs `Shift` `a2` `Spc` `Num` |
+| `a1` | base | alphas, thumbs `⇧` (smart shift) `a2` `Spc` `Num` |
 | `a2` | thumb `a2` (or `14+15` for a2 + Shift) | second alpha grid |
 | `nav` | hold `Spc` | arrows, one-shot mods, niri window controls |
 | `sym` | hold `D` or `Y` (legacy) | the original mod-morph pairs |
 | `fn` | hold `L` or `U` | F1–F12, volume, BT prev/next/clear |
 | `num` | tap or double-tap `Num` | digits, arithmetic, `7 8 9` column chords |
 | `mouse` | `16+17` (`Spc`+`Num`) | pointer, buttons, scroll; leave with `14+15` |
+
+The left thumb is **smart shift**: hold for Shift, tap straight after a letter to repeat it, tap
+on a pause for a one-shot Shift, and Shift+tap for caps word (same behaviour as the `8+9` /
+`10+11` magic-shift chords).
 
 ---
 

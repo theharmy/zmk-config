@@ -31,8 +31,8 @@ layers:
     h: ⌥
   - t: A
     h: ⌃
-  - h: sticky shift
-    t: Shift
+  - h: magic shift
+    t: ⇧
   - t: a2
     h: a2 layer
   - t: Spc
@@ -68,8 +68,8 @@ layers:
     h: ⌥
   - t: Z
     h: ⌃
-  - h: sticky shift
-    t: Shift
+  - h: magic shift
+    t: ⇧
   - t: a1
     h: base
     type: held
@@ -100,8 +100,8 @@ layers:
     h: Gui+⇞
   - t: →
     h: ↘
-  - h: sticky shift
-    t: Shift
+  - h: magic shift
+    t: ⇧
   - t: a1
     h: base
   - t: Spc
@@ -137,8 +137,8 @@ layers:
     s: '"'
   - t: /
     s: \
-  - h: sticky shift
-    t: Shift
+  - h: magic shift
+    t: ⇧
   - t: a1
     h: base
   - t: Spc
@@ -162,8 +162,8 @@ layers:
   - F12
   - VOL DN
   - VOL UP
-  - h: sticky shift
-    t: Shift
+  - h: magic shift
+    t: ⇧
   - t: a1
     h: base
   - t: Spc
@@ -186,8 +186,8 @@ layers:
   - '2'
   - '3'
   - '0'
-  - h: sticky shift
-    t: Shift
+  - h: magic shift
+    t: ⇧
   - t: a1
     h: base
   - t: Spc
