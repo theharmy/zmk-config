@@ -16,26 +16,20 @@
 
 ---
 
-## 2. Four-Corner Sub-Layer Legends
+## 2. What the layers are
 
-Each finger key on the overview diagram displays 4 color-coded sub-legends — one per sub-layer, read by corner rather than by position:
+Seven layers, all drawn in [`draw/twonr9_srht_current.svg`](../draw/twonr9_srht_current.svg) and
+clickable in [`draw/twonr9_keymap.html`](../draw/twonr9_keymap.html):
 
-```text
-                  ╭──────────────────────────╮
-   Top-Left (Cyan)│  tl: sym       tr: nav   │Top-Right (Yellow)
-                  │          tap             │
-                  │                          │
-Bottom-Left(Orange│  bl: num       br: fn    │Bottom-Right (Green)
-                  │          hold            │(Layer Activation / Mod)
-                  ╰──────────────────────────╯
-```
-
-| Corner | Color | Layer | Core Functionality |
-| :--- | :--- | :--- | :--- |
-| **Top-Left (`tl`)** | **Cyan (`#458588`)** | **`sym`** | Legacy mod-morph symbol pairs; the current symbol chords are listed in §7 |
-| **Top-Right (`tr`)** | **Yellow (`#d79921`)** | **`nav`** | One-shot mods `⌥ ⌘ ⇧ ⌃`, Niri ops `⌘Q ⌘⇥ ⌘R`, clustered arrows `← ↓ ↑ →`, workspaces `⌘⇟ ⌘⇞` |
-| **Bottom-Left (`bl`)** | **Orange (`#d65d0e`)** | **`num`** | 3x3 Calculator Numpad (`4 5 6` top, `1 2 3 0` home, `.` / `,` decimal morph, `7 8 9` chords) |
-| **Bottom-Right (`br`)** | **Green (`#689d6a`)** | **`fn`** | Function Keys `F1`–`F12` & Volume Controls `V-`, `V+` |
+| Layer | Reached by | Holds |
+| --- | --- | --- |
+| `a1` | base | alphas, thumbs `Shift` `a2` `Spc` `Num` |
+| `a2` | thumb `a2` (or `14+15` for a2 + Shift) | second alpha grid |
+| `nav` | hold `Spc` | arrows, one-shot mods, niri window controls |
+| `sym` | hold `D` or `Y` (legacy) | the original mod-morph pairs |
+| `fn` | hold `L` or `U` | F1–F12, volume, BT prev/next/clear |
+| `num` | tap or double-tap `Num` | digits, arithmetic, `7 8 9` column chords |
+| `mouse` | `16+17` (`Spc`+`Num`) | pointer, buttons, scroll; leave with `14+15` |
 
 ---
 
@@ -155,26 +149,23 @@ Access via **Right Inner Thumb (16)**, or by holding **`H` (9)** / **`S` (10)** 
 
 ---
 
-## 7. Symbol chords and legacy `sym` layer
+## 7. Symbols
 
-Most programming symbols are now on diagonal alpha-layer combos in `config/symbol_work.dtsi`. Each chord uses plain/Shift for symbols and Ctrl/Ctrl+Shift for its operator pair. These combos work on `a1` and `a2`.
+Every symbol chord, with its eight states and the mod key each needs, is in the generated
+[`SYMBOLS.md`](SYMBOLS.md). Do not copy it here; `just check-keymap` keeps it honest.
 
-| Family | Chords (Plain / Shift; Ctrl / Ctrl+Shift) |
-| :--- | :--- |
-| Brackets | `L+N ( / )`; `Y+E } / {`; `M+R [ / ]`; `O+I ] / [`; `D+T { / }`; `U+A ) / (` |
-| Bitwise, logic, arrows | `M+N & / *; && / ||`; `O+A $ / €; ?? / ?.`; `D+R ~ / ^; -> / =>`; `Y+I = / +; << / >>`; `D+N < / >; <= / <=`; `Y+A > / <; >= / >=` |
-| Sentence, comments | `L+T ! / ?; // / ...`; `M+H - / _; ++ / --`; `U+E ; / :; /* / */`; `O+S ' / "; = / |` |
-| Other | `L+H # / %; :: / :=`; `U+S / / \\; + / @` |
+How to remember the system:
 
-The dedicated `sym` layer remains available during the transition and still has its original mod-morph pairs. Access it by holding **Top-Left** on the top row (`D` on position 2 or `Y` on position 3); the layer grid is visible in the diagrams. The alpha chords above are the current reference for the migrated symbol assignments.
+* **Mods by finger, opposite hand:** Shift = index, Cmd = middle, Alt = ring, Ctrl = pinky.
+* **Every mod has a pair:** the mod alone, and the same mod + Shift.
+* **Plain opens, Shift closes:** `( )`, `[ ]`, `{ }`, `< >`.
+* **Mirrored hands:** a family sits on the same finger class on both sides — `- _` mirrors `= +`,
+  `" '` mirrors the backtick, `/` mirrors `\`.
+* **Escapes ride with their character:** `\_` with `_`, `\#` with `#`, `\&` with `&`.
+* **Doubles live on the Ctrl side:** `//`, `&&`, `**`, ``` ``` ```, `""`, `''`.
 
-German letter chords (both variants, `a1`/`a2` — shared via `symbol_work.dtsi`):
-
-* **ß**: `10 + 16` — **`S + Space`** on bugwind, **`C + Space`** on srht.
-* **ä / ö / ü**: vowel + Space — `A + Space`, `O + Space`, `U + Space` (uppercase via Shift on the German host layout).
-* **´** (Shift: `` ` ``): `6 + 7` — **`N + R`** on bugwind, **`S + R`** on srht.
-
-The German chords sit on the *same positions* in both variants; only the letters pressed change with the grid. The 6+7 chord is the acute on both (ß moved to 10+16).
+German letters (same positions on both layers): `ß` = `C`+`Space`, `ä`/`ö`/`ü` = vowel+`Space`,
+`´` (Shift ``` ` ```) = `S`+`R`.
 
 ---
 
