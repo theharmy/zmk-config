@@ -65,6 +65,7 @@
 #define L_SYM  3  // Morphing Brackets & CS Symbols
 #define L_FN   4  // Function Keys & Media
 #define L_NUM  5  // 3x3 Right-Hand Numpad & Arithmetic
+#define L_MOUSE 6  // Pointer, buttons and scroll (auto-layer, tapped in with 16+17)
 
 #define ALL 0 1 2 3 4 5
 
@@ -131,6 +132,7 @@ MAKE_HRM(hmr, &kp, &kp, TRIG_R) // Right-hand Homerow Mods (hold when chording l
 #include "twonr9_combos.dtsi"       // shared utility/symbol/numpad combos
 #include "twonr9_combos_srht.dtsi"   // srht bigram chords
 #include "symbol_work.dtsi"
+#include "twonr9_symbol_chords.dtsi"  // the symbol chords (replace the morph combos)
 #include "twonr9_layer_signal.dtsi"
 
 
@@ -144,7 +146,7 @@ ZMK_LAYER(a1,
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
           &hml LCTRL DE_S   &hml LALT DE_R    GL_H              &hml LSHFT DE_T          &hmr RSHFT DE_C   &hmr RGUI DE_E    AR_I              &hmr RCTRL DE_A
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
-                                              SMART_NUM         A2_DUAL                  SPC_NAV           SYM_DUAL
+                                              &sk LSHFT         A2_DUAL                  SPC_NAV           SMART_NUM
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
 )
 
@@ -154,7 +156,7 @@ ZMK_LAYER(a2,
 //       ╭────────────────────┼────────────────────┼────────────────────┼────────────────────┤      ├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
           &hml LCTRL DE_F      AL_M                 &hml LGUI DE_P       &hml LSHFT DE_K             &hmr RSHFT DE_G      &hmr RGUI DE_J       &hmr RALT DE_DOT     &hmr RCTRL DE_Z
 //       ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────┴────────────────────┴────────────────────╯
-                                                    SMART_NUM            &to L_A1                    SPC_NAV              SYM_DUAL
+                                                    &sk LSHFT            &to L_A1                    SPC_NAV              SMART_NUM
 //                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯
 )
 
@@ -164,7 +166,7 @@ ZMK_LAYER(nav,
 //       ╭──────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────╮
            &sk LCTRL &kp LG(DE_Q) &kp LG(TAB) &niri_adjust &swapper NAV_PGDN NAV_PGUP NAV_RIGHT
 //       ╰──────┴────────┼────────┼────────┤      ├────────┼────────┼────────┴────────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
+                         &sk LSHFT  &to L_A1           SPC_NAV   SMART_NUM
 //                     ╰─────────┴─────────╯      ╰───────────┴─────────╯
 )
 
@@ -174,7 +176,7 @@ ZMK_LAYER(sym,
 //       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
             &grave_caret &under_minus &amps_at &equal_pipe  &lbrc_rbrc &lt_gt &colon_dqt &fslh_bslh
 //       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
+                         &sk LSHFT  &to L_A1           SPC_NAV   SMART_NUM
 //                        ╰───────────┴───────────╯      ╰───────────┴─────────╯
 )
 
@@ -184,7 +186,7 @@ ZMK_LAYER(fn,
 //       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
            &kp F4 &kp F5 &kp F6 &kp F7        &kp F11 &kp F12 &kp C_VOL_DN &kp C_VOL_UP
 //       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
+                         &sk LSHFT  &to L_A1           SPC_NAV   SMART_NUM
 //                     ╰──────┴──────╯      ╰───────────┴─────────╯
 )
 
@@ -194,6 +196,8 @@ ZMK_LAYER(num,
 //       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
            &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &dot_comma      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
 //       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
-                         SMART_NUM  &to L_A1           SPC_NAV   SYM_DUAL
+                         &sk LSHFT  &to L_A1           SPC_NAV   SMART_NUM
 //                           ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )
+
+#include "twonr9_mouse.dtsi"

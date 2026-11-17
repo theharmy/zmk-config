@@ -1,5 +1,6 @@
 layout:
-  zmk_keyboard: twonr9_srht
+  qmk_info_json: ../config/twonr9.json
+  layout_name: twonr9
 layers:
   a1:
   - t: L
@@ -15,29 +16,29 @@ layers:
   - t: U
     h: fn
   - t: S
-    h: "\u2303"
+    h: ⌃
   - t: R
-    h: "\u2325"
+    h: ⌥
   - t: H
-    h: "\u2318"
+    h: ⌘
   - t: T
-    h: "\u21E7"
+    h: ⇧
   - t: C
-    h: "\u21E7"
+    h: ⇧
   - t: E
-    h: "\u2318"
+    h: ⌘
   - t: I
-    h: "\u2325"
+    h: ⌥
   - t: A
-    h: "\u2303"
-  - h: num
-    t: Num
+    h: ⌃
+  - h: sticky shift
+    t: Shift
   - t: a2
-    h: a2
+    h: a2 layer
   - t: Spc
-    h: nav
-  - t: sym
-    h: sym
+    h: space
+  - h: num word
+    t: Num
   a2:
   - t: X
     h: fn
@@ -52,68 +53,68 @@ layers:
   - t: ','
     h: fn
   - t: F
-    h: "\u2303"
+    h: ⌃
   - t: M
-    h: "\u2325"
+    h: ⌥
   - t: P
-    h: "\u2318"
+    h: ⌘
   - t: K
-    h: "\u21E7"
+    h: ⇧
   - t: G
-    h: "\u21E7"
+    h: ⇧
   - t: J
-    h: "\u2318"
+    h: ⌘
   - t: .
-    h: "\u2325"
+    h: ⌥
   - t: Z
-    h: "\u2303"
-  - h: num
-    t: Num
+    h: ⌃
+  - h: sticky shift
+    t: Shift
   - t: a1
-    h: toggle
+    h: base
     type: held
   - t: Spc
-    h: nav
-  - t: sym
-    h: sym
+    h: space
+  - h: num word
+    t: Num
   nav:
-  - t: "\u2325"
-  - t: "\u2318"
-  - t: "\u21E7"
-  - t: "\u2190"
-    h: "\u2196"
-  - t: "\u2193"
-    h: "Ctl+\u2198"
+  - t: ⌥
+  - t: ⌘
+  - t: ⇧
+  - t: ←
+    h: ↖
+  - t: ↓
+    h: Ctl+↘
     type: held
-  - t: "\u2191"
-    h: "Ctl+\u2196"
-  - t: "\u2303"
+  - t: ↑
+    h: Ctl+↖
+  - t: ⌃
   - Q
-  - "Gui+\u21E5"
+  - Gui+⇥
   - t: R
     s: C
-  - "\u21F9"
-  - t: "\u21DF"
-    h: "Gui+\u21DF"
-  - t: "\u21DE"
-    h: "Gui+\u21DE"
-  - t: "\u2192"
-    h: "\u2198"
-  - h: num
-    t: Num
+  - ⇹
+  - t: ⇟
+    h: Gui+⇟
+  - t: ⇞
+    h: Gui+⇞
+  - t: →
+    h: ↘
+  - h: sticky shift
+    t: Shift
   - t: a1
-    h: toggle
+    h: base
   - t: Spc
-    h: nav
-  - t: sym
-    h: sym
+    h: space
+  - h: num word
+    t: Num
   sym:
   - t: '!'
     s: '?'
   - t: '#'
     s: '~'
   - t: $
-    s: "\u20AC"
+    s: €
   - t: (
     s: )
   - t: '['
@@ -136,14 +137,14 @@ layers:
     s: '"'
   - t: /
     s: \
-  - h: num
-    t: Num
+  - h: sticky shift
+    t: Shift
   - t: a1
-    h: toggle
+    h: base
   - t: Spc
-    h: nav
-  - t: sym
-    h: sym
+    h: space
+  - h: num word
+    t: Num
     type: held
   fn:
   - t: F1
@@ -161,14 +162,14 @@ layers:
   - F12
   - VOL DN
   - VOL UP
-  - h: num
-    t: Num
+  - h: sticky shift
+    t: Shift
   - t: a1
-    h: toggle
+    h: base
   - t: Spc
-    h: nav
-  - t: sym
-    h: sym
+    h: space
+  - h: num word
+    t: Num
   num:
   - '-'
   - '*'
@@ -185,20 +186,56 @@ layers:
   - '2'
   - '3'
   - '0'
-  - h: num
-    type: held
-    t: Num
+  - h: sticky shift
+    t: Shift
   - t: a1
-    h: toggle
+    h: base
   - t: Spc
-    h: nav
-  - t: sym
-    h: sym
+    h: space
+  - h: num word
+    t: Num
+  mouse:
+  - t: MB3
+    h: middle click
+  - t: MB2
+    h: right click
+  - t: MB1
+    h: left click
+  - t: SCRL▲
+    h: scroll up
+  - t: SCRL▼
+    h: scroll down
+  - t: MB4
+    h: back
+  - t: CTRL
+    h: left ctrl
+  - t: ALT
+    h: left alt
+  - t: CMD
+    h: left cmd
+  - t: SHFT
+    h: left shift
+  - t: MOVE◀
+    h: move left
+  - t: MOVE▼
+    h: move down
+  - t: MOVE▲
+    h: move up
+  - t: MOVE▶
+    h: move right
+  - t: SCRL◀
+    h: scroll left
+  - t: SCRL▶
+    h: scroll right
+  - t: MB1
+    h: left click
+  - t: MB5
+    h: forward
 combos:
 - p:
   - 0
   - 1
-  k: "\u21E5"
+  k: ⇥
   l:
   - a1
   - a2
@@ -208,7 +245,7 @@ combos:
 - p:
   - 1
   - 2
-  k: "\u23CE"
+  k: ⏎
   l:
   - a1
   - a2
@@ -219,8 +256,8 @@ combos:
   - 3
   - 4
   k:
-    t: "\u232B"
-    s: "\u2326"
+    t: ⌫
+    s: ⌦
   l:
   - a1
   - a2
@@ -230,7 +267,7 @@ combos:
 - p:
   - 4
   - 5
-  k: "\u2303\u232B"
+  k: ⌃⌫
   l:
   - a1
   - a2
@@ -241,7 +278,7 @@ combos:
   - 3
   - 4
   - 5
-  k: "\u238B"
+  k: ⎋
   l:
   - a1
   - a2
@@ -289,21 +326,11 @@ combos:
   align: mid
   offset: 0.16
 - p:
-  - 14
-  - 15
-  k: '&macro_a2_shift'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
   - 6
   - 7
   - 8
   - 9
-  k: "\U0001F513"
+  k: 🔓
   l:
   - sym
   type: sym
@@ -313,9 +340,9 @@ combos:
   - 8
   - 9
   k:
-    t: '&shift_repeat'
-    h: "\u21E7"
-    s: "\u21EA"
+    t: ⇧ repeat
+    h: ⇧
+    s: ⇪
   l:
   - a1
   - a2
@@ -326,9 +353,9 @@ combos:
   - 10
   - 11
   k:
-    t: '&shift_repeat'
-    h: "\u21E7"
-    s: "\u21EA"
+    t: ⇧ repeat
+    h: ⇧
+    s: ⇪
   l:
   - a1
   - a2
@@ -471,226 +498,10 @@ combos:
   align: mid
   offset: 0.0
 - p:
-  - 0
-  - 6
-  k:
-    t: (
-    s: '&diag_macro_equal_equal'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 3
-  - 11
-  k:
-    t: '}'
-    s: '&diag_macro_le'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 1
-  - 7
-  k:
-    t: '['
-    s: '&diag_macro_add_assign'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 5
-  - 13
-  k:
-    t: )
-    s: '&diag_macro_and_assign'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 2
-  - 8
-  k:
-    t: '{'
-    s: '&diag_macro_lshift_assign'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 4
-  - 12
-  k:
-    t: ']'
-    s: '&diag_macro_caret_assign'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 1
-  - 6
-  k:
-    t: '&'
-    s: '&diag_macro_and_and'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 4
-  - 13
-  k:
-    t: $
-    s: '&diag_macro_nullish'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 2
-  - 7
-  k:
-    t: '~'
-    s: '&diag_macro_arrow'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 3
-  - 12
-  k:
-    t: '='
-    s: '&diag_macro_lshift'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 2
-  - 6
-  k:
-    t: <
-    s: '&diag_macro_le'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 3
-  - 13
-  k:
-    t: '>'
-    s: '&diag_macro_ge'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 0
-  - 8
-  k:
-    t: '!'
-    s: '&diag_macro_slashslash'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 1
-  - 9
-  k:
-    t: '-'
-    s: '&diag_macro_increment'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 5
-  - 11
-  k:
-    t: ;
-    s: '&diag_macro_comment_open'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 4
-  - 10
-  k:
-    t: ''''
-    s: '&diag_macro_equal'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 0
-  - 9
-  k:
-    t: '#'
-    s: '&diag_macro_scope'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 5
-  - 10
-  k:
-    t: /
-    s: '&diag_macro_plus'
-  l:
-  - a1
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
   - 6
   - 7
   k:
-    t: "\xB4"
+    t: ´
     s: '`'
   l:
   - a1
@@ -702,8 +513,8 @@ combos:
   - 10
   - 16
   k:
-    t: "\xDF"
-    s: "\xDF"
+    t: ß
+    s: ß
   l:
   - a1
   - a2
@@ -714,8 +525,8 @@ combos:
   - 13
   - 16
   k:
-    t: "\xE4"
-    s: "\xE4"
+    t: ä
+    s: ä
   l:
   - a1
   - a2
@@ -726,8 +537,8 @@ combos:
   - 4
   - 16
   k:
-    t: "\xF6"
-    s: "\xF6"
+    t: ö
+    s: ö
   l:
   - a1
   - a2
@@ -738,11 +549,732 @@ combos:
   - 5
   - 16
   k:
-    t: "\xFC"
-    s: "\xFC"
+    t: ü
+    s: ü
   l:
   - a1
   - a2
   type: util
   align: mid
   offset: 0.16
+- p:
+  - 1
+  - 9
+  k: (
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 9
+  - 10
+  k: )
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 9
+  - 13
+  k: ==
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 9
+  - 11
+  k: '!='
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 8
+  k: <
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 8
+  - 10
+  k: '>'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 8
+  - 13
+  k: '<<'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 8
+  - 11
+  k: '>>'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 8
+  - 12
+  k: <=
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 6
+  k: '['
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 6
+  - 10
+  k: ']'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 6
+  - 13
+  k: \[
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 6
+  - 11
+  k: \]
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 6
+  - 12
+  k: '[['
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 7
+  k: '{'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 7
+  - 10
+  k: '}'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 7
+  - 13
+  k: \{
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 7
+  - 11
+  k: \}
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 1
+  - 7
+  - 12
+  k: ->
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 6
+  k: /
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 6
+  - 13
+  k: //
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 6
+  - 11
+  k: /*
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 6
+  - 12
+  k: '*/'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 8
+  k: '-'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 8
+  - 10
+  k: _
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 8
+  - 13
+  k: --
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 8
+  - 11
+  k: ++
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 9
+  k: '&'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 9
+  - 10
+  k: '|'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 9
+  - 13
+  k: '&&'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 9
+  - 11
+  k: '||'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 0
+  - 9
+  - 12
+  k: '&='
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 6
+  k: $
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 6
+  - 10
+  k: ^
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 6
+  - 13
+  k: $$
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 6
+  - 11
+  k: \_
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 6
+  - 12
+  k: \$
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 7
+  k: '"'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 7
+  - 10
+  k: ''''
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 7
+  - 13
+  k: '""'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 7
+  - 11
+  k: ''''''
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 10
+  k: ;
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 9
+  - 10
+  k: ':'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 6
+  - 10
+  k: '::'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 8
+  - 10
+  k: '?:'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 7
+  - 10
+  k: ;;
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 11
+  k: ','
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 9
+  - 11
+  k: .
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 6
+  - 11
+  k: '...'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 8
+  - 11
+  k: ..
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 7
+  - 11
+  k: ..<
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 12
+  k: '='
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 9
+  - 12
+  k: +
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 6
+  - 12
+  k: +=
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 8
+  - 12
+  k: -=
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 7
+  - 12
+  k: '|='
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 12
+  k: '*'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 9
+  - 12
+  k: '#'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 6
+  - 12
+  k: '**'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 8
+  - 12
+  k: '##'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 7
+  - 12
+  k: ^=
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 13
+  k: '!'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 9
+  - 13
+  k: '?'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 6
+  - 13
+  k: ?.
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 8
+  - 13
+  k: '!!'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 3
+  - 7
+  - 13
+  k: '!?'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 13
+  k: '@'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 9
+  - 13
+  k: '~'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 6
+  - 13
+  k: ~~
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 8
+  - 13
+  k: \#
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 4
+  - 7
+  - 13
+  k: €
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 11
+  k: '`'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 6
+  - 11
+  k: '``'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 8
+  - 11
+  k: '```'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 13
+  k: '%'
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 6
+  - 13
+  k: \%
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 8
+  - 13
+  k: \&
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 10
+  k: \
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 9
+  - 10
+  k: \(
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 6
+  - 10
+  k: \\
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 5
+  - 8
+  - 10
+  k: \)
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 2
+  - 8
+  - 10
+  - 11
+  k: '>='
+  l:
+  - a1
+  - a2
+  type: symbol

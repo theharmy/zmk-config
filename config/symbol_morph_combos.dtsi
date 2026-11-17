@@ -1,0 +1,21 @@
+/* The symbol mod-morph combos, moved out of symbol_work.dtsi when the symbol chords
+ * (twonr9_symbol_chords.dtsi) replaced them. Not included: restore by including this
+ * file instead of the chords. combo_diag_67 (the acute) stays in symbol_work.dtsi. */
+ZMK_COMBO(combo_diag_06, &diag_06, 0 6,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_3b, &diag_3b, 3 11, L_A1 L_A2)
+ZMK_COMBO(combo_diag_17, &diag_17, 1 7,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_5d, &diag_5d, 5 13, L_A1 L_A2)
+ZMK_COMBO(combo_diag_28, &diag_28, 2 8,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_4c, &diag_4c, 4 12, L_A1 L_A2)
+ZMK_COMBO(combo_diag_16, &diag_16, 1 6,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_4d, &diag_4d, 4 13, L_A1 L_A2)
+ZMK_COMBO(combo_diag_27, &diag_27, 2 7,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_3c, &diag_3c, 3 12, L_A1 L_A2)
+ZMK_COMBO(combo_diag_26, &diag_26, 2 6,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_3d, &diag_3d, 3 13, L_A1 L_A2)
+ZMK_COMBO(combo_diag_08, &diag_08, 0 8,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_19, &diag_19, 1 9,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_57, &diag_57, 5 11, L_A1 L_A2)
+ZMK_COMBO(combo_diag_4a, &diag_4a, 4 10, L_A1 L_A2)
+ZMK_COMBO(combo_diag_09, &diag_09, 0 9,  L_A1 L_A2)
+ZMK_COMBO(combo_diag_5a, &diag_5a, 5 10, L_A1 L_A2)

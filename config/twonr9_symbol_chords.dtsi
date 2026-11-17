@@ -1,0 +1,331 @@
+/* Symbol chords, generated from layout-final.md: each pair plus a mod key from the opposite hand. */
+/* The mod-morph combos (combo_diag_*) live in symbol_morph_combos.dtsi and are not included. */
+
+ZMK_MACRO(chord_m_chord_nt_ctrl,
+    bindings = <&kp DE_EQUAL &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_nt_cmd,
+    bindings = <&kp DE_EXCL &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_dh_ctrl,
+    bindings = <&kp DE_LT &kp DE_LT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_dh_cmd,
+    bindings = <&kp DE_GT &kp DE_GT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_dh_alt,
+    bindings = <&kp DE_LT &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ns_ctrl,
+    bindings = <&kp DE_BSLH &kp DE_LBKT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ns_cmd,
+    bindings = <&kp DE_BSLH &kp DE_RBKT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ns_alt,
+    bindings = <&kp DE_LBKT &kp DE_LBKT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_nr_ctrl,
+    bindings = <&kp DE_BSLH &kp DE_LBRC>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_nr_cmd,
+    bindings = <&kp DE_BSLH &kp DE_RBRC>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_nr_alt,
+    bindings = <&kp DE_MINUS &kp DE_GT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ls_ctrl,
+    bindings = <&kp DE_FSLH &kp DE_FSLH>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ls_cmd,
+    bindings = <&kp DE_FSLH &kp DE_ASTRK>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ls_alt,
+    bindings = <&kp DE_ASTRK &kp DE_FSLH>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_lh_ctrl,
+    bindings = <&kp DE_MINUS &kp DE_MINUS>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_lh_cmd,
+    bindings = <&kp DE_PLUS &kp DE_PLUS>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_lt_ctrl,
+    bindings = <&kp DE_AMPS &kp DE_AMPS>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_lt_cmd,
+    bindings = <&kp DE_PIPE &kp DE_PIPE>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_lt_alt,
+    bindings = <&kp DE_AMPS &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ds_ctrl,
+    bindings = <&kp DE_DOLLAR &kp DE_DOLLAR>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ds_cmd,
+    bindings = <&kp DE_BSLH &kp DE_UNDER>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ds_alt,
+    bindings = <&kp DE_BSLH &kp DE_DOLLAR>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_dr_ctrl,
+    bindings = <&kp DE_DQT &kp DE_DQT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_dr_cmd,
+    bindings = <&kp DE_SQT &kp DE_SQT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oc_ctrl,
+    bindings = <&kp DE_COLON &kp DE_COLON>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oc_cmd,
+    bindings = <&kp DE_QMARK &kp DE_COLON>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oc_alt,
+    bindings = <&kp DE_SEMI &kp DE_SEMI>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ye_ctrl,
+    bindings = <&kp DE_DOT &kp DE_DOT &kp DE_DOT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ye_cmd,
+    bindings = <&kp DE_DOT &kp DE_DOT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ye_alt,
+    bindings = <&kp DE_DOT &kp DE_DOT &kp DE_LT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_yi_ctrl,
+    bindings = <&kp DE_PLUS &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_yi_cmd,
+    bindings = <&kp DE_MINUS &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_yi_alt,
+    bindings = <&kp DE_PIPE &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oi_ctrl,
+    bindings = <&kp DE_ASTRK &kp DE_ASTRK>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oi_cmd,
+    bindings = <&kp DE_HASH &kp DE_HASH>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oi_alt,
+    bindings = <&kp DE_CARET &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ya_ctrl,
+    bindings = <&kp DE_QMARK &kp DE_DOT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ya_cmd,
+    bindings = <&kp DE_EXCL &kp DE_EXCL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ya_alt,
+    bindings = <&kp DE_EXCL &kp DE_QMARK>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oa_ctrl,
+    bindings = <&kp DE_TILDE &kp DE_TILDE>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_oa_cmd,
+    bindings = <&kp DE_BSLH &kp DE_HASH>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ue_ctrl,
+    bindings = <&kp DE_GRAVE &kp DE_GRAVE>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ue_cmd,
+    bindings = <&kp DE_GRAVE &kp DE_GRAVE &kp DE_GRAVE>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ua_ctrl,
+    bindings = <&kp DE_BSLH &kp DE_PRCNT>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_ua_cmd,
+    bindings = <&kp DE_BSLH &kp DE_AMPS>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_uc_shift,
+    bindings = <&kp DE_BSLH &kp DE_LPAR>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_uc_ctrl,
+    bindings = <&kp DE_BSLH &kp DE_BSLH>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_chord_uc_cmd,
+    bindings = <&kp DE_BSLH &kp DE_RPAR>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(chord_m_dh_quad,
+    bindings = <&kp DE_GT &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+
+ZMK_COMBO(chord_nt_plain, &kp DE_LPAR, 1 9, L_A1 L_A2)
+ZMK_COMBO(chord_nt_shift, &kp DE_RPAR, 1 9 10, L_A1 L_A2)
+ZMK_COMBO(chord_nt_ctrl, &chord_m_chord_nt_ctrl, 1 9 13, L_A1 L_A2)
+ZMK_COMBO(chord_nt_cmd, &chord_m_chord_nt_cmd, 1 9 11, L_A1 L_A2)
+ZMK_COMBO(chord_dh_plain, &kp DE_LT, 2 8, L_A1 L_A2)
+ZMK_COMBO(chord_dh_shift, &kp DE_GT, 2 8 10, L_A1 L_A2)
+ZMK_COMBO(chord_dh_ctrl, &chord_m_chord_dh_ctrl, 2 8 13, L_A1 L_A2)
+ZMK_COMBO(chord_dh_cmd, &chord_m_chord_dh_cmd, 2 8 11, L_A1 L_A2)
+ZMK_COMBO(chord_dh_alt, &chord_m_chord_dh_alt, 2 8 12, L_A1 L_A2)
+ZMK_COMBO(chord_ns_plain, &kp DE_LBKT, 1 6, L_A1 L_A2)
+ZMK_COMBO(chord_ns_shift, &kp DE_RBKT, 1 6 10, L_A1 L_A2)
+ZMK_COMBO(chord_ns_ctrl, &chord_m_chord_ns_ctrl, 1 6 13, L_A1 L_A2)
+ZMK_COMBO(chord_ns_cmd, &chord_m_chord_ns_cmd, 1 6 11, L_A1 L_A2)
+ZMK_COMBO(chord_ns_alt, &chord_m_chord_ns_alt, 1 6 12, L_A1 L_A2)
+ZMK_COMBO(chord_nr_plain, &kp DE_LBRC, 1 7, L_A1 L_A2)
+ZMK_COMBO(chord_nr_shift, &kp DE_RBRC, 1 7 10, L_A1 L_A2)
+ZMK_COMBO(chord_nr_ctrl, &chord_m_chord_nr_ctrl, 1 7 13, L_A1 L_A2)
+ZMK_COMBO(chord_nr_cmd, &chord_m_chord_nr_cmd, 1 7 11, L_A1 L_A2)
+ZMK_COMBO(chord_nr_alt, &chord_m_chord_nr_alt, 1 7 12, L_A1 L_A2)
+ZMK_COMBO(chord_ls_plain, &kp DE_FSLH, 0 6, L_A1 L_A2)
+ZMK_COMBO(chord_ls_ctrl, &chord_m_chord_ls_ctrl, 0 6 13, L_A1 L_A2)
+ZMK_COMBO(chord_ls_cmd, &chord_m_chord_ls_cmd, 0 6 11, L_A1 L_A2)
+ZMK_COMBO(chord_ls_alt, &chord_m_chord_ls_alt, 0 6 12, L_A1 L_A2)
+ZMK_COMBO(chord_lh_plain, &kp DE_MINUS, 0 8, L_A1 L_A2)
+ZMK_COMBO(chord_lh_shift, &kp DE_UNDER, 0 8 10, L_A1 L_A2)
+ZMK_COMBO(chord_lh_ctrl, &chord_m_chord_lh_ctrl, 0 8 13, L_A1 L_A2)
+ZMK_COMBO(chord_lh_cmd, &chord_m_chord_lh_cmd, 0 8 11, L_A1 L_A2)
+ZMK_COMBO(chord_lt_plain, &kp DE_AMPS, 0 9, L_A1 L_A2)
+ZMK_COMBO(chord_lt_shift, &kp DE_PIPE, 0 9 10, L_A1 L_A2)
+ZMK_COMBO(chord_lt_ctrl, &chord_m_chord_lt_ctrl, 0 9 13, L_A1 L_A2)
+ZMK_COMBO(chord_lt_cmd, &chord_m_chord_lt_cmd, 0 9 11, L_A1 L_A2)
+ZMK_COMBO(chord_lt_alt, &chord_m_chord_lt_alt, 0 9 12, L_A1 L_A2)
+ZMK_COMBO(chord_ds_plain, &kp DE_DOLLAR, 2 6, L_A1 L_A2)
+ZMK_COMBO(chord_ds_shift, &kp DE_CARET, 2 6 10, L_A1 L_A2)
+ZMK_COMBO(chord_ds_ctrl, &chord_m_chord_ds_ctrl, 2 6 13, L_A1 L_A2)
+ZMK_COMBO(chord_ds_cmd, &chord_m_chord_ds_cmd, 2 6 11, L_A1 L_A2)
+ZMK_COMBO(chord_ds_alt, &chord_m_chord_ds_alt, 2 6 12, L_A1 L_A2)
+ZMK_COMBO(chord_dr_plain, &kp DE_DQT, 2 7, L_A1 L_A2)
+ZMK_COMBO(chord_dr_shift, &kp DE_SQT, 2 7 10, L_A1 L_A2)
+ZMK_COMBO(chord_dr_ctrl, &chord_m_chord_dr_ctrl, 2 7 13, L_A1 L_A2)
+ZMK_COMBO(chord_dr_cmd, &chord_m_chord_dr_cmd, 2 7 11, L_A1 L_A2)
+ZMK_COMBO(chord_oc_plain, &kp DE_SEMI, 4 10, L_A1 L_A2)
+ZMK_COMBO(chord_oc_shift, &kp DE_COLON, 4 10 9, L_A1 L_A2)
+ZMK_COMBO(chord_oc_ctrl, &chord_m_chord_oc_ctrl, 4 10 6, L_A1 L_A2)
+ZMK_COMBO(chord_oc_cmd, &chord_m_chord_oc_cmd, 4 10 8, L_A1 L_A2)
+ZMK_COMBO(chord_oc_alt, &chord_m_chord_oc_alt, 4 10 7, L_A1 L_A2)
+ZMK_COMBO(chord_ye_plain, &kp DE_COMMA, 3 11, L_A1 L_A2)
+ZMK_COMBO(chord_ye_shift, &kp DE_DOT, 3 11 9, L_A1 L_A2)
+ZMK_COMBO(chord_ye_ctrl, &chord_m_chord_ye_ctrl, 3 11 6, L_A1 L_A2)
+ZMK_COMBO(chord_ye_cmd, &chord_m_chord_ye_cmd, 3 11 8, L_A1 L_A2)
+ZMK_COMBO(chord_ye_alt, &chord_m_chord_ye_alt, 3 11 7, L_A1 L_A2)
+ZMK_COMBO(chord_yi_plain, &kp DE_EQUAL, 3 12, L_A1 L_A2)
+ZMK_COMBO(chord_yi_shift, &kp DE_PLUS, 3 12 9, L_A1 L_A2)
+ZMK_COMBO(chord_yi_ctrl, &chord_m_chord_yi_ctrl, 3 12 6, L_A1 L_A2)
+ZMK_COMBO(chord_yi_cmd, &chord_m_chord_yi_cmd, 3 12 8, L_A1 L_A2)
+ZMK_COMBO(chord_yi_alt, &chord_m_chord_yi_alt, 3 12 7, L_A1 L_A2)
+ZMK_COMBO(chord_oi_plain, &kp DE_ASTRK, 4 12, L_A1 L_A2)
+ZMK_COMBO(chord_oi_shift, &kp DE_HASH, 4 12 9, L_A1 L_A2)
+ZMK_COMBO(chord_oi_ctrl, &chord_m_chord_oi_ctrl, 4 12 6, L_A1 L_A2)
+ZMK_COMBO(chord_oi_cmd, &chord_m_chord_oi_cmd, 4 12 8, L_A1 L_A2)
+ZMK_COMBO(chord_oi_alt, &chord_m_chord_oi_alt, 4 12 7, L_A1 L_A2)
+ZMK_COMBO(chord_ya_plain, &kp DE_EXCL, 3 13, L_A1 L_A2)
+ZMK_COMBO(chord_ya_shift, &kp DE_QMARK, 3 13 9, L_A1 L_A2)
+ZMK_COMBO(chord_ya_ctrl, &chord_m_chord_ya_ctrl, 3 13 6, L_A1 L_A2)
+ZMK_COMBO(chord_ya_cmd, &chord_m_chord_ya_cmd, 3 13 8, L_A1 L_A2)
+ZMK_COMBO(chord_ya_alt, &chord_m_chord_ya_alt, 3 13 7, L_A1 L_A2)
+ZMK_COMBO(chord_oa_plain, &kp DE_AT, 4 13, L_A1 L_A2)
+ZMK_COMBO(chord_oa_shift, &kp DE_TILDE, 4 13 9, L_A1 L_A2)
+ZMK_COMBO(chord_oa_ctrl, &chord_m_chord_oa_ctrl, 4 13 6, L_A1 L_A2)
+ZMK_COMBO(chord_oa_cmd, &chord_m_chord_oa_cmd, 4 13 8, L_A1 L_A2)
+ZMK_COMBO(chord_oa_alt, &kp DE_EURO, 4 13 7, L_A1 L_A2)
+ZMK_COMBO(chord_ue_plain, &kp DE_GRAVE, 5 11, L_A1 L_A2)
+ZMK_COMBO(chord_ue_ctrl, &chord_m_chord_ue_ctrl, 5 11 6, L_A1 L_A2)
+ZMK_COMBO(chord_ue_cmd, &chord_m_chord_ue_cmd, 5 11 8, L_A1 L_A2)
+ZMK_COMBO(chord_ua_plain, &kp DE_PRCNT, 5 13, L_A1 L_A2)
+ZMK_COMBO(chord_ua_ctrl, &chord_m_chord_ua_ctrl, 5 13 6, L_A1 L_A2)
+ZMK_COMBO(chord_ua_cmd, &chord_m_chord_ua_cmd, 5 13 8, L_A1 L_A2)
+ZMK_COMBO(chord_uc_plain, &kp DE_BSLH, 5 10, L_A1 L_A2)
+ZMK_COMBO(chord_uc_shift, &chord_m_chord_uc_shift, 5 10 9, L_A1 L_A2)
+ZMK_COMBO(chord_uc_ctrl, &chord_m_chord_uc_ctrl, 5 10 6, L_A1 L_A2)
+ZMK_COMBO(chord_uc_cmd, &chord_m_chord_uc_cmd, 5 10 8, L_A1 L_A2)
+ZMK_COMBO(chord_dh_shiftcmd, &chord_m_dh_quad, 2 8 10 11, L_A1 L_A2)
