@@ -90,6 +90,26 @@ flash expr: (build expr)
 build-srht expr="all" *west_args:
     just build_matrix="build-srht.yaml" build {{ expr }} {{ west_args }}
 
+# the keymap as a self-contained HTML page (layers, chords by family, search)
+[group('build & draw')]
+keymap-html:
+    python3 "{{ draw }}/make_keymap_html.py"
+    xdg-open "{{ draw }}/twonr9_keymap.html"
+
+# the keymap as an SVG, layer by layer, without the chord overlay
+[group('build & draw')]
+keymap-svg:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd "{{ draw }}"
+    keymap="$(command -v keymap || echo "$HOME/Projects/layer-hud-niri/.venv/bin/keymap")"
+    tmp="$(mktemp -t twonr9-layers.XXXXXX.yaml)"
+    python3 -c "import sys, yaml; d = yaml.safe_load(open('twonr9_srht.yaml')); d.pop('combos', None); yaml.safe_dump(d, open(sys.argv[1], 'w'), sort_keys=False, allow_unicode=True)" "$tmp"
+    "$keymap" -c twonr9_config.yaml draw "$tmp" -o twonr9_srht_current.svg
+    rm -f "$tmp"
+    xdg-open twonr9_srht_current.svg
+
+# LEGACY: the old morph-era generator (pre-dates the chord layout; bugwind only)
 # parse & plot twonr9 keymap
 # no args: the default (bugwind) variant only; pass "srht" or "all" for others
 [group('build & draw')]
