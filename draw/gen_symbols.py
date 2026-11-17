@@ -76,6 +76,50 @@ TABLE = {
 }
 
 
+# Every chord that is not a symbol pair, with the legend the drawing shows. The
+# firmware defines them in its combo files; test_chord_consistency compares the
+# two so a missing or stale entry fails.
+OTHER = [
+    ((0, 1), "\u21e5", ["a1", "a2"], "util"),
+    ((1, 2), "\u23ce", ["a1", "a2"], "util"),
+    ((3, 4), {"t": "\u232b", "s": "\u2326"}, ["a1", "a2"], "util"),
+    ((4, 5), "\u2303\u232b", ["a1", "a2"], "util"),
+    ((3, 4, 5), "\u238b", ["a1", "a2"], "util"),
+    ((7, 9), "_", ["a1", "a2"], "symbol"),
+    ((7, 8), "-", ["a1", "a2"], "symbol"),
+    ((11, 12), ":", ["a1", "a2"], "symbol"),
+    ((10, 12), ";", ["a1", "a2"], "symbol"),
+    ((6, 7, 8, 9), "\U0001f513", ["sym"], "sym"),
+    ((8, 9), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, ["a1", "a2"], "util"),
+    ((10, 11), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, ["a1", "a2"], "util"),
+    ((3, 10), "7", ["num"], "num"),
+    ((4, 11), "8", ["num"], "num"),
+    ((5, 12), "9", ["num"], "num"),
+    ((0, 7), "RL", ["a1"], "bigram"),
+    ((1, 8), "HN", ["a1"], "bigram"),
+    ((2, 9), "DT", ["a1"], "bigram"),
+    ((3, 10), "CY", ["a1"], "bigram"),
+    ((4, 11), "EO", ["a1"], "bigram"),
+    ((5, 12), "UI", ["a1"], "bigram"),
+    ((0, 7), "RM", ["a2"], "bigram"),
+    ((1, 8), "NB", ["a2"], "bigram"),
+    ((2, 9), "KT", ["a2"], "bigram"),
+    ((3, 10), "GY", ["a2"], "bigram"),
+    ((4, 11), "OE", ["a2"], "bigram"),
+    ((5, 12), "IU", ["a2"], "bigram"),
+    ((6, 7), {"t": "\u00b4", "s": "`"}, ["a1", "a2"], "util"),
+    ((10, 16), {"t": "\u00df", "s": "\u00df"}, ["a1", "a2"], "symbol"),
+    ((13, 16), {"t": "\u00e4", "s": "\u00e4"}, ["a1", "a2"], "util"),
+    ((4, 16), {"t": "\u00f6", "s": "\u00f6"}, ["a1", "a2"], "util"),
+    ((5, 16), {"t": "\u00fc", "s": "\u00fc"}, ["a1", "a2"], "util"),
+    ((14, 15), "a2 + \u21e7", ["a1", "a2"], "layer"),
+    ((16, 17), "mouse", ["a1", "a2"], "layer"),
+    ((0, 1), "BT prev", ["fn"], "util"),
+    ((1, 2), "BT next", ["fn"], "util"),
+    ((0, 2), "BT clear", ["fn"], "util"),
+]
+
+
 def states_of(table=TABLE):
     """(pair, state, positions, token) for every defined state."""
     out = []
@@ -151,42 +195,29 @@ def dtsi_text():
     return head + "\n".join(macros) + "\n\n" + "\n".join(combos) + "\n"
 
 
-def is_symbol_chord(combo):
-    """A drawing combo the generator owns: one of its pairs plus only mods."""
-    pos = set(combo.get("p") or [])
-    for pair in TABLE:
-        if set(pair) <= pos and pos - set(pair) <= set(LEFT_MODS.values()) | set(RIGHT_MODS.values()):
-            return True
-    return False
-
-
 def drawing_text():
+    """The drawing with its layer pictures kept and every chord generated."""
     text = DRAWING.read_text(encoding="utf-8")
     lines = text.split("\n")
     start = lines.index("combos:")
-    data = yaml.safe_load(text)
-    blocks, cur = [], None
-    for ln in lines[start + 1:]:
-        if ln.startswith("- p:"):
-            if cur is not None:
-                blocks.append(cur)
-            cur = [ln]
-        elif cur is not None:
-            cur.append(ln)
-    if cur is not None:
-        blocks.append(cur)
-    assert len(blocks) == len(data["combos"]), (len(blocks), len(data["combos"]))
-    kept = [b for b, c in zip(blocks, data["combos"]) if not is_symbol_chord(c)]
-
-    new = []
-    for _pair, _state, pos, token in states_of():
-        new.append(["- p:"] + [f"  - {p}" for p in pos]
-                   + [f"  k: {yaml.safe_dump(token, default_style='\"', width=10**9).strip()}",
-                      "  l:", "  - a1", "  - a2", "  type: symbol"])
     head = "\n".join(lines[:start + 1])
-    body = "\n".join("\n".join(b).rstrip("\n") for b in kept)
-    tail = "\n".join("\n".join(b) for b in new)
-    return head + "\n" + body + "\n" + tail + "\n"
+
+    def legend(value):
+        if isinstance(value, dict):
+            return yaml.safe_dump(value, default_flow_style=True, allow_unicode=True,
+                                  width=10**9, sort_keys=False).strip()
+        return yaml.safe_dump(value, default_style='"', allow_unicode=True, width=10**9).strip()
+
+    blocks = []
+    for _pair, _state, pos, token in states_of():
+        blocks.append(["- p:"] + [f"  - {p}" for p in pos]
+                      + [f"  k: {legend(token)}",
+                         "  l:", "  - a1", "  - a2", "  type: symbol"])
+    for pos, key, layers, kind in OTHER:
+        blocks.append(["- p:"] + [f"  - {p}" for p in pos]
+                      + [f"  k: {legend(key)}",
+                         "  l:"] + [f"  - {name}" for name in layers] + [f"  type: {kind}"])
+    return head + "\n" + "\n".join("\n".join(b) for b in blocks) + "\n"
 
 
 def main():

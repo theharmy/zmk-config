@@ -67,8 +67,10 @@ keymap.
 
 Traps worth knowing:
 
-- **Never edit the symbol chords by hand.** `draw/gen_symbols.py` owns the table and writes both the
-  dtsi and the drawing's chord entries; `python3 draw/gen_symbols.py --check` fails when they drift.
+- **Never edit the chords by hand.** `draw/gen_symbols.py` owns the symbol table and the non-symbol
+  chord list, and writes both the dtsi and every chord entry in the drawing; `just check-keymap`
+  fails when the firmware, the drawing or the practice drift apart. Only the layer pictures in
+  `draw/twonr9_srht.yaml` are still hand-written.
 - **Keep the adaptive set deliberate.** Nine swaps are active (`u oi`, `y us`, plus the srht seven);
   adding one costs a chord-path risk and should come with a reason.
 - **The drawing and the page are generated.** `just keymap-svg` and `just keymap-html` read

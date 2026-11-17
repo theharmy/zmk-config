@@ -20,6 +20,9 @@ MACROS = ROOT / "config/twonr9_macros_srht.dtsi"
 SYMBOL_WORK = ROOT / "config/symbol_work.dtsi"
 DRAW = ROOT / "draw/twonr9_srht.yaml"
 PRACTICE = ROOT / "practice/gen_monkeytype_srht.py"
+COMBO_FILES = [CHORDS, ROOT / "config/twonr9_combos.dtsi",
+               ROOT / "config/twonr9_combos_srht.dtsi", SYMBOL_WORK]
+MOUSE = ROOT / "config/twonr9_mouse.dtsi"
 
 LEFT_KEYS = {0, 1, 2, 6, 7, 8, 9}
 # Mods from the opposite hand: shift = index, cmd = middle, alt = ring, ctrl = pinky.
@@ -167,6 +170,43 @@ class ChordSources(unittest.TestCase):
 
     def test_bigram_and_umlaut_chords_are_still_defined(self):
         self.assertEqual(len(bigram_and_umlaut_positions()), 16)  # 12 bigrams + 4 umlauts
+
+
+class DrawingCoversTheFirmware(unittest.TestCase):
+    """The drawing's chord list is generated; it must be exactly the firmware's."""
+
+    def firmware_combos(self):
+        out = []
+        for path in COMBO_FILES:
+            text = path.read_text(encoding="utf-8")
+            for m in re.finditer(r"ZMK_COMBO\(\s*\w+\s*,\s*[^,]+,\s*([0-9 ]+?),\s*([^)]+)\)", text):
+                out.append((tuple(sorted(int(x) for x in m.group(1).split())), m.group(2).strip()))
+        text = MOUSE.read_text(encoding="utf-8")
+        for m in re.finditer(r"key-positions = <([0-9 ]+)>", text):
+            out.append((tuple(sorted(int(x) for x in m.group(1).split())), "mouse"))
+        return out
+
+    def drawing_combos(self):
+        return yaml.safe_load(DRAW.read_text(encoding="utf-8"))["combos"]
+
+    def test_every_firmware_chord_is_in_the_drawing_and_nothing_else(self):
+        firmware = {pos for pos, _ in self.firmware_combos()}
+        drawn = {tuple(sorted(c["p"])) for c in self.drawing_combos()}
+        self.assertEqual(sorted(firmware - drawn), [], "firmware chords missing from the drawing")
+        self.assertEqual(sorted(drawn - firmware), [], "drawing chords the firmware does not define")
+
+    def test_bigrams_keep_their_layers(self):
+        text = (ROOT / "config/twonr9_combos_srht.dtsi").read_text(encoding="utf-8")
+        firmware = {}
+        for m in re.finditer(r"ZMK_COMBO\(combo_\w+,\s*&macro_\w+,\s*(\d+) (\d+),\s*L_A(\d)\)", text):
+            a, b, layer = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            firmware.setdefault((min(a, b), max(a, b)), set()).add(f"a{layer}")
+        drawn = {}
+        for combo in self.drawing_combos():
+            if combo.get("type") == "bigram":
+                key = tuple(sorted(combo["p"]))
+                drawn.setdefault(key, set()).update(combo["l"])
+        self.assertEqual(firmware, drawn)
 
 
 class PracticeFollowsTheKeymap(unittest.TestCase):

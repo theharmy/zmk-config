@@ -233,347 +233,6 @@ layers:
     h: forward
 combos:
 - p:
-  - 0
-  - 1
-  k: ⇥
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 1
-  - 2
-  k: ⏎
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 3
-  - 4
-  k:
-    t: ⌫
-    s: ⌦
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 4
-  - 5
-  k: ⌃⌫
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 3
-  - 4
-  - 5
-  k: ⎋
-  l:
-  - a1
-  - a2
-  type: util
-  align: top
-  offset: 0.18
-- p:
-  - 7
-  - 9
-  k: _
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 7
-  - 8
-  k: '-'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 11
-  - 12
-  k: ':'
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 10
-  - 12
-  k: ;
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 6
-  - 7
-  - 8
-  - 9
-  k: 🔓
-  l:
-  - sym
-  type: sym
-  align: bottom
-  offset: 0.18
-- p:
-  - 8
-  - 9
-  k:
-    t: ⇧ repeat
-    h: ⇧
-    s: ⇪
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 10
-  - 11
-  k:
-    t: ⇧ repeat
-    h: ⇧
-    s: ⇪
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 3
-  - 10
-  k: '7'
-  l:
-  - num
-  type: num
-  align: mid
-  offset: 0.16
-- p:
-  - 4
-  - 11
-  k: '8'
-  l:
-  - num
-  type: num
-  align: mid
-  offset: 0.16
-- p:
-  - 5
-  - 12
-  k: '9'
-  l:
-  - num
-  type: num
-  align: mid
-  offset: 0.16
-- p:
-  - 0
-  - 7
-  k: RL
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: HN
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: DT
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: CY
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 11
-  k: EO
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: UI
-  l:
-  - a1
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 0
-  - 7
-  k: RM
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 1
-  - 8
-  k: NB
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 2
-  - 9
-  k: KT
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 3
-  - 10
-  k: GY
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 4
-  - 11
-  k: OE
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 5
-  - 12
-  k: IU
-  l:
-  - a2
-  type: bigram
-  align: mid
-  offset: 0.0
-- p:
-  - 6
-  - 7
-  k:
-    t: ´
-    s: '`'
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 10
-  - 16
-  k:
-    t: ß
-    s: ß
-  l:
-  - a1
-  - a2
-  type: symbol
-  align: mid
-  offset: 0.16
-- p:
-  - 13
-  - 16
-  k:
-    t: ä
-    s: ä
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 4
-  - 16
-  k:
-    t: ö
-    s: ö
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 5
-  - 16
-  k:
-    t: ü
-    s: ü
-  l:
-  - a1
-  - a2
-  type: util
-  align: mid
-  offset: 0.16
-- p:
-  - 14
-  - 15
-  k: "a2 + \u21E7"
-  l:
-  - a1
-  - a2
-  type: layer
-- p:
-  - 16
-  - 17
-  k: "mouse"
-  l:
-  - a1
-  - a2
-  type: layer
-- p:
   - 1
   - 9
   k: "("
@@ -1358,7 +1017,7 @@ combos:
   - 4
   - 7
   - 13
-  k: "\u20AC"
+  k: "€"
   l:
   - a1
   - a2
@@ -1516,3 +1175,283 @@ combos:
   - a1
   - a2
   type: symbol
+- p:
+  - 0
+  - 1
+  k: "⇥"
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 1
+  - 2
+  k: "⏎"
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 3
+  - 4
+  k: {t: ⌫, s: ⌦}
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 4
+  - 5
+  k: "⌃⌫"
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 3
+  - 4
+  - 5
+  k: "⎋"
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 7
+  - 9
+  k: "_"
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 7
+  - 8
+  k: "-"
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 11
+  - 12
+  k: ":"
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 10
+  - 12
+  k: ";"
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 6
+  - 7
+  - 8
+  - 9
+  k: "\U0001F513"
+  l:
+  - sym
+  type: sym
+- p:
+  - 8
+  - 9
+  k: {t: ⇧ repeat, h: ⇧, s: ↪}
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 10
+  - 11
+  k: {t: ⇧ repeat, h: ⇧, s: ↪}
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 3
+  - 10
+  k: "7"
+  l:
+  - num
+  type: num
+- p:
+  - 4
+  - 11
+  k: "8"
+  l:
+  - num
+  type: num
+- p:
+  - 5
+  - 12
+  k: "9"
+  l:
+  - num
+  type: num
+- p:
+  - 0
+  - 7
+  k: "RL"
+  l:
+  - a1
+  type: bigram
+- p:
+  - 1
+  - 8
+  k: "HN"
+  l:
+  - a1
+  type: bigram
+- p:
+  - 2
+  - 9
+  k: "DT"
+  l:
+  - a1
+  type: bigram
+- p:
+  - 3
+  - 10
+  k: "CY"
+  l:
+  - a1
+  type: bigram
+- p:
+  - 4
+  - 11
+  k: "EO"
+  l:
+  - a1
+  type: bigram
+- p:
+  - 5
+  - 12
+  k: "UI"
+  l:
+  - a1
+  type: bigram
+- p:
+  - 0
+  - 7
+  k: "RM"
+  l:
+  - a2
+  type: bigram
+- p:
+  - 1
+  - 8
+  k: "NB"
+  l:
+  - a2
+  type: bigram
+- p:
+  - 2
+  - 9
+  k: "KT"
+  l:
+  - a2
+  type: bigram
+- p:
+  - 3
+  - 10
+  k: "GY"
+  l:
+  - a2
+  type: bigram
+- p:
+  - 4
+  - 11
+  k: "OE"
+  l:
+  - a2
+  type: bigram
+- p:
+  - 5
+  - 12
+  k: "IU"
+  l:
+  - a2
+  type: bigram
+- p:
+  - 6
+  - 7
+  k: {t: ´, s: '`'}
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 10
+  - 16
+  k: {t: ß, s: ß}
+  l:
+  - a1
+  - a2
+  type: symbol
+- p:
+  - 13
+  - 16
+  k: {t: ä, s: ä}
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 4
+  - 16
+  k: {t: ö, s: ö}
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 5
+  - 16
+  k: {t: ü, s: ü}
+  l:
+  - a1
+  - a2
+  type: util
+- p:
+  - 14
+  - 15
+  k: "a2 + ⇧"
+  l:
+  - a1
+  - a2
+  type: layer
+- p:
+  - 16
+  - 17
+  k: "mouse"
+  l:
+  - a1
+  - a2
+  type: layer
+- p:
+  - 0
+  - 1
+  k: "BT prev"
+  l:
+  - fn
+  type: util
+- p:
+  - 1
+  - 2
+  k: "BT next"
+  l:
+  - fn
+  type: util
+- p:
+  - 0
+  - 2
+  k: "BT clear"
+  l:
+  - fn
+  type: util
