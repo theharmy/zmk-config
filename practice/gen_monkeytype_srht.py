@@ -1,303 +1,185 @@
 #!/usr/bin/env python3
 """Generate practice text for the TwoNr9 chord keymap (srht) for Monkeytype.
 
-Variant twin of `gen_monkeytype.py` (which covers the default bugwind layout):
-same curriculum structure, same chord *outputs*, but every chord is named with
-the **srht** letters that sit at its positions -- the diagonal/home-row/German
-combos are position-based and shared (`symbol_work.dtsi`, `twonr9_combos.dtsi`),
-only the srht grids differ:
+Nothing here is typed in by hand. The chords are read from the firmware
+(config/twonr9_symbol_chords.dtsi: positions and the outputs of their macros),
+the bigram and umlaut chords from config/twonr9_combos_srht.dtsi and
+config/symbol_work.dtsi, and the letters at each position from the drawing
+(draw/twonr9_srht.yaml). When the keymap changes, the practice follows.
 
-    srht a1   top: L N D Y O U   home: S R H T | C E I A
-    srht a2   top: X B V W Q ,   home: F M P K | G J . Z
+The stages follow the modifier states of the chords, then two remixes:
 
-Differences from the bugwind curriculum:
+    1  Plain            the pairs, no modifier
+    2  + Shift          the shift states (opposite-hand index mod)
+    3  + Ctrl           the ctrl states (opposite-hand pinky mod)
+    4  + Cmd            the cmd states (opposite-hand middle mod)
+    5  + Alt            the alt states (opposite-hand ring mod)
+    6  + Quad           the quad (shift + cmd, four keys)
+    7  + a1 Bigramme    a1 bigrams, umlauts, acute, plain words
+    8  + a2 Bigramme    a2 bigrams, a1 words
+    9  Wörter           the full word pool in context
+    10 Vollpass         every chord output and every word, once
+    R1 Remix Operatoren ctrl, cmd, alt and quad outputs mixed with words
+    R2 Remix Symbole    single-chord outputs and bigrams, no words
 
-  * bigrams:   a1 RL HN DT CY EO UI · a2 RM NB KT GY OE IU
-               (kt words drill an a2 layer switch; the bugwind-only pairs
-               mb ys rw mt sch gs have no chord here and demote to plain)
-  * German letters: ß is C+Space (10+16) on srht vs S+Space on bugwind, and the
-    acute ´ sits alone at S+R (6+7) vs N+R on bugwind -- the umlauts (vowel +
-    Space) are identical on both variants
-  * home-row combos: _ = R+T, - = R+H, ; = C+I (letters moved vs bugwind)
-  * srht's nine adaptive keys are documented in the legend: within 300 ms of
-    its trigger an adaptive key emits the swap partner; the chord path used
-    by this drill is not affected
-
-A short, progressive curriculum (quality over quantity): 7 self-contained
-blocks of ~3-4k chars each, increasing in difficulty:
-
-    1  Plain                18 plain outputs, no modifiers
-    2  Plain + Ctrl + erste Wörter  operators + general German words
-                                   (no bigram pairs — alpha grid joins in)
-    3  + a1 Bigrams + Layer-1-Wörter  a1 layer complete (positions + bigrams)
-    4  All Symbols          Shift states unlock (+ ´ from S + R)
-    5  + a2 Bigrams + alle Wörter     the full keymap
-    6  Wörter               the full word pool in context
-    7  Vollpass (Exam)      every token — 89 chord outputs + all words — once
-
-Words accumulate: from stage 2 on, each block carries the earlier word tiers,
-so the later blocks are realistic mixes. The word tiers are derived from the
-pair tags: tier 2 = no bigram pairs (plain words + umlaut words), tier 3 =
-a1-bigram words, tier 5 = a2-bigram words.
-
-Each block is drawn round-robin from its own pool, so every fixed-size random
-slice is uniform (each pool entry appears exactly once per full round). Words
-with umlauts / Eszett also drill the letter + Space chords.
+Each stage is cumulative (except the remixes) and drawn round-robin, so every
+fixed-length slice is uniform: each token appears once per full round.
 
 Run:  python3 practice/gen_monkeytype_srht.py
       (writes practice/twonr9_srht_chords_monkeytype.md)
 """
 import random
+import re
 import sys
 from collections import Counter
 from pathlib import Path
 
-# Practice curriculum table for srht. Keep it aligned with
-# `config/symbol_work.dtsi` (positions, outputs) and the srht grids in
-# `config/twonr9_srht.keymap` (letters at those positions).
-CHORDS = [
-    ("L + S", ["(", ")", "==", "!="]),
-    ("Y + E", ["}", "{", "<=", ">="]),
-    ("N + R", ["[", "]", "+=", "-="]),
-    ("U + A", [")", "(", "&=", "|="]),
-    ("D + H", ["{", "}", "<<=", ">>="]),
-    ("O + I", ["]", "[", "^=", "*="]),
-    ("N + S", ["&", "*", "&&", "||"]),
-    ("O + A", ["$", "\u20ac", "??", "?."]),
-    ("D + R", ["~", "^", "->", "=>"]),
-    ("Y + I", ["=", "+", "<<", ">>"]),
-    ("D + S", ["<", ">", "<=", "<="]),
-    ("Y + A", [">", "<", ">=", ">="]),
-    ("L + H", ["!", "?", "//", "..."]),
-    ("N + T", ["-", "_", "++", "--"]),
-    ("U + E", [";", ":", "/*", "*/"]),
-    ("O + C", ["'", '\"', "=", "|"]),
-    ("L + T", ["#", "%", "::", ":="]),
-    ("U + C", ["/", "\\", "+", "@"]),
-]
-# German letters (letter + Space chord, shared with bugwind via
-# symbol_work.dtsi) and the acute at S + R (6+7).
-GERMAN = [
-    ("C + Space", "\u00df"),   # Eszett (combo_de_sz, positions 10+16)
-    ("A + Space", "\u00e4"),   # a-umlaut
-    ("O + Space", "\u00f6"),   # o-umlaut
-    ("U + Space", "\u00fc"),   # u-umlaut
-    ("S + R", "\u00b4"),       # acute (shift: backtick), positions 6+7
-]
-BIGRAMS = ["RL", "HN", "DT", "CY", "EO", "UI", "RM", "NB", "KT", "GY", "OE", "IU"]
-A1 = BIGRAMS[:6]
-A2 = BIGRAMS[6:]
+import yaml
 
-TOKENS = []
-for _, outs in CHORDS:
-    TOKENS.extend(outs)
-for _, tok in GERMAN:
-    TOKENS.append(tok)
-TOKENS.extend(BIGRAMS)
-N_TOKENS = len(TOKENS)
-assert N_TOKENS == 89, f"expected 89 chord states, got {N_TOKENS}"
-# Some outputs intentionally occur on multiple chords (mirrored brackets,
-# comparison operators and the shared = / + chord states). Assert the expected
-# duplicate surface to catch accidental changes. The outputs are identical to
-# bugwind's, so this surface is the same for both variants.
-_dupes = {t: c for t, c in Counter(TOKENS).items() if c > 1}
-_allowed_duplicates = set("()[]{}") | {"<", ">", "<=", ">=", "=", "+"}
-assert set(_dupes) <= _allowed_duplicates, f"unexpected duplicate tokens: {_dupes}"
-assert all(c == 2 for t, c in _dupes.items() if t not in {"<=", ">="}), \
-    f"unexpected duplicate counts: {_dupes}"
-assert _dupes.get("<=") == 3 and _dupes.get(">=") == 3, \
-    f"comparison operators should each occur on three states: {_dupes}"
-assert set(_dupes) == _allowed_duplicates, f"duplicate surface changed: {_dupes}"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from words import PLAIN_WORDS, WORD_TAGS, WORDS  # noqa: E402,F401
 
-# --- Words containing the bigram letter pairs (mostly German, some English) ---
-# Each word is tagged with the bigram(s) / German letters it drills. Tags refer
-# to the OUTPUT pair (which is identical across variants), not the chord keys.
-# Words for pairs that only exist on bugwind (mb ys rw mt sch gs) are absent
-# here and live in PLAIN_WORDS instead -- on srht they need no chord.
-WORDS = [
-    # rl (L+R)
-    ("erleben", ["rl"]),
-    ("erlöst", ["rl"]),
-    ("erlitten", ["rl"]),
-    ("erlaubt", ["rl"]),
-    ("Erlösung", ["rl"]),
-    # hn (N+H)
-    ("Sohn", ["hn"]),
-    ("Kahn", ["hn"]),
-    ("Hahn", ["hn"]),
-    ("Mohn", ["hn"]),
-    ("wohnen", ["hn"]),
-    # dt (D+T)
-    ("Landtag", ["dt"]),
-    ("verwandt", ["dt"]),
-    ("Handtuch", ["dt"]),
-    # cy (Y+C -- rare in German, English/loan words)
-    ("Bicycle", ["cy"]),
-    ("Cyclist", ["cy"]),
-    ("Cyber", ["cy"]),
-    # eo (O+E)
-    ("Geometrie", ["eo"]),
-    ("beobachten", ["eo"]),
-    ("Beobachtung", ["eo"]),
-    ("Geometer", ["eo"]),
-    ("eons", ["eo"]),
-    ("eosin", ["eo"]),
-    # ui (U+I)
-    ("Ruine", ["ui"]),
-    ("Ruinen", ["ui"]),
-    ("build", ["ui"]),
-    ("suit", ["ui"]),
-    ("suitable", ["ui"]),
-    ("juice", ["ui"]),
-    ("guide", ["ui"]),
-    # rm (X+M, a2)
-    ("Norm", ["rm"]),
-    ("Formel", ["rm"]),
-    ("warm", ["rm"]),
-    ("Wärme", ["rm"]),
-    # nb (B+P, a2 -- rare; German compounds)
-    ("Anbau", ["nb"]),
-    ("Einbau", ["nb"]),
-    ("anbei", ["nb"]),
-    # kt (V+K, a2 -- forces an a2 switch mid-word)
-    ("aktuell", ["kt"]),
-    ("Diktat", ["kt"]),
-    ("Diktatur", ["kt"]),
-    ("Kontakt", ["kt"]),
-    ("Kaktus", ["kt"]),
-    # gy (W+G, a2 -- rare; English/loan words)
-    ("Gymnasium", ["gy"]),
-    ("Biology", ["gy"]),
-    ("Energy", ["gy"]),
-    # oe (Q+J, a2)
-    ("Koeffizient", ["oe"]),
-    ("Koexistenz", ["oe"]),
-    ("Koeln", ["oe"]),
-    # iu (comma+dot, a2 -- rare pair; Latin/loan forms)
-    ("Iulius", ["iu"]),
-    ("Iunius", ["iu"]),
-    ("equinoctium", ["iu"]),
-    # German letter chords: ß (C+Space), ä (A+Space), ö (O+Space), ü (U+Space)
-    ("Straße", ["\u00df"]),
-    ("größer", ["\u00df", "\u00f6"]),
-    ("heiß", ["\u00df"]),
-    ("Küsse", ["\u00fc"]),
-    ("grüßen", ["\u00fc", "\u00df"]),
-    ("während", ["\u00e4"]),
-    ("Mädchen", ["\u00e4"]),
-    ("Käse", ["\u00e4"]),
-    ("Hände", ["\u00e4"]),
-    ("schön", ["\u00f6"]),
-    ("Höfe", ["\u00f6"]),
-    ("Höhlen", ["\u00f6"]),
-    ("Vögel", ["\u00f6"]),
-    ("Müde", ["\u00fc"]),
-    ("Hütte", ["\u00fc"]),
-    ("Küche", ["\u00fc"]),
-    ("Hüpfen", ["\u00fc"]),
-]
+ROOT = Path(__file__).resolve().parents[1]
+CHORDS_DTSI = ROOT / "config/twonr9_symbol_chords.dtsi"
+SRHT_COMBOS = ROOT / "config/twonr9_combos_srht.dtsi"
+SRHT_MACROS = ROOT / "config/twonr9_macros_srht.dtsi"
+SYMBOL_WORK = ROOT / "config/symbol_work.dtsi"
+DRAW = ROOT / "draw/twonr9_srht.yaml"
+OUT = Path(__file__).resolve().parent / "twonr9_srht_chords_monkeytype.md"
 
-# General German words that contain NONE of the 12 srht bigram pair sequences —
-# they only need plain letters (plus the umlaut chords in the tagged pool
-# above), so they can join the curriculum early (stage 2) while the a1/a2
-# bigram layers are still being learned. The first 20 are the shared core;
-# the rest were bigram words on bugwind (mb ys rw mt sch gs pairs) whose
-# chord does not exist on srht, so they demote to plain typing here.
-PLAIN_WORDS = [
-    "Haus", "Maus", "Hund", "Kind", "Wind",
-    "Hand", "Nacht", "Licht", "Wasser", "Baum",
-    "Apfel", "Vogel", "Wolke", "Fenster", "Buch",
-    "Bett", "Morgen", "Glas", "Wiese", "Tanne",
-    # demoted from the bugwind tagged pool (no srht chord for their pair):
-    "Symbol", "Kombi", "Amboss", "Kombination", "umbringt",
-    "System", "Systeme", "Analyse",
-    "erwartet", "erwartung", "erwachsene", "erwache",
-    "Amt", "Amtsstube", "Amtsblatt", "amtieren",
-    "Schule", "Maschine", "schreiben", "Schrift", "Schritt",
-    "bags", "dogs", "tags", "flags", "mugs", "bugs",
-]
-
-WORD_TAGS = {
-    "rl": "L+R", "hn": "N+H", "dt": "D+T", "cy": "Y+C", "eo": "O+E", "ui": "U+I",
-    "rm": "X+M", "nb": "B+P", "kt": "V+K", "gy": "W+G", "oe": "Q+J", "iu": ",+.",
-    "\u00df": "C+Space", "\u00e4": "A+Space", "\u00f6": "O+Space", "\u00fc": "U+Space",
+# German keycode names (config/keys_de.h) -> the character they type.
+DE_CHAR = {
+    "DE_LPAR": "(", "DE_RPAR": ")", "DE_LBRC": "{", "DE_RBRC": "}",
+    "DE_LBKT": "[", "DE_RBKT": "]", "DE_LT": "<", "DE_GT": ">",
+    "DE_EQUAL": "=", "DE_PLUS": "+", "DE_MINUS": "-", "DE_UNDER": "_",
+    "DE_FSLH": "/", "DE_BSLH": "\\", "DE_AMPS": "&", "DE_PIPE": "|",
+    "DE_DOLLAR": "$", "DE_CARET": "^", "DE_DQT": '"', "DE_SQT": "'",
+    "DE_SEMI": ";", "DE_COLON": ":", "DE_COMMA": ",", "DE_DOT": ".",
+    "DE_ASTRK": "*", "DE_HASH": "#", "DE_EXCL": "!", "DE_QMARK": "?",
+    "DE_AT": "@", "DE_TILDE": "~", "DE_GRAVE": "`", "DE_PRCNT": "%",
+    "DE_EURO": "\u20ac",
 }
 
-# Verify: every tag must actually occur in the word.
-for _word, _tags in WORDS:
-    for _t in _tags:
-        assert _t in _word.lower(), f"word {_word!r} does not contain {_t!r}"
-_word_names = [w for w, _ in WORDS]
-assert len(set(_word_names)) == len(_word_names), "duplicate words!"
-assert not set(PLAIN_WORDS) & set(_word_names), "plain words duplicate tagged words"
-# Every bigram and every German letter must be drilled by at least one word.
-_covered = {t for _, tags in WORDS for t in tags}
-_needed = {b.lower() for b in BIGRAMS} | set("\u00df\u00e4\u00f6\u00fc")
-_missing = _needed - _covered
-assert not _missing, f"not drilled by any word: {_missing}"
-
-# --- Word tiers for the curriculum, derived from the pair tags ---
-_pairs = [b.lower() for b in BIGRAMS]
-_umlauts = set("\u00df\u00e4\u00f6\u00fc")
-# PLAIN_WORDS must not contain any bigram pair sequence and must not clash
-# with the tagged pool.
-for _w in PLAIN_WORDS:
-    _wl = _w.lower()
-    for _p in _pairs:
-        assert _p not in _wl, f"plain word {_w!r} contains bigram pair {_p!r}"
-# Tiers: a2 = word drills at least one a2 pair; a1 = at least one a1 pair
-# (and no a2); umlaut = no pair at all. The three tiers partition WORDS.
-_a1s, _a2s = {b.lower() for b in A1}, {b.lower() for b in A2}
-_tier_a2 = [w for w, tags in WORDS if _a2s & set(tags)]
-_tier_a1 = [w for w, tags in WORDS
-            if _a1s & set(tags) and not (_a2s & set(tags))]
-_tier_umlaut = [w for w, tags in WORDS
-                if set(tags) and set(tags) <= _umlauts]
-_tiered = _tier_a2 + _tier_a1 + _tier_umlaut
-assert len(set(_tiered)) == len(_tiered) == len(_word_names), "word tiers must partition WORDS"
-# Cumulative word pools for the stages:
-WORDS_EARLY = PLAIN_WORDS + _tier_umlaut            # stage 2
-WORDS_A1 = WORDS_EARLY + _tier_a1                   # stage 3
-WORDS_ALL = WORDS_A1 + _tier_a2                     # stage 5
-N_WORDS = len(WORDS_ALL)
-
-# --- Curriculum: 7 progressive stages (quality over quantity) ---
-# Each stage is self-contained (only its own pool appears) and round-robin
-# shuffled, so every fixed-length slice is uniform: each pool entry appears
-# exactly once per full round. Stages grow by adding one new ingredient.
-PLAIN = [outs[0] for _, outs in CHORDS]
-SHIFT = [outs[1] for _, outs in CHORDS]
-CTRL = [outs[2] for _, outs in CHORDS]
-CTRL_SHIFT = [outs[3] for _, outs in CHORDS]
-
-STAGES = [
-    ("1", "Plain",
-     "reines Chord-Gef\u00fchl: 18 Plain-Outputs, keine Modifier",
-     PLAIN),
-    ("2", "Plain + Ctrl + erste W\u00f6rter",
-     "Operatoren dazu + allgemeine deutsche W\u00f6rter ohne Bigrams "
-     "(Alpha-Grid \u00fcbt mit) \u2014 immer noch kein Shift",
-     PLAIN + CTRL + WORDS_EARLY),
-    ("3", "+ a1-Bigrams + Layer-1-W\u00f6rter",
-     "a1 komplett: Bigrams + die W\u00f6rter, die nur a1-Chords brauchen",
-     PLAIN + CTRL + A1 + WORDS_A1),
-    ("4", "Alle Symbole",
-     "Shift-Zust\u00e4nde kommen dazu (+ \u00b4 aus S + R, \u00df aus C + Space)",
-     PLAIN + SHIFT + CTRL + CTRL_SHIFT + [GERMAN[4][1]] + WORDS_A1),
-    ("5", "+ a2-Bigrams + alle W\u00f6rter",
-     "die komplette Keymap: a2-Bigrams (Layerwechsel mitten im Wort) + alle W\u00f6rter",
-     TOKENS + WORDS_ALL),
-    ("6", "W\u00f6rter",
-     f"alles im echten Tipp-Kontext ({N_WORDS} W\u00f6rter)",
-     WORDS_ALL),
-]
-# Final exam: every token \u2014 89 chord outputs + all words \u2014 exactly once.
-EXAM = ("7", "Vollpass (Abschluss)", "alles in einem Durchgang", TOKENS + WORDS_ALL)
+# Mod keys (ZMK positions). Left-hand pairs take the right-hand mods, right-hand
+# pairs the left-hand ones: shift is the opposite index, ctrl the opposite pinky,
+# cmd the opposite middle, alt the opposite ring.
+MOD_STATE = {
+    10: "shift", 11: "cmd", 12: "alt", 13: "ctrl",
+    9: "shift", 8: "cmd", 7: "alt", 6: "ctrl",
+}
 
 PER_LINE = 10
 MIN_BLOCK_CHARS = 2800
 MAX_BLOCK_CHARS = 4200  # stay well below Monkeytype's 10k custom-test limit
-OUT = Path(__file__).resolve().parent / "twonr9_srht_chords_monkeytype.md"
+
+
+def parse_macros(text):
+    """Macro name -> the characters its bindings type (DE_ keys or plain letters)."""
+    out = {}
+    for name, body in re.findall(r"ZMK_MACRO\((\w+),\s*bindings = <(.*?)>;", text, re.S):
+        chars = []
+        for key in re.findall(r"&kp (\w+)", body):
+            if key in DE_CHAR:
+                chars.append(DE_CHAR[key])
+            elif re.fullmatch(r"DE_[A-Z]", key):
+                chars.append(key[3].lower())
+            elif len(key) == 1:
+                chars.append(key.lower())
+            else:
+                raise ValueError(f"macro {name}: unknown key {key}")
+        out[name] = "".join(chars)
+    return out
+
+
+def parse_chords():
+    """Every plain, triplet and quad chord: (positions, output)."""
+    text = CHORDS_DTSI.read_text(encoding="utf-8")
+    macros = parse_macros(text)
+    chords = []
+    pattern = r"ZMK_COMBO\((\w+),\s*(&kp DE_\w+|&\w+),\s*([0-9 ]+?),\s*L_A1 L_A2\)"
+    for _name, binding, pos in re.findall(pattern, text):
+        if binding.startswith("&kp "):
+            out = DE_CHAR[binding[4:]]
+        else:
+            out = macros[binding[1:]]
+        chords.append((tuple(sorted(int(p) for p in pos.split())), out))
+    return chords
+
+
+def parse_bigrams():
+    """Bigram chords: (layer, positions, output)."""
+    text = SRHT_COMBOS.read_text(encoding="utf-8")
+    macros = parse_macros(SRHT_MACROS.read_text(encoding="utf-8"))
+    out = []
+    for _name, macro, a, b, layer in re.findall(
+            r"ZMK_COMBO\(combo_(\w+),\s*&macro_(\w+),\s*(\d+) (\d+),\s*L_A(\d)\)", text):
+        out.append((int(layer), (int(a), int(b)), macros[f"macro_{macro}"]))
+    return out
+
+
+def parse_umlauts():
+    """The vowel and Eszett + Space chords, plus the acute (S + R)."""
+    text = SYMBOL_WORK.read_text(encoding="utf-8")
+    names = {"de_sz": "\u00df", "de_ae": "\u00e4", "de_oe": "\u00f6", "de_ue": "\u00fc"}
+    out = []
+    for name, a, b in re.findall(r"ZMK_COMBO\(combo_(de_\w+),\s*&de_\w+,\s*(\d+)\s+(\d+),", text):
+        out.append(((int(a), int(b)), names[name]))
+    out.append(((6, 7), "\u00b4"))  # acute, combo_diag_67, kept in symbol_work.dtsi
+    return out
+
+
+def letters():
+    data = yaml.safe_load(DRAW.read_text(encoding="utf-8"))
+    return {layer: [key["t"] for key in data["layers"][layer]] for layer in ("a1", "a2")}
+
+
+def cell(tok):
+    """A token as a Markdown table cell: pipes escaped, backticks fenced."""
+    t = tok.replace("|", "\\|")
+    return f"`` {t} ``" if "`" in t else f"`{t}`"
+
+
+def label(positions, letter_map):
+    return " + ".join(letter_map[p] for p in positions)
+
+
+LEFT_KEYS = {0, 1, 2, 6, 7, 8, 9}
+
+
+def build_table(chords, letter_map):
+    """(pair, state) -> (label, output) for every chord that uses a pair.
+
+    A chord's mod comes from the hand opposite its pair: a left-hand pair takes
+    the right-hand mods (10-13), a right-hand pair the left-hand ones (6-9).
+    """
+    letter_map = letter_map["a1"]
+    pairs = {pos for pos, _ in chords if len(pos) == 2}
+    table = {}
+    for pos, out in chords:
+        if len(pos) == 2:
+            table[(pos, "plain")] = (label(pos, letter_map), out)
+            continue
+        if len(pos) == 3:
+            found = None
+            for mod in pos:
+                rest = tuple(p for p in pos if p != mod)
+                left = all(p in LEFT_KEYS for p in rest)
+                if rest in pairs and mod in MOD_STATE and ((mod >= 10) == left):
+                    found = (rest, mod)
+            assert found, f"chord {pos} has no pair and opposite-hand mod"
+            rest, mod = found
+            state = MOD_STATE[mod]
+            extra = letter_map[mod]
+        elif len(pos) == 4:
+            rest = tuple(p for p in pos if p not in (10, 11))
+            assert rest in pairs and sorted(set(pos) - set(rest)) == [10, 11], \
+                f"quad {pos} is not a pair plus shift and cmd"
+            state = "shiftcmd"
+            extra = " + ".join(letter_map[p] for p in (10, 11))
+        else:
+            raise ValueError(f"chord {pos} has {len(pos)} keys")
+        table[(rest, state)] = (f"{label(rest, letter_map)} + {extra}", out)
+    return table
 
 
 def perm_for(tokens, seed, salt=0):
@@ -307,7 +189,7 @@ def perm_for(tokens, seed, salt=0):
     return perm
 
 
-def block_text(perm, rounds: int) -> str:
+def block_text(perm, rounds):
     lines = []
     for _ in range(rounds):
         for i in range(0, len(perm), PER_LINE):
@@ -315,8 +197,7 @@ def block_text(perm, rounds: int) -> str:
     return "\n".join(lines)
 
 
-def fit_rounds(perm) -> int:
-    """Largest round count that still fits the character budget."""
+def fit_rounds(perm):
     rounds = 1
     while len(block_text(perm, rounds + 1)) <= MAX_BLOCK_CHARS:
         rounds += 1
@@ -324,164 +205,152 @@ def fit_rounds(perm) -> int:
 
 
 def make_block(num, perm, rounds):
-    """Assemble the block text and verify pool purity + uniform counts."""
+    """Verify the block holds only its own pool, each token exactly `rounds` times."""
     text = block_text(perm, rounds)
-    # A block may contain nothing but its own pool, and every pool entry
-    # must appear exactly `rounds` times (the round-robin guarantee; bracket
-    # characters occur twice in the pool and thus 2*rounds times in the text).
-    pool_count = Counter(perm)
-    text_count = Counter(text.split())
-    assert set(text_count) == set(pool_count), \
-        f"stage {num}: unexpected tokens {set(text_count) - set(pool_count)}"
-    for tok, n in pool_count.items():
-        assert text_count[tok] == rounds * n, \
-            f"stage {num}: token {tok!r} count {text_count[tok]} != {rounds * n}"
+    pool = Counter(perm)
+    seen = Counter(text.split())
+    assert set(seen) == set(pool), f"stage {num}: foreign tokens {set(seen) - set(pool)}"
+    for tok, n in pool.items():
+        assert seen[tok] == rounds * n, f"stage {num}: {tok!r} count {seen[tok]} != {rounds * n}"
     return text
 
 
-def legend():
-    out = []
-    out.append("## Legende\n")
-    out.append("### Stufen\n")
-    out.append("| Stufe | Block | Was er \u00fcbt | Pool |")
-    out.append("| --- | --- | --- | --- |")
-    for num, name, desc, pool in STAGES + [EXAM]:
-        out.append(f"| {num} | **{name}** | {desc} | {len(pool)} Tokens |")
-    out.append("")
-    out.append(
-        "### Diagonale Symbol-Chords (16 Chords \u00d7 4 Modifier-Zust\u00e4nde = 64 Outputs)\n")
-    out.append("| Chord | Plain | Shift | Ctrl | Ctrl + Shift |")
-    out.append("| --- | --- | --- | --- | --- |")
-    for name, (p, s, c, cs) in CHORDS:
-        out.append(f"| {name} | `{p}` | `{s}` | `{c}` | `{cs}` |")
-    out.append("")
-    out.append("### Deutsche Buchstaben (srht)\n")
-    out.append("| Chord | Output (Shift = Grossbuchstabe) |")
-    out.append("| --- | --- |")
-    out.append("| C + Space | \u00df / \u1e9e |")
-    out.append("| A + Space | \u00e4 / \u00c4 |")
-    out.append("| O + Space | \u00f6 / \u00d6 |")
-    out.append("| U + Space | \u00fc / \u00dc |")
-    out.append("| S + R | \u00b4 (Shift: `) |")
-    out.append("")
-    out.append(
-        "> Die deutschen Buchstaben liegen auf srht an denselben Chord-Positionen "
-        "wie auf bugwind \u2014 nur die gedr\u00fcckten Buchstaben wechseln mit dem Grid: "
-        "`\u00df` ist **C + Space** (10+16; auf bugwind S + Space) und der Akzent `´` "
-        "steht allein auf **S + R** (6+7; auf bugwind N + R). Die Umlaute (Vokal + Space) "
-        "sind identisch. Der fr\u00fchere 6+7-Konflikt zwischen \u00df und ´ ist damit "
-        "aufgel\u00f6st.\n")
-    out.append("### Bigrams (12)\n")
-    out.append("| Layer | Chords |")
-    out.append("| --- | --- |")
-    out.append("| a1 | RL \u00b7 HN \u00b7 DT \u00b7 CY \u00b7 EO \u00b7 UI |")
-    out.append("| a2 | RM \u00b7 NB \u00b7 KT \u00b7 GY \u00b7 OE \u00b7 IU |")
-    out.append("")
-    # Word tiers: which words join at which stage, then the pair -> words drill.
-    out.append("### W\u00f6rter (ab Stufe 2, kumulativ)\n")
-    out.append(f"**Stufe 2** \u2014 ohne Bigram-Paare: {', '.join(PLAIN_WORDS)} "
-               f"+ \u00df/\u00e4/\u00f6/\u00fc-W\u00f6rter: {', '.join(_tier_umlaut)}")
-    out.append(f"\n**Stufe 3** \u2014 a1-Bigram-W\u00f6rter: {', '.join(_tier_a1)}")
-    out.append(f"\n**Stufe 5** \u2014 a2-Bigram-W\u00f6rter (Layerwechsel mitten im Wort): "
-               f"{', '.join(_tier_a2)}\n")
-    out.append("### W\u00f6rter-Drill: Buchstabenpaar \u2192 Chord \u2192 W\u00f6rter\n")
-    out.append("| Paar | Chord | W\u00f6rter |")
-    out.append("| --- | --- | --- |")
-    for pair in [b.lower() for b in BIGRAMS] + ["\u00df", "\u00e4", "\u00f6", "\u00fc"]:
-        ws = [w for w, tags in WORDS if pair in tags]
-        out.append(f"| `{pair}` | {WORD_TAGS[pair]} | {', '.join(ws)} |")
-    out.append("")
-    out.append("> W\u00f6rter mit `rm`/`nb`/`kt`/`gy`/`oe`/`iu` erzwingen einen a2-Layerwechsel "
-               "mitten im Wort (das ist der Punkt des Drills). Bei den seltenen Paaren `cy`, "
-               "`nb` und `gy` fehlen h\u00e4ufige deutsche W\u00f6rter, daher englische bzw. "
-               "Lehnformen.\n")
-    out.append("### Home-Row-Symbol-Combos (alle Alpha-Layer)\n")
-    out.append("| Chord | Output |")
-    out.append("| --- | --- |")
-    out.append("| R + T | _ (auch N + T \u00b7 Shift) |")
-    out.append("| R + H | - (auch N + T \u00b7 Plain) |")
-    out.append("| E + I | : (auch U + E \u00b7 Shift) |")
-    out.append("| C + I | ; (auch U + E \u00b7 Plain) |")
-    out.append("")
-    out.append("> `_ - : ;` kommen im Pool nur einmal pro Runde vor (Chord-Pfad); "
-               "beide Wege liefern das gleiche Zeichen.\n")
-    out.append("### Adaptive Keys (9, nur srht)\n")
-    out.append("| Nach | Swap | Keys |")
-    out.append("| --- | --- | --- |")
-    out.append("| R | H \u2194 L \u00b7 M \u2194 V | H L M V |")
-    out.append("| U | O \u2194 I | O I |")
-    out.append("| Q | I \u2194 U | I U |")
-    out.append("| N | B \u2194 X | B X |")
-    out.append("")
-    out.append("> 9 adaptive Keys (`l h o i u` auf a1, `x b v m` auf a2): innerhalb von "
-               "300 ms nach dem Trigger gibt der Key den Partner aus \u2014 z. B. kommt "
-               "schnelles `rh` als `rl` heraus, `ui` als `uo`. Die Bigram-Chords "
-               "(beide Tasten gleichzeitig) und alles au\u00dferhalb des Fensters sind "
-               "nicht betroffen \u2014 der Drill nutzt deshalb bewusst den Chord-Pfad.\n")
-    return "\n".join(out)
-
-
 def main():
-    parts = []
-    parts.append("# TwoNr9 srht \u2014 Chord-Praxis (Monkeytype)\n")
-    parts.append(
-        "Diese Datei enth\u00e4lt ein **Stufen-\u00dcbungssystem** f\u00fcr die srht-Keymap "
-        "\u2014 Qualit\u00e4t vor Quantit\u00e4t: "
-        f"{len(STAGES) + 1} aufeinander aufbauende Bl\u00f6cke, die in der Schwierigkeit steigen "
-        "(Plain \u2192 +Ctrl/+erste W\u00f6rter \u2192 +a1-Bigrams/+Layer-1-W\u00f6rter \u2192 +Shift "
-        "\u2192 +a2-Bigrams/+alle W\u00f6rter \u2192 W\u00f6rter \u2192 Vollpass). Die W\u00f6rter drillen ab "
-        "Stufe 2 auch das Alpha-Grid: zuerst W\u00f6rter ohne Bigram-Paare, dann die, die a1- bzw. "
-        "a2-Chords brauchen \u2014 so wachsen die W\u00f6rter mit den Layer-Kenntnissen mit. "
-        "Jeder Block ist selbstst\u00e4ndig (nur sein eigener Pool) und wird Round-Robin gezogen: "
-        "pro voller Runde kommt jeder Token genau einmal vor, egal an welcher Stelle Monkeytype "
-        "zuf\u00e4llig ansetzt \u2014 jeder Ausschnitt ist gleichm\u00e4\u00dfig.\n")
-    parts.append(
-        "Die Chord-Namen folgen dem **srht**-Grid (obere Reihe `L N D Y O U`, Home `S R H T | "
-        "C E I A`); die Outputs sind identisch mit bugwind, nur die gedr\u00fcckten Buchstaben "
-        "wechseln. Zehn der achtzehn Diagonal-Chords hei\u00dfen daher anders als im "
-        "bugwind-Praxisblatt.\n")
-    parts.append("## Nutzung in Monkeytype\n")
-    parts.append("1. Den Block der aktuellen Stufe kopieren (Code-Block, < 10.000 Zeichen).")
-    parts.append("2. Monkeytype \u2192 Test Type **Custom** \u2192 Text einf\u00fcgen.")
-    parts.append("3. Test-L\u00e4nge z. B. auf 25\u201375 W\u00f6rter stellen; Monkeytype w\u00e4hlt aus dem "
-                 "Block einen zuf\u00e4lligen Ausschnitt.")
-    parts.append("4. Erst zur n\u00e4chsten Stufe wechseln, wenn die aktuelle sauber l\u00e4uft. "
-                 "Stufe 7 (Vollpass) ist die Abschlusspr\u00fcfung: jeder Token genau einmal.\n")
-    parts.append("Beim \u00dcben auf der TwoNr9 zeigt die Legende unten, welcher Token welchen "
-                 "Chord + Modifier-Zustand triggert. Achtung: die neun adaptiven Keys "
-                 "tauschen bei schnellem Tippen innerhalb von 300 ms Buchstaben \u2014 die "
-                 "Legende am Ende erkl\u00e4rt, wann.\n")
-    parts.append(legend())
+    chords = parse_chords()
+    letter_map = letters()
+    a1, a2 = letter_map["a1"], letter_map["a2"]
+    table = build_table(chords, letter_map)
+    bigrams = parse_bigrams()
+    umlauts = parse_umlauts()
+
+    def state(s):
+        return [out for (_pos, st), (_lbl, out) in table.items() if st == s]
+
+    plain = state("plain")
+    shift = state("shift")
+    ctrl = state("ctrl")
+    cmd = state("cmd")
+    alt = state("alt")
+    quad = state("shiftcmd")
+    a1_bi = [out for layer, _, out in bigrams if layer == 1]
+    a2_bi = [out for layer, _, out in bigrams if layer == 2]
+    umlaut_out = [out for _, out in umlauts]
+
+    # Word tiers from the tags: umlaut-only, a1, a2.
+    umlaut_chars = set("\u00df\u00e4\u00f6\u00fc")
+    a1_tags = {t.lower() for t in a1_bi}
+    a2_tags = {t.lower() for t in a2_bi}
+    tier_a2 = [w for w, tags in WORDS if a2_tags & set(tags)]
+    tier_a1 = [w for w, tags in WORDS if a1_tags & set(tags) and not a2_tags & set(tags)]
+    tier_umlaut = [w for w, tags in WORDS if set(tags) and set(tags) <= umlaut_chars]
+    words_early = PLAIN_WORDS + tier_umlaut
+    words_a1 = words_early + tier_a1
+    words_all = words_a1 + tier_a2
+    assert len(set(words_all)) == len(words_all) == len(WORDS) + len(PLAIN_WORDS), \
+        "word tiers must partition the word pool"
+    covered = {t for _, tags in WORDS for t in tags}
+    missing = (a1_tags | a2_tags | umlaut_chars) - covered
+    assert not missing, f"bigrams or umlauts without a word: {sorted(missing)}"
+
+    s1 = plain
+    s2 = s1 + shift
+    s3 = s2 + ctrl
+    s4 = s3 + cmd
+    s5 = s4 + alt
+    s6 = s5 + quad
+    s7 = s6 + a1_bi + umlaut_out + words_early
+    s8 = s7 + a2_bi + words_a1
+    s9 = words_all
+    s10 = s6 + a1_bi + a2_bi + umlaut_out + words_all
+    r1 = ctrl + cmd + alt + quad + words_early
+    r2 = plain + shift + a1_bi + a2_bi + umlaut_out
+
+    stages = [
+        ("1", "Plain", "18 Paare ohne Modifier", s1),
+        ("2", "+ Shift", "Shift-Zust\u00e4nde (gegen\u00fcberliegender Zeigefinger)", s2),
+        ("3", "+ Ctrl", "Ctrl-Zust\u00e4nde (gegen\u00fcberliegender kleiner Finger)", s3),
+        ("4", "+ Cmd", "Cmd-Zust\u00e4nde (gegen\u00fcberliegender Mittelfinger)", s4),
+        ("5", "+ Alt", "Alt-Zust\u00e4nde (gegen\u00fcberliegender Ringfinger)", s5),
+        ("6", "+ Quad", "Shift + Cmd, vier Tasten", s6),
+        ("7", "+ a1-Bigramme", "a1-Bigramme, Umlaute, \u00b4, W\u00f6rter ohne Bigram-Paare", s7),
+        ("8", "+ a2-Bigramme", "a2-Bigramme (Layerwechsel mitten im Wort), a1-W\u00f6rter", s8),
+        ("9", "W\u00f6rter", f"alles im Tipp-Kontext ({len(words_all)} W\u00f6rter)", s9),
+        ("10", "Vollpass", "jeder Token einmal (Abschluss)", s10),
+        ("R1", "Remix Operatoren", "Ctrl-, Cmd-, Alt- und Quad-Zust\u00e4nde mit W\u00f6rtern gemischt", r1),
+        ("R2", "Remix Symbole", "Einzel-Chords und Bigramme, ohne W\u00f6rter", r2),
+    ]
+
+    parts = [
+        "# TwoNr9 srht \u2014 Chord-Praxis (Monkeytype)\n",
+        "Stufen nach Modifier-Zust\u00e4nden: erst die Paare, dann je ein Zustand dazu, dann die "
+        "Bigramme und W\u00f6rter. Jede Stufe enth\u00e4lt alles aus den vorigen; die Remixe mischen "
+        "Zust\u00e4nde und W\u00f6rter neu. Die Chords werden aus Firmware und Zeichnung gelesen, "
+        "nicht von Hand gepflegt.\n",
+        "## Nutzung in Monkeytype\n",
+        "1. Den Block der Stufe kopieren (Code-Block, unter 10.000 Zeichen).",
+        "2. Monkeytype \u2192 Test Type **Custom** \u2192 Text einf\u00fcgen.",
+        "3. Erst zur n\u00e4chsten Stufe, wenn die aktuelle sauber l\u00e4uft. Die Remixe "
+        "gehen nach Stufe 10.\n",
+        "## Legende\n",
+        "### Stufen\n",
+        "| Stufe | Name | Was er \u00fcbt | Tokens |",
+        "| --- | --- | --- | --- |",
+    ]
+    for num, name, desc, pool in stages:
+        parts.append(f"| {num} | {name} | {desc} | {len(pool)} |")
+    parts.append("")
+    parts.append("### Chords nach Paar\n")
+    parts.append("| Paar | Plain | + Shift | + Ctrl | + Cmd | + Alt | Quad |")
+    parts.append("| --- | --- | --- | --- | --- | --- | --- |")
+    pair_positions = sorted({pos for pos, _ in table})
+    for pos in pair_positions:
+        cells = []
+        for st in ("plain", "shift", "ctrl", "cmd", "alt", "shiftcmd"):
+            entry = table.get((pos, st))
+            cells.append(cell(entry[1]) if entry else "\u2014")
+        pair_label = table[(pos, "plain")][0] if (pos, "plain") in table else label(pos, letter_map["a1"])
+        parts.append(f"| {pair_label} | " + " | ".join(cells) + " |")
+    parts.append("")
+    parts.append("### Bigramme\n")
+    parts.append("| Layer | Chords |")
+    parts.append("| --- | --- |")
+    parts.append(f"| a1 | {' \u00b7 '.join(a1_bi)} |")
+    parts.append(f"| a2 | {' \u00b7 '.join(a2_bi)} |")
+    parts.append("")
+    parts.append("### Deutsche Buchstaben\n")
+    parts.append("| Chord | Output |")
+    parts.append("| --- | --- |")
+    for (a, b), out in umlauts:
+        parts.append(f"| {label((a, b), a1)} | {cell(out)} |")
+    parts.append("")
+    parts.append("### W\u00f6rter\n")
+    parts.append(f"**Stufe 7**, ohne Bigram-Paare: {', '.join(PLAIN_WORDS)}")
+    parts.append(f"\n**Stufe 8**, a1-Bigramme: {', '.join(tier_a1)}")
+    parts.append(f"\n**Stufe 9**, a2-Bigramme (Layerwechsel): {', '.join(tier_a2)}\n")
+    parts.append("### Adaptive Keys (9, nur srht)\n")
+    parts.append("Innerhalb von 300 ms nach dem Trigger gibt ein adaptiver Key den Partner aus "
+                 "\u2014 schnelles `rh` kann als `rl` herauskommen. Die Chords (beide Tasten "
+                 "gleichzeitig) sind nicht betroffen.\n")
 
     sizes = []
-    for num, name, _desc, pool in STAGES:
-        perm = perm_for(pool, int(num))
+    for num, name, _desc, pool in stages:
+        perm = perm_for(pool, int(num.lstrip("R")) + (100 if num.startswith("R") else 0))
         rounds = fit_rounds(perm)
-        text = make_block(num, perm, rounds)
-        assert MIN_BLOCK_CHARS <= len(text) <= MAX_BLOCK_CHARS, \
-            f"stage {num}: {len(text)} chars outside the " \
-            f"{MIN_BLOCK_CHARS}\u2013{MAX_BLOCK_CHARS} band"
+        body = make_block(num, perm, rounds)
+        assert MIN_BLOCK_CHARS <= len(body) <= MAX_BLOCK_CHARS, \
+            f"stage {num}: {len(body)} chars outside the band"
         parts.append(f"## Stufe {num} \u2014 {name} "
-                     f"({rounds} Runden \u00b7 {rounds * len(perm)} Tokens \u00b7 "
-                     f"{len(text)} Zeichen)\n")
+                     f"({rounds} Runden \u00b7 {rounds * len(pool)} Tokens \u00b7 {len(body)} Zeichen)\n")
         parts.append("```")
-        parts.append(text)
+        parts.append(body)
         parts.append("```\n")
-        sizes.append(len(text))
-
-    num, name, _desc, pool = EXAM
-    text = make_block(num, perm_for(pool, int(num)), 1)
-    parts.append(f"## Stufe {num} \u2014 {name} "
-                 f"(1 Runde \u00b7 {len(pool)} Tokens \u00b7 {len(text)} Zeichen)\n")
-    parts.append("```")
-    parts.append(text)
-    parts.append("```\n")
-    sizes.append(len(text))
+        sizes.append(len(body))
 
     doc = "\n".join(parts)
-    OUT.write_text(doc)
-    print(f"stages: {len(sizes)}, block chars: {sizes}")
-    print(f"total doc chars: {len(doc)}")
+    OUT.write_text(doc, encoding="utf-8")
+    print(f"stages: {len(stages)}, block chars: {sizes}")
+    print(f"chord states: {len(table)} on {len(pair_positions)} pairs; bigrams: {len(bigrams)}; "
+          f"umlauts: {len(umlauts)}; words: {len(words_all)}")
 
 
 if __name__ == "__main__":
