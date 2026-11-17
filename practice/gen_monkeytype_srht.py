@@ -61,12 +61,16 @@ DE_CHAR = {
 }
 
 # Mod keys (ZMK positions). Left-hand pairs take the right-hand mods, right-hand
-# pairs the left-hand ones: shift is the opposite index, ctrl the opposite pinky,
-# cmd the opposite middle, alt the opposite ring.
-MOD_STATE = {
-    10: "shift", 11: "cmd", 12: "alt", 13: "ctrl",
-    9: "shift", 8: "cmd", 7: "alt", 6: "ctrl",
-}
+# pairs the left-hand ones: shift is the opposite index, cmd the opposite middle,
+# alt the opposite ring, ctrl the opposite pinky.
+LEFT_MODS = {10: "shift", 11: "cmd", 12: "alt", 13: "ctrl"}
+RIGHT_MODS = {9: "shift", 8: "cmd", 7: "alt", 6: "ctrl"}
+MOD_STATE = {**LEFT_MODS, **RIGHT_MODS}
+TWO_MODS = {frozenset(("shift", "cmd")): "shiftcmd",
+            frozenset(("shift", "alt")): "shiftalt",
+            frozenset(("shift", "ctrl")): "shiftctrl"}
+STATES = ["plain", "shift", "cmd", "shiftcmd", "alt", "shiftalt", "ctrl", "shiftctrl"]
+CURSOR_KEYS = {"LEFT", "RIGHT", "UP", "DOWN"}
 
 PER_LINE = 10
 MIN_BLOCK_CHARS = 2800
@@ -79,6 +83,8 @@ def parse_macros(text):
     for name, body in re.findall(r"ZMK_MACRO\((\w+),\s*bindings = <(.*?)>;", text, re.S):
         chars = []
         for key in re.findall(r"&kp (\w+)", body):
+            if key in CURSOR_KEYS:
+                continue          # `{}` types the pair and leaves the cursor inside
             if key in DE_CHAR:
                 chars.append(DE_CHAR[key])
             elif re.fullmatch(r"DE_[A-Z]", key):
@@ -156,29 +162,17 @@ def build_table(chords, letter_map):
     pairs = {pos for pos, _ in chords if len(pos) == 2}
     table = {}
     for pos, out in chords:
-        if len(pos) == 2:
-            table[(pos, "plain")] = (label(pos, letter_map), out)
+        pair = next((q for q in pairs if set(q) <= set(pos)), None)
+        assert pair is not None, f"chord {pos} has no pair"
+        extras = [p for p in pos if p not in pair]
+        if not extras:
+            table[(pair, "plain")] = (label(pair, letter_map), out)
             continue
-        if len(pos) == 3:
-            found = None
-            for mod in pos:
-                rest = tuple(p for p in pos if p != mod)
-                left = all(p in LEFT_KEYS for p in rest)
-                if rest in pairs and mod in MOD_STATE and ((mod >= 10) == left):
-                    found = (rest, mod)
-            assert found, f"chord {pos} has no pair and opposite-hand mod"
-            rest, mod = found
-            state = MOD_STATE[mod]
-            extra = letter_map[mod]
-        elif len(pos) == 4:
-            rest = tuple(p for p in pos if p not in (10, 11))
-            assert rest in pairs and sorted(set(pos) - set(rest)) == [10, 11], \
-                f"quad {pos} is not a pair plus shift and cmd"
-            state = "shiftcmd"
-            extra = " + ".join(letter_map[p] for p in (10, 11))
-        else:
-            raise ValueError(f"chord {pos} has {len(pos)} keys")
-        table[(rest, state)] = (f"{label(rest, letter_map)} + {extra}", out)
+        names = sorted(MOD_STATE[p] for p in extras)
+        state = names[0] if len(names) == 1 else TWO_MODS.get(frozenset(names))
+        assert state, f"chord {pos} has mods {names}"
+        extra = " + ".join(letter_map[p] for p in extras)
+        table[(pair, state)] = (f"{label(pair, letter_map)} + {extra}", out)
     return table
 
 
@@ -228,10 +222,12 @@ def main():
 
     plain = state("plain")
     shift = state("shift")
-    ctrl = state("ctrl")
     cmd = state("cmd")
+    shiftcmd = state("shiftcmd")
     alt = state("alt")
-    quad = state("shiftcmd")
+    shiftalt = state("shiftalt")
+    ctrl = state("ctrl")
+    shiftctrl = state("shiftctrl")
     a1_bi = [out for layer, _, out in bigrams if layer == 1]
     a2_bi = [out for layer, _, out in bigrams if layer == 2]
     umlaut_out = [out for _, out in umlauts]
@@ -254,28 +250,32 @@ def main():
 
     s1 = plain
     s2 = s1 + shift
-    s3 = s2 + ctrl
-    s4 = s3 + cmd
+    s3 = s2 + cmd
+    s4 = s3 + shiftcmd
     s5 = s4 + alt
-    s6 = s5 + quad
-    s7 = s6 + a1_bi + umlaut_out + words_early
-    s8 = s7 + a2_bi + words_a1
-    s9 = words_all
-    s10 = s6 + a1_bi + a2_bi + umlaut_out + words_all
-    r1 = ctrl + cmd + alt + quad + words_early
+    s6 = s5 + shiftalt
+    s7 = s6 + ctrl
+    s8 = s7 + shiftctrl
+    s9 = s8 + a1_bi + umlaut_out + words_early
+    s10 = s9 + a2_bi + words_a1
+    s11 = words_all
+    s12 = s8 + a1_bi + a2_bi + umlaut_out + words_all
+    r1 = cmd + shiftcmd + alt + shiftalt + ctrl + shiftctrl + words_early
     r2 = plain + shift + a1_bi + a2_bi + umlaut_out
 
     stages = [
         ("1", "Plain", "18 Paare ohne Modifier", s1),
         ("2", "+ Shift", "Shift-Zust\u00e4nde (gegen\u00fcberliegender Zeigefinger)", s2),
-        ("3", "+ Ctrl", "Ctrl-Zust\u00e4nde (gegen\u00fcberliegender kleiner Finger)", s3),
-        ("4", "+ Cmd", "Cmd-Zust\u00e4nde (gegen\u00fcberliegender Mittelfinger)", s4),
+        ("3", "+ Cmd", "Cmd-Zust\u00e4nde (gegen\u00fcberliegender Mittelfinger)", s3),
+        ("4", "+ Shift+Cmd", "Shift + Cmd, vier Tasten", s4),
         ("5", "+ Alt", "Alt-Zust\u00e4nde (gegen\u00fcberliegender Ringfinger)", s5),
-        ("6", "+ Quad", "Shift + Cmd, vier Tasten", s6),
-        ("7", "+ a1-Bigramme", "a1-Bigramme, Umlaute, \u00b4, W\u00f6rter ohne Bigram-Paare", s7),
-        ("8", "+ a2-Bigramme", "a2-Bigramme (Layerwechsel mitten im Wort), a1-W\u00f6rter", s8),
-        ("9", "W\u00f6rter", f"alles im Tipp-Kontext ({len(words_all)} W\u00f6rter)", s9),
-        ("10", "Vollpass", "jeder Token einmal (Abschluss)", s10),
+        ("6", "+ Shift+Alt", "Shift + Alt, vier Tasten", s6),
+        ("7", "+ Ctrl", "Ctrl-Zust\u00e4nde (gegen\u00fcberliegender kleiner Finger)", s7),
+        ("8", "+ Shift+Ctrl", "Shift + Ctrl, vier Tasten", s8),
+        ("9", "+ a1-Bigramme", "a1-Bigramme, Umlaute, \u00b4, W\u00f6rter ohne Bigram-Paare", s9),
+        ("10", "+ a2-Bigramme", "a2-Bigramme (Layerwechsel mitten im Wort), a1-W\u00f6rter", s10),
+        ("11", "W\u00f6rter", f"alles im Tipp-Kontext ({len(words_all)} W\u00f6rter)", s11),
+        ("12", "Vollpass", "jeder Token einmal (Abschluss)", s12),
         ("R1", "Remix Operatoren", "Ctrl-, Cmd-, Alt- und Quad-Zust\u00e4nde mit W\u00f6rtern gemischt", r1),
         ("R2", "Remix Symbole", "Einzel-Chords und Bigramme, ohne W\u00f6rter", r2),
     ]
