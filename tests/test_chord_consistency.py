@@ -117,7 +117,7 @@ class ChordSources(unittest.TestCase):
         self.keysets = Counter(pos for pos, _ in self.chords)
 
     def test_every_pair_and_state_is_defined(self):
-        self.assertEqual(len(self.chords), 104)
+        self.assertEqual(len(self.chords), 106)
 
     def test_no_two_chords_share_a_key_set(self):
         dupes = {k: v for k, v in self.keysets.items() if v > 1}
@@ -222,7 +222,7 @@ class PracticeFollowsTheKeymap(unittest.TestCase):
         spec.loader.exec_module(gen)
         letters = {"a1": base_letters(), "a2": base_letters()}
         table = gen.build_table(firmware_chords(), letters)
-        self.assertEqual(len(table), 104)
+        self.assertEqual(len(table), 106)
         self.assertTrue(all(" + " in label for label, _ in table.values()))
 
 

@@ -133,26 +133,26 @@ ZMK_MACRO(sym_0_6_shiftctrl,
     tap-ms = <5>;
 )
 ZMK_MACRO(sym_0_8_cmd,
-    bindings = <&kp DE_PLUS &kp DE_PLUS>;
-    wait-ms = <0>;
-    tap-ms = <5>;
-)
-ZMK_MACRO(sym_0_8_alt,
     bindings = <&kp DE_MINUS &kp DE_MINUS>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
-ZMK_MACRO(sym_0_8_shiftalt,
+ZMK_MACRO(sym_0_8_shiftcmd,
     bindings = <&kp DE_UNDER &kp DE_UNDER>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
-ZMK_MACRO(sym_0_8_ctrl,
+ZMK_MACRO(sym_0_8_alt,
     bindings = <&kp DE_MINUS &kp DE_MINUS &kp DE_MINUS>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
-ZMK_MACRO(sym_0_8_shiftctrl,
+ZMK_MACRO(sym_0_8_shiftalt,
+    bindings = <&kp DE_PLUS &kp DE_PLUS>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(sym_0_8_ctrl,
     bindings = <&kp DE_BSLH &kp DE_UNDER>;
     wait-ms = <0>;
     tap-ms = <5>;
@@ -168,22 +168,32 @@ ZMK_MACRO(sym_0_9_shiftcmd,
     tap-ms = <5>;
 )
 ZMK_MACRO(sym_0_9_alt,
+    bindings = <&kp DE_AMPS &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(sym_0_9_shiftalt,
+    bindings = <&kp DE_PIPE &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(sym_0_9_ctrl,
     bindings = <&kp DE_BSLH &kp DE_AMPS>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
 ZMK_MACRO(sym_2_6_cmd,
-    bindings = <&kp DE_DOLLAR &kp DE_DOLLAR>;
-    wait-ms = <0>;
-    tap-ms = <5>;
-)
-ZMK_MACRO(sym_2_6_shiftcmd,
     bindings = <&kp DE_BSLH &kp DE_DOLLAR>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
-ZMK_MACRO(sym_2_6_alt,
+ZMK_MACRO(sym_2_6_shiftcmd,
     bindings = <&kp DE_BSLH &kp DE_CARET>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
+ZMK_MACRO(sym_2_6_alt,
+    bindings = <&kp DE_DOLLAR &kp DE_DOLLAR>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
@@ -267,13 +277,8 @@ ZMK_MACRO(sym_4_12_alt,
     wait-ms = <0>;
     tap-ms = <5>;
 )
-ZMK_MACRO(sym_4_12_shiftalt,
-    bindings = <&kp DE_BSLH &kp DE_HASH>;
-    wait-ms = <0>;
-    tap-ms = <5>;
-)
 ZMK_MACRO(sym_4_12_ctrl,
-    bindings = <&kp DE_CARET &kp DE_EQUAL>;
+    bindings = <&kp DE_BSLH &kp DE_HASH>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
@@ -317,6 +322,11 @@ ZMK_MACRO(sym_5_11_shiftalt,
     wait-ms = <0>;
     tap-ms = <5>;
 )
+ZMK_MACRO(sym_5_11_ctrl,
+    bindings = <&kp DE_CARET &kp DE_EQUAL>;
+    wait-ms = <0>;
+    tap-ms = <5>;
+)
 ZMK_MACRO(sym_5_13_shift,
     bindings = <&kp DE_BSLH &kp DE_LPAR>;
     wait-ms = <0>;
@@ -347,13 +357,13 @@ ZMK_MACRO(sym_5_10_shift,
     wait-ms = <0>;
     tap-ms = <5>;
 )
-ZMK_MACRO(sym_5_10_cmd,
-    bindings = <&kp DE_BSLH &kp DE_PRCNT>;
+ZMK_MACRO(sym_5_10_alt,
+    bindings = <&kp DE_PRCNT &kp DE_PRCNT>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
-ZMK_MACRO(sym_5_10_alt,
-    bindings = <&kp DE_PRCNT &kp DE_PRCNT>;
+ZMK_MACRO(sym_5_10_ctrl,
+    bindings = <&kp DE_BSLH &kp DE_PRCNT>;
     wait-ms = <0>;
     tap-ms = <5>;
 )
@@ -396,15 +406,17 @@ ZMK_COMBO(sym_0_6_shiftctrl, &sym_0_6_shiftctrl, 0 6 10 13, L_A1 L_A2)
 ZMK_COMBO(sym_0_8_plain, &kp DE_MINUS, 0 8, L_A1 L_A2)
 ZMK_COMBO(sym_0_8_shift, &kp DE_UNDER, 0 8 10, L_A1 L_A2)
 ZMK_COMBO(sym_0_8_cmd, &sym_0_8_cmd, 0 8 11, L_A1 L_A2)
+ZMK_COMBO(sym_0_8_shiftcmd, &sym_0_8_shiftcmd, 0 8 10 11, L_A1 L_A2)
 ZMK_COMBO(sym_0_8_alt, &sym_0_8_alt, 0 8 12, L_A1 L_A2)
 ZMK_COMBO(sym_0_8_shiftalt, &sym_0_8_shiftalt, 0 8 10 12, L_A1 L_A2)
 ZMK_COMBO(sym_0_8_ctrl, &sym_0_8_ctrl, 0 8 13, L_A1 L_A2)
-ZMK_COMBO(sym_0_8_shiftctrl, &sym_0_8_shiftctrl, 0 8 10 13, L_A1 L_A2)
 ZMK_COMBO(sym_0_9_plain, &kp DE_AMPS, 0 9, L_A1 L_A2)
 ZMK_COMBO(sym_0_9_shift, &kp DE_PIPE, 0 9 10, L_A1 L_A2)
 ZMK_COMBO(sym_0_9_cmd, &sym_0_9_cmd, 0 9 11, L_A1 L_A2)
 ZMK_COMBO(sym_0_9_shiftcmd, &sym_0_9_shiftcmd, 0 9 10 11, L_A1 L_A2)
 ZMK_COMBO(sym_0_9_alt, &sym_0_9_alt, 0 9 12, L_A1 L_A2)
+ZMK_COMBO(sym_0_9_shiftalt, &sym_0_9_shiftalt, 0 9 10 12, L_A1 L_A2)
+ZMK_COMBO(sym_0_9_ctrl, &sym_0_9_ctrl, 0 9 13, L_A1 L_A2)
 ZMK_COMBO(sym_2_6_plain, &kp DE_DOLLAR, 2 6, L_A1 L_A2)
 ZMK_COMBO(sym_2_6_shift, &kp DE_CARET, 2 6 10, L_A1 L_A2)
 ZMK_COMBO(sym_2_6_cmd, &sym_2_6_cmd, 2 6 11, L_A1 L_A2)
@@ -436,7 +448,6 @@ ZMK_COMBO(sym_4_12_shift, &kp DE_HASH, 4 9 12, L_A1 L_A2)
 ZMK_COMBO(sym_4_12_cmd, &sym_4_12_cmd, 4 8 12, L_A1 L_A2)
 ZMK_COMBO(sym_4_12_shiftcmd, &sym_4_12_shiftcmd, 4 8 9 12, L_A1 L_A2)
 ZMK_COMBO(sym_4_12_alt, &sym_4_12_alt, 4 7 12, L_A1 L_A2)
-ZMK_COMBO(sym_4_12_shiftalt, &sym_4_12_shiftalt, 4 7 9 12, L_A1 L_A2)
 ZMK_COMBO(sym_4_12_ctrl, &sym_4_12_ctrl, 4 6 12, L_A1 L_A2)
 ZMK_COMBO(sym_3_13_plain, &kp DE_GRAVE, 3 13, L_A1 L_A2)
 ZMK_COMBO(sym_3_13_cmd, &sym_3_13_cmd, 3 8 13, L_A1 L_A2)
@@ -452,6 +463,7 @@ ZMK_COMBO(sym_5_11_cmd, &sym_5_11_cmd, 5 8 11, L_A1 L_A2)
 ZMK_COMBO(sym_5_11_shiftcmd, &sym_5_11_shiftcmd, 5 8 9 11, L_A1 L_A2)
 ZMK_COMBO(sym_5_11_alt, &sym_5_11_alt, 5 7 11, L_A1 L_A2)
 ZMK_COMBO(sym_5_11_shiftalt, &sym_5_11_shiftalt, 5 7 9 11, L_A1 L_A2)
+ZMK_COMBO(sym_5_11_ctrl, &sym_5_11_ctrl, 5 6 11, L_A1 L_A2)
 ZMK_COMBO(sym_5_13_plain, &kp DE_BSLH, 5 13, L_A1 L_A2)
 ZMK_COMBO(sym_5_13_shift, &sym_5_13_shift, 5 9 13, L_A1 L_A2)
 ZMK_COMBO(sym_5_13_cmd, &sym_5_13_cmd, 5 8 13, L_A1 L_A2)
@@ -460,5 +472,5 @@ ZMK_COMBO(sym_5_13_shiftalt, &sym_5_13_shiftalt, 5 7 9 13, L_A1 L_A2)
 ZMK_COMBO(sym_5_13_ctrl, &sym_5_13_ctrl, 5 6 13, L_A1 L_A2)
 ZMK_COMBO(sym_5_10_plain, &kp DE_PRCNT, 5 10, L_A1 L_A2)
 ZMK_COMBO(sym_5_10_shift, &sym_5_10_shift, 5 9 10, L_A1 L_A2)
-ZMK_COMBO(sym_5_10_cmd, &sym_5_10_cmd, 5 8 10, L_A1 L_A2)
 ZMK_COMBO(sym_5_10_alt, &sym_5_10_alt, 5 7 10, L_A1 L_A2)
+ZMK_COMBO(sym_5_10_ctrl, &sym_5_10_ctrl, 5 6 10, L_A1 L_A2)

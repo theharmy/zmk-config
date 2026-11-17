@@ -40,10 +40,10 @@ Left-hand pairs use `⇧C ⌘E ⌥I ⌃A`; right-hand pairs use `⇧T ⌘H ⌥R 
 | keys | fingers | mods | plain | shift | cmd | shiftcmd | alt | shiftalt | ctrl | shiftctrl |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `L + S` | ring + pinky | ⇧C ⌘E ⌥I ⌃A | `/` | `./` | `/*` | `*/` | — | — | `//` | `///` |
-| `L + H` | ring + middle | ⇧C ⌘E ⌥I ⌃A | `-` | `_` | `++` | — | `--` | `__` | `---` | `\_` |
-| `O + I` | middle + ring | ⇧T ⌘H ⌥R ⌃S | `*` | `#` | `**` | `##` | `###` | `\#` | `^=` | — |
-| `U + C` | ring + index | ⇧T ⌘H ⌥R ⌃S | `%` | `%s` | `\%` | — | `%%` | — | — | — |
-| `U + E` | ring + middle | ⇧T ⌘H ⌥R ⌃S | `=` | `+` | `-=` | `+=` | `|=` | `&=` | — | — |
+| `L + H` | ring + middle | ⇧C ⌘E ⌥I ⌃A | `-` | `_` | `--` | `__` | `---` | `++` | `\_` | — |
+| `O + I` | middle + ring | ⇧T ⌘H ⌥R ⌃S | `*` | `#` | `**` | `##` | `###` | — | `\#` | — |
+| `U + C` | ring + index | ⇧T ⌘H ⌥R ⌃S | `%` | `%s` | — | — | `%%` | — | `\%` | — |
+| `U + E` | ring + middle | ⇧T ⌘H ⌥R ⌃S | `=` | `+` | `-=` | `+=` | `|=` | `&=` | `^=` | — |
 
 ## Punctuation
 
@@ -56,8 +56,8 @@ Left-hand pairs use `⇧C ⌘E ⌥I ⌃A`; right-hand pairs use `⇧T ⌘H ⌥R 
 
 | keys | fingers | mods | plain | shift | cmd | shiftcmd | alt | shiftalt | ctrl | shiftctrl |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `L + T` | ring + index | ⇧C ⌘E ⌥I ⌃A | `&` | `|` | `&&` | `||` | `\&` | — | — | — |
-| `D + S` | index + pinky | ⇧C ⌘E ⌥I ⌃A | `$` | `^` | `$$` | `\$` | `\^` | — | — | — |
+| `L + T` | ring + index | ⇧C ⌘E ⌥I ⌃A | `&` | `|` | `&&` | `||` | `&=` | `|=` | `\&` | — |
+| `D + S` | index + pinky | ⇧C ⌘E ⌥I ⌃A | `$` | `^` | `\$` | `\^` | `$$` | — | — | — |
 | `Y + I` | index + ring | ⇧T ⌘H ⌥R ⌃S | `!` | `?` | `?.` | `?:` | `!!` | `!?` | — | — |
 | `O + A` | middle + pinky | ⇧T ⌘H ⌥R ⌃S | `@` | `~` | — | — | `€` | — | `~~` | — |
 
