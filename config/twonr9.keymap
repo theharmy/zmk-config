@@ -201,3 +201,4 @@ ZMK_LAYER(num,
 )
 
 #include "twonr9_mouse.dtsi"
+#include "twonr9_vim.dtsi"   // vim layers (zmk-vim-mode): transparent for now

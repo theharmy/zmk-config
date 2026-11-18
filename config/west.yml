@@ -70,6 +70,10 @@ manifest:
     - name: zmk-layer-hud
       remote: rafaelromao
       revision: v1.2.0 # tag; was `main`, so builds moved under our feet
+    - name: zmk-vim-mode
+      remote: rafaelromao
+      path: modules/zmk/vim-mode
+      revision: d74f7b92b8ddc51a51446a4da0c4925806fcfb00 # main (2026-11-18)
     # Avoid downloading GBs of unused Zephyr modules. Remove this section to
     # restore the default (needed for less common hardware).
     - name: zephyr

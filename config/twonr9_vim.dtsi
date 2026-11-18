@@ -1,0 +1,67 @@
+/*
+ * Vim layers, driven by zmk-vim-mode.
+ *
+ * The host daemon writes a small code into three HID LED indicator bits (Compose, Kana,
+ * Scroll Lock -- none of which any OS drives on its own); the module decodes it and
+ * activates the matching layer set. Code 0 (implicit) turns every managed layer off.
+ *
+ * Phase 1: the four layers are transparent, so nothing changes in behaviour and the
+ * HUD can show them. Their keys are filled in next.
+ *
+ * Keep these layers above the alphas but below nav/sym/fn/num/mouse in priority: they
+ * only define what vim needs, and everything else falls through.
+ */
+#include <dt-bindings/zmk/hid_usage.h>
+
+#define L_VIM_NORMAL  7
+#define L_VIM_VISUAL  8
+#define L_VIM_INSERT  9
+#define L_VIM_CMDLINE 10
+
+/ {
+    vim_sync {
+        compatible = "zmk,hid-indicator-code-listener";
+        indicators = <HID_USAGE_LED_COMPOSE HID_USAGE_LED_KANA HID_USAGE_LED_SCROLL_LOCK>;
+        managed-layers = <L_VIM_NORMAL L_VIM_VISUAL L_VIM_INSERT L_VIM_CMDLINE>;
+
+        normal        { code = <1>; layers = <L_VIM_NORMAL>; };
+        insert        { code = <2>; layers = <L_VIM_INSERT>; };
+        visual        { code = <3>; layers = <L_VIM_NORMAL L_VIM_VISUAL>; };
+        legacy        { code = <4>; layers = <L_VIM_NORMAL>; bindings = <&kp ESC>; };
+        cmdline       { code = <5>; layers = <L_VIM_CMDLINE>; };
+        raw           { code = <6>; };
+        legacy_silent { code = <7>; layers = <L_VIM_NORMAL>; };
+    };
+};
+
+ZMK_LAYER(vim_normal,
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans &trans
+)
+
+ZMK_LAYER(vim_visual,
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans &trans
+)
+
+ZMK_LAYER(vim_insert,
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans &trans
+)
+
+ZMK_LAYER(vim_cmdline,
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans
+    &trans &trans &trans &trans
+    &trans &trans &trans &trans
+)
