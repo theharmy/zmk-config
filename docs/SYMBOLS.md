@@ -86,21 +86,21 @@ Left-hand pairs use `⇧C ⌘E ⌥I ⌃A`; right-hand pairs use `⇧T ⌘H ⌥R 
 
 ## Home-row chords
 
-- `R + T` → `_`
-- `R + H` → `-`
-- `E + I` → `:`
-- `C + I` → `;`
+- `R + T` → `_` (a1, a2, nav, sym, fn, num, vim_normal, vim_visual, vim_insert, vim_cmdline)
+- `R + H` → `-` (a1, a2, nav, sym, fn, num, vim_normal, vim_visual, vim_insert, vim_cmdline)
+- `E + I` → `:` (a1, a2, nav, sym, fn, num, vim_normal, vim_visual, vim_insert, vim_cmdline)
+- `C + I` → `;` (a1, a2, nav, sym, fn, num, vim_normal, vim_visual, vim_insert, vim_cmdline)
 - `C + Spc` → `ß`
 
 ## Utilities
 
-- `L + N` → `⇥`
-- `N + D` → `⏎`
-- `Y + O` → `⌫` (shift `⌦`)
-- `O + U` → `⌃⌫`
-- `Y + O + U` → `⎋`
-- `H + T` → `⇧ repeat` (shift `↪`)
-- `C + E` → `⇧ repeat` (shift `↪`)
+- `L + N` → `⇥` (every layer)
+- `N + D` → `⏎` (every layer)
+- `Y + O` → `⌫` (shift `⌦`) (every layer)
+- `O + U` → `⌃⌫` (every layer)
+- `Y + O + U` → `⎋` (every layer)
+- `H + T` → `⇧ repeat` (shift `↪`) (a1, a2, nav, sym, fn, num, vim_insert, vim_cmdline)
+- `C + E` → `⇧ repeat` (shift `↪`) (a1, a2, nav, sym, fn, num, vim_insert, vim_cmdline)
 - `S + R` → `´` (shift `` ` ``)
 - `A + Spc` → `ä`
 - `O + Spc` → `ö`
@@ -117,7 +117,7 @@ Left-hand pairs use `⇧C ⌘E ⌥I ⌃A`; right-hand pairs use `⇧T ⌘H ⌥R 
 
 ## Layer access
 
-- `Shift + a2` → `a2 + ⇧`
+- `Shift + a2` → `a2 + ⇧` (every layer)
 - `Spc + Num` → `mouse`
 
 ## System

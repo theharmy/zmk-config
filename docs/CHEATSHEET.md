@@ -93,7 +93,7 @@ Same row-split. Tap the **Left Outer Thumb (14)** for one letter, hold it to sta
 | **Right Inner (16)** | `16` | **`Space`** | **`nav` Layer** | Shift + Tap outputs `. ` (period + space) & arms Sticky Shift |
 | **Right Outer (17)** | `17` | **Sticky `sym`** (1 symbol) | **Continuous `sym`** | Hold to chain bracket/symbol pairs without releasing |
 
-> **`MAGIC_SHIFT` is not on the thumbs.** It is reached via the **`shiftl` (8+9)** and **`shiftr` (10+11)** combos on every layer, and quadruples as *Repeat* / *Sticky Shift* / *Shift* / *Caps Word* — see [§8](#8-speed--flow-patterns).
+> **`MAGIC_SHIFT` is not on the thumbs.** It is reached via the **`shiftl` (8+9)** and **`shiftr` (10+11)** combos on the typing layers (not vim normal/visual, where those pairs are motions), and quadruples as *Repeat* / *Sticky Shift* / *Shift* / *Caps Word* — see [§8](#8-speed--flow-patterns).
 
 ---
 

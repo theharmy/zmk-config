@@ -102,7 +102,7 @@ def parse_chords():
     text = CHORDS_DTSI.read_text(encoding="utf-8")
     macros = parse_macros(text)
     chords = []
-    pattern = r"ZMK_COMBO\((\w+),\s*(&kp DE_\w+|&\w+),\s*([0-9 ]+?),\s*L_A1 L_A2\)"
+    pattern = r"ZMK_COMBO\((\w+),\s*(&kp DE_\w+|&\w+),\s*([0-9 ]+?),\s*L_A1 L_A2[^)]*\)"
     for _name, binding, pos in re.findall(pattern, text):
         if binding.startswith("&kp "):
             out = DE_CHAR[binding[4:]]

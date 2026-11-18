@@ -13,10 +13,8 @@
  */
 #include <dt-bindings/zmk/hid_usage.h>
 
-#define L_VIM_NORMAL  7
-#define L_VIM_VISUAL  8
-#define L_VIM_INSERT  9
-#define L_VIM_CMDLINE 10
+/* L_VIM_NORMAL .. L_VIM_CMDLINE live in the keymap with the other layer ids:
+ * the combo files are included before this one. */
 
 / {
     vim_sync {

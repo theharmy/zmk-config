@@ -13,27 +13,36 @@
 
 #pragma once
 
-// --- Top Row Utilities (Active on All Layers via ALL) ---
-ZMK_COMBO(combo_tab,      &kp TAB,       0 1,   ALL)                     // Left Top (0+1): Tab
-ZMK_COMBO(combo_rtn,      &kp RETURN,    1 2,   ALL)                     // Left Top (1+2): Enter
-ZMK_COMBO(combo_bspc,     &bs_del,       3 4,   ALL)                     // Right Top (3+4): Morphing Backspace / Delete
-ZMK_COMBO(combo_cbspc,    &kp LC(BSPC),  4 5,   ALL)                     // Right Top (4+5): Word Delete Backwards
-ZMK_COMBO(combo_esc,      &kp ESC,       3 4 5, ALL)                     // Right Top (3+4+5): Instant Esc
+// --- Top Row Utilities (Every Layer) ---
+// No layer list: the 3-argument form leaves `layers` out, so layer_mask is 0
+// and the combo is live on every layer -- including the vim ones, where the
+// highest active layer would otherwise filter it out.
+ZMK_COMBO(combo_tab,      &kp TAB,       0 1)                            // Left Top (0+1): Tab
+ZMK_COMBO(combo_rtn,      &kp RETURN,    1 2)                            // Left Top (1+2): Enter
+ZMK_COMBO(combo_bspc,     &bs_del,       3 4)                            // Right Top (3+4): Morphing Backspace / Delete
+ZMK_COMBO(combo_cbspc,    &kp LC(BSPC),  4 5)                            // Right Top (4+5): Word Delete Backwards
+ZMK_COMBO(combo_esc,      &kp ESC,       3 4 5)                          // Right Top (3+4+5): Instant Esc
 
 /* German Eszett: variant-specific -- bugwind on S+Space (symbol_work.dtsi),
  * srht on S+R (twonr9_combos_srht.dtsi). Was shared at Left Home (6+7). */
 
 // --- Home Row Programming Symbols ---
-ZMK_COMBO(combo_under,    &kp DE_UNDER,  7 9,   ALL)                     // Left Home (7+9): snake_case Underscore
-ZMK_COMBO(combo_minus,    &kp DE_MINUS,  7 8,   ALL)                     // Left Home (7+8): Hyphen / Minus
-ZMK_COMBO(combo_colon,    &kp DE_COLON,  11 12, ALL)                     // Right Home (11+12): Colon :
-ZMK_COMBO(combo_semi,     &kp DE_SEMI,   10 12, ALL)                     // Right Home (10+12): Statement Semicolon ;
+// SYMBOL_LAYERS is every layer but mouse: in vim normal/visual these are the
+// only way to type a symbol (the sym layer's home-row hold is a motion there),
+// which is what ci(, da", f, and r; need. CHORD_IDLE_MS keeps a fast roll of
+// two motions (ci, di, jk) typing instead of firing one.
+ZMK_COMBO(combo_under,    &kp DE_UNDER,  7 9,   SYMBOL_LAYERS, COMBO_TERM, CHORD_IDLE_MS)  // Left Home (7+9): snake_case Underscore
+ZMK_COMBO(combo_minus,    &kp DE_MINUS,  7 8,   SYMBOL_LAYERS, COMBO_TERM, CHORD_IDLE_MS)  // Left Home (7+8): Hyphen / Minus
+ZMK_COMBO(combo_colon,    &kp DE_COLON,  11 12, SYMBOL_LAYERS, COMBO_TERM, CHORD_IDLE_MS)  // Right Home (11+12): Colon :
+ZMK_COMBO(combo_semi,     &kp DE_SEMI,   10 12, SYMBOL_LAYERS, COMBO_TERM, CHORD_IDLE_MS)  // Right Home (10+12): Statement Semicolon ;
 
 // --- Universal Utilities ---
-ZMK_COMBO(combo_a2_shift, &macro_a2_shift, 14 15, ALL)                   // Left Thumbs (14+15): Sticky Layer A2 + Sticky Left Shift
+ZMK_COMBO(combo_a2_shift, &macro_a2_shift, 14 15)                       // Left Thumbs (14+15): Sticky Layer A2 + Sticky Left Shift
 ZMK_COMBO(combo_stdio,    &studio_unlock, 6 7 8 9, L_SYM, 50, 200)         // Left Home 3-key (7+8+9): Studio Unlock
-ZMK_COMBO(combo_shiftl,  MAGIC_SHIFT, 8 9, ALL)
-ZMK_COMBO(combo_shiftr,  MAGIC_SHIFT, 10 11, ALL)
+// Magic shift is a typing gesture: on vim normal/visual these positions are
+// two motions (y+c, h+j), and a one-shot Shift there is only in the way.
+ZMK_COMBO(combo_shiftl,  MAGIC_SHIFT, 8 9, TYPING_LAYERS)
+ZMK_COMBO(combo_shiftr,  MAGIC_SHIFT, 10 11, TYPING_LAYERS)
 
 
 // --- Layer 5: Numpad Numbers ---

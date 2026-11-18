@@ -66,8 +66,28 @@
 #define L_FN   4  // Function Keys & Media
 #define L_NUM  5  // 3x3 Right-Hand Numpad & Arithmetic
 #define L_MOUSE 6  // Pointer, buttons and scroll (auto-layer, tapped in with 16+17)
+#define L_VIM_NORMAL  7   // zmk-vim-mode: the editor is in normal mode
+#define L_VIM_VISUAL  8   // ... in visual mode (on top of normal)
+#define L_VIM_INSERT  9   // ... in insert mode
+#define L_VIM_CMDLINE 10  // ... in the command line
 
-#define ALL 0 1 2 3 4 5
+/* ZMK checks a combo's layers against the *highest* active layer only
+ * (combo_active_on_layer in zmk/app/src/combo.c), so a combo scoped to 0-5 dies
+ * the moment any layer above it is on -- which is why the vim layers have to be
+ * named here, transparent though they are. A combo with no layer list at all has
+ * layer_mask 0 and is active everywhere; that is what the utilities use. */
+
+// Every layer but mouse: a click held with a move key must not become a chord.
+#define SYMBOL_LAYERS 0 1 2 3 4 5 7 8 9 10
+
+// Where the base alphabet is what you type, so letter-level chords belong: not
+// normal/visual (those keys are motions there) and not mouse.
+#define TYPING_LAYERS 0 1 2 3 4 5 9 10
+
+// A two-key chord waits this long after the previous key, so a fast roll of two
+// motions (ci, di, jk) types them instead of firing a symbol. Deliberate chords
+// are pressed from rest, so they still fire.
+#define CHORD_IDLE_MS 40
 
 /* ==============================================================================
  * Matrix Geometry & Key Positions

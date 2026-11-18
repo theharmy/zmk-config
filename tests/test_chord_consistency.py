@@ -80,7 +80,7 @@ def firmware_chords():
     macros = macros_of(text)
     chords = []
     for name, binding, pos in re.findall(
-            r"ZMK_COMBO\((\w+),\s*(&kp DE_\w+|&\w+),\s*([0-9 ]+?),\s*L_A1 L_A2\)", text):
+            r"ZMK_COMBO\((\w+),\s*(&kp DE_\w+|&\w+),\s*([0-9 ]+?),\s*L_A1 L_A2[^)]*\)", text):
         out = DE_CHAR[binding[4:]] if binding.startswith("&kp ") else macros[binding[1:]]
         chords.append((tuple(sorted(int(p) for p in pos.split())), out))
     return chords
@@ -179,8 +179,10 @@ class DrawingCoversTheFirmware(unittest.TestCase):
         out = []
         for path in COMBO_FILES:
             text = path.read_text(encoding="utf-8")
-            for m in re.finditer(r"ZMK_COMBO\(\s*\w+\s*,\s*[^,]+,\s*([0-9 ]+?),\s*([^)]+)\)", text):
-                out.append((tuple(sorted(int(x) for x in m.group(1).split())), m.group(2).strip()))
+            # The 4th argument is optional: without one the combo has no layer list, i.e.
+            # it is live on every layer (the utilities).
+            for m in re.finditer(r"ZMK_COMBO\(\s*\w+\s*,\s*[^,]+,\s*([0-9 ]+?)(?:,\s*([^)]*))?\)", text):
+                out.append((tuple(sorted(int(x) for x in m.group(1).split())), (m.group(2) or "").strip()))
         text = MOUSE.read_text(encoding="utf-8")
         for m in re.finditer(r"key-positions = <([0-9 ]+)>", text):
             out.append((tuple(sorted(int(x) for x in m.group(1).split())), "mouse"))
@@ -207,6 +209,47 @@ class DrawingCoversTheFirmware(unittest.TestCase):
                 key = tuple(sorted(combo["p"]))
                 drawn.setdefault(key, set()).update(combo["l"])
         self.assertEqual(firmware, drawn)
+
+
+class ComboLayerPolicy(unittest.TestCase):
+    """Which layers a combo is live on. ZMK tests the highest active layer only, so a
+    combo that does not name the vim layers is dead the moment one of them is on."""
+
+    def setUp(self):
+        self.combos = (ROOT / "config/twonr9_combos.dtsi").read_text(encoding="utf-8")
+        self.chords = CHORDS.read_text(encoding="utf-8")
+
+    def test_utilities_have_no_layer_list(self):
+        # Three arguments, so no `layers` property: layer_mask 0, active everywhere.
+        for name in ("combo_tab", "combo_rtn", "combo_bspc", "combo_cbspc", "combo_esc",
+                     "combo_a2_shift"):
+            line = next(l for l in self.combos.splitlines() if f"ZMK_COMBO({name}," in l)
+            self.assertRegex(line, rf"ZMK_COMBO\({name},[^,]+,[^,)]+\)\s", name)
+
+    def test_home_row_symbols_cover_the_vim_layers(self):
+        for name in ("combo_under", "combo_minus", "combo_colon", "combo_semi"):
+            line = next(l for l in self.combos.splitlines() if f"ZMK_COMBO({name}," in l)
+            self.assertIn("SYMBOL_LAYERS", line, name)
+
+        for m in re.finditer(r"ZMK_COMBO\((sym_\w+), [^,]+, [\d ]+, ([^)]+)\)", self.chords):
+            for layer in ("L_VIM_NORMAL", "L_VIM_VISUAL", "L_VIM_INSERT", "L_VIM_CMDLINE"):
+                self.assertIn(layer, m.group(2), m.group(1))
+            self.assertNotIn("L_MOUSE", m.group(2), m.group(1))
+
+    def test_two_key_chords_wait_for_prior_idle(self):
+        # A fast roll of two motions (ci, di, jk) must type them, not fire a symbol.
+        seen = 0
+        for m in re.finditer(r"ZMK_COMBO\((sym_\w+), [^,]+, ([\d ]+), ([^)]+)\)", self.chords):
+            two_keys = len(m.group(2).split()) == 2
+            idle = m.group(3).rstrip().endswith("40")
+            self.assertEqual(two_keys, idle, m.group(1))
+            seen += two_keys
+        self.assertEqual(seen, 18)   # one plain state per TABLE pair
+
+    def test_magic_shift_stays_off_normal_and_visual(self):
+        for name in ("combo_shiftl", "combo_shiftr"):
+            line = next(l for l in self.combos.splitlines() if f"ZMK_COMBO({name}," in l)
+            self.assertIn("TYPING_LAYERS", line, name)
 
 
 class PracticeFollowsTheKeymap(unittest.TestCase):

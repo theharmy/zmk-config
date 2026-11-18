@@ -33,8 +33,12 @@ This guide records architecture and design history for maintainers. For current 
   * *Reason*: `zmk-helpers` generates clean nodes, standardizes naming, and prevents syntax errors when chording modifiers.
 * **Change**: Corrected `hold-trigger-key-positions` for `hml` and `hmr`.
   * *Reason*: In the new keymap, `hml` triggers exclusively on right-hand keys + thumbs (`KEYS_R THUMBS`), and `hmr` triggers on left-hand keys + thumbs (`KEYS_L THUMBS`), completely eliminating intra-hand typing roll misfires.
-* **Change**: Defined `#define ALL 0 1 2 3 4 5`.
-  * *Reason*: Allows universal coding combos (`⇥`, `⏎`, `⌫ / ⌦`, `⌃⌫`, `⎋`, `_`, `-`, `:`, `;`, `⇪`) to apply across all layers.
+* **Change**: Replaced `#define ALL 0 1 2 3 4 5` with three layer lists.
+  * *Reason*: ZMK tests a combo's `layers` against the **highest active layer only** (`combo_active_on_layer` in `zmk/app/src/combo.c`), so `ALL` silently killed every combo the moment a layer above 5 was on — including the vim layers, which are transparent. Now:
+  * **Top-row utilities** (`⇥`, `⏎`, `⌫ / ⌦`, `⌃⌫`, `⎋`) and the `14+15` thumbs carry **no layer list** (the 3-argument `ZMK_COMBO`), i.e. `layer_mask` 0: live on every layer, present and future.
+  * **`SYMBOL_LAYERS 0 1 2 3 4 5 7 8 9 10`** — every layer but mouse — for the symbol chords and `_ - : ;`. In vim normal/visual those chords are the only way to type a bare `(`/`"`, which is what `ci(` and `r;` need; the mouse layer is out because a click held with a move key must not become a chord.
+  * **`TYPING_LAYERS 0 1 2 3 4 5 9 10`** for magic shift: where the base alphabet is what you type, not on normal/visual where those pairs are two motions.
+  * **`CHORD_IDLE_MS 40`** on every two-key chord (`require-prior-idle-ms`): a fast roll of two motions (`ci`, `di`, `jk`) types them instead of firing a symbol; deliberate chords are pressed from rest and still fire.
 * **Change**: Extracted key definitions into modular components:
   * `config/twonr9_keys.h`: Mod-morph pairs, nav long-taps, `MAGIC_SHIFT`, `A2_DUAL`/`SYM_DUAL`, `SPC_NAV`, `SMART_NUM`, `swapper`.
   * `config/twonr9_adaptive_keys.h`: Adaptive swap rules (`AK`/`AK2`/`AK_PAIR`), their hold-taps (`MAKE_AK_HM`/`MAKE_AK_LT`), and the nine grid aliases (`FN_L`, `GL_H`, …).
@@ -197,7 +201,7 @@ Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
 | `AK_MS` | 300 | Adaptive-key swap window (max prior idle for triggers) |
 
 ### A. Adaptive `magic_shift` (`MAGIC_SHIFT`)
-* **Reachability**: Not bound to any thumb key. Reached only via two home-row combos, active on every layer (`ALL`):
+* **Reachability**: Not bound to any thumb key. Reached only via two home-row combos, active on the typing layers (`TYPING_LAYERS`: base, a2, nav, sym, fn, num, vim insert/cmdline) -- not on vim normal/visual, where those pairs are two motions:
   * **`shiftl`** — home row 8+9 (left hand inner pair)
   * **`shiftr`** — home row 10+11 (right hand inner pair)
 * **After typing a letter**: Acts immediately as **`&key_repeat`** (repeats the last character: *tt*, *ee*, *ll*, *ff*, *mm*, *ss* with zero delay).

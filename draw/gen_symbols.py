@@ -24,7 +24,25 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DTSI = ROOT / "config/twonr9_symbol_chords.dtsi"
 DRAWING = ROOT / "draw/twonr9_srht.yaml"
-LAYERS = "L_A1 L_A2"
+# The layers a symbol chord is live on, in the firmware's ids and the drawing's
+# names: every layer but mouse. ZMK matches a combo against the *highest* active
+# layer (combo_active_on_layer in zmk/app/src/combo.c), so the vim layers have to
+# be named even though they are transparent -- in normal/visual a symbol chord is
+# the only way to type a bare ( or " there, which is what ci( and r; need.
+SYMBOL_LAYERS = ("L_A1 L_A2 L_NAV L_SYM L_FN L_NUM "
+                 "L_VIM_NORMAL L_VIM_VISUAL L_VIM_INSERT L_VIM_CMDLINE")
+SYMBOL_DRAW = ["a1", "a2", "nav", "sym", "fn", "num",
+               "vim_normal", "vim_visual", "vim_insert", "vim_cmdline"]
+# Where the base alphabet is what you type: the hand-written typing combos belong
+# here, not on normal/visual where those keys are motions. Mouse stays out too.
+TYPING_DRAW = ["a1", "a2", "nav", "sym", "fn", "num", "vim_insert", "vim_cmdline"]
+# An empty layer list means every layer (how host/keymap.py reads it).
+ALL_DRAW = []
+
+# A two-key chord only fires after this long without a key, so a fast roll of two
+# motions (ci, di, jk) types them instead of firing one. Mirrored by `combo_idle_ms`
+# in the HUD's config.yaml.
+CHORD_IDLE_MS = 40
 DOCS = ROOT / "docs/SYMBOLS.md"
 # The letters printed on a1, by ZMK position (0-13).
 LETTERS = ["L", "N", "D", "Y", "O", "U", "S", "R", "H", "T", "C", "E", "I", "A"]
@@ -94,18 +112,18 @@ TABLE = {
 # firmware defines them in its combo files; test_chord_consistency compares the
 # two so a missing or stale entry fails.
 OTHER = [
-    ((0, 1), "\u21e5", ["a1", "a2"], "util"),
-    ((1, 2), "\u23ce", ["a1", "a2"], "util"),
-    ((3, 4), {"t": "\u232b", "s": "\u2326"}, ["a1", "a2"], "util"),
-    ((4, 5), "\u2303\u232b", ["a1", "a2"], "util"),
-    ((3, 4, 5), "\u238b", ["a1", "a2"], "util"),
-    ((7, 9), "_", ["a1", "a2"], "symbol"),
-    ((7, 8), "-", ["a1", "a2"], "symbol"),
-    ((11, 12), ":", ["a1", "a2"], "symbol"),
-    ((10, 12), ";", ["a1", "a2"], "symbol"),
+    ((0, 1), "\u21e5", ALL_DRAW, "util"),
+    ((1, 2), "\u23ce", ALL_DRAW, "util"),
+    ((3, 4), {"t": "\u232b", "s": "\u2326"}, ALL_DRAW, "util"),
+    ((4, 5), "\u2303\u232b", ALL_DRAW, "util"),
+    ((3, 4, 5), "\u238b", ALL_DRAW, "util"),
+    ((7, 9), "_", SYMBOL_DRAW, "symbol"),
+    ((7, 8), "-", SYMBOL_DRAW, "symbol"),
+    ((11, 12), ":", SYMBOL_DRAW, "symbol"),
+    ((10, 12), ";", SYMBOL_DRAW, "symbol"),
     ((6, 7, 8, 9), "\U0001f513", ["sym"], "sym"),
-    ((8, 9), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, ["a1", "a2"], "util"),
-    ((10, 11), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, ["a1", "a2"], "util"),
+    ((8, 9), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, TYPING_DRAW, "util"),
+    ((10, 11), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, TYPING_DRAW, "util"),
     ((3, 10), "7", ["num"], "num"),
     ((4, 11), "8", ["num"], "num"),
     ((5, 12), "9", ["num"], "num"),
@@ -126,7 +144,7 @@ OTHER = [
     ((13, 16), {"t": "\u00e4", "s": "\u00e4"}, ["a1", "a2"], "util"),
     ((4, 16), {"t": "\u00f6", "s": "\u00f6"}, ["a1", "a2"], "util"),
     ((5, 16), {"t": "\u00fc", "s": "\u00fc"}, ["a1", "a2"], "util"),
-    ((14, 15), "a2 + \u21e7", ["a1", "a2"], "layer"),
+    ((14, 15), "a2 + \u21e7", ALL_DRAW, "layer"),
     ((16, 17), "mouse", ["a1", "a2"], "layer"),
     ((0, 1), "BT prev", ["fn"], "util"),
     ((1, 2), "BT next", ["fn"], "util"),
@@ -197,7 +215,9 @@ def macros_and_combos():
             macros.append("ZMK_MACRO(%s,\n    bindings = <%s>;\n    wait-ms = <0>;\n    tap-ms = <5>;\n)"
                           % (name, " ".join(f"&kp {k}" for k in keys)))
             binding = f"&{name}"
-        combos.append(f"ZMK_COMBO(sym_{tag}, {binding}, {' '.join(map(str, pos))}, {LAYERS})")
+        idle = f", COMBO_TERM, {CHORD_IDLE_MS}" if len(pos) == 2 else ""
+        combos.append(f"ZMK_COMBO(sym_{tag}, {binding}, {' '.join(map(str, pos))}, "
+                      f"{SYMBOL_LAYERS}{idle})")
     return macros, combos
 
 
@@ -225,12 +245,13 @@ def drawing_text():
     blocks = []
     for _pair, _state, pos, token in states_of():
         blocks.append(["- p:"] + [f"  - {p}" for p in pos]
-                      + [f"  k: {legend(token)}",
-                         "  l:", "  - a1", "  - a2", "  type: symbol"])
+                      + [f"  k: {legend(token)}", "  l:"]
+                      + [f"  - {name}" for name in SYMBOL_DRAW] + ["  type: symbol"])
     for pos, key, layers, kind in OTHER:
-        blocks.append(["- p:"] + [f"  - {p}" for p in pos]
-                      + [f"  k: {legend(key)}",
-                         "  l:"] + [f"  - {name}" for name in layers] + [f"  type: {kind}"])
+        block = ["- p:"] + [f"  - {p}" for p in pos] + [f"  k: {legend(key)}"]
+        if layers:
+            block += ["  l:"] + [f"  - {name}" for name in layers]
+        blocks.append(block + [f"  type: {kind}"])
     return head + "\n" + "\n".join("\n".join(b) for b in blocks) + "\n"
 
 
@@ -308,7 +329,13 @@ def docs_text():
             else:
                 label = code(key)
             keys = " + ".join(POS[p] for p in pos)
-            out.append(f"- `{keys}` → {label}" + (f" ({', '.join(layers)})" if layers != ["a1", "a2"] else ""))
+            if not layers:
+                where = " (every layer)"
+            elif layers == ["a1", "a2"]:
+                where = ""
+            else:
+                where = f" ({', '.join(layers)})"
+            out.append(f"- `{keys}` → {label}{where}")
         out.append("")
 
     other("bigram", "Bigrams")
