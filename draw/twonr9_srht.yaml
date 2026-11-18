@@ -232,16 +232,23 @@ layers:
   - t: MB5
     h: forward
   vim_normal:
-  - i
-  - a
-  - o
+  - t: i
+    h: insert
+  - t: a
+    h: append
+  - t: o
+    h: open
   - w
   - e
   - b
-  - d
-  - y
-  - c
-  - v
+  - t: d
+    h: delete
+  - t: y
+    h: yank
+  - t: c
+    h: change
+  - t: v
+    h: visual
   - h
   - j
   - k
@@ -255,16 +262,23 @@ layers:
   - t: .
     h: Num
   vim_visual:
-  - '<'
-  - '>'
-  - '~'
+  - t: <
+    h: outdent
+  - t: '>'
+    h: indent
+  - t: '~'
+    h: case
   - w
   - e
   - b
-  - d
-  - y
-  - c
-  - v
+  - t: d
+    h: delete
+  - t: y
+    h: yank
+  - t: c
+    h: change
+  - t: v
+    h: visual
   - h
   - j
   - k
@@ -316,25 +330,38 @@ layers:
   - ▽
   - ▽
   vim_ops:
-  - '0'
-  - $
-  - r
-  - n
-  - f
-  - t
-  - u
-  - p
-  - x
-  - g
-  - dd
-  - yy
-  - cc
-  - gg
+  - t: '0'
+    h: start
+  - t: $
+    h: end
+  - t: r
+    h: replace
+  - t: n
+    h: next
+  - t: f
+    h: find
+  - t: t
+    h: till
+  - t: u
+    h: undo
+  - t: p
+    h: paste
+  - t: x
+    h: del char
+  - t: g
+    h: goto
+  - t: dd
+    h: del line
+  - t: yy
+    h: yank line
+  - t: cc
+    h: chg line
+  - t: gg
+    h: top
   - ▽
   - ▽
   - ▽
   - ▽
-
 combos:
 - p:
   - 1

@@ -957,14 +957,17 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 <g transform="translate(138, 65)" class="key keypos-0">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">i</text>
+<text x="0" y="33" class="key hold">insert</text>
 </g>
 <g transform="translate(230, 46)" class="key keypos-1">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">a</text>
+<text x="0" y="33" class="key hold">append</text>
 </g>
 <g transform="translate(322, 75)" class="key keypos-2">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">o</text>
+<text x="0" y="33" class="key hold">open</text>
 </g>
 <g transform="translate(432, 75)" class="key keypos-3">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -981,18 +984,22 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 <g transform="translate(46, 182)" class="key keypos-6">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">d</text>
+<text x="0" y="33" class="key hold">delete</text>
 </g>
 <g transform="translate(138, 157)" class="key keypos-7">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">y</text>
+<text x="0" y="33" class="key hold">yank</text>
 </g>
 <g transform="translate(230, 138)" class="key keypos-8">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">c</text>
+<text x="0" y="33" class="key hold">change</text>
 </g>
 <g transform="translate(322, 167)" class="key keypos-9">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">v</text>
+<text x="0" y="33" class="key hold">visual</text>
 </g>
 <g transform="translate(432, 167)" class="key keypos-10">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -1038,14 +1045,17 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 <g transform="translate(138, 65)" class="key keypos-0">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">&lt;</text>
+<text x="0" y="33" class="key hold">outdent</text>
 </g>
 <g transform="translate(230, 46)" class="key keypos-1">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">&gt;</text>
+<text x="0" y="33" class="key hold">indent</text>
 </g>
 <g transform="translate(322, 75)" class="key keypos-2">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">~</text>
+<text x="0" y="33" class="key hold">case</text>
 </g>
 <g transform="translate(432, 75)" class="key keypos-3">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -1062,18 +1072,22 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 <g transform="translate(46, 182)" class="key keypos-6">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">d</text>
+<text x="0" y="33" class="key hold">delete</text>
 </g>
 <g transform="translate(138, 157)" class="key keypos-7">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">y</text>
+<text x="0" y="33" class="key hold">yank</text>
 </g>
 <g transform="translate(230, 138)" class="key keypos-8">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">c</text>
+<text x="0" y="33" class="key hold">change</text>
 </g>
 <g transform="translate(322, 167)" class="key keypos-9">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">v</text>
+<text x="0" y="33" class="key hold">visual</text>
 </g>
 <g transform="translate(432, 167)" class="key keypos-10">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
@@ -1119,58 +1133,72 @@ tspan.ak-tr-r, tspan.ak-tr-u, tspan.ak-tr-q, tspan.ak-tr-n, tspan.ak-tr-y { font
 <g transform="translate(138, 65)" class="key keypos-0">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">0</text>
+<text x="0" y="33" class="key hold">start</text>
 </g>
 <g transform="translate(230, 46)" class="key keypos-1">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">$</text>
+<text x="0" y="33" class="key hold">end</text>
 </g>
 <g transform="translate(322, 75)" class="key keypos-2">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">r</text>
+<text x="0" y="33" class="key hold">replace</text>
 </g>
 <g transform="translate(432, 75)" class="key keypos-3">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">n</text>
+<text x="0" y="33" class="key hold">next</text>
 </g>
 <g transform="translate(524, 46)" class="key keypos-4">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">f</text>
+<text x="0" y="33" class="key hold">find</text>
 </g>
 <g transform="translate(616, 65)" class="key keypos-5">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">t</text>
+<text x="0" y="33" class="key hold">till</text>
 </g>
 <g transform="translate(46, 182)" class="key keypos-6">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">u</text>
+<text x="0" y="33" class="key hold">undo</text>
 </g>
 <g transform="translate(138, 157)" class="key keypos-7">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">p</text>
+<text x="0" y="33" class="key hold">paste</text>
 </g>
 <g transform="translate(230, 138)" class="key keypos-8">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">x</text>
+<text x="0" y="33" class="key hold">del char</text>
 </g>
 <g transform="translate(322, 167)" class="key keypos-9">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">g</text>
+<text x="0" y="33" class="key hold">goto</text>
 </g>
 <g transform="translate(432, 167)" class="key keypos-10">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">dd</text>
+<text x="0" y="33" class="key hold">del line</text>
 </g>
 <g transform="translate(524, 138)" class="key keypos-11">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">yy</text>
+<text x="0" y="33" class="key hold">yank line</text>
 </g>
 <g transform="translate(616, 157)" class="key keypos-12">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">cc</text>
+<text x="0" y="33" class="key hold">chg line</text>
 </g>
 <g transform="translate(708, 182)" class="key keypos-13">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
 <text x="0" y="1" class="key tap">gg</text>
+<text x="0" y="33" class="key hold">top</text>
 </g>
 <g transform="translate(239, 262) rotate(6.0)" class="key keypos-14">
 <rect rx="6" ry="6" x="-37" y="-35" width="74" height="70" class="key"/>
