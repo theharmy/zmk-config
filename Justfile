@@ -103,7 +103,7 @@ keymap-svg:
     cd "{{ draw }}"
     keymap="$(command -v keymap || echo "$HOME/Projects/layer-hud-niri/.venv/bin/keymap")"
     tmp="$(mktemp -t twonr9-layers.XXXXXX.yaml)"
-    python3 -c "import sys, yaml; d = yaml.safe_load(open('twonr9_srht.yaml')); d.pop('combos', None); yaml.safe_dump(d, open(sys.argv[1], 'w'), sort_keys=False, allow_unicode=True)" "$tmp"
+    python3 -c "import sys, yaml; d = yaml.safe_load(open('twonr9_srht.yaml')); d.pop('combos', None); d['layers'] = {n: k for n, k in d['layers'].items() if not all((x if isinstance(x, dict) else {'t': str(x)}).get('t') == '▽' for x in k)}; yaml.safe_dump(d, open(sys.argv[1], 'w'), sort_keys=False, allow_unicode=True)" "$tmp"
     "$keymap" -c twonr9_config.yaml draw "$tmp" -o twonr9_srht_current.svg
     rm -f "$tmp"
     xdg-open twonr9_srht_current.svg

@@ -85,9 +85,13 @@ def geometry(geom):
 def legends(drawing):
     layers = []
     for name, keys in drawing["layers"].items():
-        # A key is a mapping of legends, or just a string for its tap legend.
-        layers.append({"name": name,
-                       "keys": [k if isinstance(k, dict) else {"t": str(k)} for k in keys]})
+        # A key is a mapping of legends, or just a string for its tap legend. A layer of nothing but
+        # ▽ draws nothing -- the vim layers, transparent until they are designed -- so it is not a
+        # column on the page.
+        keys = [k if isinstance(k, dict) else {"t": str(k)} for k in keys]
+        if all(k.get("t") == "▽" for k in keys):
+            continue
+        layers.append({"name": name, "keys": keys})
     return layers
 
 
