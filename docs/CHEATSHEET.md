@@ -35,6 +35,9 @@ The left thumb is **smart shift**: hold for Shift, tap straight after a letter t
 on a pause for a one-shot Shift, and Shift+tap for caps word (same behaviour as the `8+9` /
 `10+11` magic-shift chords).
 
+Five more layers are driven by the editor rather than a key: `vim_normal`, `vim_visual`,
+`vim_insert`, `vim_cmdline` and `vim_ops` — see [§10](#10-vim-layers-zmk-vim-mode).
+
 ---
 
 ## 3. Row-Split Hold Model (Base `a1`, bugwind)
@@ -220,3 +223,45 @@ Both variants correct the most common fast-typing (SFB) mistypes: within **300 m
    * `a2`: `RW` · `MT` · `SCH` · `GS` · `OE` · `IU`
 
 Each chord is a **vertical pair across the same column** (e.g. `0 + 7`, `1 + 8`, …), so they land under the finger that would otherwise produce the awkward roll.
+
+---
+
+## 10. Vim layers (`zmk-vim-mode`)
+
+The editor tells the keyboard which vim mode it is in (`zmk-vim-mode` writes three unused HID LED
+bits, the firmware decodes them), so the board is in `vim_normal` whenever Neovim is focused and
+not typing text — cursor floating included. Leaving the editor, a terminal job, or a UI filetype
+like `lazy`/`neo-tree` releases them and you get the base layout back.
+
+**`vim_normal`** — commands on the alphas, nothing new to learn beyond vim itself:
+
+```
+      i   a   o   │  w   e   b
+      d   y   c   v  │  h   j   k   l
+              Esc   :  │  /   .
+             +Shift +Ctrl │ +vim_ops +Num
+```
+
+**`vim_visual`** is the same board with `i a o` replaced by `<` `>` `~` (indent, indent back,
+toggle case) — they do nothing while selecting.
+
+**Thumbs are holds** (`&mt` / `&lt`: tap gives the key, hold gives the modifier or layer):
+
+| thumb | tap | hold |
+| --- | --- | --- |
+| `14` left outer | `Esc` | `Shift` — `V`, `J`, `H`, `L`, `W`, `E`, `B`, `G` |
+| `15` left inner | `:` | `Ctrl` — `⌃d` `⌃u` `⌃f` `⌃b` `⌃o` `⌃i` `⌃r` `⌃w` |
+| `16` right inner | `/` | `vim_ops` |
+| `17` right outer | `.` | `num` — counts: `3j`, `4k`, `2dd` |
+
+**`vim_ops`** while holding `16`:
+
+```
+      0   $   r   │  n   f   t
+      u   p   x   g  │  dd  yy  cc  gg
+```
+
+`diw`, `ci(`, `da"`, `f,`, `r;` all work unchanged: the symbol chords are live on the vim layers
+too, and they are the only way to type a bare `(`/`"` there (the sym layer sits below and is
+unreachable). The `40 ms` guard keeps a fast roll of two motions (`ci`, `jk`, `h`+`j`) typing
+instead of firing a chord.

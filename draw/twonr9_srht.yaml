@@ -246,10 +246,14 @@ layers:
   - j
   - k
   - l
-  - Esc
-  - ':'
-  - /
-  - Num
+  - t: Esc
+    h: Shift
+  - t: ':'
+    h: Ctrl
+  - t: /
+    h: ops
+  - t: .
+    h: Num
   vim_visual:
   - '<'
   - '>'
@@ -265,10 +269,14 @@ layers:
   - j
   - k
   - l
-  - Esc
-  - ':'
-  - /
-  - Num
+  - t: Esc
+    h: Shift
+  - t: ':'
+    h: Ctrl
+  - t: /
+    h: ops
+  - t: .
+    h: Num
   vim_insert:
   - ▽
   - ▽
@@ -307,6 +315,26 @@ layers:
   - ▽
   - ▽
   - ▽
+  vim_ops:
+  - '0'
+  - $
+  - r
+  - n
+  - f
+  - t
+  - u
+  - p
+  - x
+  - g
+  - dd
+  - yy
+  - cc
+  - gg
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+
 combos:
 - p:
   - 1

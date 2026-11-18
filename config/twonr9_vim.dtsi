@@ -40,7 +40,7 @@
 ZMK_LAYER(vim_normal,
     &kp DE_I    &kp DE_A    &kp DE_O      &kp DE_W    &kp DE_E    &kp DE_B
     &kp DE_D    &kp DE_Y    &kp DE_C      &kp DE_V      &kp DE_H    &kp DE_J    &kp DE_K    &kp DE_L
-    &kp ESC     &kp DE_COLON &kp DE_FSLH  &mo L_NUM
+    &mt LSHFT ESC   &mt LCTRL DE_COLON   &lt L_VIM_OPS DE_FSLH   &lt L_NUM DE_DOT
 )
 
 /* Visual is normal with i/a/o replaced: they do nothing while selecting, and
@@ -48,7 +48,7 @@ ZMK_LAYER(vim_normal,
 ZMK_LAYER(vim_visual,
     &kp DE_LT   &kp DE_GT   &kp DE_TILDE  &kp DE_W    &kp DE_E    &kp DE_B
     &kp DE_D    &kp DE_Y    &kp DE_C      &kp DE_V      &kp DE_H    &kp DE_J    &kp DE_K    &kp DE_L
-    &kp ESC     &kp DE_COLON &kp DE_FSLH  &mo L_NUM
+    &mt LSHFT ESC   &mt LCTRL DE_COLON   &lt L_VIM_OPS DE_FSLH   &lt L_NUM DE_DOT
 )
 
 ZMK_LAYER(vim_insert,
@@ -65,4 +65,18 @@ ZMK_LAYER(vim_cmdline,
     &trans &trans &trans
     &trans &trans &trans &trans
     &trans &trans &trans &trans
+)
+
+/* Held on the right-inner thumb: the commands the alphabet has no room for.
+ * Position order again -- top row 0-5, home row 6-13. dd/yy/cc/gg are one key
+ * each: a double tap of the plain key is the same gesture at a worse moment. */
+ZMK_MACRO(vim_dd, bindings = <&kp DE_D &kp DE_D>; wait-ms = <0>; tap-ms = <5>;)
+ZMK_MACRO(vim_yy, bindings = <&kp DE_Y &kp DE_Y>; wait-ms = <0>; tap-ms = <5>;)
+ZMK_MACRO(vim_cc, bindings = <&kp DE_C &kp DE_C>; wait-ms = <0>; tap-ms = <5>;)
+ZMK_MACRO(vim_gg, bindings = <&kp DE_G &kp DE_G>; wait-ms = <0>; tap-ms = <5>;)
+
+ZMK_LAYER(vim_ops,
+    &kp DE_N0   &kp DE_DOLLAR &kp DE_R      &kp DE_N    &kp DE_F    &kp DE_T
+    &kp DE_U    &kp DE_P      &kp DE_X      &kp DE_G       &vim_dd    &vim_yy    &vim_cc    &vim_gg
+    &trans      &trans        &trans        &trans
 )
