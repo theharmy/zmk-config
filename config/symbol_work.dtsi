@@ -219,7 +219,8 @@ DE_CHORD(de_ue, DE_U_UMLAUT)
 ZMK_COMBO(combo_diag_67, &diag_67, 6 7,  L_A1 L_A2)
 
 // German vowels + Eszett with the Space thumb (16):
-ZMK_COMBO(combo_de_sz,  &de_sz,          10 16, L_A1 L_A2)
-ZMK_COMBO(combo_de_ae,  &de_ae,         13 16, L_A1 L_A2)
-ZMK_COMBO(combo_de_oe,  &de_oe,          4 16, L_A1 L_A2)
-ZMK_COMBO(combo_de_ue,  &de_ue,          5 16, L_A1 L_A2)
+// The umlauts are the same on both alpha layers, so the vim typing layers take them too.
+ZMK_COMBO(combo_de_sz,  &de_sz,          10 16, L_A1 L_A2 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_de_ae,  &de_ae,         13 16, L_A1 L_A2 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_de_oe,  &de_oe,          4 16, L_A1 L_A2 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_de_ue,  &de_ue,          5 16, L_A1 L_A2 L_VIM_INSERT L_VIM_CMDLINE)

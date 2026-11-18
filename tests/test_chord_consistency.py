@@ -198,17 +198,32 @@ class DrawingCoversTheFirmware(unittest.TestCase):
         self.assertEqual(sorted(drawn - firmware), [], "drawing chords the firmware does not define")
 
     def test_bigrams_keep_their_layers(self):
+        # Each bigram belongs to one alpha layer. The a1 set also names the vim typing layers
+        # (insert/cmdline type on the base alphabet); the a2 set cannot, since it shares its
+        # positions and ZMK only looks at the highest layer. Compare the alpha layer only.
         text = (ROOT / "config/twonr9_combos_srht.dtsi").read_text(encoding="utf-8")
         firmware = {}
-        for m in re.finditer(r"ZMK_COMBO\(combo_\w+,\s*&macro_\w+,\s*(\d+) (\d+),\s*L_A(\d)\)", text):
-            a, b, layer = int(m.group(1)), int(m.group(2)), int(m.group(3))
-            firmware.setdefault((min(a, b), max(a, b)), set()).add(f"a{layer}")
+        for m in re.finditer(r"ZMK_COMBO\(combo_\w+,\s*&macro_\w+,\s*(\d+) (\d+),\s*([^)]+)\)", text):
+            a, b, layers = int(m.group(1)), int(m.group(2)), m.group(3)
+            alpha = [l for l in layers.split() if re.fullmatch(r"L_A\d", l)]
+            self.assertEqual(len(alpha), 1, layers)
+            firmware.setdefault((min(a, b), max(a, b)), set()).add("a" + alpha[0][-1])
         drawn = {}
         for combo in self.drawing_combos():
             if combo.get("type") == "bigram":
                 key = tuple(sorted(combo["p"]))
-                drawn.setdefault(key, set()).update(combo["l"])
+                drawn.setdefault(key, set()).update(l for l in combo["l"] if re.fullmatch(r"a\d", l))
         self.assertEqual(firmware, drawn)
+
+    def test_a1_bigrams_follow_the_vim_typing_layers(self):
+        text = (ROOT / "config/twonr9_combos_srht.dtsi").read_text(encoding="utf-8")
+        for name in ("combo_rl", "combo_hn", "combo_dt", "combo_cy", "combo_eo", "combo_ui"):
+            line = next(l for l in text.splitlines() if f"ZMK_COMBO({name}," in l)
+            for layer in ("L_A1", "L_VIM_INSERT", "L_VIM_CMDLINE"):
+                self.assertIn(layer, line, name)
+        for name in ("combo_rm", "combo_nb", "combo_kt", "combo_gy", "combo_oe", "combo_iu"):
+            line = next(l for l in text.splitlines() if f"ZMK_COMBO({name}," in l)
+            self.assertNotIn("VIM", line, name)
 
 
 class ComboLayerPolicy(unittest.TestCase):

@@ -71,12 +71,12 @@ Left-hand pairs use `⇧C ⌘E ⌥I ⌃A`; right-hand pairs use `⇧T ⌘H ⌥R 
 
 ## Bigrams
 
-- `L + R` → `RL` (a1)
-- `N + H` → `HN` (a1)
-- `D + T` → `DT` (a1)
-- `Y + C` → `CY` (a1)
-- `O + E` → `EO` (a1)
-- `U + I` → `UI` (a1)
+- `L + R` → `RL` (a1, vim_insert, vim_cmdline)
+- `N + H` → `HN` (a1, vim_insert, vim_cmdline)
+- `D + T` → `DT` (a1, vim_insert, vim_cmdline)
+- `Y + C` → `CY` (a1, vim_insert, vim_cmdline)
+- `O + E` → `EO` (a1, vim_insert, vim_cmdline)
+- `U + I` → `UI` (a1, vim_insert, vim_cmdline)
 - `L + R` → `RM` (a2)
 - `N + H` → `NB` (a2)
 - `D + T` → `KT` (a2)
@@ -90,7 +90,7 @@ Left-hand pairs use `⇧C ⌘E ⌥I ⌃A`; right-hand pairs use `⇧T ⌘H ⌥R 
 - `R + H` → `-` (a1, a2, nav, sym, fn, num, vim_normal, vim_visual, vim_insert, vim_cmdline)
 - `E + I` → `:` (a1, a2, nav, sym, fn, num, vim_normal, vim_visual, vim_insert, vim_cmdline)
 - `C + I` → `;` (a1, a2, nav, sym, fn, num, vim_normal, vim_visual, vim_insert, vim_cmdline)
-- `C + Spc` → `ß`
+- `C + Spc` → `ß` (a1, a2, vim_insert, vim_cmdline)
 
 ## Utilities
 
@@ -102,9 +102,9 @@ Left-hand pairs use `⇧C ⌘E ⌥I ⌃A`; right-hand pairs use `⇧T ⌘H ⌥R 
 - `H + T` → `⇧ repeat` (shift `↪`) (a1, a2, nav, sym, fn, num, vim_insert, vim_cmdline)
 - `C + E` → `⇧ repeat` (shift `↪`) (a1, a2, nav, sym, fn, num, vim_insert, vim_cmdline)
 - `S + R` → `´` (shift `` ` ``)
-- `A + Spc` → `ä`
-- `O + Spc` → `ö`
-- `U + Spc` → `ü`
+- `A + Spc` → `ä` (a1, a2, vim_insert, vim_cmdline)
+- `O + Spc` → `ö` (a1, a2, vim_insert, vim_cmdline)
+- `U + Spc` → `ü` (a1, a2, vim_insert, vim_cmdline)
 - `L + N` → `BT prev` (fn)
 - `N + D` → `BT next` (fn)
 - `L + D` → `BT clear` (fn)

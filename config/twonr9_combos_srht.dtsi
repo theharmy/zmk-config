@@ -14,12 +14,14 @@
 #pragma once
 
 // --- Layer 0: Vertical Bigrams ---
-ZMK_COMBO(combo_rl, &macro_rl, 0 7, L_A1)
-ZMK_COMBO(combo_hn, &macro_hn, 1 8, L_A1)
-ZMK_COMBO(combo_dt, &macro_dt, 2 9, L_A1)
-ZMK_COMBO(combo_cy, &macro_cy, 3 10, L_A1)
-ZMK_COMBO(combo_eo, &macro_eo, 4 11, L_A1)
-ZMK_COMBO(combo_ui, &macro_ui, 5 12, L_A1)
+// The vim typing layers stand on the base alphabet, so the a1 set follows them there; the
+// a2 set cannot, because it sits on the same positions and ZMK only sees the top layer.
+ZMK_COMBO(combo_rl, &macro_rl, 0 7,  L_A1 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_hn, &macro_hn, 1 8,  L_A1 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_dt, &macro_dt, 2 9,  L_A1 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_cy, &macro_cy, 3 10, L_A1 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_eo, &macro_eo, 4 11, L_A1 L_VIM_INSERT L_VIM_CMDLINE)
+ZMK_COMBO(combo_ui, &macro_ui, 5 12, L_A1 L_VIM_INSERT L_VIM_CMDLINE)
 
 // --- Layer 1: Vertical Bigrams ---
 ZMK_COMBO(combo_rm, &macro_rm, 0 7, L_A2)

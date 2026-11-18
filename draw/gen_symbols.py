@@ -36,6 +36,12 @@ SYMBOL_DRAW = ["a1", "a2", "nav", "sym", "fn", "num",
 # Where the base alphabet is what you type: the hand-written typing combos belong
 # here, not on normal/visual where those keys are motions. Mouse stays out too.
 TYPING_DRAW = ["a1", "a2", "nav", "sym", "fn", "num", "vim_insert", "vim_cmdline"]
+# The a1 bigrams also fire where the base alphabet is typed under a vim layer. The a2 set
+# cannot follow: it sits on the same positions, and ZMK only sees the highest layer.
+A1_TYPING_DRAW = ["a1", "vim_insert", "vim_cmdline"]
+# The umlauts are the same on both alpha layers, so they follow the vim typing layers too.
+UMLAUT_DRAW = ["a1", "a2", "vim_insert", "vim_cmdline"]
+
 # An empty layer list means every layer (how host/keymap.py reads it).
 ALL_DRAW = []
 
@@ -127,12 +133,12 @@ OTHER = [
     ((3, 10), "7", ["num"], "num"),
     ((4, 11), "8", ["num"], "num"),
     ((5, 12), "9", ["num"], "num"),
-    ((0, 7), "RL", ["a1"], "bigram"),
-    ((1, 8), "HN", ["a1"], "bigram"),
-    ((2, 9), "DT", ["a1"], "bigram"),
-    ((3, 10), "CY", ["a1"], "bigram"),
-    ((4, 11), "EO", ["a1"], "bigram"),
-    ((5, 12), "UI", ["a1"], "bigram"),
+    ((0, 7), "RL", A1_TYPING_DRAW, "bigram"),
+    ((1, 8), "HN", A1_TYPING_DRAW, "bigram"),
+    ((2, 9), "DT", A1_TYPING_DRAW, "bigram"),
+    ((3, 10), "CY", A1_TYPING_DRAW, "bigram"),
+    ((4, 11), "EO", A1_TYPING_DRAW, "bigram"),
+    ((5, 12), "UI", A1_TYPING_DRAW, "bigram"),
     ((0, 7), "RM", ["a2"], "bigram"),
     ((1, 8), "NB", ["a2"], "bigram"),
     ((2, 9), "KT", ["a2"], "bigram"),
@@ -140,10 +146,10 @@ OTHER = [
     ((4, 11), "OE", ["a2"], "bigram"),
     ((5, 12), "IU", ["a2"], "bigram"),
     ((6, 7), {"t": "\u00b4", "s": "`"}, ["a1", "a2"], "util"),
-    ((10, 16), {"t": "\u00df", "s": "\u00df"}, ["a1", "a2"], "symbol"),
-    ((13, 16), {"t": "\u00e4", "s": "\u00e4"}, ["a1", "a2"], "util"),
-    ((4, 16), {"t": "\u00f6", "s": "\u00f6"}, ["a1", "a2"], "util"),
-    ((5, 16), {"t": "\u00fc", "s": "\u00fc"}, ["a1", "a2"], "util"),
+    ((10, 16), {"t": "\u00df", "s": "\u00df"}, UMLAUT_DRAW, "symbol"),
+    ((13, 16), {"t": "\u00e4", "s": "\u00e4"}, UMLAUT_DRAW, "util"),
+    ((4, 16), {"t": "\u00f6", "s": "\u00f6"}, UMLAUT_DRAW, "util"),
+    ((5, 16), {"t": "\u00fc", "s": "\u00fc"}, UMLAUT_DRAW, "util"),
     ((14, 15), "a2 + \u21e7", ALL_DRAW, "layer"),
     ((16, 17), "mouse", ["a1", "a2"], "layer"),
     ((0, 1), "BT prev", ["fn"], "util"),
