@@ -7,20 +7,21 @@ the bigram and umlaut chords from config/twonr9_combos_srht.dtsi and
 config/symbol_work.dtsi, and the letters at each position from the drawing
 (draw/twonr9_srht.yaml). When the keymap changes, the practice follows.
 
-The stages follow the modifier states of the chords, then two remixes:
+The stages are ordered by commonness, not by modifier state: real words from the
+first stage, symbols in increasing rarity, the two alphabets fluent before the
+symbol states, then two remixes:
 
-    1  Plain            the pairs, no modifier
-    2  + Shift          the shift states (opposite-hand index mod)
-    3  + Ctrl           the ctrl states (opposite-hand pinky mod)
-    4  + Cmd            the cmd states (opposite-hand middle mod)
-    5  + Alt            the alt states (opposite-hand ring mod)
-    6  + Quad           the quad (shift + cmd, four keys)
-    7  + a1 Bigramme    a1 bigrams, umlauts, acute, plain words
-    8  + a2 Bigramme    a2 bigrams, a1 words
-    9  Wörter           the full word pool in context
-    10 Vollpass         every chord output and every word, once
-    R1 Remix Operatoren ctrl, cmd, alt and quad outputs mixed with words
-    R2 Remix Symbole    single-chord outputs and bigrams, no words
+    1  Erste Wörter     a1 words without bigrams, and the everyday symbols
+    2  + Grundsymbole   brackets, quotes and the rest of the pairs
+    3  + a1-Bigramme    a1 bigrams, umlauts, acute, the words that carry them
+    4  + Layer 2        a2 bigrams and words (the layer switch mid-word)
+    5  + Operatoren     the cmd state (&&, ||, ==, +=, ->, ...)
+    6  + Escapes        the shift+cmd state (\\(, \\$, \\_, ...)
+    7  + Alt            the doubled state (**, --, ::, ~~, ...)
+    8  Vollpass         the ctrl escapes and the quads; everything is in after this
+    R1 Symbole kompakt  every symbol and bigram, no words
+    R2 Operatoren       cmd/alt/ctrl/quad outputs mixed with words
+    W  Wörter           the whole word pool, no symbols
 
 Each stage is cumulative (except the remixes) and drawn round-robin, so every
 fixed-length slice is uniform: each token appears once per full round.
@@ -117,8 +118,10 @@ def parse_bigrams():
     text = SRHT_COMBOS.read_text(encoding="utf-8")
     macros = parse_macros(SRHT_MACROS.read_text(encoding="utf-8"))
     out = []
+    # The a1 bigrams also name the vim typing layers, so stop at the L_A digit
+    # instead of expecting it to close the argument list.
     for _name, macro, a, b, layer in re.findall(
-            r"ZMK_COMBO\(combo_(\w+),\s*&macro_(\w+),\s*(\d+) (\d+),\s*L_A(\d)\)", text):
+            r"ZMK_COMBO\(combo_(\w+),\s*&macro_(\w+),\s*(\d+) (\d+),\s*L_A(\d)", text):
         out.append((int(layer), (int(a), int(b)), macros[f"macro_{macro}"]))
     return out
 
@@ -248,49 +251,61 @@ def main():
     missing = (a1_tags | a2_tags | umlaut_chars) - covered
     assert not missing, f"bigrams or umlauts without a word: {sorted(missing)}"
 
-    s1 = plain
-    s2 = s1 + shift
-    s3 = s2 + cmd
-    s4 = s3 + shiftcmd
-    s5 = s4 + alt
-    s6 = s5 + shiftalt
-    s7 = s6 + ctrl
-    s8 = s7 + shiftctrl
-    s9 = s8 + a1_bi + umlaut_out + words_early
-    s10 = s9 + a2_bi + words_a1
-    s11 = words_all
-    s12 = s8 + a1_bi + a2_bi + umlaut_out + words_all
-    r1 = cmd + shiftcmd + alt + shiftalt + ctrl + shiftctrl + words_early
-    r2 = plain + shift + a1_bi + a2_bi + umlaut_out
+    # Symbols by commonness, not by state: the everyday punctuation first, then the
+    # rest of the pairs, then the operator (cmd) state, the escapes (shift+cmd), the
+    # doubled state (alt) and finally the ctrl escapes and the quads.
+    tier_common = set("_-=().,:;/")
+    tier_pairs = set("[]{}<>*+\"'!?")
+    t1 = [out for out in plain + shift if out in tier_common]
+    t2 = [out for out in plain + shift if out in tier_pairs]
+    t3 = cmd
+    t4 = shiftcmd
+    t5 = alt + shiftalt
+    # whatever plain/shift output is neither everyday nor a pair: & $ ` @ \ % | ^ # ~,
+    # and the two-character %s, ./, \( -- they belong with the last stage.
+    t6 = [out for out in plain + shift if out not in tier_common and out not in tier_pairs] \
+        + ctrl + shiftctrl
+    every_symbol = plain + shift + cmd + shiftcmd + alt + shiftalt + ctrl + shiftctrl
+    assert set(t1 + t2 + t3 + t4 + t5 + t6) == set(every_symbol), \
+        "the symbol tiers must partition the chord outputs"
+
+    s1 = PLAIN_WORDS + t1
+    s2 = s1 + t2
+    s3 = s2 + a1_bi + umlaut_out + tier_umlaut + tier_a1
+    s4 = s3 + a2_bi + tier_a2
+    s5 = s4 + t3
+    s6 = s5 + t4
+    s7 = s6 + t5
+    s8 = s7 + t6
+    r1 = every_symbol + a1_bi + a2_bi + umlaut_out
+    r2 = t3 + t4 + t5 + t6 + words_early
 
     stages = [
-        ("1", "Plain", "18 Paare ohne Modifier", s1),
-        ("2", "+ Shift", "Shift-Zust\u00e4nde (gegen\u00fcberliegender Zeigefinger)", s2),
-        ("3", "+ Cmd", "Cmd-Zust\u00e4nde (gegen\u00fcberliegender Mittelfinger)", s3),
-        ("4", "+ Shift+Cmd", "Shift + Cmd, vier Tasten", s4),
-        ("5", "+ Alt", "Alt-Zust\u00e4nde (gegen\u00fcberliegender Ringfinger)", s5),
-        ("6", "+ Shift+Alt", "Shift + Alt, vier Tasten", s6),
-        ("7", "+ Ctrl", "Ctrl-Zust\u00e4nde (gegen\u00fcberliegender kleiner Finger)", s7),
-        ("8", "+ Shift+Ctrl", "Shift + Ctrl, vier Tasten", s8),
-        ("9", "+ a1-Bigramme", "a1-Bigramme, Umlaute, \u00b4, W\u00f6rter ohne Bigram-Paare", s9),
-        ("10", "+ a2-Bigramme", "a2-Bigramme (Layerwechsel mitten im Wort), a1-W\u00f6rter", s10),
-        ("11", "W\u00f6rter", f"alles im Tipp-Kontext ({len(words_all)} W\u00f6rter)", s11),
-        ("12", "Vollpass", "jeder Token einmal (Abschluss)", s12),
-        ("R1", "Remix Operatoren", "Ctrl-, Cmd-, Alt- und Quad-Zust\u00e4nde mit W\u00f6rtern gemischt", r1),
-        ("R2", "Remix Symbole", "Einzel-Chords und Bigramme, ohne W\u00f6rter", r2),
+        ("1", "Erste W\u00f6rter",
+         f"a1-W\u00f6rter ohne Bigramme ({len(PLAIN_WORDS)}) und die h\u00e4ufigsten Symbole", s1),
+        ("2", "+ Grundsymbole", "Klammern, Anf\u00fchrungszeichen und die restlichen Paare", s2),
+        ("3", "+ a1-Bigramme", "a1-Bigramme, Umlaute, \u00b4 und die W\u00f6rter mit ihnen", s3),
+        ("4", "+ Layer 2", "a2-Bigramme und -W\u00f6rter, Layerwechsel mitten im Wort", s4),
+        ("5", "+ Operatoren", "Cmd-Zust\u00e4nde: && \u2016 == != += <= >= -> =>", s5),
+        ("6", "+ Escapes", "Shift+Cmd: \\( \\) \\[ \\] \\{ \\} \\$ \\^ \\_", s6),
+        ("7", "+ Alt (Doppelte)", "Alt-Zust\u00e4nde: ** -- :: ~~ !! und die Wortpaare", s7),
+        ("8", "Vollpass", "die restlichen Symbole, Ctrl-Escapes und die Vier-Tasten-Zust\u00e4nde", s8),
+        ("R1", "Symbole kompakt", "jedes Symbol und jeder Bigramm ohne W\u00f6rter", r1),
+        ("R2", "Operatoren", "Cmd-, Alt- und Quad-Zust\u00e4nde mit W\u00f6rtern gemischt", r2),
+        ("W", "W\u00f6rter", f"nur W\u00f6rter ({len(words_all)}), kein Symbol", words_all),
     ]
 
     parts = [
         "# TwoNr9 srht \u2014 Chord-Praxis (Monkeytype)\n",
-        "Stufen nach Modifier-Zust\u00e4nden: erst die Paare, dann je ein Zustand dazu, dann die "
-        "Bigramme und W\u00f6rter. Jede Stufe enth\u00e4lt alles aus den vorigen; die Remixe mischen "
-        "Zust\u00e4nde und W\u00f6rter neu. Die Chords werden aus Firmware und Zeichnung gelesen, "
-        "nicht von Hand gepflegt.\n",
+        "Stufen nach H\u00e4ufigkeit: erst echte W\u00f6rter mit den t\u00e4glichen Symbolen, dann "
+        "Bigramme, die zweite Ebene, und die Symbol-Zust\u00e4nde in zunehmender Seltenheit. Jede "
+        "Stufe enth\u00e4lt alles aus den vorigen; die Remixe mischen Symbole und W\u00f6rter neu. "
+        "Die Chords werden aus Firmware und Zeichnung gelesen, nicht von Hand gepflegt.\n",
         "## Nutzung in Monkeytype\n",
         "1. Den Block der Stufe kopieren (Code-Block, unter 10.000 Zeichen).",
         "2. Monkeytype \u2192 Test Type **Custom** \u2192 Text einf\u00fcgen.",
         "3. Erst zur n\u00e4chsten Stufe, wenn die aktuelle sauber l\u00e4uft. Die Remixe "
-        "gehen nach Stufe 10.\n",
+        "gehen nach Stufe 8.\n",
         "## Legende\n",
         "### Stufen\n",
         "| Stufe | Name | Was er \u00fcbt | Tokens |",
@@ -324,17 +339,19 @@ def main():
         parts.append(f"| {label((a, b), a1)} | {cell(out)} |")
     parts.append("")
     parts.append("### W\u00f6rter\n")
-    parts.append(f"**Stufe 7**, ohne Bigram-Paare: {', '.join(PLAIN_WORDS)}")
-    parts.append(f"\n**Stufe 8**, a1-Bigramme: {', '.join(tier_a1)}")
-    parts.append(f"\n**Stufe 9**, a2-Bigramme (Layerwechsel): {', '.join(tier_a2)}\n")
-    parts.append("### Adaptive Keys (9, nur srht)\n")
+    parts.append(f"**Stufe 1**, ohne Bigram-Paare: {', '.join(PLAIN_WORDS)}")
+    parts.append(f"\n**Stufe 3**, a1-Bigramme: {', '.join(tier_a1)}")
+    parts.append(f"\n**Stufe 4**, a2-Bigramme (Layerwechsel): {', '.join(tier_a2)}\n")
+    parts.append("### Adaptive Keys (W\u00f6rter, nur srht)\n")
     parts.append("Innerhalb von 300 ms nach dem Trigger gibt ein adaptiver Key den Partner aus "
                  "\u2014 schnelles `rh` kann als `rl` herauskommen. Die Chords (beide Tasten "
                  "gleichzeitig) sind nicht betroffen.\n")
 
     sizes = []
     for num, name, _desc, pool in stages:
-        perm = perm_for(pool, int(num.lstrip("R")) + (100 if num.startswith("R") else 0))
+        head = num.lstrip("R")
+        seed = int(head) if head.isdigit() else ord(head[0])
+        perm = perm_for(pool, seed + (100 if num.startswith("R") else 0))
         rounds = fit_rounds(perm)
         body = make_block(num, perm, rounds)
         assert MIN_BLOCK_CHARS <= len(body) <= MAX_BLOCK_CHARS, \

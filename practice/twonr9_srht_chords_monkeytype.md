@@ -1,12 +1,12 @@
 # TwoNr9 srht — Chord-Praxis (Monkeytype)
 
-Stufen nach Modifier-Zuständen: erst die Paare, dann je ein Zustand dazu, dann die Bigramme und Wörter. Jede Stufe enthält alles aus den vorigen; die Remixe mischen Zustände und Wörter neu. Die Chords werden aus Firmware und Zeichnung gelesen, nicht von Hand gepflegt.
+Stufen nach Häufigkeit: erst echte Wörter mit den täglichen Symbolen, dann Bigramme, die zweite Ebene, und die Symbol-Zustände in zunehmender Seltenheit. Jede Stufe enthält alles aus den vorigen; die Remixe mischen Symbole und Wörter neu. Die Chords werden aus Firmware und Zeichnung gelesen, nicht von Hand gepflegt.
 
 ## Nutzung in Monkeytype
 
 1. Den Block der Stufe kopieren (Code-Block, unter 10.000 Zeichen).
 2. Monkeytype → Test Type **Custom** → Text einfügen.
-3. Erst zur nächsten Stufe, wenn die aktuelle sauber läuft. Die Remixe gehen nach Stufe 10.
+3. Erst zur nächsten Stufe, wenn die aktuelle sauber läuft. Die Remixe gehen nach Stufe 8.
 
 ## Legende
 
@@ -14,42 +14,39 @@ Stufen nach Modifier-Zuständen: erst die Paare, dann je ein Zustand dazu, dann 
 
 | Stufe | Name | Was er übt | Tokens |
 | --- | --- | --- | --- |
-| 1 | Plain | 18 Paare ohne Modifier | 18 |
-| 2 | + Shift | Shift-Zustände (gegenüberliegender Zeigefinger) | 35 |
-| 3 | + Cmd | Cmd-Zustände (gegenüberliegender Mittelfinger) | 52 |
-| 4 | + Shift+Cmd | Shift + Cmd, vier Tasten | 64 |
-| 5 | + Alt | Alt-Zustände (gegenüberliegender Ringfinger) | 81 |
-| 6 | + Shift+Alt | Shift + Alt, vier Tasten | 90 |
-| 7 | + Ctrl | Ctrl-Zustände (gegenüberliegender kleiner Finger) | 100 |
-| 8 | + Shift+Ctrl | Shift + Ctrl, vier Tasten | 104 |
-| 9 | + a1-Bigramme | a1-Bigramme, Umlaute, ´, Wörter ohne Bigram-Paare | 179 |
-| 10 | + a2-Bigramme | a2-Bigramme (Layerwechsel mitten im Wort), a1-Wörter | 278 |
-| 11 | Wörter | alles im Tipp-Kontext (114 Wörter) | 114 |
-| 12 | Vollpass | jeder Token einmal (Abschluss) | 235 |
-| R1 | Remix Operatoren | Ctrl-, Cmd-, Alt- und Quad-Zustände mit Wörtern gemischt | 133 |
-| R2 | Remix Symbole | Einzel-Chords und Bigramme, ohne Wörter | 52 |
+| 1 | Erste Wörter | a1-Wörter ohne Bigramme (47) und die häufigsten Symbole | 57 |
+| 2 | + Grundsymbole | Klammern, Anführungszeichen und die restlichen Paare | 69 |
+| 3 | + a1-Bigramme | a1-Bigramme, Umlaute, ´ und die Wörter mit ihnen | 126 |
+| 4 | + Layer 2 | a2-Bigramme und -Wörter, Layerwechsel mitten im Wort | 153 |
+| 5 | + Operatoren | Cmd-Zustände: && ‖ == != += <= >= -> => | 169 |
+| 6 | + Escapes | Shift+Cmd: \( \) \[ \] \{ \} \$ \^ \_ | 182 |
+| 7 | + Alt (Doppelte) | Alt-Zustände: ** -- :: ~~ !! und die Wortpaare | 208 |
+| 8 | Vollpass | die restlichen Symbole, Ctrl-Escapes und die Vier-Tasten-Zustände | 237 |
+| R1 | Symbole kompakt | jedes Symbol und jeder Bigramm ohne Wörter | 123 |
+| R2 | Operatoren | Cmd-, Alt- und Quad-Zustände mit Wörtern gemischt | 148 |
+| W | Wörter | nur Wörter (114), kein Symbol | 114 |
 
 ### Chords nach Paar
 
 | Paar | Plain | + Shift | + Ctrl | + Cmd | + Alt | Quad |
 | --- | --- | --- | --- | --- | --- | --- |
 | L + S | `/` | `./` | `//` | `/*` | — | `*/` |
-| L + H | `-` | `_` | `---` | `++` | `--` | — |
-| L + T | `&` | `\|` | — | `&&` | `\&` | `\|\|` |
+| L + H | `-` | `_` | `\_` | `--` | `---` | `__` |
+| L + T | `&` | `\|` | `\&` | `&&` | `&=` | `\|\|` |
 | N + S | `[` | `]` | `[]` | `\[` | `[[` | `\]` |
 | N + R | `{` | `}` | `{}` | `\{` | `{{` | `\}` |
 | N + T | `(` | `)` | `()` | `==` | `=>` | `!=` |
-| D + S | `$` | `^` | — | `$$` | `\^` | `\$` |
+| D + S | `$` | `^` | — | `\$` | `$$` | `\^` |
 | D + R | `"` | `'` | — | `""` | `'''` | `''` |
 | D + H | `<` | `>` | `->` | `<=` | `<<` | `>=` |
 | Y + E | `,` | `.` | — | `..` | `...` | `..<` |
 | Y + I | `!` | `?` | — | `?.` | `!!` | `?:` |
 | Y + A | `` ` `` | — | `` `` `` | `` ``` `` | `~~~` | — |
 | O + C | `;` | `:` | — | `::` | `;;` | — |
-| O + I | `*` | `#` | `^=` | `**` | `###` | `##` |
+| O + I | `*` | `#` | `\#` | `**` | `###` | `##` |
 | O + A | `@` | `~` | `~~` | — | `€` | — |
-| U + C | `%` | `%s` | — | `\%` | `%%` | — |
-| U + E | `=` | `+` | — | `-=` | `\|=` | `+=` |
+| U + C | `%` | `%s` | `\%` | — | `%%` | — |
+| U + E | `=` | `+` | `^=` | `-=` | `\|=` | `+=` |
 | U + A | `\` | `\(` | `\\` | `\)` | `\n` | — |
 
 ### Bigramme
@@ -71,2115 +68,930 @@ Stufen nach Modifier-Zuständen: erst die Paare, dann je ein Zustand dazu, dann 
 
 ### Wörter
 
-**Stufe 7**, ohne Bigram-Paare: Haus, Maus, Hund, Kind, Wind, Hand, Nacht, Licht, Wasser, Baum, Apfel, Vogel, Wolke, Fenster, Buch, Bett, Morgen, Glas, Wiese, Tanne, Symbol, Kombi, Amboss, Kombination, umbringt, System, Systeme, Analyse, erwartet, erwartung, erwachsene, erwache, Amt, Amtsstube, Amtsblatt, amtieren, Schule, Maschine, schreiben, Schrift, Schritt, bags, dogs, tags, flags, mugs, bugs
+**Stufe 1**, ohne Bigram-Paare: Haus, Maus, Hund, Kind, Wind, Hand, Nacht, Licht, Wasser, Baum, Apfel, Vogel, Wolke, Fenster, Buch, Bett, Morgen, Glas, Wiese, Tanne, Symbol, Kombi, Amboss, Kombination, umbringt, System, Systeme, Analyse, erwartet, erwartung, erwachsene, erwache, Amt, Amtsstube, Amtsblatt, amtieren, Schule, Maschine, schreiben, Schrift, Schritt, bags, dogs, tags, flags, mugs, bugs
 
-**Stufe 8**, a1-Bigramme: erleben, erlöst, erlitten, erlaubt, Erlösung, Sohn, Kahn, Hahn, Mohn, wohnen, Landtag, verwandt, Handtuch, Bicycle, Cyclist, Cyber, Geometrie, beobachten, Beobachtung, Geometer, eons, eosin, Ruine, Ruinen, build, suit, suitable, juice, guide
+**Stufe 3**, a1-Bigramme: erleben, erlöst, erlitten, erlaubt, Erlösung, Sohn, Kahn, Hahn, Mohn, wohnen, Landtag, verwandt, Handtuch, Bicycle, Cyclist, Cyber, Geometrie, beobachten, Beobachtung, Geometer, eons, eosin, Ruine, Ruinen, build, suit, suitable, juice, guide
 
-**Stufe 9**, a2-Bigramme (Layerwechsel): Norm, Formel, warm, Wärme, Anbau, Einbau, anbei, aktuell, Diktat, Diktatur, Kontakt, Kaktus, Gymnasium, Biology, Energy, Koeffizient, Koexistenz, Koeln, Iulius, Iunius, equinoctium
+**Stufe 4**, a2-Bigramme (Layerwechsel): Norm, Formel, warm, Wärme, Anbau, Einbau, anbei, aktuell, Diktat, Diktatur, Kontakt, Kaktus, Gymnasium, Biology, Energy, Koeffizient, Koexistenz, Koeln, Iulius, Iunius, equinoctium
 
-### Adaptive Keys (9, nur srht)
+### Adaptive Keys (Wörter, nur srht)
 
 Innerhalb von 300 ms nach dem Trigger gibt ein adaptiver Key den Partner aus — schnelles `rh` kann als `rl` herauskommen. Die Chords (beide Tasten gleichzeitig) sind nicht betroffen.
 
-## Stufe 1 — Plain (116 Runden · 2088 Tokens · 4175 Zeichen)
+## Stufe 1 — Erste Wörter (12 Runden · 684 Tokens · 4103 Zeichen)
 
 ```
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
-- % / , & $ = \ { (
-* [ ! < ` @ " ;
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
+Symbol Amtsstube Kombi Amtsblatt flags Apfel Wiese Maus Amt System
+= Wolke bags Wind Kombination ( Schritt ; Kind Haus
+Analyse Licht Bett tags dogs . erwachsene erwartung Maschine Schrift
+amtieren Hand Amboss ) schreiben erwache - Schule Systeme /
+Morgen _ : umbringt Baum Fenster Buch Hund Vogel mugs
+Wasser bugs Nacht erwartet Glas , Tanne
 ```
 
-## Stufe 2 — + Shift (57 Runden · 1995 Tokens · 4160 Zeichen)
+## Stufe 2 — + Grundsymbole (11 Runden · 759 Tokens · 4025 Zeichen)
 
 ```
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
-~ - ? # > [ ./ { \( +
-* _ | } . : & ! ` /
-% < ' , $ ; %s ^ ) "
-\ @ ] = (
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
+/ Wiese Amt Wolke tags Glas Haus , _ :
+Apfel Maschine - Amtsblatt ] Schrift Baum " Morgen Schule
+flags Hand mugs Analyse } Licht ; { umbringt >
+System schreiben Amboss Vogel Wind ' ! ( . Kombi
+< Buch [ erwartet ? dogs erwachsene Nacht * Fenster
+Kombination Systeme = Schritt Wasser ) amtieren Hund bugs +
+Symbol Bett Tanne Kind Amtsstube erwartung bags erwache Maus
 ```
 
-## Stufe 3 — + Cmd (33 Runden · 1716 Tokens · 4124 Zeichen)
+## Stufe 3 — + a1-Bigramme (5 Runden · 630 Tokens · 3574 Zeichen)
 
 ```
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
-) % ! / <= ++ $ & %s .
-: /* " "" , :: ^ - ? +
-?. ``` ~ ( ** $$ ; | ./ \(
--= && * _ [ > { \ ` }
-= .. @ == \{ \[ # ] \) \%
-' <
+tags erwache Küsse Erlösung ! Mädchen ( Kombi ] Handtuch
+beobachten Cyclist rl erlöst heiß guide ; Vogel . Hahn
+Hände Bett schreiben Amboss ´ Glas Mohn Tanne ? Baum
+Cyber Wolke Analyse Nacht erlitten Apfel Kahn Maschine Morgen erwartet
+während _ build ß erleben Käse Ruinen } Amtsblatt Küche
+juice dt Geometer Straße > mugs Vögel * Schritt Wasser
+{ wohnen System Geometrie Sohn grüßen Müde , erlaubt Haus
+Symbol flags Bicycle eosin suit amtieren - Wiese Fenster Buch
+eo + : [ ö Kombination Maus / Hand Hüpfen
+' suitable größer < Schule Höhlen Hütte verwandt Amt umbringt
+eons Beobachtung Höfe bugs Wind Schrift cy Licht Landtag Amtsstube
+schön Systeme ü dogs erwachsene Ruine erwartung hn ä ui
+" bags = Hund ) Kind
+tags erwache Küsse Erlösung ! Mädchen ( Kombi ] Handtuch
+beobachten Cyclist rl erlöst heiß guide ; Vogel . Hahn
+Hände Bett schreiben Amboss ´ Glas Mohn Tanne ? Baum
+Cyber Wolke Analyse Nacht erlitten Apfel Kahn Maschine Morgen erwartet
+während _ build ß erleben Käse Ruinen } Amtsblatt Küche
+juice dt Geometer Straße > mugs Vögel * Schritt Wasser
+{ wohnen System Geometrie Sohn grüßen Müde , erlaubt Haus
+Symbol flags Bicycle eosin suit amtieren - Wiese Fenster Buch
+eo + : [ ö Kombination Maus / Hand Hüpfen
+' suitable größer < Schule Höhlen Hütte verwandt Amt umbringt
+eons Beobachtung Höfe bugs Wind Schrift cy Licht Landtag Amtsstube
+schön Systeme ü dogs erwachsene Ruine erwartung hn ä ui
+" bags = Hund ) Kind
+tags erwache Küsse Erlösung ! Mädchen ( Kombi ] Handtuch
+beobachten Cyclist rl erlöst heiß guide ; Vogel . Hahn
+Hände Bett schreiben Amboss ´ Glas Mohn Tanne ? Baum
+Cyber Wolke Analyse Nacht erlitten Apfel Kahn Maschine Morgen erwartet
+während _ build ß erleben Käse Ruinen } Amtsblatt Küche
+juice dt Geometer Straße > mugs Vögel * Schritt Wasser
+{ wohnen System Geometrie Sohn grüßen Müde , erlaubt Haus
+Symbol flags Bicycle eosin suit amtieren - Wiese Fenster Buch
+eo + : [ ö Kombination Maus / Hand Hüpfen
+' suitable größer < Schule Höhlen Hütte verwandt Amt umbringt
+eons Beobachtung Höfe bugs Wind Schrift cy Licht Landtag Amtsstube
+schön Systeme ü dogs erwachsene Ruine erwartung hn ä ui
+" bags = Hund ) Kind
+tags erwache Küsse Erlösung ! Mädchen ( Kombi ] Handtuch
+beobachten Cyclist rl erlöst heiß guide ; Vogel . Hahn
+Hände Bett schreiben Amboss ´ Glas Mohn Tanne ? Baum
+Cyber Wolke Analyse Nacht erlitten Apfel Kahn Maschine Morgen erwartet
+während _ build ß erleben Käse Ruinen } Amtsblatt Küche
+juice dt Geometer Straße > mugs Vögel * Schritt Wasser
+{ wohnen System Geometrie Sohn grüßen Müde , erlaubt Haus
+Symbol flags Bicycle eosin suit amtieren - Wiese Fenster Buch
+eo + : [ ö Kombination Maus / Hand Hüpfen
+' suitable größer < Schule Höhlen Hütte verwandt Amt umbringt
+eons Beobachtung Höfe bugs Wind Schrift cy Licht Landtag Amtsstube
+schön Systeme ü dogs erwachsene Ruine erwartung hn ä ui
+" bags = Hund ) Kind
+tags erwache Küsse Erlösung ! Mädchen ( Kombi ] Handtuch
+beobachten Cyclist rl erlöst heiß guide ; Vogel . Hahn
+Hände Bett schreiben Amboss ´ Glas Mohn Tanne ? Baum
+Cyber Wolke Analyse Nacht erlitten Apfel Kahn Maschine Morgen erwartet
+während _ build ß erleben Käse Ruinen } Amtsblatt Küche
+juice dt Geometer Straße > mugs Vögel * Schritt Wasser
+{ wohnen System Geometrie Sohn grüßen Müde , erlaubt Haus
+Symbol flags Bicycle eosin suit amtieren - Wiese Fenster Buch
+eo + : [ ö Kombination Maus / Hand Hüpfen
+' suitable größer < Schule Höhlen Hütte verwandt Amt umbringt
+eons Beobachtung Höfe bugs Wind Schrift cy Licht Landtag Amtsstube
+schön Systeme ü dogs erwachsene Ruine erwartung hn ä ui
+" bags = Hund ) Kind
 ```
 
-## Stufe 4 — + Shift+Cmd (25 Runden · 1600 Tokens · 4049 Zeichen)
+## Stufe 4 — + Layer 2 (4 Runden · 612 Tokens · 3575 Zeichen)
 
 ```
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
-% @ \% >= ``` \} # <= ## -
-./ ** %s ..< [ : | " \] (
-. , $$ > \$ \( ?: & ` ..
-\) && \[ ! '' < -= + \{ )
-{ || "" $ != * ; / = }
-+= /* ] \ == ~ */ :: ? _
-^ ?. ' ++
+Amt Einbau grüßen Koeln flags Schritt erwartung = Baum equinoctium
+[ Beobachtung . > nb warm Wasser ) Licht Anbau
+Landtag umbringt erlöst aktuell Hände dogs Buch Maus Schule suit
+iu Symbol - Norm System Hand Cyclist Mohn Diktat Hahn
+Sohn rm Käse + Nacht cy Geometrie erleben Biology :
+Amtsblatt Vögel Hüpfen Ruine Iunius schön Vogel Handtuch Wärme oe
+Gymnasium ´ Kontakt dt Kombi Tanne ui Bicycle Erlösung Iulius
+suitable ö Geometer ? Glas rl Morgen amtieren eons hn
+Diktatur beobachten Bett } Kombination " schreiben Kind erlaubt Apfel
+Koeffizient < Formel guide , ä Cyber { Energy (
+! verwandt Hund Hütte Amboss Analyse Höhlen anbei Amtsstube eo
+gy Haus Ruinen tags erwartet ü build mugs Schrift Systeme
+_ / Fenster bags erlitten Höfe ] bugs Müde Wind
+während kt ß Wolke heiß erwachsene erwache Küsse ; Maschine
+Wiese * Mädchen größer ' Kaktus juice eosin Küche Kahn
+wohnen Straße Koexistenz
+Amt Einbau grüßen Koeln flags Schritt erwartung = Baum equinoctium
+[ Beobachtung . > nb warm Wasser ) Licht Anbau
+Landtag umbringt erlöst aktuell Hände dogs Buch Maus Schule suit
+iu Symbol - Norm System Hand Cyclist Mohn Diktat Hahn
+Sohn rm Käse + Nacht cy Geometrie erleben Biology :
+Amtsblatt Vögel Hüpfen Ruine Iunius schön Vogel Handtuch Wärme oe
+Gymnasium ´ Kontakt dt Kombi Tanne ui Bicycle Erlösung Iulius
+suitable ö Geometer ? Glas rl Morgen amtieren eons hn
+Diktatur beobachten Bett } Kombination " schreiben Kind erlaubt Apfel
+Koeffizient < Formel guide , ä Cyber { Energy (
+! verwandt Hund Hütte Amboss Analyse Höhlen anbei Amtsstube eo
+gy Haus Ruinen tags erwartet ü build mugs Schrift Systeme
+_ / Fenster bags erlitten Höfe ] bugs Müde Wind
+während kt ß Wolke heiß erwachsene erwache Küsse ; Maschine
+Wiese * Mädchen größer ' Kaktus juice eosin Küche Kahn
+wohnen Straße Koexistenz
+Amt Einbau grüßen Koeln flags Schritt erwartung = Baum equinoctium
+[ Beobachtung . > nb warm Wasser ) Licht Anbau
+Landtag umbringt erlöst aktuell Hände dogs Buch Maus Schule suit
+iu Symbol - Norm System Hand Cyclist Mohn Diktat Hahn
+Sohn rm Käse + Nacht cy Geometrie erleben Biology :
+Amtsblatt Vögel Hüpfen Ruine Iunius schön Vogel Handtuch Wärme oe
+Gymnasium ´ Kontakt dt Kombi Tanne ui Bicycle Erlösung Iulius
+suitable ö Geometer ? Glas rl Morgen amtieren eons hn
+Diktatur beobachten Bett } Kombination " schreiben Kind erlaubt Apfel
+Koeffizient < Formel guide , ä Cyber { Energy (
+! verwandt Hund Hütte Amboss Analyse Höhlen anbei Amtsstube eo
+gy Haus Ruinen tags erwartet ü build mugs Schrift Systeme
+_ / Fenster bags erlitten Höfe ] bugs Müde Wind
+während kt ß Wolke heiß erwachsene erwache Küsse ; Maschine
+Wiese * Mädchen größer ' Kaktus juice eosin Küche Kahn
+wohnen Straße Koexistenz
+Amt Einbau grüßen Koeln flags Schritt erwartung = Baum equinoctium
+[ Beobachtung . > nb warm Wasser ) Licht Anbau
+Landtag umbringt erlöst aktuell Hände dogs Buch Maus Schule suit
+iu Symbol - Norm System Hand Cyclist Mohn Diktat Hahn
+Sohn rm Käse + Nacht cy Geometrie erleben Biology :
+Amtsblatt Vögel Hüpfen Ruine Iunius schön Vogel Handtuch Wärme oe
+Gymnasium ´ Kontakt dt Kombi Tanne ui Bicycle Erlösung Iulius
+suitable ö Geometer ? Glas rl Morgen amtieren eons hn
+Diktatur beobachten Bett } Kombination " schreiben Kind erlaubt Apfel
+Koeffizient < Formel guide , ä Cyber { Energy (
+! verwandt Hund Hütte Amboss Analyse Höhlen anbei Amtsstube eo
+gy Haus Ruinen tags erwartet ü build mugs Schrift Systeme
+_ / Fenster bags erlitten Höfe ] bugs Müde Wind
+während kt ß Wolke heiß erwachsene erwache Küsse ; Maschine
+Wiese * Mädchen größer ' Kaktus juice eosin Küche Kahn
+wohnen Straße Koexistenz
 ```
 
-## Stufe 5 — + Alt (19 Runden · 1539 Tokens · 4103 Zeichen)
+## Stufe 5 — + Operatoren (4 Runden · 676 Tokens · 3771 Zeichen)
 
 ```
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
-? %s $$ %% "" \( / && .. ./
-> ** € : ` += :: ~~~ !! /*
-=> ?: ### ``` \] \& ; '' ... ]
-\% = \$ */ \) | ..< _ \^ [
-@ $ \} ' & ;; == # >= \[
-) ''' ## - ++ } " % < +
-, ~ ^ ( {{ \{ |= \n -= *
-?. || -- << <= ! [[ \ { !=
-.
+Geometrie verwandt flags erlöst schön /* ! erwache * build
+System Kombination schreiben Höfe Ruine Geometer eons Diktat / kt
+{ Hände -= Hütte , Bett Höhlen Koeffizient ö erwartet
+? ui ´ ; Amt nb Kontakt ) _ }
+heiß Schule Cyclist Tanne aktuell ?. Hüpfen suit tags "
+erlaubt Buch Handtuch Haus Amtsblatt ( Kaktus Vogel Küche Norm
+Iulius iu Straße Beobachtung -- Wiese : während dt Vögel
+cy Koeln Wärme Analyse <= Apfel Hand ' ** Bicycle
+Morgen Gymnasium Iunius Diktatur ] guide anbei Fenster Energy Landtag
+&& rm < "" dogs erwartung \[ eosin = Kahn
+Hund Systeme Käse Wolke Schritt größer Baum Cyber > mugs
+Kombi \) suitable Schrift Wind erleben Küsse == Koexistenz ü
+Kind Glas Maschine - warm bugs hn Wasser [ erwachsene
+Mädchen wohnen \{ Ruinen Symbol ß + Sohn .. grüßen
+amtieren rl Nacht :: bags juice Erlösung Maus gy equinoctium
+ä ``` Mohn Anbau erlitten Biology umbringt Müde beobachten Einbau
+oe eo \$ Amboss Formel Amtsstube Licht Hahn .
+Geometrie verwandt flags erlöst schön /* ! erwache * build
+System Kombination schreiben Höfe Ruine Geometer eons Diktat / kt
+{ Hände -= Hütte , Bett Höhlen Koeffizient ö erwartet
+? ui ´ ; Amt nb Kontakt ) _ }
+heiß Schule Cyclist Tanne aktuell ?. Hüpfen suit tags "
+erlaubt Buch Handtuch Haus Amtsblatt ( Kaktus Vogel Küche Norm
+Iulius iu Straße Beobachtung -- Wiese : während dt Vögel
+cy Koeln Wärme Analyse <= Apfel Hand ' ** Bicycle
+Morgen Gymnasium Iunius Diktatur ] guide anbei Fenster Energy Landtag
+&& rm < "" dogs erwartung \[ eosin = Kahn
+Hund Systeme Käse Wolke Schritt größer Baum Cyber > mugs
+Kombi \) suitable Schrift Wind erleben Küsse == Koexistenz ü
+Kind Glas Maschine - warm bugs hn Wasser [ erwachsene
+Mädchen wohnen \{ Ruinen Symbol ß + Sohn .. grüßen
+amtieren rl Nacht :: bags juice Erlösung Maus gy equinoctium
+ä ``` Mohn Anbau erlitten Biology umbringt Müde beobachten Einbau
+oe eo \$ Amboss Formel Amtsstube Licht Hahn .
+Geometrie verwandt flags erlöst schön /* ! erwache * build
+System Kombination schreiben Höfe Ruine Geometer eons Diktat / kt
+{ Hände -= Hütte , Bett Höhlen Koeffizient ö erwartet
+? ui ´ ; Amt nb Kontakt ) _ }
+heiß Schule Cyclist Tanne aktuell ?. Hüpfen suit tags "
+erlaubt Buch Handtuch Haus Amtsblatt ( Kaktus Vogel Küche Norm
+Iulius iu Straße Beobachtung -- Wiese : während dt Vögel
+cy Koeln Wärme Analyse <= Apfel Hand ' ** Bicycle
+Morgen Gymnasium Iunius Diktatur ] guide anbei Fenster Energy Landtag
+&& rm < "" dogs erwartung \[ eosin = Kahn
+Hund Systeme Käse Wolke Schritt größer Baum Cyber > mugs
+Kombi \) suitable Schrift Wind erleben Küsse == Koexistenz ü
+Kind Glas Maschine - warm bugs hn Wasser [ erwachsene
+Mädchen wohnen \{ Ruinen Symbol ß + Sohn .. grüßen
+amtieren rl Nacht :: bags juice Erlösung Maus gy equinoctium
+ä ``` Mohn Anbau erlitten Biology umbringt Müde beobachten Einbau
+oe eo \$ Amboss Formel Amtsstube Licht Hahn .
+Geometrie verwandt flags erlöst schön /* ! erwache * build
+System Kombination schreiben Höfe Ruine Geometer eons Diktat / kt
+{ Hände -= Hütte , Bett Höhlen Koeffizient ö erwartet
+? ui ´ ; Amt nb Kontakt ) _ }
+heiß Schule Cyclist Tanne aktuell ?. Hüpfen suit tags "
+erlaubt Buch Handtuch Haus Amtsblatt ( Kaktus Vogel Küche Norm
+Iulius iu Straße Beobachtung -- Wiese : während dt Vögel
+cy Koeln Wärme Analyse <= Apfel Hand ' ** Bicycle
+Morgen Gymnasium Iunius Diktatur ] guide anbei Fenster Energy Landtag
+&& rm < "" dogs erwartung \[ eosin = Kahn
+Hund Systeme Käse Wolke Schritt größer Baum Cyber > mugs
+Kombi \) suitable Schrift Wind erleben Küsse == Koexistenz ü
+Kind Glas Maschine - warm bugs hn Wasser [ erwachsene
+Mädchen wohnen \{ Ruinen Symbol ß + Sohn .. grüßen
+amtieren rl Nacht :: bags juice Erlösung Maus gy equinoctium
+ä ``` Mohn Anbau erlitten Biology umbringt Müde beobachten Einbau
+oe eo \$ Amboss Formel Amtsstube Licht Hahn .
 ```
 
-## Stufe 6 — + Shift+Alt (17 Runden · 1530 Tokens · 4147 Zeichen)
+## Stufe 6 — + Escapes (4 Runden · 728 Tokens · 3931 Zeichen)
 
 ```
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
-] € + ~ > ! != % %s /
-'' = ' $ -- \t \& : ## ""
-}} ### | < \} @ [ \$ \ ;;
-. && } %% ``` * ./ |= ~~~ \[
-*/ >= == ( \^ ?: """ ++ >> ::
-+= << => !? !! \# ''' , \n ^
-.. ..< || ... \( { \% $$ ? [[
-/* <= &= ?. \] _ \{ ` {{ -
-; ]] " ) __ & # ** -= \)
+..< erwartet System Hand Cyber * Straße += < Formel
+Amtsstube bags "" Diktatur ' ( wohnen :: eons ?:
+hn ! \} guide ´ build Mohn Käse Symbol Haus
+juice ui eo \] ] <= Schrift Kombination mugs aktuell
+rl anbei Maschine heiß Landtag Hände Kind Diktat . Bicycle
+eosin verwandt Apfel suitable Amboss { Kaktus Biology Wind =
++ dt nb .. -= Nacht */ kt Cyclist ä
+, Wasser / erwachsene Buch dogs erlaubt Geometer Gymnasium ```
+Hahn Küsse >= Beobachtung erleben Höfe Einbau || erlöst equinoctium
+iu Koeln rm \^ > Hund erwache erwartung größer ß
+: oe ; ) gy /* == \) flags }
+Hüpfen Hütte warm während Amt Ruine Glas Vögel Höhlen Geometrie
+_ Tanne && Sohn umbringt '' Koexistenz Anbau Kontakt Baum
+Wolke beobachten Iulius tags \{ Ruinen Mädchen schreiben amtieren -
+schön Koeffizient Maus Systeme Amtsblatt Bett \$ suit Energy Schritt
+Kombi -- ?. ? Licht Kahn Iunius grüßen \[ [
+Norm ü cy ## Müde Handtuch bugs ö ** Analyse
+Wärme Vogel Wiese __ Morgen Schule != Fenster " Küche
+erlitten Erlösung
+..< erwartet System Hand Cyber * Straße += < Formel
+Amtsstube bags "" Diktatur ' ( wohnen :: eons ?:
+hn ! \} guide ´ build Mohn Käse Symbol Haus
+juice ui eo \] ] <= Schrift Kombination mugs aktuell
+rl anbei Maschine heiß Landtag Hände Kind Diktat . Bicycle
+eosin verwandt Apfel suitable Amboss { Kaktus Biology Wind =
++ dt nb .. -= Nacht */ kt Cyclist ä
+, Wasser / erwachsene Buch dogs erlaubt Geometer Gymnasium ```
+Hahn Küsse >= Beobachtung erleben Höfe Einbau || erlöst equinoctium
+iu Koeln rm \^ > Hund erwache erwartung größer ß
+: oe ; ) gy /* == \) flags }
+Hüpfen Hütte warm während Amt Ruine Glas Vögel Höhlen Geometrie
+_ Tanne && Sohn umbringt '' Koexistenz Anbau Kontakt Baum
+Wolke beobachten Iulius tags \{ Ruinen Mädchen schreiben amtieren -
+schön Koeffizient Maus Systeme Amtsblatt Bett \$ suit Energy Schritt
+Kombi -- ?. ? Licht Kahn Iunius grüßen \[ [
+Norm ü cy ## Müde Handtuch bugs ö ** Analyse
+Wärme Vogel Wiese __ Morgen Schule != Fenster " Küche
+erlitten Erlösung
+..< erwartet System Hand Cyber * Straße += < Formel
+Amtsstube bags "" Diktatur ' ( wohnen :: eons ?:
+hn ! \} guide ´ build Mohn Käse Symbol Haus
+juice ui eo \] ] <= Schrift Kombination mugs aktuell
+rl anbei Maschine heiß Landtag Hände Kind Diktat . Bicycle
+eosin verwandt Apfel suitable Amboss { Kaktus Biology Wind =
++ dt nb .. -= Nacht */ kt Cyclist ä
+, Wasser / erwachsene Buch dogs erlaubt Geometer Gymnasium ```
+Hahn Küsse >= Beobachtung erleben Höfe Einbau || erlöst equinoctium
+iu Koeln rm \^ > Hund erwache erwartung größer ß
+: oe ; ) gy /* == \) flags }
+Hüpfen Hütte warm während Amt Ruine Glas Vögel Höhlen Geometrie
+_ Tanne && Sohn umbringt '' Koexistenz Anbau Kontakt Baum
+Wolke beobachten Iulius tags \{ Ruinen Mädchen schreiben amtieren -
+schön Koeffizient Maus Systeme Amtsblatt Bett \$ suit Energy Schritt
+Kombi -- ?. ? Licht Kahn Iunius grüßen \[ [
+Norm ü cy ## Müde Handtuch bugs ö ** Analyse
+Wärme Vogel Wiese __ Morgen Schule != Fenster " Küche
+erlitten Erlösung
+..< erwartet System Hand Cyber * Straße += < Formel
+Amtsstube bags "" Diktatur ' ( wohnen :: eons ?:
+hn ! \} guide ´ build Mohn Käse Symbol Haus
+juice ui eo \] ] <= Schrift Kombination mugs aktuell
+rl anbei Maschine heiß Landtag Hände Kind Diktat . Bicycle
+eosin verwandt Apfel suitable Amboss { Kaktus Biology Wind =
++ dt nb .. -= Nacht */ kt Cyclist ä
+, Wasser / erwachsene Buch dogs erlaubt Geometer Gymnasium ```
+Hahn Küsse >= Beobachtung erleben Höfe Einbau || erlöst equinoctium
+iu Koeln rm \^ > Hund erwache erwartung größer ß
+: oe ; ) gy /* == \) flags }
+Hüpfen Hütte warm während Amt Ruine Glas Vögel Höhlen Geometrie
+_ Tanne && Sohn umbringt '' Koexistenz Anbau Kontakt Baum
+Wolke beobachten Iulius tags \{ Ruinen Mädchen schreiben amtieren -
+schön Koeffizient Maus Systeme Amtsblatt Bett \$ suit Energy Schritt
+Kombi -- ?. ? Licht Kahn Iunius grüßen \[ [
+Norm ü cy ## Müde Handtuch bugs ö ** Analyse
+Wärme Vogel Wiese __ Morgen Schule != Fenster " Küche
+erlitten Erlösung
 ```
 
-## Stufe 7 — + Ctrl (15 Runden · 1500 Tokens · 4124 Zeichen)
+## Stufe 7 — + Alt (Doppelte) (3 Runden · 624 Tokens · 3197 Zeichen)
 
 ```
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
-\& & € */ += ?: \# * [[ ]]
-^ ) ## ### ?. ` /* < ( '''
-;; {{ // ~~ # ... >> ./ - \%
-!! ! { ' ..< __ != \ . ,
-\$ !? : ~ = "" \} + \\ }
-? ``` {} [ == -- %% \) ++ $
-\( %s -> --- ** && ] % \^ ()
-`` > @ ^= '' || \{ """ \n /
-}} >= -= :: \[ <= \t &= ~~~ "
-=> [] $$ | << ; _ |= .. \]
+ä Maschine => __ >> Sohn Biology Wind größer ´
+Haus Cyclist build Licht Hund Straße Hüpfen Hahn € Buch
+Käse System + Ruinen Cyber = Systeme erwartung mugs **
+eons suitable Schritt nb Norm ``` Analyse <= '' suit
+. ### Koexistenz ! ?. ... Erlösung >= hn +=
+erlaubt , -- ; Iulius > umbringt rm Einbau erlitten
+ui } erwache [[ ) kt -= / Kombination !?
+}} oe --- Kombi aktuell ( &= Handtuch Höfe Amtsstube
+Anbau Geometrie Wärme _ ü \[ != dt Kahn Amboss
+&& Hütte \] " Nacht ..< Symbol Koeln erwachsene Vögel
+Kaktus \{ Gymnasium Iunius Formel Schule { Fenster Bicycle '
+Müde "" Energy Mohn Mädchen Amt Koeffizient Wolke Kind &=
+Hand rl guide Schrift : heiß dogs Apfel Maus Ruine
+|= schön [ |= flags .. < \^ \} Bett
+Landtag !! ? $$ ] Beobachtung tags Amtsblatt \t juice
+* \n ++ \) während Geometer erleben Vogel Diktat ~~~
+\$ << warm anbei Tanne Küche Küsse bags Kontakt amtieren
+Diktatur ''' %% {{ schreiben erwartet """ eosin beobachten ö
+:: cy Baum || ?: Wasser ;; wohnen erlöst */
+Hände ß ## eo Morgen equinoctium == Glas gy ]]
+grüßen - iu Wiese bugs /* Höhlen verwandt
+ä Maschine => __ >> Sohn Biology Wind größer ´
+Haus Cyclist build Licht Hund Straße Hüpfen Hahn € Buch
+Käse System + Ruinen Cyber = Systeme erwartung mugs **
+eons suitable Schritt nb Norm ``` Analyse <= '' suit
+. ### Koexistenz ! ?. ... Erlösung >= hn +=
+erlaubt , -- ; Iulius > umbringt rm Einbau erlitten
+ui } erwache [[ ) kt -= / Kombination !?
+}} oe --- Kombi aktuell ( &= Handtuch Höfe Amtsstube
+Anbau Geometrie Wärme _ ü \[ != dt Kahn Amboss
+&& Hütte \] " Nacht ..< Symbol Koeln erwachsene Vögel
+Kaktus \{ Gymnasium Iunius Formel Schule { Fenster Bicycle '
+Müde "" Energy Mohn Mädchen Amt Koeffizient Wolke Kind &=
+Hand rl guide Schrift : heiß dogs Apfel Maus Ruine
+|= schön [ |= flags .. < \^ \} Bett
+Landtag !! ? $$ ] Beobachtung tags Amtsblatt \t juice
+* \n ++ \) während Geometer erleben Vogel Diktat ~~~
+\$ << warm anbei Tanne Küche Küsse bags Kontakt amtieren
+Diktatur ''' %% {{ schreiben erwartet """ eosin beobachten ö
+:: cy Baum || ?: Wasser ;; wohnen erlöst */
+Hände ß ## eo Morgen equinoctium == Glas gy ]]
+grüßen - iu Wiese bugs /* Höhlen verwandt
+ä Maschine => __ >> Sohn Biology Wind größer ´
+Haus Cyclist build Licht Hund Straße Hüpfen Hahn € Buch
+Käse System + Ruinen Cyber = Systeme erwartung mugs **
+eons suitable Schritt nb Norm ``` Analyse <= '' suit
+. ### Koexistenz ! ?. ... Erlösung >= hn +=
+erlaubt , -- ; Iulius > umbringt rm Einbau erlitten
+ui } erwache [[ ) kt -= / Kombination !?
+}} oe --- Kombi aktuell ( &= Handtuch Höfe Amtsstube
+Anbau Geometrie Wärme _ ü \[ != dt Kahn Amboss
+&& Hütte \] " Nacht ..< Symbol Koeln erwachsene Vögel
+Kaktus \{ Gymnasium Iunius Formel Schule { Fenster Bicycle '
+Müde "" Energy Mohn Mädchen Amt Koeffizient Wolke Kind &=
+Hand rl guide Schrift : heiß dogs Apfel Maus Ruine
+|= schön [ |= flags .. < \^ \} Bett
+Landtag !! ? $$ ] Beobachtung tags Amtsblatt \t juice
+* \n ++ \) während Geometer erleben Vogel Diktat ~~~
+\$ << warm anbei Tanne Küche Küsse bags Kontakt amtieren
+Diktatur ''' %% {{ schreiben erwartet """ eosin beobachten ö
+:: cy Baum || ?: Wasser ;; wohnen erlöst */
+Hände ß ## eo Morgen equinoctium == Glas gy ]]
+grüßen - iu Wiese bugs /* Höhlen verwandt
 ```
 
-## Stufe 8 — + Shift+Ctrl (14 Runden · 1456 Tokens · 4045 Zeichen)
+## Stufe 8 — Vollpass (3 Runden · 711 Tokens · 3434 Zeichen)
 
 ```
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
---- /// - ^ || ' ++ ~~ \) __
-) : \( // >= | \& \ \# \^
-/ \% ## ''' ./ .. -> [^] [ \$
-== ~ -- \n [] ; + % * &
-} ... = != @ "" € >> '' $
-+= ]] """ \\ %% %s \_ # _ <<
-< ` /* () <= ### &= !! \] \t
-{{ }} \} -= ( ;; ``` ?. :: ?
-" ^= && { \[ \{ */ > |= ``
-=> ..< ! $$ ~~~ ] !? {} . [[
-, ?: <- **
+Iulius ... [[ ' Hund Beobachtung tags ?: Höhlen Wind
+`` ^= \t Kontakt Tanne ^ || ´ ;; ->
++ suitable Wiese oe \( ..< Kaktus ``` : #
+[] << erlitten Geometer \) % Diktatur juice ] ~~~
+!! amtieren ( Straße dt \ != Cyber Norm \\
+= erwachsene Symbol Landtag \% Koexistenz nb warm Mädchen Höfe
+beobachten // Apfel Erlösung [^] flags Küche Bett -= erwache
+''' ; %% \_ Kahn Amtsstube Wasser -- ]] >
+Müde () größer eons \& __ verwandt """ [ Nacht
++= Schritt \# |= "" hn Schule ? Wolke System
+$$ Einbau } Baum Systeme & ü \$ heiß |=
+&= Buch Glas => >= {} wohnen .. ++ anbei
+&& ~~ _ Mohn dogs ! eosin ß mugs erlaubt
+Koeln guide - Energy \n erleben $ aktuell {{ schreiben
+Diktat \[ Vogel * Iunius %s kt >> Kind ::
+. , umbringt Sohn Fenster Hahn Amboss ö rm Amt
+Ruine bugs Maschine iu rl / Analyse ** Käse erwartung
+" <= !? ## erwartet Biology ?. equinoctium '' Amtsblatt
+Anbau build /// Hand ) /* cy Koeffizient eo Cyclist
+schön Haus Handtuch \^ ~ Wärme ` Bicycle erlöst Maus
+Gymnasium Hüpfen \] Vögel Hände { ### Morgen ./ Küsse
+Licht ui \} ä Geometrie | Schrift \{ grüßen gy
+Ruinen Kombination € &= während == bags */ --- <
+<- Formel Kombi suit @ }} Hütte
+Iulius ... [[ ' Hund Beobachtung tags ?: Höhlen Wind
+`` ^= \t Kontakt Tanne ^ || ´ ;; ->
++ suitable Wiese oe \( ..< Kaktus ``` : #
+[] << erlitten Geometer \) % Diktatur juice ] ~~~
+!! amtieren ( Straße dt \ != Cyber Norm \\
+= erwachsene Symbol Landtag \% Koexistenz nb warm Mädchen Höfe
+beobachten // Apfel Erlösung [^] flags Küche Bett -= erwache
+''' ; %% \_ Kahn Amtsstube Wasser -- ]] >
+Müde () größer eons \& __ verwandt """ [ Nacht
++= Schritt \# |= "" hn Schule ? Wolke System
+$$ Einbau } Baum Systeme & ü \$ heiß |=
+&= Buch Glas => >= {} wohnen .. ++ anbei
+&& ~~ _ Mohn dogs ! eosin ß mugs erlaubt
+Koeln guide - Energy \n erleben $ aktuell {{ schreiben
+Diktat \[ Vogel * Iunius %s kt >> Kind ::
+. , umbringt Sohn Fenster Hahn Amboss ö rm Amt
+Ruine bugs Maschine iu rl / Analyse ** Käse erwartung
+" <= !? ## erwartet Biology ?. equinoctium '' Amtsblatt
+Anbau build /// Hand ) /* cy Koeffizient eo Cyclist
+schön Haus Handtuch \^ ~ Wärme ` Bicycle erlöst Maus
+Gymnasium Hüpfen \] Vögel Hände { ### Morgen ./ Küsse
+Licht ui \} ä Geometrie | Schrift \{ grüßen gy
+Ruinen Kombination € &= während == bags */ --- <
+<- Formel Kombi suit @ }} Hütte
+Iulius ... [[ ' Hund Beobachtung tags ?: Höhlen Wind
+`` ^= \t Kontakt Tanne ^ || ´ ;; ->
++ suitable Wiese oe \( ..< Kaktus ``` : #
+[] << erlitten Geometer \) % Diktatur juice ] ~~~
+!! amtieren ( Straße dt \ != Cyber Norm \\
+= erwachsene Symbol Landtag \% Koexistenz nb warm Mädchen Höfe
+beobachten // Apfel Erlösung [^] flags Küche Bett -= erwache
+''' ; %% \_ Kahn Amtsstube Wasser -- ]] >
+Müde () größer eons \& __ verwandt """ [ Nacht
++= Schritt \# |= "" hn Schule ? Wolke System
+$$ Einbau } Baum Systeme & ü \$ heiß |=
+&= Buch Glas => >= {} wohnen .. ++ anbei
+&& ~~ _ Mohn dogs ! eosin ß mugs erlaubt
+Koeln guide - Energy \n erleben $ aktuell {{ schreiben
+Diktat \[ Vogel * Iunius %s kt >> Kind ::
+. , umbringt Sohn Fenster Hahn Amboss ö rm Amt
+Ruine bugs Maschine iu rl / Analyse ** Käse erwartung
+" <= !? ## erwartet Biology ?. equinoctium '' Amtsblatt
+Anbau build /// Hand ) /* cy Koeffizient eo Cyclist
+schön Haus Handtuch \^ ~ Wärme ` Bicycle erlöst Maus
+Gymnasium Hüpfen \] Vögel Hände { ### Morgen ./ Küsse
+Licht ui \} ä Geometrie | Schrift \{ grüßen gy
+Ruinen Kombination € &= während == bags */ --- <
+<- Formel Kombi suit @ }} Hütte
 ```
 
-## Stufe 9 — + a1-Bigramme (5 Runden · 895 Tokens · 3729 Zeichen)
+## Stufe R1 — Symbole kompakt (12 Runden · 1476 Tokens · 4091 Zeichen)
 
 ```
-### = Amt Maschine \) << Höhlen $$ & ]
-\$ Wasser [ "" ..< ]] ß amtieren &= ?:
-{} ~~~ Nacht dt Baum += ;; Hand eo |
-@ ? '' Bett {{ ./ ' \} <= <
-\] |= rl cy Fenster \% ~ :: ´ >>
-\n ?. Amtsstube Hände ü () && Hütte $ ~~
-umbringt } -- ui Wolke , \\ Hüpfen bugs */
-\^ Straße erwartung [[ \( }} ++ Schule Glas Vogel
-! Buch %% Analyse Küche ^= ` \ -> \&
-grüßen hn \[ Symbol ^ Mädchen € mugs dogs !=
-Vögel %s Schritt Kombi - _ ''' + Küsse heiß
-ä => tags --- ( erwachsene !? erwache Systeme bags
-Wind Käse \t \_ ** Müde Schrift -= * ...
-schön /* [] Tanne <- { // >= flags :
-während > . __ == """ Licht Maus Haus ||
-`` \# Morgen ) Höfe .. Amtsblatt schreiben Apfel !!
-/ " größer Hund \{ Amboss % # ``` Kind
-; Wiese Kombination /// ö System ## erwartet [^]
-### = Amt Maschine \) << Höhlen $$ & ]
-\$ Wasser [ "" ..< ]] ß amtieren &= ?:
-{} ~~~ Nacht dt Baum += ;; Hand eo |
-@ ? '' Bett {{ ./ ' \} <= <
-\] |= rl cy Fenster \% ~ :: ´ >>
-\n ?. Amtsstube Hände ü () && Hütte $ ~~
-umbringt } -- ui Wolke , \\ Hüpfen bugs */
-\^ Straße erwartung [[ \( }} ++ Schule Glas Vogel
-! Buch %% Analyse Küche ^= ` \ -> \&
-grüßen hn \[ Symbol ^ Mädchen € mugs dogs !=
-Vögel %s Schritt Kombi - _ ''' + Küsse heiß
-ä => tags --- ( erwachsene !? erwache Systeme bags
-Wind Käse \t \_ ** Müde Schrift -= * ...
-schön /* [] Tanne <- { // >= flags :
-während > . __ == """ Licht Maus Haus ||
-`` \# Morgen ) Höfe .. Amtsblatt schreiben Apfel !!
-/ " größer Hund \{ Amboss % # ``` Kind
-; Wiese Kombination /// ö System ## erwartet [^]
-### = Amt Maschine \) << Höhlen $$ & ]
-\$ Wasser [ "" ..< ]] ß amtieren &= ?:
-{} ~~~ Nacht dt Baum += ;; Hand eo |
-@ ? '' Bett {{ ./ ' \} <= <
-\] |= rl cy Fenster \% ~ :: ´ >>
-\n ?. Amtsstube Hände ü () && Hütte $ ~~
-umbringt } -- ui Wolke , \\ Hüpfen bugs */
-\^ Straße erwartung [[ \( }} ++ Schule Glas Vogel
-! Buch %% Analyse Küche ^= ` \ -> \&
-grüßen hn \[ Symbol ^ Mädchen € mugs dogs !=
-Vögel %s Schritt Kombi - _ ''' + Küsse heiß
-ä => tags --- ( erwachsene !? erwache Systeme bags
-Wind Käse \t \_ ** Müde Schrift -= * ...
-schön /* [] Tanne <- { // >= flags :
-während > . __ == """ Licht Maus Haus ||
-`` \# Morgen ) Höfe .. Amtsblatt schreiben Apfel !!
-/ " größer Hund \{ Amboss % # ``` Kind
-; Wiese Kombination /// ö System ## erwartet [^]
-### = Amt Maschine \) << Höhlen $$ & ]
-\$ Wasser [ "" ..< ]] ß amtieren &= ?:
-{} ~~~ Nacht dt Baum += ;; Hand eo |
-@ ? '' Bett {{ ./ ' \} <= <
-\] |= rl cy Fenster \% ~ :: ´ >>
-\n ?. Amtsstube Hände ü () && Hütte $ ~~
-umbringt } -- ui Wolke , \\ Hüpfen bugs */
-\^ Straße erwartung [[ \( }} ++ Schule Glas Vogel
-! Buch %% Analyse Küche ^= ` \ -> \&
-grüßen hn \[ Symbol ^ Mädchen € mugs dogs !=
-Vögel %s Schritt Kombi - _ ''' + Küsse heiß
-ä => tags --- ( erwachsene !? erwache Systeme bags
-Wind Käse \t \_ ** Müde Schrift -= * ...
-schön /* [] Tanne <- { // >= flags :
-während > . __ == """ Licht Maus Haus ||
-`` \# Morgen ) Höfe .. Amtsblatt schreiben Apfel !!
-/ " größer Hund \{ Amboss % # ``` Kind
-; Wiese Kombination /// ö System ## erwartet [^]
-### = Amt Maschine \) << Höhlen $$ & ]
-\$ Wasser [ "" ..< ]] ß amtieren &= ?:
-{} ~~~ Nacht dt Baum += ;; Hand eo |
-@ ? '' Bett {{ ./ ' \} <= <
-\] |= rl cy Fenster \% ~ :: ´ >>
-\n ?. Amtsstube Hände ü () && Hütte $ ~~
-umbringt } -- ui Wolke , \\ Hüpfen bugs */
-\^ Straße erwartung [[ \( }} ++ Schule Glas Vogel
-! Buch %% Analyse Küche ^= ` \ -> \&
-grüßen hn \[ Symbol ^ Mädchen € mugs dogs !=
-Vögel %s Schritt Kombi - _ ''' + Küsse heiß
-ä => tags --- ( erwachsene !? erwache Systeme bags
-Wind Käse \t \_ ** Müde Schrift -= * ...
-schön /* [] Tanne <- { // >= flags :
-während > . __ == """ Licht Maus Haus ||
-`` \# Morgen ) Höfe .. Amtsblatt schreiben Apfel !!
-/ " größer Hund \{ Amboss % # ``` Kind
-; Wiese Kombination /// ö System ## erwartet [^]
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
+<- ``` } ? eo &= [ [[ ä =>
+&& ..< ~~ /// ; hn - \) %% """
+kt ?. */ nb / { ´ ### == %s
+'' .. \_ += > : $$ + ++ &=
+' ?: <= @ ~~~ {{ \[ iu -- -=
+>= \\ "" |= < = * _ , \{
+\# \] ü ui !! |= << ^ \& "
+. & ^= ]] | $ }} ] cy `
+./ || [^] () \} --- \t rl -> gy
+// ~ ** \n ( !? __ ''' \$ ö
+:: \% \ >> /* ß \( ) ! €
+oe rm != dt {} # [] `` ;; ##
+... % \^
 ```
 
-## Stufe 10 — + a2-Bigramme (2 Runden · 556 Tokens · 2813 Zeichen)
+## Stufe R2 — Operatoren (6 Runden · 888 Tokens · 4079 Zeichen)
 
 ```
-$$ \_ verwandt Nacht Baum ` } Analyse -> eons
-Hand Hüpfen < Maus Kombination ?: grüßen += Handtuch juice
-\t Höfe ``` tags == System \n Straße ; [^]
-cy Geometer ''' &= Schrift Buch \[ ~~ \ ,
-Vogel \& Cyclist Schritt erwartet Fenster Landtag schön beobachten Ruinen
-€ Apfel [ Tanne ? während @ Bett rm (
-schreiben %s Kombi Schritt \\ gy Vögel suit * |
-]] -= Küsse schreiben - flags // ö kt {}
-Kind Morgen ... Schule Amtsstube ) Hund .. wohnen ++
-:: Kombi heiß Wasser Müde ^ ## ;; mugs ~
-}} Schrift Hahn Symbol Höfe Haus umbringt Buch || Hund
-Vogel oe & Wiese . ß /* __ Erlösung !=
-\{ Tanne $ ~~~ Fenster " Höhlen dogs Hütte Bicycle
-erlitten tags \^ = Baum `` Müde erwache schön \(
-/ \% erlaubt Sohn Wind Maschine Bett Vögel Kind **
-Amtsblatt % -- Amboss \] Mohn Kahn Licht !! Amtsstube
-Käse erwachsene suitable ^= eo Systeme [[ eosin [] ..<
-rl größer Wasser >= <= Straße << |= umbringt #
-ui System Glas () Wolke Hüpfen Hände */ Glas Amt
-Apfel \} + flags bugs !? ./ erlöst > bugs
-Nacht ### erleben Wiese während Amtsblatt Analyse nb Maus _
-heiß amtieren Hand erwartung Licht Mädchen <- --- \$ Hütte
-erwache amtieren Höhlen erwartet ' Wind """ bags Hände \)
-iu dogs ?. build => Käse Küche Morgen Küche grüßen
-{{ Wolke Amboss Systeme erwartung erwachsene Kombination Cyber ä Küsse
-'' ´ { >> guide && Schule Haus Beobachtung hn
-"" größer dt mugs ] Ruine Symbol %% Amt \#
-: Geometrie Maschine Mädchen /// ! bags ü
-$$ \_ verwandt Nacht Baum ` } Analyse -> eons
-Hand Hüpfen < Maus Kombination ?: grüßen += Handtuch juice
-\t Höfe ``` tags == System \n Straße ; [^]
-cy Geometer ''' &= Schrift Buch \[ ~~ \ ,
-Vogel \& Cyclist Schritt erwartet Fenster Landtag schön beobachten Ruinen
-€ Apfel [ Tanne ? während @ Bett rm (
-schreiben %s Kombi Schritt \\ gy Vögel suit * |
-]] -= Küsse schreiben - flags // ö kt {}
-Kind Morgen ... Schule Amtsstube ) Hund .. wohnen ++
-:: Kombi heiß Wasser Müde ^ ## ;; mugs ~
-}} Schrift Hahn Symbol Höfe Haus umbringt Buch || Hund
-Vogel oe & Wiese . ß /* __ Erlösung !=
-\{ Tanne $ ~~~ Fenster " Höhlen dogs Hütte Bicycle
-erlitten tags \^ = Baum `` Müde erwache schön \(
-/ \% erlaubt Sohn Wind Maschine Bett Vögel Kind **
-Amtsblatt % -- Amboss \] Mohn Kahn Licht !! Amtsstube
-Käse erwachsene suitable ^= eo Systeme [[ eosin [] ..<
-rl größer Wasser >= <= Straße << |= umbringt #
-ui System Glas () Wolke Hüpfen Hände */ Glas Amt
-Apfel \} + flags bugs !? ./ erlöst > bugs
-Nacht ### erleben Wiese während Amtsblatt Analyse nb Maus _
-heiß amtieren Hand erwartung Licht Mädchen <- --- \$ Hütte
-erwache amtieren Höhlen erwartet ' Wind """ bags Hände \)
-iu dogs ?. build => Käse Küche Morgen Küche grüßen
-{{ Wolke Amboss Systeme erwartung erwachsene Kombination Cyber ä Küsse
-'' ´ { >> guide && Schule Haus Beobachtung hn
-"" größer dt mugs ] Ruine Symbol %% Amt \#
-: Geometrie Maschine Mädchen /// ! bags ü
+bags @ ## Hütte \^ --- % Hund mugs \]
+Wasser schreiben Vögel flags () größer Hand Käse */ Haus
+\\ tags Kind ^= erwache Hüpfen \# -= <= ?.
+-> Apfel Baum ''' >> !! ;; /// Systeme /*
+Amt \} € :: %s << Vogel => Analyse ~~
+Schritt .. \ Hände dogs [^] Wiese Wolke Symbol {}
+"" ?: ** Glas == // während $$ ./ &
+Licht Küsse \n Tanne != Schule | # Amtsblatt !?
+erwartet ^ Fenster || """ |= \_ ]] '' Amtsstube
+..< %% += \( Straße heiß erwartung erwachsene }} \{
+Maus ``` grüßen &= &= $ Schrift ` bugs ++
+<- Kombination umbringt Buch Morgen [] \t [[ {{ amtieren
+Müde -- Maschine `` Bett >= ~~~ ~ System Nacht
+... \$ Mädchen Amboss ### Wind Höhlen |= Küche Höfe
+\% \[ && __ schön Kombi \& \)
+bags @ ## Hütte \^ --- % Hund mugs \]
+Wasser schreiben Vögel flags () größer Hand Käse */ Haus
+\\ tags Kind ^= erwache Hüpfen \# -= <= ?.
+-> Apfel Baum ''' >> !! ;; /// Systeme /*
+Amt \} € :: %s << Vogel => Analyse ~~
+Schritt .. \ Hände dogs [^] Wiese Wolke Symbol {}
+"" ?: ** Glas == // während $$ ./ &
+Licht Küsse \n Tanne != Schule | # Amtsblatt !?
+erwartet ^ Fenster || """ |= \_ ]] '' Amtsstube
+..< %% += \( Straße heiß erwartung erwachsene }} \{
+Maus ``` grüßen &= &= $ Schrift ` bugs ++
+<- Kombination umbringt Buch Morgen [] \t [[ {{ amtieren
+Müde -- Maschine `` Bett >= ~~~ ~ System Nacht
+... \$ Mädchen Amboss ### Wind Höhlen |= Küche Höfe
+\% \[ && __ schön Kombi \& \)
+bags @ ## Hütte \^ --- % Hund mugs \]
+Wasser schreiben Vögel flags () größer Hand Käse */ Haus
+\\ tags Kind ^= erwache Hüpfen \# -= <= ?.
+-> Apfel Baum ''' >> !! ;; /// Systeme /*
+Amt \} € :: %s << Vogel => Analyse ~~
+Schritt .. \ Hände dogs [^] Wiese Wolke Symbol {}
+"" ?: ** Glas == // während $$ ./ &
+Licht Küsse \n Tanne != Schule | # Amtsblatt !?
+erwartet ^ Fenster || """ |= \_ ]] '' Amtsstube
+..< %% += \( Straße heiß erwartung erwachsene }} \{
+Maus ``` grüßen &= &= $ Schrift ` bugs ++
+<- Kombination umbringt Buch Morgen [] \t [[ {{ amtieren
+Müde -- Maschine `` Bett >= ~~~ ~ System Nacht
+... \$ Mädchen Amboss ### Wind Höhlen |= Küche Höfe
+\% \[ && __ schön Kombi \& \)
+bags @ ## Hütte \^ --- % Hund mugs \]
+Wasser schreiben Vögel flags () größer Hand Käse */ Haus
+\\ tags Kind ^= erwache Hüpfen \# -= <= ?.
+-> Apfel Baum ''' >> !! ;; /// Systeme /*
+Amt \} € :: %s << Vogel => Analyse ~~
+Schritt .. \ Hände dogs [^] Wiese Wolke Symbol {}
+"" ?: ** Glas == // während $$ ./ &
+Licht Küsse \n Tanne != Schule | # Amtsblatt !?
+erwartet ^ Fenster || """ |= \_ ]] '' Amtsstube
+..< %% += \( Straße heiß erwartung erwachsene }} \{
+Maus ``` grüßen &= &= $ Schrift ` bugs ++
+<- Kombination umbringt Buch Morgen [] \t [[ {{ amtieren
+Müde -- Maschine `` Bett >= ~~~ ~ System Nacht
+... \$ Mädchen Amboss ### Wind Höhlen |= Küche Höfe
+\% \[ && __ schön Kombi \& \)
+bags @ ## Hütte \^ --- % Hund mugs \]
+Wasser schreiben Vögel flags () größer Hand Käse */ Haus
+\\ tags Kind ^= erwache Hüpfen \# -= <= ?.
+-> Apfel Baum ''' >> !! ;; /// Systeme /*
+Amt \} € :: %s << Vogel => Analyse ~~
+Schritt .. \ Hände dogs [^] Wiese Wolke Symbol {}
+"" ?: ** Glas == // während $$ ./ &
+Licht Küsse \n Tanne != Schule | # Amtsblatt !?
+erwartet ^ Fenster || """ |= \_ ]] '' Amtsstube
+..< %% += \( Straße heiß erwartung erwachsene }} \{
+Maus ``` grüßen &= &= $ Schrift ` bugs ++
+<- Kombination umbringt Buch Morgen [] \t [[ {{ amtieren
+Müde -- Maschine `` Bett >= ~~~ ~ System Nacht
+... \$ Mädchen Amboss ### Wind Höhlen |= Küche Höfe
+\% \[ && __ schön Kombi \& \)
+bags @ ## Hütte \^ --- % Hund mugs \]
+Wasser schreiben Vögel flags () größer Hand Käse */ Haus
+\\ tags Kind ^= erwache Hüpfen \# -= <= ?.
+-> Apfel Baum ''' >> !! ;; /// Systeme /*
+Amt \} € :: %s << Vogel => Analyse ~~
+Schritt .. \ Hände dogs [^] Wiese Wolke Symbol {}
+"" ?: ** Glas == // während $$ ./ &
+Licht Küsse \n Tanne != Schule | # Amtsblatt !?
+erwartet ^ Fenster || """ |= \_ ]] '' Amtsstube
+..< %% += \( Straße heiß erwartung erwachsene }} \{
+Maus ``` grüßen &= &= $ Schrift ` bugs ++
+<- Kombination umbringt Buch Morgen [] \t [[ {{ amtieren
+Müde -- Maschine `` Bett >= ~~~ ~ System Nacht
+... \$ Mädchen Amboss ### Wind Höhlen |= Küche Höfe
+\% \[ && __ schön Kombi \& \)
 ```
 
-## Stufe 11 — Wörter (5 Runden · 570 Tokens · 4019 Zeichen)
+## Stufe W — Wörter (5 Runden · 570 Tokens · 4019 Zeichen)
 
 ```
-erleben Landtag Iunius Haus dogs Symbol Erlösung Energy Müde Amboss
-bags Apfel Koeln flags Maus Käse Fenster beobachten guide Anbau
-schreiben suitable Ruinen eosin Diktatur Kombination amtieren Wärme Iulius suit
-mugs Amt Amtsstube erwachsene aktuell erlöst System Wiese Geometrie erlitten
-Vogel Kind heiß equinoctium Gymnasium Hand Kombi Amtsblatt wohnen Höfe
-während Beobachtung Kontakt Systeme Tanne Wind Morgen Schrift Straße Mohn
-erwartet Schule Wasser erwartung Kaktus Cyclist anbei Norm größer Handtuch
-Hände Schritt umbringt Nacht Diktat Formel Küsse Koeffizient Hütte erlaubt
-Sohn grüßen Bicycle Cyber Buch Geometer erwache schön Wolke build
-tags Koexistenz eons Höhlen Küche Licht Analyse bugs Baum juice
-Hüpfen Glas Kahn Vögel Ruine Bett warm verwandt Hund Maschine
-Biology Mädchen Hahn Einbau
-erleben Landtag Iunius Haus dogs Symbol Erlösung Energy Müde Amboss
-bags Apfel Koeln flags Maus Käse Fenster beobachten guide Anbau
-schreiben suitable Ruinen eosin Diktatur Kombination amtieren Wärme Iulius suit
-mugs Amt Amtsstube erwachsene aktuell erlöst System Wiese Geometrie erlitten
-Vogel Kind heiß equinoctium Gymnasium Hand Kombi Amtsblatt wohnen Höfe
-während Beobachtung Kontakt Systeme Tanne Wind Morgen Schrift Straße Mohn
-erwartet Schule Wasser erwartung Kaktus Cyclist anbei Norm größer Handtuch
-Hände Schritt umbringt Nacht Diktat Formel Küsse Koeffizient Hütte erlaubt
-Sohn grüßen Bicycle Cyber Buch Geometer erwache schön Wolke build
-tags Koexistenz eons Höhlen Küche Licht Analyse bugs Baum juice
-Hüpfen Glas Kahn Vögel Ruine Bett warm verwandt Hund Maschine
-Biology Mädchen Hahn Einbau
-erleben Landtag Iunius Haus dogs Symbol Erlösung Energy Müde Amboss
-bags Apfel Koeln flags Maus Käse Fenster beobachten guide Anbau
-schreiben suitable Ruinen eosin Diktatur Kombination amtieren Wärme Iulius suit
-mugs Amt Amtsstube erwachsene aktuell erlöst System Wiese Geometrie erlitten
-Vogel Kind heiß equinoctium Gymnasium Hand Kombi Amtsblatt wohnen Höfe
-während Beobachtung Kontakt Systeme Tanne Wind Morgen Schrift Straße Mohn
-erwartet Schule Wasser erwartung Kaktus Cyclist anbei Norm größer Handtuch
-Hände Schritt umbringt Nacht Diktat Formel Küsse Koeffizient Hütte erlaubt
-Sohn grüßen Bicycle Cyber Buch Geometer erwache schön Wolke build
-tags Koexistenz eons Höhlen Küche Licht Analyse bugs Baum juice
-Hüpfen Glas Kahn Vögel Ruine Bett warm verwandt Hund Maschine
-Biology Mädchen Hahn Einbau
-erleben Landtag Iunius Haus dogs Symbol Erlösung Energy Müde Amboss
-bags Apfel Koeln flags Maus Käse Fenster beobachten guide Anbau
-schreiben suitable Ruinen eosin Diktatur Kombination amtieren Wärme Iulius suit
-mugs Amt Amtsstube erwachsene aktuell erlöst System Wiese Geometrie erlitten
-Vogel Kind heiß equinoctium Gymnasium Hand Kombi Amtsblatt wohnen Höfe
-während Beobachtung Kontakt Systeme Tanne Wind Morgen Schrift Straße Mohn
-erwartet Schule Wasser erwartung Kaktus Cyclist anbei Norm größer Handtuch
-Hände Schritt umbringt Nacht Diktat Formel Küsse Koeffizient Hütte erlaubt
-Sohn grüßen Bicycle Cyber Buch Geometer erwache schön Wolke build
-tags Koexistenz eons Höhlen Küche Licht Analyse bugs Baum juice
-Hüpfen Glas Kahn Vögel Ruine Bett warm verwandt Hund Maschine
-Biology Mädchen Hahn Einbau
-erleben Landtag Iunius Haus dogs Symbol Erlösung Energy Müde Amboss
-bags Apfel Koeln flags Maus Käse Fenster beobachten guide Anbau
-schreiben suitable Ruinen eosin Diktatur Kombination amtieren Wärme Iulius suit
-mugs Amt Amtsstube erwachsene aktuell erlöst System Wiese Geometrie erlitten
-Vogel Kind heiß equinoctium Gymnasium Hand Kombi Amtsblatt wohnen Höfe
-während Beobachtung Kontakt Systeme Tanne Wind Morgen Schrift Straße Mohn
-erwartet Schule Wasser erwartung Kaktus Cyclist anbei Norm größer Handtuch
-Hände Schritt umbringt Nacht Diktat Formel Küsse Koeffizient Hütte erlaubt
-Sohn grüßen Bicycle Cyber Buch Geometer erwache schön Wolke build
-tags Koexistenz eons Höhlen Küche Licht Analyse bugs Baum juice
-Hüpfen Glas Kahn Vögel Ruine Bett warm verwandt Hund Maschine
-Biology Mädchen Hahn Einbau
-```
-
-## Stufe 12 — Vollpass (3 Runden · 705 Tokens · 3416 Zeichen)
-
-```
-Licht ^= suitable Amboss grüßen &= erwartung dogs Kaktus während
-%s bags {} . "" iu Norm \_ ``` `
---- Schritt << Tanne Amtsstube Hütte amtieren hn , schön
-dt Glas & ** $$ \# Haus ö ' @
-verwandt Gymnasium Höhlen Mädchen Kontakt Erlösung -= Kombination erwache --
-() >> Koeln Iulius Vögel / Schule && Baum ..<
-/// cy ? Höfe ] : [ [^] Bicycle ||
-\) Einbau Ruine eo schreiben Morgen Straße \n Wasser +
-__ erlöst Energy """ Hüpfen Hand < equinoctium = //
-suit Landtag Iunius größer Fenster anbei ?. beobachten Beobachtung /*
-\$ \^ \\ ! " umbringt ui `` warm !=
-./ Analyse Kombi Maus ü Geometrie => Geometer } Nacht
-* Hahn gy ]] erwachsene Küche Maschine # erleben kt
-Schrift nb \] ´ Handtuch Mohn !! Sohn ) ~~
-Vogel [[ |= heiß erwartet Systeme eons Ruinen Formel Koexistenz
-}} > flags += {{ \ ?: Kind rl Diktatur
-{ ^ Cyber -> \( Buch Müde Symbol erlaubt ...
-%% ä tags Diktat \& $ eosin \% Bett Hund
-~ Wiese :: Käse Cyclist \} ; \{ guide Anbau
-'' Kahn Amtsblatt Apfel Küsse _ >= oe System juice
-== mugs \t \[ <= ''' Biology ß rm Wolke
-!? */ Koeffizient Wärme wohnen [] ### ++ Wind (
-aktuell ## € bugs build | % - ~~~ <-
-.. ;; Hände Amt erlitten
-Licht ^= suitable Amboss grüßen &= erwartung dogs Kaktus während
-%s bags {} . "" iu Norm \_ ``` `
---- Schritt << Tanne Amtsstube Hütte amtieren hn , schön
-dt Glas & ** $$ \# Haus ö ' @
-verwandt Gymnasium Höhlen Mädchen Kontakt Erlösung -= Kombination erwache --
-() >> Koeln Iulius Vögel / Schule && Baum ..<
-/// cy ? Höfe ] : [ [^] Bicycle ||
-\) Einbau Ruine eo schreiben Morgen Straße \n Wasser +
-__ erlöst Energy """ Hüpfen Hand < equinoctium = //
-suit Landtag Iunius größer Fenster anbei ?. beobachten Beobachtung /*
-\$ \^ \\ ! " umbringt ui `` warm !=
-./ Analyse Kombi Maus ü Geometrie => Geometer } Nacht
-* Hahn gy ]] erwachsene Küche Maschine # erleben kt
-Schrift nb \] ´ Handtuch Mohn !! Sohn ) ~~
-Vogel [[ |= heiß erwartet Systeme eons Ruinen Formel Koexistenz
-}} > flags += {{ \ ?: Kind rl Diktatur
-{ ^ Cyber -> \( Buch Müde Symbol erlaubt ...
-%% ä tags Diktat \& $ eosin \% Bett Hund
-~ Wiese :: Käse Cyclist \} ; \{ guide Anbau
-'' Kahn Amtsblatt Apfel Küsse _ >= oe System juice
-== mugs \t \[ <= ''' Biology ß rm Wolke
-!? */ Koeffizient Wärme wohnen [] ### ++ Wind (
-aktuell ## € bugs build | % - ~~~ <-
-.. ;; Hände Amt erlitten
-Licht ^= suitable Amboss grüßen &= erwartung dogs Kaktus während
-%s bags {} . "" iu Norm \_ ``` `
---- Schritt << Tanne Amtsstube Hütte amtieren hn , schön
-dt Glas & ** $$ \# Haus ö ' @
-verwandt Gymnasium Höhlen Mädchen Kontakt Erlösung -= Kombination erwache --
-() >> Koeln Iulius Vögel / Schule && Baum ..<
-/// cy ? Höfe ] : [ [^] Bicycle ||
-\) Einbau Ruine eo schreiben Morgen Straße \n Wasser +
-__ erlöst Energy """ Hüpfen Hand < equinoctium = //
-suit Landtag Iunius größer Fenster anbei ?. beobachten Beobachtung /*
-\$ \^ \\ ! " umbringt ui `` warm !=
-./ Analyse Kombi Maus ü Geometrie => Geometer } Nacht
-* Hahn gy ]] erwachsene Küche Maschine # erleben kt
-Schrift nb \] ´ Handtuch Mohn !! Sohn ) ~~
-Vogel [[ |= heiß erwartet Systeme eons Ruinen Formel Koexistenz
-}} > flags += {{ \ ?: Kind rl Diktatur
-{ ^ Cyber -> \( Buch Müde Symbol erlaubt ...
-%% ä tags Diktat \& $ eosin \% Bett Hund
-~ Wiese :: Käse Cyclist \} ; \{ guide Anbau
-'' Kahn Amtsblatt Apfel Küsse _ >= oe System juice
-== mugs \t \[ <= ''' Biology ß rm Wolke
-!? */ Koeffizient Wärme wohnen [] ### ++ Wind (
-aktuell ## € bugs build | % - ~~~ <-
-.. ;; Hände Amt erlitten
-```
-
-## Stufe R1 — Remix Operatoren (6 Runden · 798 Tokens · 3869 Zeichen)
-
-```
-:: .. => \[ != Haus Höfe grüßen Symbol {}
-""" >> \$ \& erwachsene Baum umbringt erwartet }} &=
-Mädchen mugs ++ () %% [^] Amboss // \) Käse
-/* Morgen */ \# ~~ Analyse Maus erwache ~~~ ---
-\] Buch ## ... Maschine Fenster {{ <= \\ ?:
-`` ''' -= erwartung Vogel ;; flags ### __ Müde
-Hüpfen |= /// \{ Schrift schön Schule Tanne ** Küche
-!? Bett Licht <- ..< dogs Nacht "" Kombi +=
-Hand && bugs System '' $$ Glas Systeme \} heiß
-Hütte ``` || [] Küsse Amtsblatt \t \_ bags Höhlen
-während Schritt << schreiben [[ ]] Apfel == Amt amtieren
-Wiese -> Hund € Wind \n größer \% Wolke !!
-Kind -- >= ?. Wasser tags Kombination Vögel Amtsstube ^=
-Hände \^ Straße
-:: .. => \[ != Haus Höfe grüßen Symbol {}
-""" >> \$ \& erwachsene Baum umbringt erwartet }} &=
-Mädchen mugs ++ () %% [^] Amboss // \) Käse
-/* Morgen */ \# ~~ Analyse Maus erwache ~~~ ---
-\] Buch ## ... Maschine Fenster {{ <= \\ ?:
-`` ''' -= erwartung Vogel ;; flags ### __ Müde
-Hüpfen |= /// \{ Schrift schön Schule Tanne ** Küche
-!? Bett Licht <- ..< dogs Nacht "" Kombi +=
-Hand && bugs System '' $$ Glas Systeme \} heiß
-Hütte ``` || [] Küsse Amtsblatt \t \_ bags Höhlen
-während Schritt << schreiben [[ ]] Apfel == Amt amtieren
-Wiese -> Hund € Wind \n größer \% Wolke !!
-Kind -- >= ?. Wasser tags Kombination Vögel Amtsstube ^=
-Hände \^ Straße
-:: .. => \[ != Haus Höfe grüßen Symbol {}
-""" >> \$ \& erwachsene Baum umbringt erwartet }} &=
-Mädchen mugs ++ () %% [^] Amboss // \) Käse
-/* Morgen */ \# ~~ Analyse Maus erwache ~~~ ---
-\] Buch ## ... Maschine Fenster {{ <= \\ ?:
-`` ''' -= erwartung Vogel ;; flags ### __ Müde
-Hüpfen |= /// \{ Schrift schön Schule Tanne ** Küche
-!? Bett Licht <- ..< dogs Nacht "" Kombi +=
-Hand && bugs System '' $$ Glas Systeme \} heiß
-Hütte ``` || [] Küsse Amtsblatt \t \_ bags Höhlen
-während Schritt << schreiben [[ ]] Apfel == Amt amtieren
-Wiese -> Hund € Wind \n größer \% Wolke !!
-Kind -- >= ?. Wasser tags Kombination Vögel Amtsstube ^=
-Hände \^ Straße
-:: .. => \[ != Haus Höfe grüßen Symbol {}
-""" >> \$ \& erwachsene Baum umbringt erwartet }} &=
-Mädchen mugs ++ () %% [^] Amboss // \) Käse
-/* Morgen */ \# ~~ Analyse Maus erwache ~~~ ---
-\] Buch ## ... Maschine Fenster {{ <= \\ ?:
-`` ''' -= erwartung Vogel ;; flags ### __ Müde
-Hüpfen |= /// \{ Schrift schön Schule Tanne ** Küche
-!? Bett Licht <- ..< dogs Nacht "" Kombi +=
-Hand && bugs System '' $$ Glas Systeme \} heiß
-Hütte ``` || [] Küsse Amtsblatt \t \_ bags Höhlen
-während Schritt << schreiben [[ ]] Apfel == Amt amtieren
-Wiese -> Hund € Wind \n größer \% Wolke !!
-Kind -- >= ?. Wasser tags Kombination Vögel Amtsstube ^=
-Hände \^ Straße
-:: .. => \[ != Haus Höfe grüßen Symbol {}
-""" >> \$ \& erwachsene Baum umbringt erwartet }} &=
-Mädchen mugs ++ () %% [^] Amboss // \) Käse
-/* Morgen */ \# ~~ Analyse Maus erwache ~~~ ---
-\] Buch ## ... Maschine Fenster {{ <= \\ ?:
-`` ''' -= erwartung Vogel ;; flags ### __ Müde
-Hüpfen |= /// \{ Schrift schön Schule Tanne ** Küche
-!? Bett Licht <- ..< dogs Nacht "" Kombi +=
-Hand && bugs System '' $$ Glas Systeme \} heiß
-Hütte ``` || [] Küsse Amtsblatt \t \_ bags Höhlen
-während Schritt << schreiben [[ ]] Apfel == Amt amtieren
-Wiese -> Hund € Wind \n größer \% Wolke !!
-Kind -- >= ?. Wasser tags Kombination Vögel Amtsstube ^=
-Hände \^ Straße
-:: .. => \[ != Haus Höfe grüßen Symbol {}
-""" >> \$ \& erwachsene Baum umbringt erwartet }} &=
-Mädchen mugs ++ () %% [^] Amboss // \) Käse
-/* Morgen */ \# ~~ Analyse Maus erwache ~~~ ---
-\] Buch ## ... Maschine Fenster {{ <= \\ ?:
-`` ''' -= erwartung Vogel ;; flags ### __ Müde
-Hüpfen |= /// \{ Schrift schön Schule Tanne ** Küche
-!? Bett Licht <- ..< dogs Nacht "" Kombi +=
-Hand && bugs System '' $$ Glas Systeme \} heiß
-Hütte ``` || [] Küsse Amtsblatt \t \_ bags Höhlen
-während Schritt << schreiben [[ ]] Apfel == Amt amtieren
-Wiese -> Hund € Wind \n größer \% Wolke !!
-Kind -- >= ?. Wasser tags Kombination Vögel Amtsstube ^=
-Hände \^ Straße
-```
-
-## Stufe R2 — Remix Symbole (35 Runden · 1820 Tokens · 4164 Zeichen)
-
-```
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
-[ iu ´ : = ! # } ui rm
-_ ä & ~ \ @ + * % ?
-$ . nb \( > | / %s " `
-^ dt ; cy hn ö eo ./ gy ,
-ü kt ] ( < - oe ß rl '
-) {
+Maschine Diktatur Koeffizient Bett erwartet Kahn erlitten Wind Mädchen equinoctium
+Iulius eosin bags erwartung Hund Höfe Hand Kontakt Norm Symbol
+Licht Erlösung Formel umbringt Handtuch Kombination Iunius bugs Hände aktuell
+amtieren Ruine tags Wärme Vögel Wiese Biology Sohn System Apfel
+Straße Nacht heiß Küche Landtag flags Kombi Amtsblatt suit Koexistenz
+Hahn grüßen Energy erwachsene Käse Geometer Müde verwandt Anbau Amboss
+Küsse Schule Höhlen Hüpfen Buch juice wohnen Schrift Baum schön
+schreiben erlöst Kaktus erwache Morgen Beobachtung anbei beobachten Fenster erleben
+Glas Einbau Hütte Analyse build Geometrie Gymnasium Cyclist warm Maus
+Diktat eons mugs dogs Mohn Haus Systeme Schritt während Wolke
+Cyber Bicycle Tanne Ruinen erlaubt Amt Vogel größer Amtsstube Wasser
+Koeln guide Kind suitable
+Maschine Diktatur Koeffizient Bett erwartet Kahn erlitten Wind Mädchen equinoctium
+Iulius eosin bags erwartung Hund Höfe Hand Kontakt Norm Symbol
+Licht Erlösung Formel umbringt Handtuch Kombination Iunius bugs Hände aktuell
+amtieren Ruine tags Wärme Vögel Wiese Biology Sohn System Apfel
+Straße Nacht heiß Küche Landtag flags Kombi Amtsblatt suit Koexistenz
+Hahn grüßen Energy erwachsene Käse Geometer Müde verwandt Anbau Amboss
+Küsse Schule Höhlen Hüpfen Buch juice wohnen Schrift Baum schön
+schreiben erlöst Kaktus erwache Morgen Beobachtung anbei beobachten Fenster erleben
+Glas Einbau Hütte Analyse build Geometrie Gymnasium Cyclist warm Maus
+Diktat eons mugs dogs Mohn Haus Systeme Schritt während Wolke
+Cyber Bicycle Tanne Ruinen erlaubt Amt Vogel größer Amtsstube Wasser
+Koeln guide Kind suitable
+Maschine Diktatur Koeffizient Bett erwartet Kahn erlitten Wind Mädchen equinoctium
+Iulius eosin bags erwartung Hund Höfe Hand Kontakt Norm Symbol
+Licht Erlösung Formel umbringt Handtuch Kombination Iunius bugs Hände aktuell
+amtieren Ruine tags Wärme Vögel Wiese Biology Sohn System Apfel
+Straße Nacht heiß Küche Landtag flags Kombi Amtsblatt suit Koexistenz
+Hahn grüßen Energy erwachsene Käse Geometer Müde verwandt Anbau Amboss
+Küsse Schule Höhlen Hüpfen Buch juice wohnen Schrift Baum schön
+schreiben erlöst Kaktus erwache Morgen Beobachtung anbei beobachten Fenster erleben
+Glas Einbau Hütte Analyse build Geometrie Gymnasium Cyclist warm Maus
+Diktat eons mugs dogs Mohn Haus Systeme Schritt während Wolke
+Cyber Bicycle Tanne Ruinen erlaubt Amt Vogel größer Amtsstube Wasser
+Koeln guide Kind suitable
+Maschine Diktatur Koeffizient Bett erwartet Kahn erlitten Wind Mädchen equinoctium
+Iulius eosin bags erwartung Hund Höfe Hand Kontakt Norm Symbol
+Licht Erlösung Formel umbringt Handtuch Kombination Iunius bugs Hände aktuell
+amtieren Ruine tags Wärme Vögel Wiese Biology Sohn System Apfel
+Straße Nacht heiß Küche Landtag flags Kombi Amtsblatt suit Koexistenz
+Hahn grüßen Energy erwachsene Käse Geometer Müde verwandt Anbau Amboss
+Küsse Schule Höhlen Hüpfen Buch juice wohnen Schrift Baum schön
+schreiben erlöst Kaktus erwache Morgen Beobachtung anbei beobachten Fenster erleben
+Glas Einbau Hütte Analyse build Geometrie Gymnasium Cyclist warm Maus
+Diktat eons mugs dogs Mohn Haus Systeme Schritt während Wolke
+Cyber Bicycle Tanne Ruinen erlaubt Amt Vogel größer Amtsstube Wasser
+Koeln guide Kind suitable
+Maschine Diktatur Koeffizient Bett erwartet Kahn erlitten Wind Mädchen equinoctium
+Iulius eosin bags erwartung Hund Höfe Hand Kontakt Norm Symbol
+Licht Erlösung Formel umbringt Handtuch Kombination Iunius bugs Hände aktuell
+amtieren Ruine tags Wärme Vögel Wiese Biology Sohn System Apfel
+Straße Nacht heiß Küche Landtag flags Kombi Amtsblatt suit Koexistenz
+Hahn grüßen Energy erwachsene Käse Geometer Müde verwandt Anbau Amboss
+Küsse Schule Höhlen Hüpfen Buch juice wohnen Schrift Baum schön
+schreiben erlöst Kaktus erwache Morgen Beobachtung anbei beobachten Fenster erleben
+Glas Einbau Hütte Analyse build Geometrie Gymnasium Cyclist warm Maus
+Diktat eons mugs dogs Mohn Haus Systeme Schritt während Wolke
+Cyber Bicycle Tanne Ruinen erlaubt Amt Vogel größer Amtsstube Wasser
+Koeln guide Kind suitable
 ```
