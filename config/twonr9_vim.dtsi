@@ -5,11 +5,12 @@
  * Scroll Lock -- none of which any OS drives on its own); the module decodes it and
  * activates the matching layer set. Code 0 (implicit) turns every managed layer off.
  *
- * Phase 1: the four layers are transparent, so nothing changes in behaviour and the
- * HUD can show them. Their keys are filled in next.
+ * normal and visual carry the commands; insert and cmdline stay transparent, so
+ * typing there is the base layout untouched.
  *
- * Keep these layers above the alphas but below nav/sym/fn/num/mouse in priority: they
- * only define what vim needs, and everything else falls through.
+ * They sit at 7-10, above nav/sym/fn/num/mouse: in normal/visual those layers are
+ * deliberately out of reach (hjkl replaces the arrows, the symbol chords replace
+ * the sym layer, counts come from the num thumb).
  */
 #include <dt-bindings/zmk/hid_usage.h>
 
@@ -32,20 +33,22 @@
     };
 };
 
+/* Bindings run in *position* order, which is what the macro cares about: top row
+ * 0-5 (L N D | Y O U), home row 6-13 (S R H T | C E I A), thumbs 14-17. Every key
+ * sends the letter the editor reads as a command; DE_Y is the German y (US Z
+ * position), so yank really types y on a German layout. */
 ZMK_LAYER(vim_normal,
-    &trans &trans &trans
-    &trans &trans &trans &trans
-    &trans &trans &trans
-    &trans &trans &trans &trans
-    &trans &trans &trans &trans
+    &kp DE_I    &kp DE_A    &kp DE_O      &kp DE_W    &kp DE_E    &kp DE_B
+    &kp DE_D    &kp DE_Y    &kp DE_C      &kp DE_V      &kp DE_H    &kp DE_J    &kp DE_K    &kp DE_L
+    &kp ESC     &kp DE_COLON &kp DE_FSLH  &mo L_NUM
 )
 
+/* Visual is normal with i/a/o replaced: they do nothing while selecting, and
+ * indent/toggle-case are what the same fingers reach for. */
 ZMK_LAYER(vim_visual,
-    &trans &trans &trans
-    &trans &trans &trans &trans
-    &trans &trans &trans
-    &trans &trans &trans &trans
-    &trans &trans &trans &trans
+    &kp DE_LT   &kp DE_GT   &kp DE_TILDE  &kp DE_W    &kp DE_E    &kp DE_B
+    &kp DE_D    &kp DE_Y    &kp DE_C      &kp DE_V      &kp DE_H    &kp DE_J    &kp DE_K    &kp DE_L
+    &kp ESC     &kp DE_COLON &kp DE_FSLH  &mo L_NUM
 )
 
 ZMK_LAYER(vim_insert,
