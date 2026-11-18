@@ -254,12 +254,18 @@ toggle case) — they do nothing while selecting.
 | `16` right inner | `/` | `vim_ops` |
 | `17` right outer | `.` | `num` — counts: `3j`, `4k`, `2dd` |
 
-**`vim_ops`** while holding `16`:
+**`vim_ops`** while holding `16` (`0` start · `$` end · `*` word · `n` next · `f` find · `t` till ·
+`u` undo · `p` paste · `x` delete char · `g` goto · `^` first non-blank · `zz` centre · `dd` delete
+line · `m` mark):
 
 ```
-      0   $   r   │  n   f   t
-      u   p   x   g  │  dd  yy  cc  gg
+      0   $   *   │  n   f   t
+      u   p   x   g  │  ^  zz  dd  m
 ```
+
+`yy`, `cc` and `gg` are not on it: pressing the letter twice is the same gesture vim asks for, and
+the four slots went to keys you cannot reach any other way. Uppercase (`P J G V A I O …`) comes
+from holding `14` for Shift, `%` from the num layer, brackets from the symbol chords.
 
 `diw`, `ci(`, `da"`, `f,`, `r;` all work unchanged: the symbol chords are live on the vim layers
 too, and they are the only way to type a bare `(`/`"` there (the sym layer sits below and is

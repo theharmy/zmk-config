@@ -334,8 +334,8 @@ layers:
     h: start
   - t: $
     h: end
-  - t: r
-    h: replace
+  - t: '*'
+    h: word
   - t: n
     h: next
   - t: f
@@ -350,14 +350,14 @@ layers:
     h: del char
   - t: g
     h: goto
+  - t: ^
+    h: first
+  - t: zz
+    h: center
   - t: dd
-    h: del line
-  - t: yy
-    h: yank line
-  - t: cc
-    h: chg line
-  - t: gg
-    h: top
+    h: line
+  - t: m
+    h: mark
   - ▽
   - ▽
   - ▽
