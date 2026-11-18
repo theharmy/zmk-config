@@ -77,6 +77,137 @@ layers:
     h: space
   - h: num word
     t: Num
+  vim_normal:
+  - t: i
+    h: insert
+  - t: a
+    h: append
+  - t: o
+    h: open
+  - w
+  - e
+  - b
+  - t: d
+    h: delete
+  - t: y
+    h: yank
+  - t: c
+    h: change
+  - t: v
+    h: visual
+  - h
+  - j
+  - k
+  - l
+  - t: Esc
+    h: Shift
+  - t: ':'
+    h: Ctrl
+  - t: /
+    h: ops
+  - t: .
+    h: Num
+  vim_visual:
+  - t: <
+    h: outdent
+  - t: '>'
+    h: indent
+  - t: '~'
+    h: case
+  - w
+  - e
+  - b
+  - t: d
+    h: delete
+  - t: y
+    h: yank
+  - t: c
+    h: change
+  - t: v
+    h: visual
+  - h
+  - j
+  - k
+  - l
+  - t: Esc
+    h: Shift
+  - t: ':'
+    h: Ctrl
+  - t: /
+    h: ops
+  - t: .
+    h: Num
+  vim_insert:
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  vim_cmdline:
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  - ▽
+  vim_ops:
+  - t: '0'
+    h: start
+  - t: $
+    h: end
+  - t: '*'
+    h: word
+  - t: n
+    h: next
+  - t: f
+    h: find
+  - t: t
+    h: till
+  - t: u
+    h: undo
+  - t: p
+    h: paste
+  - t: x
+    h: del char
+  - t: g
+    h: goto
+  - t: ^
+    h: first
+  - t: redo
+    h: ^R
+  - t: dd
+    h: line
+  - t: r
+    h: replace
+  - ▽
+  - ▽
+  - ▽
+  - ▽
   nav:
   - t: ⌥
   - t: ⌘
@@ -231,137 +362,6 @@ layers:
     h: left click
   - t: MB5
     h: forward
-  vim_normal:
-  - t: i
-    h: insert
-  - t: a
-    h: append
-  - t: o
-    h: open
-  - w
-  - e
-  - b
-  - t: d
-    h: delete
-  - t: y
-    h: yank
-  - t: c
-    h: change
-  - t: v
-    h: visual
-  - h
-  - j
-  - k
-  - l
-  - t: Esc
-    h: Shift
-  - t: ':'
-    h: Ctrl
-  - t: /
-    h: ops
-  - t: .
-    h: Num
-  vim_visual:
-  - t: <
-    h: outdent
-  - t: '>'
-    h: indent
-  - t: '~'
-    h: case
-  - w
-  - e
-  - b
-  - t: d
-    h: delete
-  - t: y
-    h: yank
-  - t: c
-    h: change
-  - t: v
-    h: visual
-  - h
-  - j
-  - k
-  - l
-  - t: Esc
-    h: Shift
-  - t: ':'
-    h: Ctrl
-  - t: /
-    h: ops
-  - t: .
-    h: Num
-  vim_insert:
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  vim_cmdline:
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  - ▽
-  vim_ops:
-  - t: '0'
-    h: start
-  - t: $
-    h: end
-  - t: '*'
-    h: word
-  - t: n
-    h: next
-  - t: f
-    h: find
-  - t: t
-    h: till
-  - t: u
-    h: undo
-  - t: p
-    h: paste
-  - t: x
-    h: del char
-  - t: g
-    h: goto
-  - t: ^
-    h: first
-  - t: zz
-    h: center
-  - t: dd
-    h: line
-  - t: m
-    h: mark
-  - ▽
-  - ▽
-  - ▽
-  - ▽
 combos:
 - p:
   - 1

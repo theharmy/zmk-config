@@ -27,7 +27,7 @@
         combo_mouse: combo_mouse {
             timeout-ms = <COMBO_TERM>;
             key-positions = <16 17>;
-            layers = <L_A1 L_A2 L_NAV L_SYM L_FN L_NUM>;
+            layers = <ALL_BUT_MOUSE>;   // every layer but this one, vim included
             bindings = <&auto_mouse L_MOUSE>;
         };
         // Nothing on the mouse layer raises a keycode (buttons, movement and scrolling

@@ -72,13 +72,13 @@ ZMK_LAYER(vim_cmdline,
  *
  * yy/cc/gg are not here: pressing the letter twice is the same gesture vim asks
  * for, and the slots are better spent on what cannot be typed otherwise. dd is
- * the exception -- deleting a line is the one double done constantly. Uppercase
- * comes from the Shift thumb, % and the brackets from num and the chords. */
-ZMK_MACRO(vim_zz, bindings = <&kp DE_Z &kp DE_Z>; wait-ms = <0>; tap-ms = <5>;)
+ * the exception -- deleting a line is the one double done constantly. redo is
+ * LC(R) because no vim key reaches it. Uppercase comes from the Shift thumb, %
+ * and the brackets from num and the chords. */
 ZMK_MACRO(vim_dd, bindings = <&kp DE_D &kp DE_D>; wait-ms = <0>; tap-ms = <5>;)
 
 ZMK_LAYER(vim_ops,
     &kp DE_N0   &kp DE_DOLLAR &kp DE_ASTRK  &kp DE_N    &kp DE_F    &kp DE_T
-    &kp DE_U    &kp DE_P      &kp DE_X      &kp DE_G       &kp DE_CARET &vim_zz   &vim_dd    &kp DE_M
+    &kp DE_U    &kp DE_P      &kp DE_X      &kp DE_G       &kp DE_CARET &kp LC(R)  &vim_dd    &kp DE_R
     &trans      &trans        &trans        &trans
 )

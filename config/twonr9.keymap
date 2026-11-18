@@ -61,30 +61,35 @@
 
 #define L_A1   0  // Base Alpha Layer 1
 #define L_A2   1  // Secondary Alpha Layer 2
-#define L_NAV  2  // Navigation & Editing
-#define L_SYM  3  // Morphing Brackets & CS Symbols
-#define L_FN   4  // Function Keys & Media
-#define L_NUM  5  // 3x3 Right-Hand Numpad & Arithmetic
-#define L_MOUSE 6  // Pointer, buttons and scroll (auto-layer, tapped in with 16+17)
-#define L_VIM_NORMAL  7   // zmk-vim-mode: the editor is in normal mode
-#define L_VIM_VISUAL  8   // ... in visual mode (on top of normal)
-#define L_VIM_INSERT  9   // ... in insert mode
-#define L_VIM_CMDLINE 10  // ... in the command line
-#define L_VIM_OPS     11  // held on the right-inner thumb in vim normal/visual: p u n g f t
+
+/* The vim group sits directly above the alphas, and every tool layer above it.
+ * ZMK takes a key from the *highest* active layer, and the vim layers define all
+ * 18 keys, so anything below them would be invisible while vim is on: num (for
+ * counts), mouse, nav, sym and fn all have to be above. */
+#define L_VIM_NORMAL  2   // zmk-vim-mode: the editor is in normal mode
+#define L_VIM_VISUAL  3   // ... in visual mode (on top of normal)
+#define L_VIM_INSERT  4   // ... in insert mode
+#define L_VIM_CMDLINE 5   // ... in the command line
+#define L_VIM_OPS     6   // held on the right-inner thumb in vim normal/visual: p u n g f t
+
+#define L_NAV  7  // Navigation & Editing
+#define L_SYM  8  // Morphing Brackets & CS Symbols
+#define L_FN   9  // Function Keys & Media
+#define L_NUM  10  // 3x3 Right-Hand Numpad & Arithmetic
+#define L_MOUSE 11  // Pointer, buttons and scroll (auto-layer, tapped in with 16+17)
 
 /* ZMK checks a combo's layers against the *highest* active layer only
- * (combo_active_on_layer in zmk/app/src/combo.c), so a combo scoped to 0-5 dies
- * the moment any layer above it is on -- which is why the vim layers have to be
- * named here, transparent though they are. */
+ * (combo_active_on_layer in zmk/app/src/combo.c), so a combo has to name every
+ * layer it should survive -- including the vim ones, transparent though they are. */
 
-// Symbol chords and magic shift: every layer but mouse, where a click is held
-// with a move key by design and a chord would eat it.
-#define ALL_BUT_MOUSE 0 1 2 3 4 5 7 8 9 10
+// Symbol chords and magic shift: every layer but mouse (11), where a click is
+// held with a move key by design and a chord would eat it.
+#define ALL_BUT_MOUSE 0 1 2 3 4 5 6 7 8 9 10
 
 // The top-row utilities: every layer there is. Spelled out rather than left off
 // (layer_mask 0) because a two-key combo needs a layer list to carry the idle
 // guard below; add the next layer's id here.
-#define EVERY_LAYER 0 1 2 3 4 5 6 7 8 9 10
+#define EVERY_LAYER 0 1 2 3 4 5 6 7 8 9 10 11
 
 // A two-key chord waits this long after the previous key, so a fast roll of two
 // ordinary keys stays two keystrokes (ci, di, jk in vim; L+N instead of Tab).
@@ -183,6 +188,8 @@ ZMK_LAYER(a2,
 //                                                 ╰────────────────────┴────────────────────╯      ╰────────────────────┴────────────────────╯
 )
 
+#include "twonr9_vim.dtsi"   // the vim group, right above the alphas (ids 2-6)
+
 ZMK_LAYER(nav,
 //              ╭────────┬────────┬────────╮      ╭────────┬────────┬────────╮
                   &sk LALT &sk LGUI &sk LSHFT       NAV_LEFT NAV_DOWN NAV_UP
@@ -219,9 +226,8 @@ ZMK_LAYER(num,
 //       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
            &kp DE_PLUS &kp DE_PRCNT &kp DE_FSLH &dot_comma      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
 //       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
-                         MAGIC_SHIFT  &to L_A1           SPC_NAV   SMART_NUM
+                         MAGIC_SHIFT  &tog L_NUM           SPC_NAV   SMART_NUM
 //                           ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )
 
 #include "twonr9_mouse.dtsi"
-#include "twonr9_vim.dtsi"   // vim layers (zmk-vim-mode): transparent for now
