@@ -35,10 +35,11 @@ This guide records architecture and design history for maintainers. For current 
   * *Reason*: In the new keymap, `hml` triggers exclusively on right-hand keys + thumbs (`KEYS_R THUMBS`), and `hmr` triggers on left-hand keys + thumbs (`KEYS_L THUMBS`), completely eliminating intra-hand typing roll misfires.
 * **Change**: Replaced `#define ALL 0 1 2 3 4 5` with three layer lists.
   * *Reason*: ZMK tests a combo's `layers` against the **highest active layer only** (`combo_active_on_layer` in `zmk/app/src/combo.c`), so `ALL` silently killed every combo the moment a layer above 5 was on — including the vim layers, which are transparent. Now:
-  * **Top-row utilities** (`⇥`, `⏎`, `⌫ / ⌦`, `⌃⌫`, `⎋`) and the `14+15` thumbs carry **no layer list** (the 3-argument `ZMK_COMBO`), i.e. `layer_mask` 0: live on every layer, present and future.
-  * **`SYMBOL_LAYERS 0 1 2 3 4 5 7 8 9 10`** — every layer but mouse — for the symbol chords and `_ - : ;`. In vim normal/visual those chords are the only way to type a bare `(`/`"`, which is what `ci(` and `r;` need; the mouse layer is out because a click held with a move key must not become a chord.
-  * **`TYPING_LAYERS 0 1 2 3 4 5 9 10`** for magic shift: where the base alphabet is what you type, not on normal/visual where those pairs are two motions.
-  * **`CHORD_IDLE_MS 40`** on every two-key chord (`require-prior-idle-ms`): a fast roll of two motions (`ci`, `di`, `jk`) types them instead of firing a symbol; deliberate chords are pressed from rest and still fire.
+  * **`EVERY_LAYER 0 1 2 3 4 5 6 7 8 9 10`** for the top-row utilities (`⇥`, `⏎`, `⌫ / ⌦`, `⌃⌫`, `⎋`). Spelled out rather than left off (`layer_mask` 0) because a two-key combo needs a layer list to carry the idle guard; the next layer's id goes here.
+  * **`ALL_BUT_MOUSE 0 1 2 3 4 5 7 8 9 10`** for the symbol chords, `_ - : ;` and magic shift. In vim normal/visual a chord is the only way to type a bare `(`/`"`, which is what `ci(` and `r;` need; mouse is out because a click held with a move key must not become a chord.
+  * **`CHORD_IDLE_MS 40`** (`require-prior-idle-ms`) on every **two-key** chord whose keys are ordinary keys on the same layer: the symbols, the home-row pairs, `⇧`/`⌘` tab/enter/backspace, and magic shift. A fast roll of two ordinary keys (`ci`, `di`, `jk`, `L`+`N`) then types them instead of firing the chord; a deliberate chord is pressed from rest and still fires.
+  * **Deliberately unguarded:** the bigrams (they exist to catch a fast vertical roll — a guard would defeat them), the thumb combos (`14+15`, `16+17`: pressed right after a letter all the time, and a missed layer switch costs more than an accidental one), and three-key chords (`⎋`), where a roll cannot form.
+  * The `14+15` thumb combo keeps **no layer list** at all (`layer_mask` 0: live everywhere).
 * **Change**: Extracted key definitions into modular components:
   * `config/twonr9_keys.h`: Mod-morph pairs, nav long-taps, `MAGIC_SHIFT`, `A2_DUAL`/`SYM_DUAL`, `SPC_NAV`, `SMART_NUM`, `swapper`.
   * `config/twonr9_adaptive_keys.h`: Adaptive swap rules (`AK`/`AK2`/`AK_PAIR`), their hold-taps (`MAKE_AK_HM`/`MAKE_AK_LT`), and the nine grid aliases (`FN_L`, `GL_H`, …).
@@ -201,7 +202,7 @@ Defined at the top of `config/twonr9.keymap`, shared by every hold-tap:
 | `AK_MS` | 300 | Adaptive-key swap window (max prior idle for triggers) |
 
 ### A. Adaptive `magic_shift` (`MAGIC_SHIFT`)
-* **Reachability**: Not bound to any thumb key. Reached only via two home-row combos, active on the typing layers (`TYPING_LAYERS`: base, a2, nav, sym, fn, num, vim insert/cmdline) -- not on vim normal/visual, where those pairs are two motions:
+* **Reachability**: Not bound to any thumb key. Reached only via two home-row combos, active on every layer but mouse (`ALL_BUT_MOUSE`) and guarded by `CHORD_IDLE_MS` so that a fast roll of the same two keys still types them:
   * **`shiftl`** — home row 8+9 (left hand inner pair)
   * **`shiftr`** — home row 10+11 (right hand inner pair)
 * **After typing a letter**: Acts immediately as **`&key_repeat`** (repeats the last character: *tt*, *ee*, *ll*, *ff*, *mm*, *ss* with zero delay).

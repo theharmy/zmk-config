@@ -24,18 +24,16 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DTSI = ROOT / "config/twonr9_symbol_chords.dtsi"
 DRAWING = ROOT / "draw/twonr9_srht.yaml"
-# The layers a symbol chord is live on, in the firmware's ids and the drawing's
-# names: every layer but mouse. ZMK matches a combo against the *highest* active
-# layer (combo_active_on_layer in zmk/app/src/combo.c), so the vim layers have to
-# be named even though they are transparent -- in normal/visual a symbol chord is
-# the only way to type a bare ( or " there, which is what ci( and r; need.
-SYMBOL_LAYERS = ("L_A1 L_A2 L_NAV L_SYM L_FN L_NUM "
+# The layers a symbol chord (and magic shift) is live on, in the firmware's ids
+# and the drawing's names: every layer but mouse. ZMK matches a combo against the
+# *highest* active layer (combo_active_on_layer in zmk/app/src/combo.c), so the
+# vim layers have to be named even though they are transparent -- in normal/visual
+# a symbol chord is the only way to type a bare ( or " there, which is what ci(
+# and r; need, and the idle guard is what keeps a fast roll of two motions typing.
+ALL_BUT_MOUSE = ("L_A1 L_A2 L_NAV L_SYM L_FN L_NUM "
                  "L_VIM_NORMAL L_VIM_VISUAL L_VIM_INSERT L_VIM_CMDLINE")
-SYMBOL_DRAW = ["a1", "a2", "nav", "sym", "fn", "num",
-               "vim_normal", "vim_visual", "vim_insert", "vim_cmdline"]
-# Where the base alphabet is what you type: the hand-written typing combos belong
-# here, not on normal/visual where those keys are motions. Mouse stays out too.
-TYPING_DRAW = ["a1", "a2", "nav", "sym", "fn", "num", "vim_insert", "vim_cmdline"]
+ALL_BUT_MOUSE_DRAW = ["a1", "a2", "nav", "sym", "fn", "num",
+                      "vim_normal", "vim_visual", "vim_insert", "vim_cmdline"]
 # The a1 bigrams also fire where the base alphabet is typed under a vim layer. The a2 set
 # cannot follow: it sits on the same positions, and ZMK only sees the highest layer.
 A1_TYPING_DRAW = ["a1", "vim_insert", "vim_cmdline"]
@@ -123,13 +121,13 @@ OTHER = [
     ((3, 4), {"t": "\u232b", "s": "\u2326"}, ALL_DRAW, "util"),
     ((4, 5), "\u2303\u232b", ALL_DRAW, "util"),
     ((3, 4, 5), "\u238b", ALL_DRAW, "util"),
-    ((7, 9), "_", SYMBOL_DRAW, "symbol"),
-    ((7, 8), "-", SYMBOL_DRAW, "symbol"),
-    ((11, 12), ":", SYMBOL_DRAW, "symbol"),
-    ((10, 12), ";", SYMBOL_DRAW, "symbol"),
+    ((7, 9), "_", ALL_BUT_MOUSE_DRAW, "symbol"),
+    ((7, 8), "-", ALL_BUT_MOUSE_DRAW, "symbol"),
+    ((11, 12), ":", ALL_BUT_MOUSE_DRAW, "symbol"),
+    ((10, 12), ";", ALL_BUT_MOUSE_DRAW, "symbol"),
     ((6, 7, 8, 9), "\U0001f513", ["sym"], "sym"),
-    ((8, 9), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, TYPING_DRAW, "util"),
-    ((10, 11), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, TYPING_DRAW, "util"),
+    ((8, 9), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, ALL_BUT_MOUSE_DRAW, "util"),
+    ((10, 11), {"t": "\u21e7 repeat", "h": "\u21e7", "s": "\u21aa"}, ALL_BUT_MOUSE_DRAW, "util"),
     ((3, 10), "7", ["num"], "num"),
     ((4, 11), "8", ["num"], "num"),
     ((5, 12), "9", ["num"], "num"),
@@ -223,7 +221,7 @@ def macros_and_combos():
             binding = f"&{name}"
         idle = f", COMBO_TERM, {CHORD_IDLE_MS}" if len(pos) == 2 else ""
         combos.append(f"ZMK_COMBO(sym_{tag}, {binding}, {' '.join(map(str, pos))}, "
-                      f"{SYMBOL_LAYERS}{idle})")
+                      f"{ALL_BUT_MOUSE}{idle})")
     return macros, combos
 
 
@@ -252,7 +250,7 @@ def drawing_text():
     for _pair, _state, pos, token in states_of():
         blocks.append(["- p:"] + [f"  - {p}" for p in pos]
                       + [f"  k: {legend(token)}", "  l:"]
-                      + [f"  - {name}" for name in SYMBOL_DRAW] + ["  type: symbol"])
+                      + [f"  - {name}" for name in ALL_BUT_MOUSE_DRAW] + ["  type: symbol"])
     for pos, key, layers, kind in OTHER:
         block = ["- p:"] + [f"  - {p}" for p in pos] + [f"  k: {legend(key)}"]
         if layers:

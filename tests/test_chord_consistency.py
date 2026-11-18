@@ -234,17 +234,34 @@ class ComboLayerPolicy(unittest.TestCase):
         self.combos = (ROOT / "config/twonr9_combos.dtsi").read_text(encoding="utf-8")
         self.chords = CHORDS.read_text(encoding="utf-8")
 
-    def test_utilities_have_no_layer_list(self):
-        # Three arguments, so no `layers` property: layer_mask 0, active everywhere.
-        for name in ("combo_tab", "combo_rtn", "combo_bspc", "combo_cbspc", "combo_esc",
-                     "combo_a2_shift"):
-            line = next(l for l in self.combos.splitlines() if f"ZMK_COMBO({name}," in l)
-            self.assertRegex(line, rf"ZMK_COMBO\({name},[^,]+,[^,)]+\)\s", name)
+    def line(self, name):
+        return next(l for l in self.combos.splitlines() if f"ZMK_COMBO({name}," in l)
+
+    def test_utilities_are_on_every_layer(self):
+        for name in ("combo_tab", "combo_rtn", "combo_bspc", "combo_cbspc", "combo_esc"):
+            self.assertIn("EVERY_LAYER", self.line(name), name)
+
+    def test_two_key_combos_carry_the_idle_guard(self):
+        # Two keys can be a roll of two ordinary keys; three cannot.
+        for name in ("combo_tab", "combo_rtn", "combo_bspc", "combo_cbspc"):
+            self.assertIn("CHORD_IDLE_MS", self.line(name), name)
+        self.assertNotIn("CHORD_IDLE_MS", self.line("combo_esc"))
+
+    def test_guarded_gestures_stay_unguarded(self):
+        # Bigrams exist to catch a fast vertical roll, and thumbs are pressed right
+        # after a letter all the time: a guard there would defeat them.
+        bigrams = (ROOT / "config/twonr9_combos_srht.dtsi").read_text(encoding="utf-8")
+        for line in bigrams.splitlines():
+            if line.startswith("ZMK_COMBO(combo_") and "CHORD_IDLE_MS" in line:
+                self.fail(line)
+        thumbs = self.line("combo_a2_shift")
+        self.assertNotIn("CHORD_IDLE_MS", thumbs)
+        self.assertNotIn("layers", thumbs)   # no layer list: active everywhere
 
     def test_home_row_symbols_cover_the_vim_layers(self):
         for name in ("combo_under", "combo_minus", "combo_colon", "combo_semi"):
             line = next(l for l in self.combos.splitlines() if f"ZMK_COMBO({name}," in l)
-            self.assertIn("SYMBOL_LAYERS", line, name)
+            self.assertIn("ALL_BUT_MOUSE", line, name)
 
         for m in re.finditer(r"ZMK_COMBO\((sym_\w+), [^,]+, [\d ]+, ([^)]+)\)", self.chords):
             for layer in ("L_VIM_NORMAL", "L_VIM_VISUAL", "L_VIM_INSERT", "L_VIM_CMDLINE"):
@@ -261,10 +278,11 @@ class ComboLayerPolicy(unittest.TestCase):
             seen += two_keys
         self.assertEqual(seen, 18)   # one plain state per TABLE pair
 
-    def test_magic_shift_stays_off_normal_and_visual(self):
+    def test_magic_shift_is_everywhere_but_mouse_and_guarded(self):
         for name in ("combo_shiftl", "combo_shiftr"):
-            line = next(l for l in self.combos.splitlines() if f"ZMK_COMBO({name}," in l)
-            self.assertIn("TYPING_LAYERS", line, name)
+            line = self.line(name)
+            self.assertIn("ALL_BUT_MOUSE", line, name)
+            self.assertIn("CHORD_IDLE_MS", line, name)
 
 
 class PracticeFollowsTheKeymap(unittest.TestCase):

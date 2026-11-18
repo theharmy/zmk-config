@@ -2227,6 +2227,8 @@ combos:
   - sym
   - fn
   - num
+  - vim_normal
+  - vim_visual
   - vim_insert
   - vim_cmdline
   type: util
@@ -2241,6 +2243,8 @@ combos:
   - sym
   - fn
   - num
+  - vim_normal
+  - vim_visual
   - vim_insert
   - vim_cmdline
   type: util
