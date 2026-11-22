@@ -116,8 +116,9 @@ board's USB mass-storage device. For boards that don't support UF2 (like the Pla
 ### Drawing the keymap
 
 The build environment packages [keymap-drawer](https://github.com/caksoylar/keymap-drawer).
-`just draw-twonr9` renders the TwoNr9 overviews (mod-morph list and symbol-layer card) into
-`draw/`; pass `srht` or `all` to also cover the backup variant.
+`just draw-twonr9` renders the apfel layer sheets (all layers, overview and combined alpha
+overview) into `draw/`; pass `srht` to also cover the backup variant. `just draw-check` fails if
+the generated apfel drawings are stale.
 
 ### Devicetree formatter (experimental)
 

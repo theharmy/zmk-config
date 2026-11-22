@@ -7,11 +7,13 @@
 
 ## Layouts
 
-<img src="./draw/twonr9_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (bugwind)" width="100%" /><br /> _(bugwind — generated with [keymap-drawer](https://github.com/caksoylar/keymap-drawer) via `just draw-twonr9`)_
+<img src="./draw/twonr9_apfel_combined_overview.svg" alt="TwoNr9 apfel keymap overview" width="100%" /><br /> _(apfel — the default `twonr9.keymap`; [full layer diagram](./draw/twonr9_apfel.svg), generated with [keymap-drawer](https://github.com/caksoylar/keymap-drawer) via `just draw-twonr9`)_
 
 Optional **srht** backup variant ([full diagram](./draw/twonr9_srht_combined_overview.svg)):
 
 <img src="./draw/twonr9_srht_combined_overview.svg" alt="TwoNr9 Combined Keymap Overview (srht)" width="100%" />
+
+The retired **bugwind** drawings are kept for reference: [combined overview](./draw/twonr9_combined_overview.svg) · [full layer diagram](./draw/twonr9.svg).
 
 ---
 
@@ -19,26 +21,26 @@ Optional **srht** backup variant ([full diagram](./draw/twonr9_srht_combined_ove
 
 The physical keyboard is defined once; shield names select the keymap.
 
-| | **bugwind** (default) | **srht** (backup) |
+| | **apfel** (default) | **srht** (backup) |
 | --- | --- | --- |
 | Shield | `twonr9_left` / `twonr9_right` | `twonr9_srht_left` / `twonr9_srht_right` |
 | Keymap | [`config/twonr9.keymap`](config/twonr9.keymap) | [`config/twonr9_srht.keymap`](config/twonr9_srht.keymap) |
-| Adaptive keys | none — every letter bound directly | 9 adaptive keys |
-| Bigrams (a1) | `RL` `KT` `MB` `YS` `EO` `UI` | `RL` `HN` `DT` `CY` `EO` `UI` |
-| Bigrams (a2) | `RW` `MT` `SCH` `GS` `OE` `IU` | `RM` `NB` `KT` `GY` `OE` `IU` |
-| ß chord | `S + Space` (+ `ä ö ü` vowels + Space) | `S + R` (6+7) |
+| Adaptive keys | 9 adaptive keys | 9 adaptive keys |
+| Bigrams (a1) | `RL` `HN` `DT` `CY` `EO` `UI` | `RL` `HN` `DT` `CY` `EO` `UI` |
+| Bigrams (a2) | `RM` `NB` `KT` `GY` `OE` `IU` | `RM` `NB` `KT` `GY` `OE` `IU` |
+| ß chord | `C + '` (10+17) | `S + R` (6+7) |
 | Build | `build.yaml` (CI) | `build-srht.yaml`, on demand |
 
 ```bash
-just build all          # bugwind + settings_reset (what CI builds)
+just build all          # apfel + settings_reset (what CI builds)
 just build-srht         # the optional srht backup
-just draw-twonr9        # diagrams for bugwind; add `srht` or `all` for both
-just draw-check all     # fail if generated drawings are stale; never edits files
+just draw-twonr9        # apfel diagrams; add `srht` for the backup
+just draw-check         # fail if the apfel drawings are stale
 ```
 
-For the current layers, combos, symbol chords, and typing workflow, use the
-[cheatsheet](docs/CHEATSHEET.md). The architecture and file-by-file maintenance
-guide is in [`AGENTS.md`](AGENTS.md).
+For the current apfel layers and combos, use the drawings above. The older
+[cheatsheet](docs/CHEATSHEET.md) documents the retired bugwind layout. The
+architecture and file-by-file maintenance guide is in [`AGENTS.md`](AGENTS.md).
 
 ## Workspace and local development
 

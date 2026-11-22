@@ -42,98 +42,16 @@ sorted_raw_codes = sorted(raw_code_map.items(), key=lambda x: len(x[0]), reverse
 # ==============================================================================
 # Keymap variants
 #
-# The TwoNr9 ships as two shields sharing one hardware definition:
-#   config/twonr9.keymap       (shield twonr9_*)        -- default, 4 adaptive keys (u oi, y us)
+# The TwoNr9 keymaps:
+#   config/twonr9.keymap       (shield twonr9_*)        -- default "apfel", 9 adaptive keys
 #   config/twonr9_srht.keymap  (shield twonr9_srht_*)   -- optional backup, 9 adaptive keys
 #
 # Only the alpha grids, their bigram chords, and the adaptive-key engine differ;
 # every other layer is shared. Each entry below mirrors its keymap file, so edit
-# the two together.
+# the two together. The retired bugwind drawings remain in draw/ as historical
+# artifacts, but its keymap is no longer part of this branch.
 # ==============================================================================
 VARIANTS = {
-    "bugwind": {
-        "keymap": "twonr9.keymap",
-        "title": "BUGWIND",
-        # Bigram chords, positionally paired across the six column pairs.
-        "a1_bigrams": ["RL", "KT", "MB", "YS", "EO", "UI"],
-        "a2_bigrams": ["RW", "MT", "SCH", "GS", "OE", "IU"],
-        # Adaptive-key engine: two same-finger swap rules let a roll reach a
-        # repeated finger without a same-finger double-tap.
-        #   U-set (blue): O I  (after U)   -- "uo" is usually "ui"
-        #   Y-set (indigo): U S (after Y)  -- "yu" is usually "ys"
-        "adaptive": {
-            "a1_keys": {
-                4: ("ak-u", "ak-u"),   # O after U
-                5: ("ak-y", "ak-y"),   # U after Y
-                10: ("ak-y", "ak-y"),  # S after Y
-                12: ("ak-u", "ak-u"),  # I after U
-            },
-            "a2_keys": {},
-            "rows": [
-                ("after U", "#83a598", "O &#8644; I"),
-                ("after Y", "#5e81ac", "U &#8644; S"),
-            ],
-            "letters_line": "adaptive letters &#8212; a1: O U S I",
-            # Cheatsheet prose describing the swaps.
-            "swaps_line": "u oi, y us swap letters on roll to eliminate same-finger doubles",
-        },
-        # German Eszett chord (S + Space, see symbol_work.dtsi) plus the
-        # vowel + Space umlaut chords.
-        "sz_chord": "S + Space",
-        "sz_pos": "10 + 16",
-        "combo_labels": {
-            "diag_macro_slashslash": "//",
-            "diag_macro_ellipsis": "...",
-            "diag_macro_comment_open": "/*",
-            "diag_macro_comment_close": "*/",
-            "diag_macro_nullish": "??",
-            "diag_macro_optional_chain": "?.",
-            "diag_macro_le": "<=",
-            "diag_macro_ge": ">=",
-            "diag_macro_increment": "++",
-            "diag_macro_decrement": "--",
-            "diag_macro_arrow": "->",
-            "diag_macro_fat_arrow": "=>",
-            "diag_macro_add_assign": "+=",
-            "diag_macro_sub_assign": "-=",
-            "diag_macro_equal_equal": "==",
-            "diag_macro_not_equal": "!=",
-            "diag_macro_and_and": "&&",
-            "diag_macro_or_or": "||",
-            "diag_macro_scope": "::",
-            "diag_macro_colon_equal": ":=",
-            "diag_macro_equal": "=",
-            "diag_macro_pipe": "|",
-            "diag_macro_plus": "+",
-            "diag_macro_at": "@",
-        },
-        # Position-bound chords whose nested mod-morphs/macros are not
-        # meaningfully decoded by keymap-drawer. The main drawings use concise
-        # normal/Shift labels; the dedicated overview shows all modifier states.
-        "extra_combos": [
-            {"p": [0, 6], "k": "( / )", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [3, 11], "k": "} / {", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [1, 7], "k": "[ / ]", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [5, 13], "k": ") / (", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [2, 8], "k": "{ / }", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [4, 12], "k": "] / [", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [1, 6], "k": "& / *", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [4, 13], "k": "$ / €", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [2, 7], "k": "~ / ^", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [3, 12], "k": "< / >", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [0, 8], "k": "! / ?", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [1, 9], "k": "_ / -", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [5, 11], "k": "; / '", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [4, 10], "k": "# / %", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [0, 9], "k": ": / \\\"", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [5, 10], "k": "/ / \\\\", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [6, 7], "k": "´ / `", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [10, 16], "k": "ß / ẞ", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [13, 16], "k": "ä / Ä", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [4, 16], "k": "ö / Ö", "l": ["a1", "a2"], "type": "symbol"},
-            {"p": [5, 16], "k": "ü / Ü", "l": ["a1", "a2"], "type": "symbol"},
-        ],
-    },
     "srht": {
         "keymap": "twonr9_srht.keymap",
         "title": "SRHT",
@@ -171,6 +89,43 @@ VARIANTS = {
         "sz_pos": "6 + 7",
         "extra_combos": [],
         "combo_labels": {},
+    },
+    "apfel": {
+        "keymap": "twonr9.keymap",
+        "title": "APFEL",
+        "a1_bigrams": ["RL", "HN", "DT", "CY", "EO", "UI"],
+        "a2_bigrams": ["RM", "NB", "KT", "GY", "OE", "IU"],
+        # Same nine adaptive keys as srht, just on the apfel alpha grid.
+        "adaptive": {
+            "a1_keys": {
+                0: ("ak-r", "ak-r"),   # L after R
+                4: ("ak-u", "ak-u"),   # O after U
+                5: ("ak-q", "ak-q"),   # U after Q
+                8: ("ak-r", "ak-r"),   # H after R
+                12: ("ak-i", "ak-u"),  # I after U and Q
+            },
+            "a2_keys": {
+                0: ("ak-n", "ak-n"),   # X after N
+                1: ("ak-n", "ak-n"),   # B after N
+                2: ("ak-mv", "ak-r"),  # V after R
+                7: ("ak-mv", "ak-r"),  # M after R
+            },
+            "rows": [
+                ("after R", "#d3869b", "H &#8644; L  &#183;  M &#8644; V"),
+                ("after U", "#83a598", "O &#8644; I"),
+                ("after Q", "#fb4934", "I &#8644; U"),
+                ("after N", "#8ec07c", "B &#8644; X"),
+            ],
+            "letters_line": "adaptive letters &#8212; a1: L H O I U  &#183;  a2: X B M V",
+            "swaps_line": "r hl, u oi, q iu, r mv, n bx swap letters on roll to eliminate SFBs",
+        },
+        "sz_chord": "C + '",
+        "sz_pos": "10 + 17",
+        "extra_combos": [],
+        "combo_labels": {},
+        # The shared cheatsheet cards are written for the retired bugwind
+        # layout; the apfel variant renders the layer sheets only.
+        "cheatsheet": False,
     },
 }
 
@@ -513,6 +468,8 @@ def combo_symbol(s):
 combo_symbol_map = {
     "&studio_unlock": "🔓",
     "&caps_word": "⇪",
+    "&shift_repeat": "⇧",
+    "&magic_shift": "⇧",
     "&swapper": "⇹",
     "&bs_del": "⌫ / ⌦",
     "bs_del": "⌫ / ⌦",
@@ -1695,18 +1652,20 @@ def render_variant(name, config_dir, draw_dir):
         )
     post_process_svg_colors(combined_svg)
 
+    built = [svg_out, overview_svg, combined_svg]
+
     # Step 6: Build Full 2-Column Wide Infographic Cheatsheet SVG (width=1533)
-    cheatsheet_svg = draw_dir / f"{stem}_cheatsheet.svg"
-    build_cheatsheet_svg(cfg_2col_path, combined_yaml, cheatsheet_svg, config_dir)
+    if v.get("cheatsheet", True):
+        cheatsheet_svg = draw_dir / f"{stem}_cheatsheet.svg"
+        build_cheatsheet_svg(cfg_2col_path, combined_yaml, cheatsheet_svg, config_dir)
+        built.append(cheatsheet_svg)
 
     # Clean up temp configs
     if cfg_2col_path.exists(): cfg_2col_path.unlink()
     if cfg_overview_path.exists(): cfg_overview_path.unlink()
     if cfg_combined_path.exists(): cfg_combined_path.unlink()
 
-    print(f"[{v['title']}] Generated {svg_out}, {overview_svg}, {combined_svg}, "
-          f"and {cheatsheet_svg}")
-    built = [svg_out, overview_svg, combined_svg, cheatsheet_svg]
+    print(f"[{v['title']}] Generated {', '.join(str(path) for path in built)}")
 
     # Bugwind-only: the two hand-built modifier-state cards (mod-morph table
     # and combined symbol-layer reference). Both early-return None otherwise.
@@ -1718,16 +1677,16 @@ def render_variant(name, config_dir, draw_dir):
 def main(argv=None):
     """Render diagrams.
 
-    With no arguments only the default (bugwind) variant is drawn, so
+    With no arguments only the default (apfel) variant is drawn, so
     ``just draw-twonr9`` keeps producing the filenames the docs link to.
-    Pass variant names (``bugwind``, ``srht``, ``all``) to render others.
+    Pass variant names (``apfel``, ``srht``, ``all``) to render others.
     """
     argv = list(sys.argv[1:] if argv is None else argv)
     if "--check" in argv:
         check_argv = [arg for arg in argv if arg != "--check"]
         raise SystemExit(check_generated_artifacts(check_argv))
     if not argv or argv == ["all"]:
-        names = [n for n in VARIANTS if n == "bugwind"] if not argv else list(VARIANTS)
+        names = ["apfel"] if not argv else list(VARIANTS)
     else:
         unknown = [a for a in argv if a not in VARIANTS]
         if unknown:
@@ -1748,7 +1707,9 @@ def check_generated_artifacts(argv=None):
 
     argv = list(sys.argv[1:] if argv is None else argv)
     names = [name for name in argv if name != "--check"]
-    if not names or names == ["all"]:
+    if not names:
+        names = ["apfel"]
+    elif names == ["all"]:
         names = list(VARIANTS)
     unknown = [name for name in names if name not in VARIANTS]
     if unknown:
