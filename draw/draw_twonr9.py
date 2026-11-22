@@ -1490,11 +1490,9 @@ def build_cheatsheet_svg(cfg_2col_path, combined_yaml_path, cheatsheet_svg_path,
 def render_variant(name, config_dir, draw_dir):
     """Render every diagram for one variant.
 
-    Output files are named ``twonr9_<part>.*`` for the default (bugwind)
-    variant, so links in README/CHEATSHEET/DOCUMENTATION stay stable, and
-    ``twonr9_srht_<part>.*`` for the optional srht backup. The bugwind variant
-    additionally gets the two hand-built modifier-state cards (mod-morph and
-    symbol-layer reference), which are bugwind-only.
+    Output files are named ``twonr9_apfel_<part>.*`` for the default apfel
+    variant, and ``twonr9_srht_<part>.*`` for the optional srht backup. The
+    retired bugwind drawings remain in draw/ as historical artifacts.
     """
     global ACTIVE
     ACTIVE = name
