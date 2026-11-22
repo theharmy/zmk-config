@@ -19,3 +19,6 @@ config/backups/
 __pycache__
 /tests/*
 !/tests/test_chord_consistency.py
+
+# --- West module checkout (not a submodule) ---
+/zmk-layer-hud
