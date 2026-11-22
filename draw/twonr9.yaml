@@ -1,5 +1,6 @@
 layout:
-  zmk_keyboard: twonr9
+  qmk_info_json: ../config/twonr9.json
+  layout_name: twonr9
 layers:
   a1:
   - t: L

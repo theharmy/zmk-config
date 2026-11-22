@@ -42,8 +42,17 @@ The TwoNr9 is an 18-key split. Its hardware is defined **once**, in
 | `twonr9_right` | right half |
 | `settings_reset` | reset |
 
+There is a **second physical build of the same board, smol2nr9** (`smol2nr9_left` /
+`smol2nr9_right`), wired to different pins. It reuses everything: `config/smol2nr9.keymap` includes
+`twonr9.keymap`, `config/smol2nr9.conf` mirrors `twonr9.conf`, and
+`config/boards/shields/smol2nr9/smol2nr9.dtsi` includes `../twonr9/twonr9.dtsi` for the matrix
+transform and physical layout. Only the kscan pin lists in `smol2nr9_left.overlay` /
+`smol2nr9_right.overlay` are different (taken from the Shield Wizard output). Both boards also get
+a `*_left_with_snippets` target.
+
 ```bash
-just build all        # all four targets -- what CI builds
+just build all        # both boards (left + HUD variant + right) and settings_reset -- what CI builds
+just build smol       # only the smol2nr9 targets
 just keymap-html      # the interactive keymap page
 just keymap-svg       # every layer as an SVG
 ```
@@ -60,6 +69,8 @@ just keymap-svg       # every layer as an SVG
 | German keycodes, umlaut chords | `config/keys_de.h`, `config/symbol_work.dtsi` |
 | Adaptive swap rules | `config/twonr9_adaptive_keys_srht.h` (generators: `config/twonr9_adaptive.h`) |
 | Physical grid, split/BT settings, keyboard name | `config/boards/shields/twonr9/` |
+| smol2nr9 pin wiring (same keymap/layout) | `config/boards/shields/smol2nr9/*.overlay` |
+| Hardware/power settings (both boards) | `config/twonr9.conf` **and** `config/smol2nr9.conf` |
 | Build targets | `build.yaml` |
 
 The `_srht` suffix on a few files names the layout family, not a second variant — there is one

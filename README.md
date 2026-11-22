@@ -20,11 +20,18 @@ One keymap, [`config/twonr9.keymap`](config/twonr9.keymap), built by the `twonr9
 `twonr9_macros_srht.dtsi` and `twonr9_adaptive_keys_srht.h` name the layout family; there is no
 second variant.
 
+A second physical build of the same board — **smol2nr9** (`smol2nr9_left` / `smol2nr9_right`) — is
+wired to different pins but is otherwise identical. It reuses the same keymap and hardware settings
+through `config/smol2nr9.keymap` (which includes `twonr9.keymap`) and `config/smol2nr9.conf`; only
+`config/boards/shields/smol2nr9/` differs.
+
 Flash **`firmware/twonr9_left_with_snippets.uf2`** on the left half: it is the build with the
-`layer-hud-usb-uart` snippet, without which the HUD gets no layer signal over USB.
+`layer-hud-usb-uart` snippet, without which the HUD gets no layer signal over USB. The same applies
+to `firmware/smol2nr9_left_with_snippets.uf2`.
 
 ```bash
-just build all      # left, left with the HUD snippet, right, settings_reset
+just build all      # both boards, their HUD variants, right halves, settings_reset
+just build smol     # only the smol2nr9 targets
 just keymap-html    # the interactive page
 just keymap-svg     # every layer as an SVG
 ```

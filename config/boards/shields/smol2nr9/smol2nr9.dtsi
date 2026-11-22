@@ -1,0 +1,9 @@
+/*
+ * smol2nr9 -- a second physical build of the same 18-key TwoNr9, wired to
+ * different pins. The matrix transform and physical layout are identical to
+ * the original shield, so they are reused from there instead of duplicated.
+ *
+ * Pin origin: Shield Wizard,
+ * https://shield-wizard.genteure.com/repo/01M81V2CKD2W8RZ3MRA0KWKKKN.git
+ */
+#include "../twonr9/twonr9.dtsi"

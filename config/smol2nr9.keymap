@@ -1,0 +1,8 @@
+/*
+ * smol2nr9 -- the same 18-key TwoNr9, only wired to different pins.
+ *
+ * The keymap itself lives in twonr9.keymap and is shared verbatim: the matrix
+ * transform maps the new pins onto the same key positions, so every layer,
+ * combo and adaptive rule applies unchanged.
+ */
+#include "twonr9.keymap"

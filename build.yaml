@@ -4,10 +4,10 @@
 # Defines firmware targets compiled locally via `just build` and in GitHub Actions.
 # Target format uses ZMK v2 Hardware Model syntax (<board>@<revision>//zmk).
 #
-# This is the main variant: config/twonr9.keymap, built by the twonr9_* shields.
+# config/twonr9.keymap is built by two shields that differ only in kscan pins:
+# the original twonr9_* and the second physical build, smol2nr9_* (which reuses
+# the same keymap and .conf settings via config/smol2nr9.keymap + .conf).
 # ZMK picks the keymap up by shield name, so no cmake-args are needed.
-#
-# The optional "srht" variant lives in build-srht.yaml (`just build-srht`).
 # ==============================================================================
 ---
 include:
@@ -33,3 +33,21 @@ include:
   # 4. Settings Reset Shield - Diagnostic utility to clear corrupted Bluetooth bonds
   - board: nice_nano@2.0.0//zmk
     shield: settings_reset
+
+  # --- smol2nr9: the same 18-key board, wired to different pins -------------
+  # Shares config/twonr9.keymap (via config/smol2nr9.keymap) and the same
+  # hardware settings (via config/smol2nr9.conf); only the kscan pins differ.
+
+  # 5. smol2nr9 Central Half (Left)
+  - board: nice_nano@2.0.0//zmk
+    shield: smol2nr9_left
+
+  # 6. smol2nr9 Central Half (Left) with the Layer HUD signal
+  - board: nice_nano@2.0.0//zmk
+    shield: smol2nr9_left
+    snippet: layer-hud-usb-uart
+    artifact-name: smol2nr9_left_with_snippets
+
+  # 7. smol2nr9 Peripheral Half (Right)
+  - board: nice_nano@2.0.0//zmk
+    shield: smol2nr9_right
