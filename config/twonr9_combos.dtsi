@@ -17,8 +17,8 @@
 ZMK_COMBO(combo_tab,      &kp TAB,       1 2,   ALL)                     // Left Top (0+1): Tab
 ZMK_COMBO(combo_rtnr,      &kp RETURN,   10 12,   ALL)                     // Left Top (1+2): Enter
 ZMK_COMBO(combo_rtnl,      &kp RETURN,   7 9,   ALL)                     // Left Top (1+2): Enter
-ZMK_COMBO(combo_bspc,     &kp BSPC,      3 4,   ALL)                     // Right Top (3+4): Morphing Backspace / Delete
-ZMK_COMBO(combo_bspc,     &kp DEL,       4 5,   ALL)                     // Right Top (3+4): Morphing Backspace / Delete
+ZMK_COMBO(combo_bspc,     &kp BSPC,      3 4,   ALL)                     // Right Top (3+4): Backspace
+ZMK_COMBO(combo_del,      &kp DEL,       4 5,   ALL)                     // Right Top (4+5): Delete
 ZMK_COMBO(combo_cbspc,    &kp LC(BSPC),  3 5,   ALL)                     // Right Top (4+5): Word Delete Backwards
 ZMK_COMBO(combo_esc,      &kp ESC,       8 9, ALL)                     // Right Top (3+4+5): Instant Esc
 
@@ -26,10 +26,7 @@ ZMK_COMBO(combo_esc,      &kp ESC,       8 9, ALL)                     // Right 
  * srht on S+R (twonr9_combos_srht.dtsi). Was shared at Left Home (6+7). */
 
 // --- Home Row Programming Symbols ---
-ZMK_COMBO(combo_under,    &kp DE_UNDER,  7 9,   ALL)                     // Left Home (7+9): snake_case Underscore
-ZMK_COMBO(combo_minus,    &kp DE_MINUS,  10 11,   ALL)                     // Left Home (7+8): Hyphen / Minus
-ZMK_COMBO(combo_colon,    &kp DE_COLON,  11 12, ALL)                     // Right Home (11+12): Colon :
-ZMK_COMBO(combo_semi,     &kp DE_SEMI,   10 12, ALL)                     // Right Home (10+12): Statement Semicolon ;
+ZMK_COMBO(combo_minus,    &kp DE_MINUS,  10 11,   ALL)                     // Right Home (10+11): Hyphen / Minus
 
 // --- Universal Utilities ---
 ZMK_COMBO(combo_caps,     &caps_word,    14 15, ALL)                     // Left Thumbs (14+15): Caps Word for CONSTANTS

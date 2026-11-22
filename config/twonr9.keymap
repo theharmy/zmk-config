@@ -140,7 +140,7 @@ ZMK_LAYER(a1,
 //       ╭─────────────────┼─────────────────┼─────────────────┼─────────────────┤      ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
           &hml LCTRL DE_S    &hml LALT DE_R     GL_H          &hml LSHFT DE_T         &hmr LSHFT DE_C      &hmr RGUI DE_E     AR_I        &hmr RCTRL DE_A
 //       ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────┴─────────────────┴─────────────────╯
-                                              SMART_NUM         A2_DUAL                  &lt L_SYM Space     &lt L_FN DE_SQT
+                                              SMART_NUM         A2_DUAL                  &lt L_SYM SPACE     &lt L_FN DE_SQT
 //                                           ╰─────────────────┴─────────────────╯      ╰─────────────────┴─────────────────╯
 )
 
@@ -169,7 +169,7 @@ ZMK_LAYER(nav,
 
 ZMK_LAYER(sym,
 //              ╭───────────┬───────────┬───────────╮      ╭────────┬────────┬────────────╮
-                  &kp DE_GRAVE &kp DE_DQT &kp DE_UNDER         &kp DE_BLSH &kp DE_PIPE &kp DE_EQUAL
+                  &kp DE_GRAVE &kp DE_DQT &kp DE_UNDER         &kp DE_BSLH &kp DE_PIPE &kp DE_EQUAL
 //       ╭──────┼───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┼──────────╮
        &kp DE_CARET  &kp DE_AT &kp DE_HASH &kp DE_DLLR  &kp DE_AMPS &kp DE_STAR &kp DE_PRCNT &kp DE_CARET
 //       ╰──────┴───────────┼───────────┼───────────┤      ├────────┼────────┼────────────┴──────────╯
@@ -183,16 +183,16 @@ ZMK_LAYER(fn,
 //       ╭──────┼──────┼──────┼──────┤      ├──────┼──────┼──────┼──────╮
            &bootloader &kp F9 &kp F8 &kp F7        &kp F1 &kp F2 &kp F3 ___
 //       ╰──────┴──────┼──────┼──────┤      ├──────┼──────┼──────┴──────╯
-                         ___  ___            &BT_CLR  ___
+                         ___  ___            &bt BT_CLR  ___
 //                     ╰──────┴──────╯      ╰───────────┴─────────╯
 )
 
 ZMK_LAYER(num,
 //              ╭────────────┬────────────┬────────────╮      ╭────────┬────────┬────────╮
-                  &kp DE_HOME &kp DE_UP &kp DE_END        &kp DE_N4 &kp DE_N5 &kp DE_N6
+                  &kp HOME &kp UP &kp END        &kp DE_N4 &kp DE_N5 &kp DE_N6
 //       ╭──────┼────────────┼────────────┼────────────┤      ├────────┼────────┼────────┼──────╮
-           &kp LCTRL &kp DE_LEFT &kp DE_DOWN DE_RIGHT      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
+           &kp LCTRL &kp LEFT &kp DOWN &kp RIGHT      &kp DE_N1 &kp DE_N2 &kp DE_N3 &kp DE_N0
 //       ╰──────┴────────────┼────────────┼────────────┤      ├────────┼────────┼────────┴──────╯
-                                &mo A1  &mo L_A2             SPC_NAV   SYM_DUAL
+                                &to L_A1  &to L_A2             &kp SPACE   &kp DE_N0
 //                           ╰────────────┴────────────╯        ╰───────────┴─────────╯
 )
